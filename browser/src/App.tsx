@@ -1,7 +1,13 @@
 import React from "react";
+import { Essay } from "./pages/Essay";
 
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <main className="md:container md:mx-auto main text-base">
+      {/* TODO: handle routing */}
+      <Essay />
+    </main>
+  );
 }
 
 export default App;
