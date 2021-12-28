@@ -8,7 +8,7 @@ interface Principle {
 export function PrincipleCard({ title, body }: Principle) {
   return (
     <div className="container columns-1 principle">
-      <h2 className="text-3xl font-bold title">{title}</h2>
+      <h3 className="text-xl font-bold title">{title}</h3>
       <p className="text-base description">{body}</p>
     </div>
   );
