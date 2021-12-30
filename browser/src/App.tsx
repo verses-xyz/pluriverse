@@ -1,6 +1,10 @@
 import { Canvas } from "@react-three/fiber";
+<<<<<<< HEAD
 
 import React, { useEffect, useRef } from "react";
+=======
+import React from "react";
+>>>>>>> 6cc5cca (essay content)
 import EssayContent from "./components/EssayContent";
 import Hero from "./components/Hero";
 import UniverseScene from "./components/UniverseScene";
