@@ -1,6 +1,6 @@
-import { useMemo } from "react";
-import fragmentShader from "../shaders/fragment.glsl";
-import vertexShader from "../shaders/vertex.glsl";
+import { useMemo } from 'react';
+import fragmentShader from '../shaders/fragment.glsl';
+import vertexShader from '../shaders/vertex.glsl';
 
 export function BlobShaderMaterial({
   size,
@@ -33,7 +33,7 @@ export function BlobShaderMaterial({
       vertexShader,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [],
   );
 
   return <shaderMaterial attach="material" {...data} />;

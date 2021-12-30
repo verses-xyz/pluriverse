@@ -1,7 +1,7 @@
-import * as THREE from "three";
-import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
-import Blob from "./Blob";
+import * as THREE from 'three';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
+import Blob from './Blob';
 
 export default function BlobFloating({
   random,
@@ -21,15 +21,12 @@ export default function BlobFloating({
     ref.current.rotation.set(
       Math.cos(t / 4) / 2,
       Math.sin(t / 4) / 2,
-      Math.cos(t / 1.5) / 2
+      Math.cos(t / 1.5) / 2,
     );
 
     ref.current.position.y = Math.sin(t / 1.5) / 2;
 
-    ref.current.scale.x =
-      ref.current.scale.y =
-      ref.current.scale.z =
-        THREE.MathUtils.lerp(ref.current.scale.z, 1, 0.1);
+    ref.current.scale.x = ref.current.scale.y = ref.current.scale.z = THREE.MathUtils.lerp(ref.current.scale.z, 1, 0.1);
   });
 
   return (

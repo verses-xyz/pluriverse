@@ -1,4 +1,4 @@
-import BlobFloating from "./BlobFloating";
+import BlobFloating from './BlobFloating';
 
 const randomVector = (r) => [
   r / 2 - Math.random() * r,
@@ -27,9 +27,7 @@ const blobData = Array.from({ length: 12 }, (r = 10) => ({
 export default function Blobs() {
   return (
     <>
-      {blobData.map((props, i) => {
-        return <BlobFloating key={i} {...props} />;
-      })}
+      {blobData.map((props, i) => <BlobFloating key={i} {...props} />)}
     </>
   );
 }
