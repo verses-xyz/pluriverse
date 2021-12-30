@@ -3,6 +3,10 @@
 # dependencies
 /browser/node_modules
 /server/node_modules
+/tokens/node_modules
+/tokens/artifacts
+/tokens/cache
+**.env
 /browser/.pnp
 .pnp.js
 
