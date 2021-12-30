@@ -1,9 +1,5 @@
+import { Principle } from "../types";
 import "./PrincipleCard.css";
-
-interface Principle {
-  title: string;
-  body: string;
-}
 
 export function PrincipleCard({ title, body }: Principle) {
   return (
