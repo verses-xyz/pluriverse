@@ -27,8 +27,8 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "TSC_COMPILE_ON_ERROR=true rescripts start",
-    "build": "rescripts build",
+    "start": "ESLINT_NO_DEV_ERRORS='true' TSC_COMPILE_ON_ERROR=true  rescripts start",
+    "build": "DISABLE_ESLINT_PLUGIN='true' rescripts build",
     "test": "rescripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint ./ --fix --ext .js,.jsx,.ts,.tsx"
