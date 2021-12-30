@@ -1,23 +1,24 @@
-import { Scroll, ScrollControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React from "react";
+import EssayContent from "./components/EssayContent";
 import Hero from "./components/Hero";
 import UniverseScene from "./components/UniverseScene";
 
 function App() {
   return (
     <main>
-      <Canvas
-        camera={{ position: [0, 0, 20], fov: 50 }}
-        performance={{ min: 0.1 }}
-      >
-        <ScrollControls pages={3} distance={1} damping={4}>
+      <div className="content">
+        <Hero />
+        <EssayContent />
+      </div>
+      <div className="canvas-container">
+        <Canvas
+          camera={{ position: [0, 0, 20], fov: 50 }}
+          performance={{ min: 0.1 }}
+        >
           <UniverseScene />
-          <Scroll html>
-            <Hero />
-          </Scroll>
-        </ScrollControls>
-      </Canvas>
+        </Canvas>
+      </div>
     </main>
   );
 }
