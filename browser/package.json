@@ -27,7 +27,7 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "rescripts start",
+    "start": "TSC_COMPILE_ON_ERROR=true rescripts start",
     "build": "rescripts build",
     "test": "rescripts test",
     "eject": "react-scripts eject"

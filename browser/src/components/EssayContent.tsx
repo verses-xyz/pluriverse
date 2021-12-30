@@ -1,4 +1,5 @@
-import "./EssayContent.css";
+import { ContributionSection } from "./ContributionSection";
+import { PrincipleCardList } from "./PrincipleCardList";
 
 export default function EssayContent() {
   return (
@@ -94,6 +95,11 @@ export default function EssayContent() {
         but not disconnection. It is this ethos towards which we hope to bring
         the digital pluriverse.
       </p>
+      {/* <PrincipleCardList /> */}
+      {/* TODO: insert essay body rest */}
+      {/* TODO: insert signatures and contribution mechanism */}
+      {/* TODO: uncomment when ready */}
+      <ContributionSection />
     </div>
   );
 }
