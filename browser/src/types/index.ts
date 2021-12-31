@@ -1,9 +1,43 @@
+export enum TraitType {
+  Prompt,
+  Pattern,
+}
+
+interface TraitTypeValue {
+  [TraitType.Prompt]: string;
+  [TraitType.Pattern]: string;
+}
+
+export interface ContributionAttribute<T extends TraitType> {
+  trait_type: T;
+  value: TraitTypeValue[T];
+}
+
+export interface ContributionMetadata {
+  name: string;
+  description: string;
+  animation_url: string;
+  external_url: string;
+  background_color: string;
+  attributes: ContributionAttribute<TraitType>[];
+}
+
+export enum Prompt {
+  LooksLike = "LooksLike",
+  WeNeed = "WeNeed",
+  Example = "Example",
+}
+
 // TODO: fill in
 export enum Pattern {
   Interoperability = "Interoperability",
+  Pluriverse = "Pluriverse",
 }
 
-export const Principles: Record<Pattern, Principle> = {
+export const Principles: Record<
+  Exclude<Pattern, Pattern.Pluriverse>,
+  Principle
+> = {
   [Pattern.Interoperability]: {
     title: "Interoperability",
     body: `The many worlds of the pluriverse must be connected. We cannot allow walled garden platforms to sever or stymie the highways and networks between worlds. Nor can we accept their definition of interoperability as the movement of private property and monetized assets, this is merely an attempt to enforce digital scarcity where there was once digital abundance.

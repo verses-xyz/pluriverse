@@ -1,0 +1,27 @@
+.contributionSection {
+    margin-top: 50px;
+    width: 100%;
+}
+
+.termsOfUseContainer {
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 24px;
+}
+
+.actionsContainer {
+    display: flex;
+    margin-top: 24px;
+    justify-content: center;
+}
+
+.actionsContainer button {
+    margin: 0 6px;
+}
+
+
+.selects {
+    display: flex;
+    margin-top: 24px;
+    gap: 6px;
+}
