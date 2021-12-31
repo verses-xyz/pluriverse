@@ -1,3 +1,4 @@
+import useScroll from "../hooks/useScroll";
 import "./Hero.css";
 
 export default function Hero() {
