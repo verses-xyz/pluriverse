@@ -1,21 +1,14 @@
 import { OrbitControls, Stars } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import useScroll from "../hooks/useScroll";
+import lerp from "../utils/lerp";
+import scalePercent from "../utils/scalePercent";
 import Blobs from "./Blobs";
 
-function lerp(x, y, a) {
-  return (1 - a) * x + a * y;
-}
-
-function scalePercent(start, end, scrollPercent) {
-  return (scrollPercent - start) / (end - start);
-}
-
-export default function UniverseScene() {
-  const { scrollPercentage } = useScroll();
+export default function UniverseScene({ scrollData }) {
+  const { scrollPercentage } = scrollData;
   useFrame(({ camera }) => {
-    const scaledPercentage = scalePercent(0, 20, scrollPercentage);
-    const newCameraPosition = lerp(20, -40, scaledPercentage);
+    const scaledPercentage = scalePercent(0, 300, scrollPercentage);
+    const newCameraPosition = lerp(20, -80, scaledPercentage);
     if (newCameraPosition) {
       camera.position.z = newCameraPosition;
     }
