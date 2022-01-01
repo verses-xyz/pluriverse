@@ -2,7 +2,7 @@ export default function EssayContent() {
   return (
     <div className="flex flex-col items-center flex-1 px-4 sm:px-5 md:px10 lg:px-40 py-20 ">
       <h1 className="font-title text-3xl text-center font-bold pb-4">
-        Towards Digital Pluriverses
+        A Pattern Language for the Pluriverse
       </h1>
       <p>We are living in the age of the Metaverse. Or so we are told.</p>
       <p>
