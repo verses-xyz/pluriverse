@@ -1,3 +1,5 @@
+import "./EssayContent.css";
+
 export default function EssayContent() {
   return (
     <div className="container w-full md:max-w-3xl mx-auto py-20">
@@ -36,7 +38,8 @@ export default function EssayContent() {
         different banner.
       </p>
       <p>
-        Together, we could instead steward the age of the <b>Pluriverse</b>.
+        Together, we could instead steward the age of the
+        <b className="shimmer"> Pluriverse</b>.
       </p>
     </div>
   );
