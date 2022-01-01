@@ -15,13 +15,13 @@ function App() {
   const objectsToHideOpacity = lerp(
     1,
     0,
-    scalePercent(0, 65, scrollPercentage)
+    scalePercent(0, 32, scrollPercentage)
   );
 
   const objectsToShowOpacity = lerp(
     0,
     1,
-    scalePercent(10, 60, scrollPercentage)
+    scalePercent(10, 30, scrollPercentage)
   );
 
   return (
