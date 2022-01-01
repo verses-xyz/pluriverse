@@ -1,10 +1,32 @@
 import { OrbitControls, Stars } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import lerp from "../utils/lerp";
+import scalePercent from "../utils/scalePercent";
 import Blobs from "./Blobs";
 
-export default function UniverseScene() {
+export default function UniverseScene({ scrollPercentage }) {
+  const shouldAnimate = Math.round(scrollPercentage) === 0;
+
+  useFrame(({ camera }) => {
+    const newCameraPosition = lerp(
+      20,
+      -10,
+      scalePercent(0, 100, scrollPercentage)
+    );
+
+    if (newCameraPosition !== camera.position.z) {
+      camera.position.z = newCameraPosition;
+    }
+  });
+
   return (
     <>
-      <OrbitControls autoRotate autoRotateSpeed={1} />
+      <OrbitControls
+        // TODO: fix rotation bug on scroll
+        autoRotate={shouldAnimate}
+        autoRotateSpeed={1}
+        enableZoom={false}
+      />
       <fog attach="fog" args={["#dbdbdb", 16, 30]} />
       <ambientLight intensity={0.5} />
       <directionalLight intensity={0.3} position={[5, 25, 20]} />
@@ -22,7 +44,7 @@ export default function UniverseScene() {
         shadow-bias={-0.0001}
       />
       <Stars radius={500} depth={50} count={1500} factor={15} />
-      <Blobs />
+      <Blobs shouldAnimate={shouldAnimate} />
     </>
   );
 }

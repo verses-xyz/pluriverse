@@ -26,7 +26,22 @@ p {
   padding-top: 24px;
 }
 
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
 main {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: 400;
+}
+
+.universe-background {
+  position: fixed;
   height: 100vh;
   width: 100vw;
   background: radial-gradient(
@@ -36,21 +51,4 @@ main {
     #171720 80%,
     #070710 100%
   );
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.content {
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-  z-index: 10000;
-}
-
-.canvas-container {
-  height: 100vh;
-  width: 100vw;
 }

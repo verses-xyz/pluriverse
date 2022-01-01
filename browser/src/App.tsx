@@ -3,23 +3,50 @@ import React from "react";
 import EssayContent from "./components/EssayContent";
 import Hero from "./components/Hero";
 import UniverseScene from "./components/UniverseScene";
+import useScroll from "./hook/useScroll";
+import lerp from "./utils/lerp";
+import scalePercent from "./utils/scalePercent";
 
 function App() {
+  // only init once to initialize a single scroll scroll listener, TODO: maybe pass scroll data through react context
+  const { scrollPercentage } = useScroll();
+
+  // TODO: refactor to rely less on magic numbers, this is brittle as the page percentages will change if the content length of the page is altered
+  const objectsToHideOpacity = lerp(
+    1,
+    0,
+    scalePercent(0, 65, scrollPercentage)
+  );
+
+  const objectsToShowOpacity = lerp(
+    0,
+    1,
+    scalePercent(10, 60, scrollPercentage)
+  );
+
   return (
-    <main>
-      <div className="content">
+    <div>
+      <main>
         <Hero />
-        <EssayContent />
-      </div>
-      <div className="canvas-container">
-        <Canvas
-          camera={{ position: [0, 0, 20], fov: 50 }}
-          performance={{ min: 0.1 }}
+        <div
+          style={{
+            opacity: objectsToShowOpacity,
+          }}
         >
-          <UniverseScene />
+          <EssayContent />
+        </div>
+      </main>
+      <div
+        className="universe-background"
+        style={{
+          opacity: objectsToHideOpacity,
+        }}
+      >
+        <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+          <UniverseScene scrollPercentage={scrollPercentage} />
         </Canvas>
       </div>
-    </main>
+    </div>
   );
 }
 

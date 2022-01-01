@@ -2,7 +2,7 @@ import "./EssayContent.css";
 
 export default function EssayContent() {
   return (
-    <div className="container w-full md:max-w-3xl mx-auto py-20">
+    <div className="container w-full md:max-w-3xl mx-auto pt-8 pb-20">
       <h1 className="font-title text-3xl text-center font-bold pb-4">
         A Pattern Language for the Pluriverse
       </h1>
