@@ -1,10 +1,4 @@
 .hero {
   color: white;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  padding-top: 20rem;
 }

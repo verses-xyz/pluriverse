@@ -2,7 +2,7 @@ import "./Hero.css";
 
 export default function Hero() {
   return (
-    <div className="hero">
+    <div className="hero flex flex-col items-center justify-center">
       <h1 className="text-7xl pb-5 m-0">
         Pluriverse <span className="text-3xl">[noun]</span>
       </h1>
