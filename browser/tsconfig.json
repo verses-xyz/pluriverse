@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "es2017",
+    "baseUrl": ".",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "paths": { "@server-api/*": ["../server/types/server-api/*"] },
+    "typeRoots": ["./node_modules/@types"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -16,5 +19,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts"]
 }

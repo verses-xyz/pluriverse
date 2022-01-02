@@ -1,3 +1,5 @@
+// import { Pattern } from "@server-api/index";
+
 export enum TraitType {
   Prompt,
   Pattern,
@@ -22,13 +24,14 @@ export interface ContributionMetadata {
   attributes: ContributionAttribute<TraitType>[];
 }
 
+// TODO: these two enums can come from @server-api/types now, issue with
+// generated type enums from prisma not being actual typescript enums... need to add type workaround
+// https://github.com/prisma/prisma1/issues/3429
 export enum Prompt {
   LooksLike = "LooksLike",
   WeNeed = "WeNeed",
   Example = "Example",
 }
-
-// TODO: fill in
 export enum Pattern {
   Interoperability = "Interoperability",
   Pluriverse = "Pluriverse",
