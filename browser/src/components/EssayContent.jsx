@@ -2,20 +2,23 @@ import "./EssayContent.css";
 
 export default function EssayContent() {
   return (
-    <div className="container w-full md:max-w-4xl mx-auto pt-8 pb-20">
-      <h1 className="font-title text-3xl text-center font-bold pb-4">
+    <div className="container w-full md:max-w-2xl mx-auto pt-8 pb-20">
+      <h1 className="font-title text-5xl text-center font-bold pb-12">
         A Pattern Language for the Pluriverse
       </h1>
-      <p>We are living in the age of the Metaverse. Or so we are told.</p>
       <p>
-        Metaverse profiteers are everywhere, proselytizing commodified
-        virtuality, colonizing open digital land for profit, and expanding the
-        surface area of the digital sphere in lockstep with its capture. The
-        Metaverse, led by Meta, acts as a monopoly, gating access to the length
-        and breadth of the digital ecosystem through its congested and polluted
-        chokepoints, taking what was once collective and ensuring it is bought,
-        sold, measured, and speculated upon. The Metaverse expands as an
-        invasive monoculture, assimilating ecosystems, displacing extant
+        W
+        <span className="subhead">
+          e are living in the age of the Metaverse.{" "}
+        </span>
+        Or so we are told. Metaverse profiteers are everywhere, proselytizing
+        commodified virtuality, colonizing open digital land for profit, and
+        expanding the surface area of the digital sphere in lockstep with its
+        capture. The Metaverse, led by Meta, acts as a monopoly, gating access
+        to the length and breadth of the digital ecosystem through its congested
+        and polluted chokepoints, taking what was once collective and ensuring
+        it is bought, sold, measured, and speculated upon. The Metaverse expands
+        as an invasive monoculture, assimilating ecosystems, displacing extant
         species, and enclosing digital abundance into enforced scarcity. The
         Metaverse we are handed is a shackles in disguise, the promise of a vast
         digital realm ruled under one banner, a shameless land grab for the
@@ -41,7 +44,7 @@ export default function EssayContent() {
         Together, we could instead steward the age of the
         <b className="shimmer"> Pluriverse</b>.
       </p>
-      <h2 className="font-title text-2xl pt-14 font-bold pb-3">
+      <h2 className="font-title text-3xl pt-16 font-bold pb-3">
         Origins of the Pluriverse
       </h2>
       <p>
