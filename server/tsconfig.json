@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "baseUrl": ".",
+    "paths": { "@common/*": ["common/*"] },
     "esModuleInterop": true,
     "target": "es6",
     "moduleResolution": "node",

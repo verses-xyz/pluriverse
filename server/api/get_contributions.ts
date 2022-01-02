@@ -3,7 +3,7 @@
 import { Prisma } from "@prisma/client";
 import { RequestHandler } from "express";
 import { Services } from "../types";
-import { GetContributionsRequest } from "../types/server-api";
+import { GetContributionsRequest } from "common/server-api";
 
 const Limit = 500;
 

@@ -3,11 +3,16 @@
 import { Prisma } from "@prisma/client";
 import { RequestHandler } from "express";
 import { Services } from "../types";
-import { AddContributionRequest } from "../types/server-api";
+import { AddContributionRequest } from "common/server-api";
 
 // Optional fields in body: content
+// TODO: can grab location here from request using vercel edge function
+// req.geo.city
+// req.geo.country
+// https://vercel.com/changelog/ip-geolocation-now-available-for-all-plans
 export function addContribution({ prisma }: Services): RequestHandler {
   return async (req, res) => {
+    console.log(req.body);
     const { walletId, response, prompt, pattern } =
       req.body as AddContributionRequest;
 
@@ -26,7 +31,12 @@ export function addContribution({ prisma }: Services): RequestHandler {
       }
 
       const result = await prisma.contribution.create({
-        data: { authorWalletId: walletId, response, prompt, pattern },
+        data: {
+          authorWalletId: walletId,
+          response,
+          prompt,
+          pattern: pattern as any,
+        },
       });
       res.json(result.id);
     } catch (err) {

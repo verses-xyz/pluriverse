@@ -19,9 +19,22 @@
     margin: 0 6px;
 }
 
+.signContainer {
+    display:flex;
+    flex-direction: column;
+    gap: 16px;
+}
 
 .selects {
     display: flex;
     margin-top: 24px;
     gap: 6px;
+}
+
+.patternSelect {
+    margin: 0 6px;
+}
+
+.responseInput {
+    margin: 0 6px;
 }

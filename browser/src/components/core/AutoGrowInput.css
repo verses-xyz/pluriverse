@@ -1,0 +1,9 @@
+/* inspo: https://codepen.io/chriscoyier/pen/XWKEVLy */
+
+.contenteditableSpan {
+    display:inline-block;
+    border: solid 1px black;
+    background: white;
+    min-width: 200px;
+    padding: 0 2px;
+}

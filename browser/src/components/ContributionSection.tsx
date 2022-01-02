@@ -1,10 +1,11 @@
 import "./ContributionSection.css";
 import { useState } from "react";
 import { descriptionText } from "../classNameConstants";
-import { ContributionMetadata, Pattern, Prompt, TraitType } from "../types";
+import { Pattern, Prompt } from "../types/common/server-api/index";
 import { Dropdown, DropdownItem } from "./core/Dropdown";
-import { ipfs } from "../types/ipfs";
-import { createBlobAnimation } from "../helpers/blobs";
+import { addContribution } from "src/helpers/api";
+import { AutoGrowInput } from "./core/AutoGrowInput";
+import React from "react";
 
 enum Page {
   TermsOfUse,
@@ -14,12 +15,25 @@ enum Page {
 
 const ButtonClass =
   "hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow";
-const Placeholder = "_____";
+const Placeholder = "pattern";
+const replaceJSX = (str, replacement): React.ReactNode => {
+  const result: any[] = [];
+  const keys = Object.keys(replacement);
+  const getRegExp = () => {
+    const regexp: any[] = [];
+    keys.forEach((key) => regexp.push(`{${key}}`));
+    return new RegExp(regexp.join("|"));
+  };
+  str.split(getRegExp()).forEach((item, i) => {
+    result.push(item, replacement[keys[i]]);
+  });
+  return result;
+};
 
 const PromptDescriptions: Record<Prompt, string> = {
-  [Prompt.LooksLike]: `${Placeholder} looks like`,
-  [Prompt.WeNeed]: `We need ${Placeholder} because`,
-  [Prompt.Example]: `An example of ${Placeholder} is`,
+  [Prompt.LooksLike]: `{${Placeholder}} looks like`,
+  [Prompt.WeNeed]: `We need {${Placeholder}} because`,
+  [Prompt.Example]: `An example of {${Placeholder}} is`,
 };
 
 // TODO: fill in
@@ -61,47 +75,30 @@ function TermsOfUse() {
         selectedPattern &&
         (Pattern[selectedPattern as keyof typeof Pattern] as string)
       }
+      className="patternSelect"
     />
   );
 
-  let promptStarter = "";
+  let promptStarter: React.ReactNode = "";
   if (selectedPrompt) {
     promptStarter = PromptDescriptions[selectedPrompt];
-    if (selectedPattern) {
-      promptStarter = promptStarter.replace(Placeholder, selectedPattern);
-    }
+    promptStarter = replaceJSX(promptStarter, {
+      [Placeholder]: patternSelect,
+    });
   }
 
   async function onSaveContribution() {
     if (!selectedPrompt || !selectedPattern || !response) {
       return;
     }
-    // use prompt, pattern, contribution to save to ipfs
-    const animation = createBlobAnimation(
-      selectedPrompt,
-      selectedPattern,
-      response
-    );
-    const { cid: animationCid, path: animationPath } = await ipfs.add(
-      animation
-    );
-    console.log(animationCid);
-    const animationUrl = `ipfs://${animationPath}`;
-    // TODO: move to helper.
-    const contributionMetadata: ContributionMetadata = {
-      name: "Pluriverse",
-      description: `_${response}_\n\nPluriverses are tokens representing contributions to the [Towards a Pluriverse essay](https://pluriverse.world).`,
-      animation_url: animationUrl,
-      external_url: "https://pluriverse.world",
-      background_color: "#000000",
-      attributes: [
-        { trait_type: TraitType.Prompt, value: selectedPrompt },
-        { trait_type: TraitType.Pattern, value: selectedPattern },
-      ],
-    };
-    console.log(contributionMetadata);
-    // await ipfs.add(contributionMetadata)
-    // TODO: mint nft
+
+    await addContribution({
+      prompt: selectedPrompt,
+      pattern: selectedPattern,
+      response,
+      // TODO: add
+      walletId: "123",
+    });
   }
 
   function renderPage() {
@@ -136,30 +133,56 @@ function TermsOfUse() {
         );
       case Page.Sign:
         return (
-          <div className="">
-            <ul className="list-disc list-inside">
-              <li>
-                I agree to using <em>pluriverse</em> appropriately
-              </li>
-              <li>I agree that we need a world with the pluriverse</li>
-              <li>I agree...</li>
-            </ul>
-            <div className="selects">
-              {promptSelect}
-              {patternSelect}
-            </div>
-            {/* TODO: insert text area */}
+          <div className="signContainer">
+            <h2 className="text-4xl font-bold">Signing</h2>
+            <p style={{ paddingTop: "0px" }}>
+              <ul className="list-disc list-inside">
+                <li>
+                  I agree to using <em>pluriverse</em> appropriately
+                </li>
+                <li>I agree that we need a world with the pluriverse</li>
+                <li>I agree...</li>
+              </ul>
+            </p>
             <div>
-              {promptStarter}...
-              <br />
-              <textarea
+              <button
+                onClick={onSaveContribution}
+                className={`bg-blue-300 ${ButtonClass}`}
+              >
+                Connect Wallet
+              </button>
+            </div>
+            <p>
+              We've provided some sentence starters to get you going. Please
+              select a prompt and contribute to the{" "}
+              <b className="shimmer"> Pluriverse</b>.
+            </p>
+            <div className="selects">{promptSelect}</div>
+            {selectedPrompt && (
+              <>
+                <div className="responseContainer">
+                  {promptStarter}{" "}
+                  {
+                    <AutoGrowInput
+                      value={response}
+                      onChange={setResponse}
+                      className="responseInput"
+                      // TODO: make this populate an actual live preview from an example??
+                      extraProps={{
+                        placeholder: "free gardens",
+                      }}
+                    />
+                  }
+                  {/* <textarea
                 className="form-textarea mt-1 block w-full"
                 placeholder="Enter your response to the prompt..."
                 value={response}
-                onChange={(evt) => setResponse(evt.target.value)}
-              ></textarea>
-            </div>
-            <p className={descriptionText}></p>
+                onChange={}
+              ></textarea> */}
+                </div>
+                <p className={descriptionText}></p>
+              </>
+            )}
             <div className="actionsContainer">
               <button
                 onClick={() => setPage(Page.TermsOfUse)}
@@ -169,7 +192,7 @@ function TermsOfUse() {
               </button>
               <button
                 onClick={onSaveContribution}
-                className={`bg-blue ${ButtonClass}`}
+                className={`bg-blue-300 ${ButtonClass}`}
               >
                 Sign
               </button>
