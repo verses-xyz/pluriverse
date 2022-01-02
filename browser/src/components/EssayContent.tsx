@@ -1,4 +1,5 @@
 import { ContributionSection } from "./ContributionSection";
+import "./EssayContent.css";
 import { PrincipleCardList } from "./PrincipleCardList";
 
 export default function EssayContent() {
