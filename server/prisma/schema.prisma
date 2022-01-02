@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Prompt {
+  LooksLike
+  WeNeed
+  Example
+}
+
+enum Pattern {
+  Pluriverse
+  Interoperability
+  Agency
+  Regeneration
+  Privacy
+  Voice
+  EngagementAndAttention
+  Commons
+}
+
+model User {
+  // This should be the wallet address
+  id              String         @id
+  twitterVerified Boolean        @default(false)
+  twitterUsername String?
+  createdAt       DateTime       @default(now())
+  contributions   Contribution[]
+}
+
+model Contribution {
+  id             Int      @id @default(autoincrement())
+  response       String
+  prompt         Prompt
+  pattern        Pattern  @default(Pluriverse)
+  createdAt      DateTime @default(now())
+  authorWalletId String
+  author         User     @relation(fields: [authorWalletId], references: [id])
+}
