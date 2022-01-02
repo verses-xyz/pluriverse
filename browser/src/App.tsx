@@ -7,8 +7,10 @@ import useGsap from "./hook/useGsap";
 
 function App() {
   const gsap = useGsap();
-  const universeRef = useRef();
-  const essayContentRef = useRef();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const universeRef = useRef<any>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const essayContentRef = useRef<any>();
 
   useEffect(() => {
     gsap.fromTo(
@@ -26,7 +28,6 @@ function App() {
         },
       }
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -45,7 +46,6 @@ function App() {
         },
       }
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
