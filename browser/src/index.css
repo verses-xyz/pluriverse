@@ -30,13 +30,12 @@ h1 + p::first-letter {
   float: left;
   font-size: 6rem;
   line-height: 0.65;
-  margin: 0.1em 0.1em 1px 0;
+  margin: 0.1em 0.1em 2 0;
 }
 
 .subhead {
   text-transform: uppercase;
-  font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 code {

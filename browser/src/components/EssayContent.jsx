@@ -2,11 +2,11 @@ import "./EssayContent.css";
 
 export default function EssayContent() {
   return (
-    <div className="container w-full md:max-w-2xl mx-auto pt-8 pb-20">
+    <div className="container w-full md:max-w-2xl mx-auto pb-20">
       <h1 className="font-title text-5xl text-center font-bold pb-12">
         A Pattern Language for the Pluriverse
       </h1>
-      <p>
+      <p className="pt-8">
         W
         <span className="subhead">
           e are living in the age of the Metaverse.{" "}
