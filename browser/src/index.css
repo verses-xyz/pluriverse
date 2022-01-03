@@ -18,7 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #faf9f2;
-  color: #2c3047;
+  color: #040e2b;
 }
 
 p {
@@ -52,7 +52,13 @@ main {
   z-index: 400;
 }
 
-.universe-background {
+.canvas-container {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+}
+
+.gradient-1 {
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -65,13 +71,23 @@ main {
   );
 }
 
+.gradient-2 {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to bottom, #fce7e7, #dae2f8);
+}
+
 .shimmer {
   text-align: center;
 
-  background: linear-gradient(90deg,
+  background: linear-gradient(
+      90deg,
       #0000 33%,
       rgba(255, 255, 255, 0.5) 50%,
-      #0000 66%) rebeccapurple;
+      #0000 66%
+    )
+    rebeccapurple;
   background-size: 200% auto;
 
   color: #000;

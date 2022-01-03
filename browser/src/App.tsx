@@ -3,18 +3,17 @@ import React, { useEffect, useRef } from "react";
 import EssayContent from "./components/EssayContent";
 import Hero from "./components/Hero";
 import UniverseScene from "./components/UniverseScene";
+import GradientManager from "./components/GradientManager";
 import useGsap from "./hook/useGsap";
 
 function App() {
   const gsap = useGsap();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const universeRef = useRef<any>();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const essayContentRef = useRef<any>();
 
   useEffect(() => {
     gsap.fromTo(
-      universeRef.current,
+      ".fadeOutOnScroll",
       {
         opacity: 1,
       },
@@ -51,12 +50,15 @@ function App() {
   return (
     <div>
       <main>
-        <Hero />
+        <div className="fadeOutOnScroll">
+          <Hero />
+        </div>
         <div ref={essayContentRef}>
           <EssayContent />
         </div>
       </main>
-      <div className="universe-background" ref={universeRef}>
+      <GradientManager essayContentRef={essayContentRef} />
+      <div className="canvas-container fadeOutOnScroll">
         <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
           <UniverseScene essayContentRef={essayContentRef} />
         </Canvas>
