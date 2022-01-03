@@ -106,7 +106,7 @@ function TermsOfUse() {
       case Page.TermsOfUse:
         return (
           <div className="terms">
-            <h1 className="text-3xl font-bold">TERMS OF USE AGREEMENT</h1>
+            <h2 className="text-3xl font-bold">TERMS OF USE AGREEMENT</h2>
             <p>
               PLEASE READ THE ABOVE ESSAY (“ESSAY”) CAREFULLY BEFORE USING THE
               TERM PLURIVERSE-BUILDING. THIS IS NOT A LEGAL AGREEMENT BETWEEN
