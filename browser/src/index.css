@@ -75,7 +75,7 @@ main {
   position: fixed;
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(to bottom, #fce7e7, #dae2f8);
+  background: linear-gradient(to bottom, #fce0e0, #dae2f8);
 }
 
 .shimmer {
