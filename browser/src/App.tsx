@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import UniverseScene from "./components/UniverseScene";
 import GradientManager from "./components/GradientManager";
 import useGsap from "./hook/useGsap";
+import { ContributionSection } from "./components/ContributionSection";
 
 function App() {
   const gsap = useGsap();
@@ -55,6 +56,9 @@ function App() {
         </div>
         <div ref={essayContentRef}>
           <EssayContent />
+          <div className="container w-full md:max-w-2xl mx-auto pb-20">
+            <ContributionSection />
+          </div>
         </div>
       </main>
       <GradientManager essayContentRef={essayContentRef} />

@@ -99,7 +99,6 @@ export default function EssayContent() {
       {/* TODO: insert essay body rest */}
       {/* TODO: insert signatures and contribution mechanism */}
       {/* TODO: uncomment when ready */}
-      <ContributionSection />
     </div>
   );
 }

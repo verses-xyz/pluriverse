@@ -1,40 +1,41 @@
 .contributionSection {
-    margin-top: 50px;
-    width: 100%;
+  margin-top: 50px;
+  width: 100%;
 }
 
 .termsOfUseContainer {
-    border: 1px solid black;
-    border-radius: 6px;
-    padding: 24px;
+  background-color: #fbf8ff;
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 24px;
 }
 
 .actionsContainer {
-    display: flex;
-    margin-top: 24px;
-    justify-content: center;
+  display: flex;
+  margin-top: 24px;
+  justify-content: center;
 }
 
 .actionsContainer button {
-    margin: 0 6px;
+  margin: 0 6px;
 }
 
 .signContainer {
-    display:flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .selects {
-    display: flex;
-    margin-top: 24px;
-    gap: 6px;
+  display: flex;
+  margin-top: 24px;
+  gap: 6px;
 }
 
 .patternSelect {
-    margin: 0 6px;
+  margin: 0 6px;
 }
 
 .responseInput {
-    margin: 0 6px;
+  margin: 0 6px;
 }
