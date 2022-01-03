@@ -115,3 +115,17 @@ main {
 hr {
   border: 0.5px solid #49496e;
 }
+
+blockquote {
+  position: relative;
+}
+
+blockquote:before {
+  position: absolute;
+  font-size: 7rem;
+  content: "“";
+  top: -5rem;
+  left: -3rem;
+  color: white;
+  opacity: 0.6;
+}
