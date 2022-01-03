@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "ESLINT_NO_DEV_ERRORS='true' TSC_COMPILE_ON_ERROR=true  rescripts start",
-    "build": "DISABLE_ESLINT_PLUGIN='true' rescripts build",
+    "build": "DISABLE_ESLINT_PLUGIN='true' TSC_COMPILE_ON_ERROR=true rescripts build",
     "test": "rescripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint ./ --fix --ext .js,.jsx,.ts,.tsx"
