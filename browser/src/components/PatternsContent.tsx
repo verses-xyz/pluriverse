@@ -23,12 +23,12 @@ export default function PatternsContent() {
       <div className="px-3 py-20">
         <div className="grid grid-cols-4 items-center justify-center">
           <div className="col-span-1">
-            <h2 className="font-title italic text-6xl pl-8 font-bold pb-12">
+            <h2 className="font-title font-mono italic text-5xl pl-8 font-bold pb-12">
               Patterns
             </h2>
           </div>
           <div className="col-span-3">
-            <p className="pl-8 pr-20 pt-0">
+            <p className="pl-8 pr-2 pt-0">
               The digital pluriverse will cultivate the flourishing of many
               different, and potentially contrasting worlds. Deeply informed by
               Escobar’s autonomous design principles, as well as Christopher
@@ -44,10 +44,10 @@ export default function PatternsContent() {
       <hr />
       {Object.values(Principles).map(({ title, body }, index) => (
         <>
-          <div className="grid grid-cols-3 pb-16 pt-16">
-            <div className="col-span-2 pl-10 pr-10">
-              <h3 className="font-title text-5xl font-bold pb-10">
-                {index + 1}. {title}
+          <div className="grid grid-cols-3 px-8 pb-16 pt-16">
+            <div className="col-span-2 pl-4 pr-10">
+              <h3 className="font-title font-mono text-4xl font-bold pb-10">
+                0{index + 1}.{title}
               </h3>
               <h4 className="font-title text-2xl font-bold ">The problem</h4>
               <p>{body}</p>

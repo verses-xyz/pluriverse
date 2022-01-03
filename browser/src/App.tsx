@@ -12,6 +12,7 @@ function App() {
   const gsap = useGsap();
 
   const essayContentRef = useRef<any>();
+  const patternsContentRef = useRef<any>();
 
   useEffect(() => {
     gsap.fromTo(
@@ -58,12 +59,17 @@ function App() {
         <div ref={essayContentRef}>
           <EssayContent />
         </div>
-        <PatternsContent />
+        <div ref={patternsContentRef}>
+          <PatternsContent />
+        </div>
         <div className="container w-full md:max-w-2xl mx-auto pb-20">
           <ContributionSection />
         </div>
       </main>
-      <GradientManager essayContentRef={essayContentRef} />
+      <GradientManager
+        essayContentRef={essayContentRef}
+        patternsContentRef={patternsContentRef}
+      />
       <div className="canvas-container fadeOutOnScroll">
         <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
           <UniverseScene essayContentRef={essayContentRef} />

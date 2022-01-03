@@ -78,6 +78,13 @@ main {
   background: linear-gradient(to bottom, #fce0e0, #dae2f8);
 }
 
+.gradient-3 {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to right, #fbc7d4, #9796f0);
+}
+
 .shimmer {
   text-align: center;
 
