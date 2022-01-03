@@ -16,7 +16,11 @@ enum Page {
 const ButtonClass =
   "hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow";
 const Placeholder = "pattern";
-const replaceJSX = (str, replacement): React.ReactNode => {
+
+const replaceJSX = (
+  str: string,
+  replacement: { [x: string]: any; pattern?: JSX.Element }
+): React.ReactNode => {
   const result: any[] = [];
   const keys = Object.keys(replacement);
   const getRegExp = () => {
@@ -24,7 +28,7 @@ const replaceJSX = (str, replacement): React.ReactNode => {
     keys.forEach((key) => regexp.push(`{${key}}`));
     return new RegExp(regexp.join("|"));
   };
-  str.split(getRegExp()).forEach((item, i) => {
+  str.split(getRegExp()).forEach((item: any, i: number) => {
     result.push(item, replacement[keys[i]]);
   });
   return result;
@@ -75,6 +79,8 @@ function TermsOfUse() {
         selectedPattern &&
         (Pattern[selectedPattern as keyof typeof Pattern] as string)
       }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       className="patternSelect"
     />
   );
@@ -82,6 +88,8 @@ function TermsOfUse() {
   let promptStarter: React.ReactNode = "";
   if (selectedPrompt) {
     promptStarter = PromptDescriptions[selectedPrompt];
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     promptStarter = replaceJSX(promptStarter, {
       [Placeholder]: patternSelect,
     });
