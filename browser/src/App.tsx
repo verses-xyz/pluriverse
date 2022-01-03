@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import React, { useEffect, useRef } from "react";
 import EssayContent from "./components/EssayContent";
+import PatternsContent from "./components/PatternsContent";
 import Hero from "./components/Hero";
 import UniverseScene from "./components/UniverseScene";
 import GradientManager from "./components/GradientManager";
@@ -56,9 +57,10 @@ function App() {
         </div>
         <div ref={essayContentRef}>
           <EssayContent />
-          <div className="container w-full md:max-w-2xl mx-auto pb-20">
-            <ContributionSection />
-          </div>
+        </div>
+        <PatternsContent />
+        <div className="container w-full md:max-w-2xl mx-auto pb-20">
+          <ContributionSection />
         </div>
       </main>
       <GradientManager essayContentRef={essayContentRef} />

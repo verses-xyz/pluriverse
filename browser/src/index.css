@@ -104,3 +104,7 @@ main {
     background-position: 200% center;
   }
 }
+
+hr {
+  border: 0.5px solid #49496e;
+}
