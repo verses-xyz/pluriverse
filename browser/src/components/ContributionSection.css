@@ -25,10 +25,18 @@
   gap: 16px;
 }
 
+.contributionContainer {
+  margin-top: 24px;
+  display: grid;
+  column-gap: 24px;
+  grid-template-columns: 1fr 1fr;
+}
+
 .selects {
   display: flex;
-  margin-top: 24px;
-  gap: 6px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
 
 .patternSelect {

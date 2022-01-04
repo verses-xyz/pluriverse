@@ -3,7 +3,10 @@
 import { Prisma } from "@prisma/client";
 import { RequestHandler } from "express";
 import { Services } from "../types";
-import { AddContributionRequest } from "common/server-api";
+import {
+  AddContributionRequest,
+  AddContributionResponse,
+} from "common/server-api";
 
 // Optional fields in body: content
 // TODO: can grab location here from request using vercel edge function
@@ -38,7 +41,8 @@ export function addContribution({ prisma }: Services): RequestHandler {
           pattern: pattern as any,
         },
       });
-      res.json(result.id);
+
+      res.json(result.id as AddContributionResponse);
     } catch (err) {
       console.log(err);
       if (err instanceof Prisma.PrismaClientValidationError) {

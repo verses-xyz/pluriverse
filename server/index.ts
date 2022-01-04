@@ -3,6 +3,7 @@ import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import { addContribution } from "./api/add_contribution";
 import { getContributions } from "./api/get_contributions";
+import { getContribution } from "./api/get_contribution";
 
 const app = express();
 app.use(express.json());
@@ -18,7 +19,7 @@ const services = { prisma };
 
 const contributionsRouter = express.Router();
 contributionsRouter.get("/", getContributions(services));
-contributionsRouter.get("/:id", () => {});
+contributionsRouter.get("/:id", getContribution(services));
 contributionsRouter.post("/", addContribution(services));
 
 app.get("/", (req, res) => {

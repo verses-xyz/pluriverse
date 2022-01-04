@@ -13,22 +13,32 @@ export async function generateSignature(): Promise<string> {
   }
 
   // Sign the declaration. Any errors here should be handled by the caller.
-  await window.ethereum.request({ method: "eth_requestAccounts" });
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   return await signer.signMessage(PluriverseAgreement);
 }
 
-export async function connectWalletAndSign() {
-  const signature = generateSignature();
+export async function getWalletAddress(): Promise<string> {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  return await provider.getSigner().getAddress();
+}
+
+export async function signAndValidate(
+  contributionResponse: string
+): Promise<void> {
+  // TODO: add the response at the top or bottom of the pluriverse article/agreement?
+  const signature = await generateSignature();
+  console.log(signature);
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
+  console.log(signer);
   const address = await signer.getAddress();
+  console.log(address);
   const verifyingAddress = ethers.utils.verifyMessage(
     PluriverseAgreement,
     signature
   );
   if (verifyingAddress !== address) {
-    throw new Error("Signature mismatch");
+    throw new Error("Invalid Signature!");
   }
 }

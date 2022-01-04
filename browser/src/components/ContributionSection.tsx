@@ -1,13 +1,19 @@
 import "./ContributionSection.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { descriptionText } from "../classNameConstants";
-import { Pattern, Prompt } from "../types/common/server-api/index";
+import {
+  Contribution,
+  Pattern,
+  Prompt,
+} from "../types/common/server-api/index";
 import { Dropdown, DropdownItem } from "./core/Dropdown";
-import { addContribution } from "src/helpers/api";
+import { addContribution, getContribution } from "src/helpers/api";
 import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
 import { ButtonClass } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
+import { getWalletAddress, signAndValidate } from "src/helpers/wallet";
+import { ContributionCard } from "./ContributionCard";
 
 enum Page {
   TermsOfUse,
@@ -43,13 +49,14 @@ const PromptDescriptions: Record<Prompt, string> = {
 // TODO: fill in
 function TermsOfUse() {
   const [page, setPage] = useState(Page.TermsOfUse);
-  const [selectedPrompt, setSelectedPrompt] = useState<Prompt | undefined>(
-    undefined
+  const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(
+    Prompt.LooksLike
   );
   const [selectedPattern, setSelectedPattern] = useState<Pattern>(
     Pattern.Pluriverse
   );
   const [response, setResponse] = useState<string | undefined>(undefined);
+  const [walletAddress, setWalletAddress] = useState<string | undefined>();
 
   const PromptItems: DropdownItem[] = Object.keys(Prompt).map((promptKey) => ({
     name: PromptDescriptions[Prompt[promptKey as keyof typeof Prompt]],
@@ -86,13 +93,33 @@ function TermsOfUse() {
   );
 
   let promptStarter: React.ReactNode = "";
+  let promptStarterUneditable = "";
   if (selectedPrompt) {
     promptStarter = PromptDescriptions[selectedPrompt];
+    promptStarterUneditable = PromptDescriptions[selectedPrompt];
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     promptStarter = replaceJSX(promptStarter, {
       [Placeholder]: patternSelect,
     });
+    promptStarterUneditable = promptStarterUneditable.replace(
+      `{${Placeholder}}`,
+      selectedPattern
+    );
+  }
+
+  const [error, setError] = useState<string | undefined>(undefined);
+  const handleErr = (err: Error) => {
+    setError(err.message);
+  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedContribution, setSelectedContribution] = useState<
+    Contribution | undefined
+  >(undefined);
+
+  async function fetchContribution(id: number) {
+    const contribution = await getContribution({ id });
+    setSelectedContribution(contribution);
   }
 
   async function onSaveContribution() {
@@ -100,21 +127,48 @@ function TermsOfUse() {
       return;
     }
 
-    await addContribution({
-      prompt: selectedPrompt,
-      pattern: selectedPattern,
-      response,
-      // TODO: add
-      walletId: "123",
-    });
+    setIsLoading(true);
+    try {
+      await signAndValidate(response);
+      const newContributionId = await addContribution({
+        prompt: selectedPrompt,
+        pattern: selectedPattern,
+        response,
+        walletId: walletAddress!,
+      });
+      // TODO: eliminate this and just return th actual contribution data with the response above.
+      await fetchContribution(newContributionId);
+      setPage(Page.Share);
+      setError(undefined);
+    } catch (err) {
+      handleErr(err as Error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
-  const [error, setError] = useState<string | undefined>(undefined);
-  const handleErr = (err: Error) => {
-    setError(err.message);
-  };
+  function renderPreviewCard({
+    walletAddress,
+    response,
+    prompt,
+    pattern,
+  }: {
+    walletAddress?: string;
+    response?: string;
+    prompt: Prompt;
+    pattern: Pattern;
+  }) {
+    const formattedResponse = `${promptStarterUneditable} ${response || "..."}`;
 
-  function renderPreviewCard() {}
+    const contribution: Contribution = {
+      author: { walletId: walletAddress || "...", twitterVerified: false },
+      response: formattedResponse,
+      prompt,
+      pattern,
+      createdAt: new Date().toLocaleDateString(),
+    };
+    return <ContributionCard contribution={contribution}></ContributionCard>;
+  }
 
   function renderPage() {
     switch (page) {
@@ -139,7 +193,11 @@ function TermsOfUse() {
             <div className="actionsContainer">
               <button className={ButtonClass("white")}>Disagree</button>
               <ConnectWalletButton
-                onSubmit={() => setPage(Page.Sign)}
+                onSubmit={(connectedWalletAddress) => {
+                  setWalletAddress(connectedWalletAddress);
+                  setError(undefined);
+                  setPage(Page.Sign);
+                }}
                 onError={handleErr}
               >
                 Agree (connect wallet)
@@ -174,33 +232,38 @@ function TermsOfUse() {
               select a prompt and contribute to the{" "}
               <b className="shimmer"> Pluriverse</b>.
             </p>
-            <div className="selects">{promptSelect}</div>
-            {selectedPrompt && (
-              <>
-                <div className="responseContainer">
-                  {promptStarter}{" "}
-                  {
-                    <AutoGrowInput
-                      value={response}
-                      onChange={setResponse}
-                      className="responseInput"
-                      // TODO: make this populate an actual live preview from an example??
-                      extraProps={{
-                        placeholder: "free gardens",
-                      }}
-                    />
-                  }
-                  {/* <textarea
-                className="form-textarea mt-1 block w-full"
-                placeholder="Enter your response to the prompt..."
-                value={response}
-                onChange={}
-              ></textarea> */}
-                </div>
-                <p className={descriptionText}></p>
-              </>
-            )}
-            {renderPreviewCard()}
+            <div className="contributionContainer">
+              <div className="selects">
+                {promptSelect}
+                {selectedPrompt && (
+                  <>
+                    <div className="responseContainer">
+                      {promptStarter}{" "}
+                      {
+                        <AutoGrowInput
+                          value={response}
+                          onChange={setResponse}
+                          className="responseInput"
+                          // TODO: make this populate an actual live preview from an example??
+                          extraProps={{
+                            placeholder: "free gardens",
+                          }}
+                        />
+                      }
+                    </div>
+                    <p className={descriptionText}></p>
+                  </>
+                )}
+                {/* TODO: add twitter username */}
+              </div>
+              {renderPreviewCard({
+                walletAddress,
+                pattern: selectedPattern,
+                response,
+                prompt: selectedPrompt,
+              })}
+            </div>
+
             <div className="actionsContainer">
               <button
                 onClick={() => setPage(Page.TermsOfUse)}
@@ -212,14 +275,30 @@ function TermsOfUse() {
                 onClick={onSaveContribution}
                 className={ButtonClass("blue")}
               >
-                Sign
+                Add to Pluriverse
               </button>
             </div>
+            {/* TODO: fun loading animation */}
+            {isLoading && (
+              <div className="loadingContainer">Creating Pluriverse...</div>
+            )}
           </div>
         );
 
       case Page.Share:
-        throw Error("nye");
+        return (
+          <div className="share">
+            <h2 className="text-4xl font-bold">Share</h2>
+            <p>
+              Thank you for contributing to the Pluriverse! You can see your
+              contribution below
+            </p>
+            {/* TODO: add verify twitter post */}
+            <ContributionCard
+              contribution={selectedContribution!}
+            ></ContributionCard>
+          </div>
+        );
 
       default:
         throw Error("unreachable");

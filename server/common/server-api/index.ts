@@ -25,6 +25,21 @@ export enum Pattern {
   Commons = "Commons",
 }
 
+export interface Author {
+  walletId: string;
+  twitterVerified: boolean;
+  twitterUsername?: string;
+}
+
+export interface Contribution {
+  author: Author;
+  // This should be the full text response, formatted as markdown.
+  response: string;
+  prompt: Prompt;
+  pattern: Pattern;
+  createdAt: Date;
+}
+
 export interface AddContributionRequest {
   walletId: string;
   // This should be the full text response, formatted as markdown.
@@ -37,4 +52,8 @@ export type AddContributionResponse = number;
 
 export interface GetContributionsRequest {
   offset?: number;
+}
+
+export interface GetContributionRequest {
+  id: number;
 }

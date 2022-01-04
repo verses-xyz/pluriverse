@@ -1,0 +1,23 @@
+.contributionCardContainer {
+    /* width: 300px; */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 8px;
+    min-height: 300px;
+}
+
+.contributionCardContainer > h2 {
+}
+
+.attribution {
+    margin-top: auto;
+    text-align: right;
+}
+
+.author {
+    font-weight: bold;
+    color: rebeccapurple;
+}

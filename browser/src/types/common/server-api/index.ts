@@ -1,8 +1,3 @@
-// TODO: this is a copy of server/common/server-api/index.ts, for now
-// until i figure out how to actually make typescript path mapping compile
-// https://stackoverflow.com/questions/57070052/create-react-app-typescript-3-5-path-alias
-// https://stackoverflow.com/questions/68112535/add-path-alias-for-typescript
-
 // import type { Prompt, Pattern } from "@prisma/client";
 
 // TODO: need to handle mapping the type to an actual typescript enum...
@@ -33,7 +28,7 @@ export enum Pattern {
 export interface Author {
   walletId: string;
   twitterVerified: boolean;
-  twitterUsername: string;
+  twitterUsername?: string;
 }
 
 export interface Contribution {
@@ -42,7 +37,7 @@ export interface Contribution {
   response: string;
   prompt: Prompt;
   pattern: Pattern;
-  createdAt: string;
+  createdAt: Date;
 }
 
 export interface AddContributionRequest {
@@ -57,4 +52,8 @@ export type AddContributionResponse = number;
 
 export interface GetContributionsRequest {
   offset?: number;
+}
+
+export interface GetContributionRequest {
+  id: number;
 }

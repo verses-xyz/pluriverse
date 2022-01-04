@@ -1,6 +1,3 @@
-import { ContributionSection } from "./ContributionSection";
-import { PrincipleCardList } from "./PrincipleCardList";
-
 export default function EssayContent() {
   return (
     <div className="container w-full md:max-w-2xl mx-auto pb-20">
@@ -98,7 +95,6 @@ export default function EssayContent() {
       {/* <PrincipleCardList /> */}
       {/* TODO: insert essay body rest */}
       {/* TODO: insert signatures and contribution mechanism */}
-      {/* TODO: uncomment when ready */}
     </div>
   );
 }

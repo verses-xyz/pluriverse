@@ -1,4 +1,4 @@
-import { connectWallet } from "src/helpers/wallet";
+import { connectWallet, getWalletAddress } from "src/helpers/wallet";
 import { ButtonClass } from "src/types/styles";
 import { ButtonHTMLAttributes, useState } from "react";
 // TODO: fill this in with the same from terms of agreement.
@@ -6,10 +6,13 @@ import { ButtonHTMLAttributes, useState } from "react";
 interface BaseProps {
   children?: React.ReactNode;
   onError: (error: Error) => void;
-  onSubmit(): void;
+  onSubmit(connectedWalletAddress: string): void;
 }
 
-type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onError"> &
+type Props = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "onError" | "onSubmit"
+> &
   BaseProps;
 
 export function ConnectWalletButton({
@@ -23,7 +26,8 @@ export function ConnectWalletButton({
     setLoading(true);
     try {
       await connectWallet();
-      onSubmit();
+      const connectedWalletAddress = await getWalletAddress();
+      onSubmit(connectedWalletAddress);
     } catch (err: unknown) {
       console.log(err);
       onError(err as Error);

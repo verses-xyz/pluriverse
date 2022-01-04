@@ -62,7 +62,7 @@ function App() {
         <div ref={patternsContentRef}>
           <PatternsContent />
         </div>
-        <div className="container w-full md:max-w-2xl mx-auto pb-20">
+        <div className="container w-full md:max-w-3xl mx-auto pb-20">
           <ContributionSection />
         </div>
       </main>

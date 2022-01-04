@@ -1,6 +1,9 @@
 import {
   AddContributionResponse,
   AddContributionRequest,
+  GetContributionRequest,
+  Contribution,
+  GetContributionsRequest,
 } from "../types/common/server-api";
 
 const ApiUrl = process.env.API_URL || "http://localhost:3001";
@@ -39,4 +42,22 @@ export async function addContribution(
   });
   console.log(`Added ${response} contribution`);
   return response as AddContributionResponse;
+}
+
+export async function getContribution({
+  id,
+}: GetContributionRequest): Promise<Contribution> {
+  const response = await makeRequest(`${ApiUrl}/contributions/${id}`, {
+    method: "GET",
+  });
+  return response as Contribution;
+}
+
+export async function getContributions(
+  _request: GetContributionsRequest
+): Promise<Contribution[]> {
+  const response = await makeRequest(`${ApiUrl}/contributions`, {
+    method: "GET",
+  });
+  return response as Contribution[];
 }
