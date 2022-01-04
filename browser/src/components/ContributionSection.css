@@ -38,3 +38,15 @@
 .responseInput {
   margin: 0 6px;
 }
+
+.errorContainer {
+  margin-top: 12px;
+}
+
+ul {
+  margin-left: 4px;
+}
+
+ul > li:not(:first-child) {
+  margin-top: 10px;
+}

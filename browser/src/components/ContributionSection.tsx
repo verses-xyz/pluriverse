@@ -6,6 +6,8 @@ import { Dropdown, DropdownItem } from "./core/Dropdown";
 import { addContribution } from "src/helpers/api";
 import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
+import { ButtonClass } from "src/types/styles";
+import { ConnectWalletButton } from "./core/WalletButton";
 
 enum Page {
   TermsOfUse,
@@ -13,9 +15,8 @@ enum Page {
   Share,
 }
 
-const ButtonClass =
-  "hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow";
-const Placeholder = "pattern";
+export const PluriverseAgreement = "I agree to...";
+const Placeholder = "________";
 const replaceJSX = (
   str: string,
   replacement: { [x: string]: any; pattern?: JSX.Element }
@@ -108,6 +109,13 @@ function TermsOfUse() {
     });
   }
 
+  const [error, setError] = useState<string | undefined>(undefined);
+  const handleErr = (err: Error) => {
+    setError(err.message);
+  };
+
+  function renderPreviewCard() {}
+
   function renderPage() {
     switch (page) {
       case Page.TermsOfUse:
@@ -115,26 +123,27 @@ function TermsOfUse() {
           <div className="terms">
             <h2 className="text-3xl font-bold">TERMS OF USE AGREEMENT</h2>
             <p>
-              PLEASE READ THE ABOVE ESSAY (“ESSAY”) CAREFULLY BEFORE USING THE
-              TERM PLURIVERSE-BUILDING. THIS IS NOT A LEGAL AGREEMENT BETWEEN
-              YOU AND ANY ENTITY, BUT RATHER AN ACKNOWLEDGEMENT THAT YOU
-              RECOGNIZE THE IMPORTANCE OF UNDERSTAND THE HISTORY AND DEFINITION
-              OF THE TERM “PLURIVERSE” AND HOW ITS ETHIC MIGHT BE EXTENDED TO
-              THE DIGITAL REALM. BY GROWING THE PLURIVERSEUSING THE TERM
-              PLURIVERSE IN [?] CONTEXTS, YOU ARE AGREEING TO [BE / ACT IN
-              ACCORDANCE WITH / HELP EVOLVE / OPERATIONALIZE THE PRINCIPLES SET
-              FORTH IN THIS ESSAY]. YOU EXPRESSLY ACKNOWLEDGE THAT THE ENTIRE
-              RESPONSIBILITY / LIABILITY RISK AS TO THE REALIZATION OF THE
-              PLURIVERSE LIES WITH [YOU?].{" "}
+              PLEASE READ THE ABOVE ESSAY (“ESSAY”) CAREFULLY BEFORE{" "}
+              <b className="shimmer">PLURIVERSE</b>-BUILDING. THIS IS NOT A
+              LEGAL AGREEMENT BETWEEN YOU AND ANY ENTITY, BUT RATHER AN
+              ACKNOWLEDGEMENT THAT YOU RECOGNIZE THE IMPORTANCE OF THE HISTORY,
+              DECOLONIAL ORIGINS, AND DEFINITION OF THE TERM{" "}
+              <b className="shimmer">“PLURIVERSE”</b> AND HOW ITS ETHIC MIGHT BE
+              EXTENDED TO THE DIGITAL REALM. BY INVOKING THE TERM{" "}
+              <b className="shimmer">PLURIVERSE</b>, YOU ARE RECOGNIZING THE
+              PATH SET OUT BY THE ABOVE PATTERNS (“PATTERNS”) IN BRINGING THE
+              DIGITAL <b className="shimmer">PLURIVERSE</b> ABOUT. YOU EXPRESSLY
+              ACKNOWLEDGE THAT THE ENTIRE RESPONSIBILITY / LIABILITY AS TO THE
+              REALIZATION OF THE PLURIVERSE LIES WITH US.
             </p>
             <div className="actionsContainer">
-              <button className={`bg-white ${ButtonClass}`}>Disagree</button>
-              <button
-                className={`bg-blue-200 ${ButtonClass}`}
-                onClick={() => setPage(Page.Sign)}
+              <button className={ButtonClass("white")}>Disagree</button>
+              <ConnectWalletButton
+                onSubmit={() => setPage(Page.Sign)}
+                onError={handleErr}
               >
-                Agree
-              </button>
+                Agree (connect wallet)
+              </ConnectWalletButton>
             </div>
           </div>
         );
@@ -145,20 +154,21 @@ function TermsOfUse() {
             <p style={{ paddingTop: "0px" }}>
               <ul className="list-disc list-inside">
                 <li>
-                  I agree to using <em>pluriverse</em> appropriately
+                  I understand the history of the term{" "}
+                  <b className="shimmer">pluriverse</b> and how we intend to use
+                  it moving forward
                 </li>
-                <li>I agree that we need a world with the pluriverse</li>
-                <li>I agree...</li>
+                <li>
+                  I understand how a <b className="shimmer">pluriversal</b>{" "}
+                  world is different from our current world and how we get there
+                  via the “Patterns.”
+                </li>
+                <li>
+                  I want to help build the <b className="shimmer">pluriverse</b>{" "}
+                  together
+                </li>
               </ul>
             </p>
-            <div>
-              <button
-                onClick={onSaveContribution}
-                className={`bg-blue-300 ${ButtonClass}`}
-              >
-                Connect Wallet
-              </button>
-            </div>
             <p>
               We've provided some sentence starters to get you going. Please
               select a prompt and contribute to the{" "}
@@ -190,16 +200,17 @@ function TermsOfUse() {
                 <p className={descriptionText}></p>
               </>
             )}
+            {renderPreviewCard()}
             <div className="actionsContainer">
               <button
                 onClick={() => setPage(Page.TermsOfUse)}
-                className={`bg-white ${ButtonClass}`}
+                className={ButtonClass("white")}
               >
                 Back
               </button>
               <button
                 onClick={onSaveContribution}
-                className={`bg-blue-300 ${ButtonClass}`}
+                className={ButtonClass("blue")}
               >
                 Sign
               </button>
@@ -215,7 +226,14 @@ function TermsOfUse() {
     }
   }
 
-  return <div className="termsOfUseContainer">{renderPage()}</div>;
+  return (
+    <div className="termsOfUseContainer">
+      {renderPage()}
+      {error && (
+        <div className="errorContainer text-red-500">Error: {error}</div>
+      )}
+    </div>
+  );
 }
 
 export function ContributionSection() {
