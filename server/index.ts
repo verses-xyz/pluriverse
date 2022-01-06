@@ -1,9 +1,10 @@
 import express from "express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
-// import { addContribution } from "./api-handlers/add_contribution";
-// import { getContributions } from "./api-handlers/get_contributions";
-// import { getContribution } from "./api-handlers/get_contribution";
+import { addContribution } from "./api-handlers/add_contribution";
+import { getContributions } from "./api-handlers/get_contributions";
+import { getContribution } from "./api-handlers/get_contribution";
+// import contributions from "./api/contributions";
 
 const app = express();
 app.use(express.json());
@@ -22,16 +23,17 @@ app.get("/", (req, res) => {
 });
 
 app.use(cors(corsOptions));
+// app.use("/api/contributions", contributions)
 
 // TODO: commmenting out to try vercel serverless,
-// const contributionsRouter = express.Router();
-// contributionsRouter.get("/", getContributions(services));
-// contributionsRouter.get("/:id", getContribution(services));
-// contributionsRouter.post("/", addContribution(services));
-// app.use("/contributions", contributionsRouter);
+const contributionsRouter = express.Router();
+contributionsRouter.get("/", getContributions(services));
+contributionsRouter.get("/:id", getContribution(services));
+contributionsRouter.post("/", addContribution(services));
+app.use("/contributions", contributionsRouter);
 
-// app.listen(port, () => {
-//   return console.log(`Express is listening at http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  return console.log(`Express is listening at http://localhost:${port}`);
+});
 
-module.exports = { app, services };
+// export default { app, services };
