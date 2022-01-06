@@ -1,18 +1,33 @@
 import fragmentShader from "../shaders/fragment.glsl";
 import vertexShader from "../shaders/vertex.glsl";
 import { useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { MeshProps } from "@react-three/fiber";
+
+interface ShaderProps {
+  speed: number;
+  color: number;
+  density: number;
+  strength: number;
+  alpha?: number;
+  offset: number;
+}
+
+interface BlobProps extends ShaderProps {
+  size: number;
+  meshProps?: MeshProps;
+}
 
 export function BlobShaderMaterial({
   speed,
   color,
   density,
   strength,
+  alpha = 1.0,
   offset,
-}) {
+}: ShaderProps) {
   const ref = useRef();
-  const data = useMemo(
-    () => ({
+  const data = useMemo(() => {
+    return {
       uniforms: {
         uTime: { value: 0 },
         uHue: { value: color },
@@ -25,48 +40,35 @@ export function BlobShaderMaterial({
         red: { value: 0 },
         green: { value: 0 },
         blue: { value: 0 },
-        uAlpha: { value: 1.0 },
+        uAlpha: { value: alpha },
       },
       defines: {
         PI: Math.PI,
       },
       fragmentShader,
       vertexShader,
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    };
+  }, [color, speed, density, strength, offset, alpha]);
+
+  return (
+    <shaderMaterial
+      key={[color, speed, density, strength, offset, alpha].join(" ")}
+      ref={ref}
+      attach="material"
+      {...data}
+    />
   );
-
-  useFrame((state) => {
-    ref.current.uniforms.uHue.value = color;
-    ref.current.uniforms.uSpeed.value = speed;
-    ref.current.uniforms.uNoiseDensity.value = density;
-    ref.current.uniforms.uNoiseStrength.value = strength;
-    ref.current.uniforms.uOffset.value = offset;
-  });
-
-  return <shaderMaterial ref={ref} attach="material" {...data} />;
 }
 
 export default function Blob({
   size,
-  speed,
-  color,
-  density,
-  strength,
-  offset,
-  ...props
-}) {
+  meshProps = {},
+  ...shaderProps
+}: BlobProps) {
   return (
-    <mesh {...props}>
+    <mesh {...meshProps}>
       <icosahedronGeometry attach="geometry" args={[size, 64, 64]} />
-      <BlobShaderMaterial
-        speed={speed}
-        color={color}
-        density={density}
-        strength={strength}
-        offset={offset}
-      />
+      <BlobShaderMaterial {...shaderProps} />
     </mesh>
   );
 }

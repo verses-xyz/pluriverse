@@ -15,8 +15,8 @@ export enum Prompt {
   Example = "Example",
 }
 export enum Pattern {
-  Interoperability = "Interoperability",
   Pluriverse = "Pluriverse",
+  Interoperability = "Interoperability",
   Agency = "Agency",
   Regeneration = "Regeneration",
   Privacy = "Privacy",

@@ -1,8 +1,20 @@
 import * as THREE from "three";
-import { useFrame } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { MeshProps, useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 import Blob from "./Blob";
 import useGsap from "src/hook/useGsap";
+
+export interface BlobFloatingProps {
+  random: number;
+  size: number;
+  speed: number;
+  color: number;
+  density: number;
+  strength: number;
+  alpha?: number;
+  offset: number;
+  meshProps?: MeshProps;
+}
 
 export default function BlobFloating({
   random,
@@ -11,9 +23,10 @@ export default function BlobFloating({
   color,
   density,
   strength,
+  alpha,
   offset,
-  ...props
-}) {
+  meshProps,
+}: BlobFloatingProps) {
   const ref = useRef();
 
   const gsap = useGsap();
@@ -63,7 +76,8 @@ export default function BlobFloating({
         density={density}
         strength={strength}
         offset={offset}
-        {...props}
+        alpha={alpha}
+        meshProps={meshProps}
       />
     </group>
   );

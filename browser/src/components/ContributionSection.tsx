@@ -102,7 +102,6 @@ function TermsOfUse() {
   const patternSelect = (
     <Dropdown
       items={PatternItems}
-      defaultOption="pluriverse"
       selectedItemName={
         selectedPattern &&
         (Pattern[selectedPattern as keyof typeof Pattern] as string)

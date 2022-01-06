@@ -1,4 +1,4 @@
-import BlobFloating from './BlobFloating';
+import BlobFloating, { BlobFloatingProps } from "./BlobFloating";
 
 const randomVector = (r) => [
   r / 2 - Math.random() * r,
@@ -12,10 +12,12 @@ const randomEuler = () => [
   Math.random() * Math.PI,
 ];
 
-const blobData = Array.from({ length: 12 }, (r = 10) => ({
+const blobData: BlobFloatingProps[] = Array.from({ length: 12 }, (r = 10) => ({
+  meshProps: {
+    position: randomVector(r),
+    rotation: randomEuler(),
+  },
   random: Math.random(),
-  position: randomVector(r),
-  rotation: randomEuler(),
   size: 0.8,
   speed: Math.random() * 0.5,
   color: Math.random() * 0.5,
@@ -27,7 +29,9 @@ const blobData = Array.from({ length: 12 }, (r = 10) => ({
 export default function Blobs() {
   return (
     <>
-      {blobData.map((props, i) => <BlobFloating key={i} {...props} />)}
+      {blobData.map((props, i) => (
+        <BlobFloating key={i} {...props} />
+      ))}
     </>
   );
 }
