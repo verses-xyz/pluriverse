@@ -6,7 +6,10 @@ import {
   GetContributionsRequest,
 } from "../types/common/server-api";
 
-const ApiUrl = process.env.API_URL || "http://localhost:3001";
+const ApiUrl =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_API_URL
+    : "http://localhost:3001";
 
 async function makeRequest(
   url: string,
