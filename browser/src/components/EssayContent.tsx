@@ -7,39 +7,39 @@ export default function EssayContent() {
       <p className="pt-8">
         W
         <span className="subhead">
-          e are living in the age of the Metaverse.{" "}
+          e are told that the age of the Metaverse is upon us.{" "}
         </span>
-        Or so we are told. Metaverse profiteers are everywhere, proselytizing
-        commodified virtuality, colonizing open digital land for profit, and
-        expanding the surface area of the digital sphere in lockstep with its
-        capture. The Metaverse, led by Meta, acts as a monopoly, gating access
-        to the length and breadth of the digital ecosystem through its congested
-        and polluted chokepoints, taking what was once collective and ensuring
-        it is bought, sold, measured, and speculated upon. The Metaverse expands
-        as an invasive monoculture, assimilating ecosystems, displacing extant
-        species, and enclosing digital abundance into enforced scarcity. The
-        Metaverse we are handed is a shackles in disguise, the promise of a vast
-        digital realm ruled under one banner, a shameless land grab for the
-        commons of the future and the resources of the past. This is no
-        Metaverse, this is a <b>monoverse</b>.
+        The Metaverse, led by Meta, allows and celebrates <b>monopoly</b>,
+        gating access to the length and breadth of the digital ecosystem. The
+        monopolies of the Metaverse take what was once collective and ensure it
+        is bought, sold, measured, and speculated upon. The Metaverse expands as
+        a homogenizing <b>monoculture</b>, assimilating ecosystems, displacing
+        extant species, and enclosing digital abundance into enforced scarcity.
+        A new-age Columbus of digits and pixels, Meta purports to chart new
+        territory while simply recycling the harms and stagnation of the old.
+        The Metaverse we are promised is not a gift we should accept, but a
+        shackles in disguise. This is an empty land grab for the commons of the
+        future and the resources of the past. This is no Metaverse, this is a{" "}
+        <b>monoverse</b>.
       </p>
       <p>
-        But there are brighter dreams, of brighter technological futures. Dreams
-        that do more than reclaim what has been lost; dreams that prefigure
-        futures of plenty, that learn from the old and build cathedrals to
-        collective wisdom and intelligence. That trade in promises of freedom
-        from with invitations for freedom to. Futures of <b> polycentrism</b>,
-        where resources are owned and governed by the many, and where false
-        scarcity again gives way to the creation of common spaces,
-        collectively-owned public infrastructure, and shared, self-sovereign
-        worlds. Spaces of
+        But we have brighter dreams, of brighter technological futures. Futures
+        that are rooted in history, that prefigure infinite gardens of
+        collective wisdom, intelligence, and collaboration. Futures where we
+        move past promises of mere “freedom from” towards the shared capacity
+        for building “freedoms to”. Futures of <b> polycentrism</b>, where
+        resources are owned and governed by the many, and where false scarcity
+        again gives way to the creation of common spaces, collectively-owned
+        public infrastructure, and shared, self-sovereign worlds. Spaces of
         <b> plurality</b>, where choice is meaningful because difference is
         prized; all the better to create a resilient ecology of diverse
         co-existence. We propose these dreams and futures be gathered under a
         different banner.
       </p>
       <p>
-        Together, we could instead steward the age of the
+        Together, we can steward these new futures; we invite you to dream,
+        collaborate, and strategize towards a different world. We propose to
+        gather these worlds around a different banner: the
         <b className="shimmer"> Pluriverse</b>.
       </p>
       <h2 className="font-title text-3xl pt-16 font-bold pb-3">
