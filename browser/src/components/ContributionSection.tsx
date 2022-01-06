@@ -22,7 +22,7 @@ enum Page {
 }
 
 export const PluriverseAgreement = "I agree to...";
-const Placeholder = "________";
+export const Placeholder = "________";
 const replaceJSX = (
   str: string,
   replacement: { [x: string]: any; pattern?: JSX.Element }
@@ -40,11 +40,32 @@ const replaceJSX = (
   return result;
 };
 
-const PromptDescriptions: Record<Prompt, string> = {
+export const PromptDescriptions: Record<Prompt, string> = {
   [Prompt.LooksLike]: `{${Placeholder}} looks like`,
   [Prompt.WeNeed]: `We need {${Placeholder}} because`,
   [Prompt.Example]: `An example of {${Placeholder}} is`,
 };
+
+function PreviewCard({
+  walletAddress,
+  response,
+  prompt,
+  pattern,
+}: {
+  walletAddress?: string;
+  response?: string;
+  prompt: Prompt;
+  pattern: Pattern;
+}) {
+  const contribution: Contribution = {
+    author: { walletId: walletAddress || "...", twitterVerified: false },
+    response: response || "...",
+    prompt,
+    pattern,
+    createdAt: new Date(),
+  };
+  return <ContributionCard contribution={contribution} />;
+}
 
 // TODO: fill in
 function TermsOfUse() {
@@ -147,29 +168,6 @@ function TermsOfUse() {
     }
   }
 
-  function renderPreviewCard({
-    walletAddress,
-    response,
-    prompt,
-    pattern,
-  }: {
-    walletAddress?: string;
-    response?: string;
-    prompt: Prompt;
-    pattern: Pattern;
-  }) {
-    const formattedResponse = `${promptStarterUneditable} ${response || "..."}`;
-
-    const contribution: Contribution = {
-      author: { walletId: walletAddress || "...", twitterVerified: false },
-      response: formattedResponse,
-      prompt,
-      pattern,
-      createdAt: new Date().toLocaleDateString(),
-    };
-    return <ContributionCard contribution={contribution}></ContributionCard>;
-  }
-
   function renderPage() {
     switch (page) {
       case Page.TermsOfUse:
@@ -256,12 +254,12 @@ function TermsOfUse() {
                 )}
                 {/* TODO: add twitter username */}
               </div>
-              {renderPreviewCard({
-                walletAddress,
-                pattern: selectedPattern,
-                response,
-                prompt: selectedPrompt,
-              })}
+              <PreviewCard
+                walletAddress={walletAddress}
+                pattern={selectedPattern}
+                response={response}
+                prompt={selectedPrompt}
+              />
             </div>
 
             <div className="actionsContainer">
