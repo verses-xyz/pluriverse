@@ -21,7 +21,7 @@ export function getContributions({ prisma }: Services): RequestHandler {
         skip: offset,
         take: Limit,
       });
-      res.json(contributions);
+      res.status(200).json(contributions);
     } catch (err) {
       console.log(err);
       if (err instanceof Prisma.PrismaClientValidationError) {
