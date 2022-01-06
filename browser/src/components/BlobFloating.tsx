@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { MeshProps, useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Blob from "./Blob";
 import useGsap from "src/hook/useGsap";
 
