@@ -1,32 +1,10 @@
 import { OrbitControls, Stars } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import useGsap from "../hook/useGsap";
 import Blobs from "./Blobs";
 
-export default function UniverseScene({ essayContentRef }) {
-  const { camera } = useThree();
-  const gsap = useGsap();
-
-  useEffect(() => {
-    gsap.fromTo(
-      camera.position,
-      {
-        z: 20,
-      },
-      {
-        z: -10,
-        scrollTrigger: {
-          trigger: essayContentRef.current,
-          start: 0,
-          end: " top top",
-          scrub: true,
-        },
-      }
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+export default function UniverseScene() {
   return (
     <>
       <OrbitControls autoRotate={true} autoRotateSpeed={1} enableZoom={false} />

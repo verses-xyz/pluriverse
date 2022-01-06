@@ -56,7 +56,7 @@ function App() {
         <div className="fadeOutOnScroll">
           <Hero />
         </div>
-        <div ref={essayContentRef}>
+        <div id="essay-content" ref={essayContentRef}>
           <EssayContent />
         </div>
         <div ref={patternsContentRef}>
@@ -70,9 +70,9 @@ function App() {
         essayContentRef={essayContentRef}
         patternsContentRef={patternsContentRef}
       />
-      <div className="canvas-container fadeOutOnScroll">
+      <div className="canvas-container">
         <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
-          <UniverseScene essayContentRef={essayContentRef} />
+          <UniverseScene />
         </Canvas>
       </div>
     </div>
