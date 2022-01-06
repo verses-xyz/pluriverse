@@ -1,10 +1,9 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
-import {Contribution, Prompt} from "../types/common/server-api";
+import React, { useEffect, useState } from "react";
+import { Prompt } from "../types/common/server-api";
 import { sha256 } from "ethers/lib/utils";
-import Blob from "../components/Blob";
+import Blob from "./Blob";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import {Placeholder} from "../components/ContributionSection";
 
 function toHex(str: string) {
   return str
@@ -13,7 +12,12 @@ function toHex(str: string) {
     .join("");
 }
 
-function fetch(message: string, idx: number, val_start: number, range: number) {
+function getMessageChunk(
+  message: string,
+  idx: number,
+  val_start: number,
+  range: number
+) {
   const sub = message.substring(idx * 8, idx * 8 + 8);
   const eightCount = sub.split("8").length;
   const float = parseInt(sub, 16) / 0xffffffff;
@@ -21,14 +25,24 @@ function fetch(message: string, idx: number, val_start: number, range: number) {
 }
 
 export const PromptColours: Record<Prompt, number> = {
-    [Prompt.LooksLike]: 0,
-    [Prompt.WeNeed]: 0.25,
-    [Prompt.Example]: 0.5,
+  [Prompt.LooksLike]: 0,
+  [Prompt.WeNeed]: 0.25,
+  [Prompt.Example]: 0.5,
 };
 
-export function renderBlob(contribution: Contribution): React.ReactElement {
+export function BlobSingle({
+  walletId,
+  pattern,
+  response,
+  prompt,
+}: {
+  walletId: string;
+  pattern: string;
+  response: string;
+  prompt: string;
+}): React.ReactElement {
   // 64 chars long sha256 str
-  const contrib = `${contribution.author.walletId}@${contribution.pattern}: ${contribution.response}`;
+  const contrib = `${walletId}@${pattern}: ${response}`;
 
   const [message, setMessage] = useState(sha256(`0x${toHex(contrib)}`));
   useEffect(() => {
@@ -59,11 +73,11 @@ export function renderBlob(contribution: Contribution): React.ReactElement {
       />
       <Blob
         size={5}
-        speed={fetch(message, 0, 0, 0.5)}
-        color={PromptColours[contribution.prompt]}
-        density={fetch(message, 1, 0, 2)}
-        strength={fetch(message, 2, 0, 0.2)}
-        offset={fetch(message, 3, 0, 2 * Math.PI)}
+        speed={getMessageChunk(message, 0, 0, 0.5)}
+        color={PromptColours[prompt]}
+        density={getMessageChunk(message, 1, 0, 2)}
+        strength={getMessageChunk(message, 2, 0, 0.2)}
+        offset={getMessageChunk(message, 3, 0, 2 * Math.PI)}
       />
     </Canvas>
   );
