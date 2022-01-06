@@ -3,7 +3,7 @@
 import { Prisma } from "@prisma/client";
 import { RequestHandler } from "express";
 import { Services } from "../types";
-import { GetContributionsRequest } from "common/server-api";
+import { GetContributionsRequest, Contribution } from "common/server-api";
 
 const Limit = 500;
 
@@ -18,10 +18,21 @@ export function getContributions({ prisma }: Services): RequestHandler {
       const contributions = await prisma.contribution.findMany({
         // where: {},
         orderBy: { createdAt: "desc" },
+        include: {
+          author: true,
+        },
         skip: offset,
         take: Limit,
       });
-      res.status(200).json(contributions);
+      res.status(200).json(
+        contributions.map((contribution) => ({
+          ...contribution,
+          author: {
+            ...contribution.author,
+            walletId: contribution.author.id,
+          },
+        })) as Contribution[]
+      );
     } catch (err) {
       console.log(err);
       if (err instanceof Prisma.PrismaClientValidationError) {

@@ -294,6 +294,13 @@ function TermsOfUse() {
             <ContributionCard
               contribution={selectedContribution!}
             ></ContributionCard>
+            <br />
+            <button
+              onClick={() => setPage(Page.Sign)}
+              className={ButtonClass("blue")}
+            >
+              Add more
+            </button>
           </div>
         );
 

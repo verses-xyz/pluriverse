@@ -1,11 +1,7 @@
-import { Canvas } from "@react-three/fiber";
-import UniverseScene from "./UniverseScene";
 import { Contribution } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import { BlobSingle } from "src/components/BlobSingle";
 import "./ContributionCard.css";
-import { Stars } from "@react-three/drei";
-import { useMemo } from "react";
 import { Placeholder, PromptDescriptions } from "./ContributionSection";
 
 interface Props {

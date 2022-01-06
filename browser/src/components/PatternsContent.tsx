@@ -1,21 +1,18 @@
+import { useEffect, useState } from "react";
+import { getContributions } from "src/helpers/api";
+import { Contribution } from "src/types/common/server-api";
 import { Principles } from "../types";
+import { ContributionCard } from "./ContributionCard";
 
 export default function PatternsContent() {
-  const contributions = [
-    {
-      text: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-      author: "foo bar",
-    },
-    {
-      text: "I like to think of myself as a creative, curious, and curious person.",
-      author: "mercurial token",
-    },
+  const [contributions, setContributions] = useState<Contribution[]>([]);
 
-    {
-      text: "bacon ipsum dolor amet pork belly shankle boudin ribeye pork chop shankle biltong meatball pork loin",
-      author: "purplegrass",
-    },
-  ];
+  useEffect(async () => {
+    const newContributions = await getContributions({});
+    setContributions(newContributions);
+  }, []);
+
+  console.log(contributions);
 
   return (
     <div className="container w-full md:max-w-7xl mx-auto pb-20">
@@ -65,12 +62,15 @@ export default function PatternsContent() {
               </p>
             </div>
             <div className="pl-8">
-              {contributions.map(({ text, author }) => (
-                <blockquote className="pb-14">
-                  <p className="pt-0">{text}</p>
-                  <p className="italic text-right">–{author}</p>
-                </blockquote>
-              ))}
+              {contributions
+                .filter((c) => c.pattern === title)
+                .map((contribution) => (
+                  // <blockquote className="pb-14">
+                  //   <p className="pt-0">{contribution.response}</p>
+                  //   <p className="italic text-right">–{contribution.author}</p>
+                  // </blockquote>
+                  <ContributionCard contribution={contribution} />
+                ))}
             </div>
           </div>
           <hr />
