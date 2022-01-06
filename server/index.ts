@@ -30,8 +30,8 @@ app.use(cors(corsOptions));
 // contributionsRouter.post("/", addContribution(services));
 // app.use("/contributions", contributionsRouter);
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   return console.log(`Express is listening at http://localhost:${port}`);
+// });
 
 module.exports = { app, services };
