@@ -10,50 +10,50 @@
 // generated type enums from prisma not being actual typescript enums... need to add type workaround
 // https://github.com/prisma/prisma1/issues/3429
 export enum Prompt {
-    LooksLike = "LooksLike",
-    WeNeed = "WeNeed",
-    Example = "Example",
+  LooksLike = "LooksLike",
+  WeNeed = "WeNeed",
+  Example = "Example",
 }
 export enum Pattern {
-    Interoperability = "Interoperability",
-    Pluriverse = "Pluriverse",
-    Agency = "Agency",
-    Regeneration = "Regeneration",
-    Privacy = "Privacy",
-    Voice = "Voice",
-    EngagementAndAttention = "Engagement and Attention",
-    Commons = "Commons",
+  Interoperability = "Interoperability",
+  Pluriverse = "Pluriverse",
+  Agency = "Agency",
+  Regeneration = "Regeneration",
+  Privacy = "Privacy",
+  Voice = "Voice",
+  EngagementAndAttention = "Engagement and Attention",
+  Commons = "Commons",
 }
 
 export interface Author {
-    walletId: string;
-    twitterVerified: boolean;
-    twitterUsername?: string;
+  walletId: string;
+  twitterVerified: boolean;
+  twitterUsername?: string;
 }
 
 export interface Contribution {
-    author: Author;
-    // This should be the full text response, formatted as markdown.
-    response: string;
-    prompt: Prompt;
-    pattern: Pattern;
-    createdAt: Date;
+  author: Author;
+  // This should be the full text response, formatted as markdown.
+  response: string;
+  prompt: Prompt;
+  pattern: Pattern;
+  createdAt: Date;
 }
 
 export interface AddContributionRequest {
-    walletId: string;
-    // This should be the full text response, formatted as markdown.
-    response: string;
-    prompt: Prompt;
-    pattern: Pattern;
+  walletId: string;
+  // This should be the full text response, formatted as markdown.
+  response: string;
+  prompt: Prompt;
+  pattern: Pattern;
 }
 
 export type AddContributionResponse = number;
 
 export interface GetContributionsRequest {
-    offset?: number;
+  offset?: number;
 }
 
 export interface GetContributionRequest {
-    id: number;
+  id: number;
 }
