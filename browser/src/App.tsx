@@ -56,14 +56,16 @@ function App() {
         <div className="fadeOutOnScroll">
           <Hero />
         </div>
-        <div id="essay-content" ref={essayContentRef}>
-          <EssayContent />
-        </div>
-        <div ref={patternsContentRef}>
-          <PatternsContent />
-        </div>
-        <div className="container w-full md:max-w-3xl mx-auto pb-20">
-          <ContributionSection />
+        <div style={{ backdropFilter: `blur(3px)` }}>
+          <div id="essay-content" ref={essayContentRef}>
+            <EssayContent />
+          </div>
+          <div ref={patternsContentRef}>
+            <PatternsContent />
+          </div>
+          <div className="container w-full md:max-w-3xl mx-auto pb-20">
+            <ContributionSection />
+          </div>
         </div>
       </main>
       <GradientManager
