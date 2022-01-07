@@ -1,5 +1,9 @@
 import express from "express";
 import cors from "cors";
+
+import dotenv from "dotenv";
+dotenv.config()
+
 import { PrismaClient } from "@prisma/client";
 import { addContribution } from "./api-handlers/add_contribution";
 import { getContributions } from "./api-handlers/get_contributions";
@@ -14,7 +18,7 @@ const corsOptions = {
   origin: process.env.ORIGIN || "http://localhost:3000",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 const prisma = new PrismaClient();
 const services = { prisma };
