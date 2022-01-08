@@ -26,7 +26,7 @@ export function verify({prisma}: Services): RequestHandler {
 
         if (existingUser.twitterVerified) {
             console.log(`already verified user: @${existingUser.twitterUsername}`);
-            res.json({ status: "ok", msg: "already verified"});
+            res.status(200).json({msg: "already verified"})
             return;
         }
 
