@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Pattern, Prompt } from "../types/common/server-api";
 import { sha256 } from "ethers/lib/utils";
 import Blob from "./Blob";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { randomEuler } from "./Blobs";
 
 function toHex(str: string) {
   return str
@@ -28,7 +29,7 @@ const PromptDensityStart = 0.25;
 const PromptDensityIncrement = 0.5;
 const PromptAlphaStart = 0.75;
 const PromptAlphaIncrement = 0.07;
-const PatternColorIncrement = 0.2;
+const PatternColorIncrement = 0.1;
 
 export function BlobSingle({
   walletId,
@@ -43,6 +44,7 @@ export function BlobSingle({
 }): React.ReactElement {
   // 64 chars long sha256 str
   const contrib = `${walletId}: ${response}`;
+  const rotation = useMemo(() => randomEuler(), []);
 
   const [message, setMessage] = useState(sha256(`0x${toHex(contrib)}`));
   useEffect(() => {
@@ -73,6 +75,7 @@ export function BlobSingle({
       />
       <Blob
         size={5}
+        meshProps={{ rotation }}
         speed={getMessageChunk(message, 0, 0, 0.5)}
         color={Object.keys(Pattern).indexOf(pattern) * PatternColorIncrement}
         alpha={
@@ -84,7 +87,7 @@ export function BlobSingle({
           PromptDensityStart +
           Object.keys(Prompt).indexOf(prompt) * PromptDensityIncrement
         }
-        strength={getMessageChunk(message, 2, 0, 0.2)}
+        strength={getMessageChunk(message, 2, 0.04, 0.2)}
         offset={getMessageChunk(message, 3, 0, 2 * Math.PI)}
       />
     </Canvas>

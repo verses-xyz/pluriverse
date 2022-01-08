@@ -1,0 +1,16 @@
+.contributionPreview {
+    display: flex;
+    flex-direction:column;
+}
+
+.contributionPreview > * {
+    margin: 10px;
+}
+
+.contributionPreviewRow {
+    flex-direction: row !important;
+}
+
+.contributionPreviewRow > .seeAll {
+    align-self: flex-end !important;
+}

@@ -1,5 +1,5 @@
 import "./ContributionSection.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { descriptionText } from "../classNameConstants";
 import {
   Contribution,
@@ -12,7 +12,7 @@ import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
 import { ButtonClass } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
-import { getWalletAddress, signAndValidate } from "src/helpers/wallet";
+import { signAndValidate } from "src/helpers/wallet";
 import { ContributionCard } from "./ContributionCard";
 
 enum Page {
@@ -174,18 +174,29 @@ function TermsOfUse() {
           <div className="terms">
             <h2 className="text-3xl font-bold">TERMS OF USE AGREEMENT</h2>
             <p>
-              PLEASE READ THE ABOVE ESSAY (“ESSAY”) CAREFULLY BEFORE{" "}
-              <b className="shimmer">PLURIVERSE</b>-BUILDING. THIS IS NOT A
-              LEGAL AGREEMENT BETWEEN YOU AND ANY ENTITY, BUT RATHER AN
-              ACKNOWLEDGEMENT THAT YOU RECOGNIZE THE IMPORTANCE OF THE HISTORY,
+              PLEASE READ THE ABOVE ESSAY (“<b>ESSAY</b>”) CAREFULLY BEFORE{" "}
+              <b className="shimmer">PLURIVERSE</b>-BUILDING.
+            </p>
+            <p>
+              THIS IS <b>NOT</b> A LEGAL AGREEMENT BETWEEN YOU AND ANY ENTITY;
+              RATHER, IT IS AN ACKNOWLEDGEMENT THAT YOU UNDERSTAND THE HISTORY,
               DECOLONIAL ORIGINS, AND DEFINITION OF THE TERM{" "}
               <b className="shimmer">“PLURIVERSE”</b> AND HOW ITS ETHIC MIGHT BE
-              EXTENDED TO THE DIGITAL REALM. BY INVOKING THE TERM{" "}
-              <b className="shimmer">PLURIVERSE</b>, YOU ARE RECOGNIZING THE
-              PATH SET OUT BY THE ABOVE PATTERNS (“PATTERNS”) IN BRINGING THE
-              DIGITAL <b className="shimmer">PLURIVERSE</b> ABOUT. YOU EXPRESSLY
+              EXTENDED TO THE DIGITAL REALM.
+            </p>
+            <p>
+              BY INVOKING THE TERM <b className="shimmer">PLURIVERSE</b>, YOU
+              ARE RECOGNIZING THE PATH SET OUT BY THE ABOVE PATTERNS (“
+              <b>PATTERNS</b>”) IN BRINGING THE DIGITAL{" "}
+              <b className="shimmer">PLURIVERSE</b> ABOUT. YOU EXPRESSLY
               ACKNOWLEDGE THAT THE ENTIRE RESPONSIBILITY / LIABILITY AS TO THE
-              REALIZATION OF THE PLURIVERSE LIES WITH US.
+              REALIZATION OF THE PLURIVERSE <b>LIES WITH US</b>.
+            </p>
+            <br />
+            <p className="metaText">
+              A copy of the Essay will live on the permaweb and can be found at{" "}
+              <a href="">Arweave</a>. It also lives on the web on{" "}
+              <a href="#">pluriverse.world</a>
             </p>
             <div className="actionsContainer">
               <button className={ButtonClass("white")}>Disagree</button>
@@ -295,6 +306,7 @@ function TermsOfUse() {
               contribution={selectedContribution!}
             ></ContributionCard>
             <br />
+            {/* TODO: add share on X,Y,Z CTAs */}
             <button
               onClick={() => setPage(Page.Sign)}
               className={ButtonClass("blue")}

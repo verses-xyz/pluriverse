@@ -13,6 +13,10 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+.terms > p {
+  line-height: 1.4;
+}
+
 .actionsContainer {
   display: flex;
   margin-top: 24px;
@@ -61,4 +65,8 @@ ul {
 
 ul > li:not(:first-child) {
   margin-top: 10px;
+}
+
+.metaText {
+  font-size: 100%;
 }

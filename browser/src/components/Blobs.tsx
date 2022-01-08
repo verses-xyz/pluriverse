@@ -6,7 +6,7 @@ const randomVector = (r) => [
   r / 2 - Math.random() * r,
 ];
 
-const randomEuler = () => [
+export const randomEuler = () => [
   Math.random() * Math.PI,
   Math.random() * Math.PI,
   Math.random() * Math.PI,

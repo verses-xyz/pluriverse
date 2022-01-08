@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { getContributions } from "src/helpers/api";
-import { Contribution } from "src/types/common/server-api";
+import { Contribution, Pattern } from "src/types/common/server-api";
+import { ButtonClass } from "src/types/styles";
 import { Principles } from "../types";
 import { ContributionCard } from "./ContributionCard";
+import "./PatternsContent.css";
+
+const PreviewContributionLimit = 3;
 
 export default function PatternsContent() {
   const [contributions, setContributions] = useState<Contribution[]>([]);
@@ -12,7 +16,30 @@ export default function PatternsContent() {
     setContributions(newContributions);
   }, []);
 
-  console.log(contributions);
+  function renderContributionPreview(pattern: Pattern, className?: string) {
+    const filteredContributions = contributions.filter(
+      (c) => c.pattern === pattern
+    );
+    return (
+      <div className={`contributionPreview ${className ? className : ""}`}>
+        {filteredContributions
+          .slice(0, PreviewContributionLimit)
+          .map((contribution) => (
+            // <blockquote className="pb-14">
+            //   <p className="pt-0">{contribution.response}</p>
+            //   <p className="italic text-right">–{contribution.author}</p>
+            // </blockquote>
+            <ContributionCard contribution={contribution} />
+          ))}
+        {filteredContributions.length > PreviewContributionLimit && (
+          <div style={{ alignSelf: "flex-start" }} className="seeAll">
+            {/* TODO: fill in the onclick */}
+            <button className={ButtonClass()}>See all</button>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="container w-full md:max-w-7xl mx-auto pb-20">
@@ -38,6 +65,12 @@ export default function PatternsContent() {
           </div>
         </div>
       </div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {renderContributionPreview(
+          Pattern.Pluriverse,
+          "contributionPreviewRow"
+        )}
+      </div>
       <hr />
       {Object.values(Principles).map(({ title, body }, index) => (
         <>
@@ -62,15 +95,7 @@ export default function PatternsContent() {
               </p>
             </div>
             <div className="pl-8">
-              {contributions
-                .filter((c) => c.pattern === title)
-                .map((contribution) => (
-                  // <blockquote className="pb-14">
-                  //   <p className="pt-0">{contribution.response}</p>
-                  //   <p className="italic text-right">–{contribution.author}</p>
-                  // </blockquote>
-                  <ContributionCard contribution={contribution} />
-                ))}
+              {renderContributionPreview(title as Pattern)}
             </div>
           </div>
           <hr />
