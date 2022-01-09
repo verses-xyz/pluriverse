@@ -15,7 +15,6 @@ import {
 // https://vercel.com/changelog/ip-geolocation-now-available-for-all-plans
 export function addContribution({ prisma }: Services): RequestHandler {
   return async (req, res) => {
-    console.log(req.body);
     const { walletId, response, prompt, pattern } =
       req.body as AddContributionRequest;
 

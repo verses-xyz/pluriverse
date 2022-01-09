@@ -56,7 +56,7 @@ function App() {
         <div className="fadeOutOnScroll">
           <Hero />
         </div>
-        <div style={{ backdropFilter: `blur(3px)` }}>
+        <div>
           <div id="essay-content" ref={essayContentRef}>
             <EssayContent />
           </div>
