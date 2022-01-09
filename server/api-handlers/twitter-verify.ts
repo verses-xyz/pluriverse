@@ -19,14 +19,14 @@ export function verify({prisma}: Services): RequestHandler {
     return async (req, res) => {
         const handle = req.params.handle;
         const { signature, walletId } = req.body;
-
+        
         const existingUser = await prisma.user.findFirst({
             where: { id: walletId },
         });
 
-        if (existingUser.twitterVerified) {
+        if (existingUser?.twitterVerified) {
             console.log(`already verified user: @${existingUser.twitterUsername}`);
-            res.json({ status: "ok", msg: "already verified"});
+            res.status(200).json({ msg: "already verified"});
             return;
         }
 

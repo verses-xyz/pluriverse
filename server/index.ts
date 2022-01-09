@@ -38,7 +38,7 @@ contributionsRouter.post("/", addContribution(services));
 app.use("/contributions", contributionsRouter);
 
 const twitterRouter = express.Router();
-twitterRouter.post("/verify", verify(services));
+twitterRouter.post("/verify/:handle", verify(services));
 app.use("/twitter", twitterRouter);
 
 app.listen(port, () => {
