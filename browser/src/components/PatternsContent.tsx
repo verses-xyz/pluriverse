@@ -4,6 +4,7 @@ import { Contribution, Pattern } from "src/types/common/server-api";
 import { ButtonClass } from "src/types/styles";
 import { Principles } from "../types";
 import { ContributionCard } from "./ContributionCard";
+import ContributionsGrid from "./ContributionsGrid";
 import "./PatternsContent.css";
 
 const PreviewContributionLimit = 3;
@@ -65,38 +66,36 @@ export default function PatternsContent() {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      {/* <div style={{ display: "flex", alignItems: "center" }}>
         {renderContributionPreview(
           Pattern.Pluriverse,
           "contributionPreviewRow"
         )}
-      </div>
+      </div> */}
       <hr />
       {Object.values(Principles).map(({ title, body }, index) => (
         <>
-          <div className="grid grid-cols-3 px-8 pb-16 pt-16">
-            <div className="col-span-2 pl-4 pr-10">
-              <h3 className="font-title font-mono text-4xl font-bold pb-10">
-                0{index + 1}.{title}
-              </h3>
-              <h4 className="font-title text-2xl font-bold ">The problem</h4>
-              <p>{body}</p>
-              <h4 className="font-title text-2xl font-bold pt-10">
-                The solution
-              </h4>
-              <p>
-                The many worlds of the pluriverse must be connected. Meaningful
-                interoperability will be both technical and institutional; the
-                data moats of today will give way to the portable social graphs
-                and cooperative data structures of tomorrow. We will
-                reconstitute interoperability as building pathways and
-                connections between rich universes, cross-pollinating
-                relationships and knowledge across modalities of communication
-              </p>
+          <div className="px-8 pb-16 pt-16">
+            <h3 className="font-title font-mono text-5xl font-bold pb-16">
+              0{index + 1}.{title}
+            </h3>
+            <div className="grid grid-cols-2 gap-16">
+              <div>
+                <h4 className="font-title text-3xl font-bold">The problem</h4>
+                <p>{body}</p>
+              </div>
+              <div>
+                <h4 className="font-title text-3xl font-bold">The solution</h4>
+                <p>
+                  The many worlds of the pluriverse must be connected.
+                  Meaningful interoperability will be both technical and
+                  institutional; the data moats of today will give way to the
+                  portable social graphs and cooperative data structures of
+                  tomorrow.
+                </p>
+              </div>
             </div>
-            <div className="pl-8">
-              {renderContributionPreview(title as Pattern)}
-            </div>
+            <ContributionsGrid />
           </div>
           <hr />
         </>

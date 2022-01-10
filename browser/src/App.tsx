@@ -7,6 +7,7 @@ import UniverseScene from "./components/UniverseScene";
 import GradientManager from "./components/GradientManager";
 import useGsap from "./hook/useGsap";
 import { ContributionSection } from "./components/ContributionSection";
+import IndexTimeline from "./components/IndexTimeline";
 
 function App() {
   const gsap = useGsap();
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <div>
+      <IndexTimeline />
       <main>
         <div className="fadeOutOnScroll">
           <Hero />
