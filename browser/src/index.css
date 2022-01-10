@@ -129,3 +129,40 @@ blockquote:before {
   color: white;
   opacity: 0.6;
 }
+
+.glass-button {
+  font-family: "Roboto Mono";
+  display: inline-block;
+  padding: 10px 30px;
+  border: 0;
+  text-decoration: none;
+  border-radius: 60px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.glass-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* .glass-button::before {
+  position: absolute;
+  top: 5px;
+  left: 10%;
+  z-index: -1;
+  width: 80%;
+  height: 30px;
+  border-radius: 50px;
+  background-color: #cad0e0;
+  filter: blur(10px);
+  content: "";
+  transition: 0.5s;
+}
+
+.glass-button:hover::before {
+  transform: scale(1.4);
+} */
