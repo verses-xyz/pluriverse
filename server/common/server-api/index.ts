@@ -29,6 +29,7 @@ export interface Author {
   walletId: string;
   twitterVerified: boolean;
   twitterUsername?: string;
+  createdAt: Date;
 }
 
 export interface Contribution {
@@ -50,11 +51,15 @@ export interface AddContributionRequest {
 
 export type AddContributionResponse = number;
 
-export interface AddSignatureRequest {
+export interface AddUserRequest {
   walletId: string;
 }
 
-export type AddSignatureResponse = string;
+export type AddUserResponse = string;
+
+export interface GetUserRequest {
+  id: string;
+}
 
 export interface GetContributionsRequest {
   offset?: number;

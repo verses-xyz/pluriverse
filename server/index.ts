@@ -9,7 +9,8 @@ import { addContribution } from "./api-handlers/add_contribution";
 import { getContributions } from "./api-handlers/get_contributions";
 import { getContribution } from "./api-handlers/get_contribution";
 import { verify } from "./api-handlers/twitter-verify";
-import { addSignature } from "api-handlers/add_user";
+import { addUser } from "./api-handlers/add_user";
+import { getUser } from "./api-handlers/get_user";
 // import contributions from "./api/contributions";
 
 const app = express();
@@ -32,7 +33,8 @@ app.use(cors(corsOptions));
 // app.use("/api/contributions", contributions)
 
 const usersRouter = express.Router();
-usersRouter.post("/", addSignature(services));
+usersRouter.post("/", addUser(services));
+usersRouter.get("/:id", getUser(services));
 app.use("/users", usersRouter);
 
 const contributionsRouter = express.Router();

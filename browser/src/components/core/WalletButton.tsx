@@ -1,7 +1,6 @@
 import { connectWallet, getWalletAddress } from "src/helpers/wallet";
 import { ButtonClass } from "src/types/styles";
 import { ButtonHTMLAttributes, useState } from "react";
-// TODO: fill this in with the same from terms of agreement.
 
 interface BaseProps {
   children?: React.ReactNode;
@@ -27,7 +26,7 @@ export function ConnectWalletButton({
     try {
       await connectWallet();
       const connectedWalletAddress = await getWalletAddress();
-      onSubmit(connectedWalletAddress);
+      await onSubmit(connectedWalletAddress);
     } catch (err: unknown) {
       console.log(err);
       onError(err as Error);

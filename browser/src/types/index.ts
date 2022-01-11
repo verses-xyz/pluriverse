@@ -1,4 +1,4 @@
-import { Pattern, Prompt } from "../types/common/server-api";
+import { Pattern, PatternToDisplay, Prompt } from "../types/common/server-api";
 
 export enum TraitType {
   Prompt,
@@ -28,24 +28,11 @@ export function getPatternPlaceholder(
   pattern: Pattern,
   prompt: Prompt
 ): string {
-  let placeholder = "";
+  let placeholder = PatternToDisplay[pattern];
   switch (pattern) {
     case Pattern.Pluriverse:
     case Pattern.Commons:
       placeholder = `the ${pattern}`;
-      break;
-
-    case Pattern.Interoperability:
-    case Pattern.Agency:
-    case Pattern.Regeneration:
-    case Pattern.Privacy:
-    case Pattern.Voice:
-      placeholder = pattern;
-      break;
-
-    case Pattern.EngagementAndAttention:
-      placeholder = "Engagement and Attention";
-      break;
   }
   return prompt === Prompt.LooksLike
     ? placeholder[0].toUpperCase() + placeholder.slice(1)
@@ -57,49 +44,49 @@ export const Principles: Record<
   Principle
 > = {
   [Pattern.Interoperability]: {
-    title: Pattern.Interoperability,
+    title: PatternToDisplay[Pattern.Interoperability],
     body: `The many worlds of the pluriverse must be connected. We cannot allow walled garden platforms to sever or stymie the highways and networks between worlds. Nor can we accept their definition of interoperability as the movement of private property and monetized assets, this is merely an attempt to enforce digital scarcity where there was once digital abundance.
 
 Meaningful interoperability will be both technical and institutional; the data moats of today will give way to the portable social graphs and cooperative data structures of tomorrow. We will reconstitute interoperability as building pathways and connections between rich universes, cross-pollinating relationships and knowledge across modalities of communication
 `,
   },
   [Pattern.Agency]: {
-    title: Pattern.Agency,
+    title: PatternToDisplay[Pattern.Agency],
     body: `The many worlds of the pluriverse must be connected. We cannot allow walled garden platforms to sever or stymie the highways and networks between worlds. Nor can we accept their definition of interoperability as the movement of private property and monetized assets, this is merely an attempt to enforce digital scarcity where there was once digital abundance.
 
 Meaningful interoperability will be both technical and institutional; the data moats of today will give way to the portable social graphs and cooperative data structures of tomorrow. We will reconstitute interoperability as building pathways and connections between rich universes, cross-pollinating relationships and knowledge across modalities of communication
 `,
   },
   [Pattern.Regeneration]: {
-    title: Pattern.Regeneration,
+    title: PatternToDisplay[Pattern.Regeneration],
     body: `The many worlds of the pluriverse must be connected. We cannot allow walled garden platforms to sever or stymie the highways and networks between worlds. Nor can we accept their definition of interoperability as the movement of private property and monetized assets, this is merely an attempt to enforce digital scarcity where there was once digital abundance.
 
 Meaningful interoperability will be both technical and institutional; the data moats of today will give way to the portable social graphs and cooperative data structures of tomorrow. We will reconstitute interoperability as building pathways and connections between rich universes, cross-pollinating relationships and knowledge across modalities of communication
 `,
   },
   [Pattern.Privacy]: {
-    title: Pattern.Privacy,
+    title: PatternToDisplay[Pattern.Privacy],
     body: `The many worlds of the pluriverse must be connected. We cannot allow walled garden platforms to sever or stymie the highways and networks between worlds. Nor can we accept their definition of interoperability as the movement of private property and monetized assets, this is merely an attempt to enforce digital scarcity where there was once digital abundance.
 
 Meaningful interoperability will be both technical and institutional; the data moats of today will give way to the portable social graphs and cooperative data structures of tomorrow. We will reconstitute interoperability as building pathways and connections between rich universes, cross-pollinating relationships and knowledge across modalities of communication
 `,
   },
   [Pattern.Voice]: {
-    title: Pattern.Voice,
+    title: PatternToDisplay[Pattern.Voice],
     body: `The many worlds of the pluriverse must be connected. We cannot allow walled garden platforms to sever or stymie the highways and networks between worlds. Nor can we accept their definition of interoperability as the movement of private property and monetized assets, this is merely an attempt to enforce digital scarcity where there was once digital abundance.
 
 Meaningful interoperability will be both technical and institutional; the data moats of today will give way to the portable social graphs and cooperative data structures of tomorrow. We will reconstitute interoperability as building pathways and connections between rich universes, cross-pollinating relationships and knowledge across modalities of communication
 `,
   },
   [Pattern.EngagementAndAttention]: {
-    title: Pattern.EngagementAndAttention,
+    title: PatternToDisplay[Pattern.EngagementAndAttention],
     body: `The many worlds of the pluriverse must be connected. We cannot allow walled garden platforms to sever or stymie the highways and networks between worlds. Nor can we accept their definition of interoperability as the movement of private property and monetized assets, this is merely an attempt to enforce digital scarcity where there was once digital abundance.
 
 Meaningful interoperability will be both technical and institutional; the data moats of today will give way to the portable social graphs and cooperative data structures of tomorrow. We will reconstitute interoperability as building pathways and connections between rich universes, cross-pollinating relationships and knowledge across modalities of communication
 `,
   },
   [Pattern.Commons]: {
-    title: Pattern.Commons,
+    title: PatternToDisplay[Pattern.Commons],
     body: `The many worlds of the pluriverse must be connected. We cannot allow walled garden platforms to sever or stymie the highways and networks between worlds. Nor can we accept their definition of interoperability as the movement of private property and monetized assets, this is merely an attempt to enforce digital scarcity where there was once digital abundance.
 
 Meaningful interoperability will be both technical and institutional; the data moats of today will give way to the portable social graphs and cooperative data structures of tomorrow. We will reconstitute interoperability as building pathways and connections between rich universes, cross-pollinating relationships and knowledge across modalities of communication

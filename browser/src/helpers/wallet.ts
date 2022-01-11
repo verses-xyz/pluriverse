@@ -1,11 +1,10 @@
 import { ethers } from "ethers";
-import { PluriverseAgreement } from "src/components/ContributionSection";
 
 export async function connectWallet() {
   await window.ethereum.request({ method: "eth_requestAccounts" });
 }
 
-export async function generateSignature(): Promise<string> {
+export async function generateSignature(textToSign: string): Promise<string> {
   if (!window.ethereum) {
     throw new Error(
       "No wallet found. Please install Metamask or another Web3 wallet provider."
@@ -15,7 +14,7 @@ export async function generateSignature(): Promise<string> {
   // Sign the declaration. Any errors here should be handled by the caller.
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  return await signer.signMessage(PluriverseAgreement);
+  return await signer.signMessage(textToSign);
 }
 
 export async function getWalletAddress(): Promise<string> {
@@ -23,21 +22,16 @@ export async function getWalletAddress(): Promise<string> {
   return await provider.getSigner().getAddress();
 }
 
-export async function signAndValidate(
-  contributionResponse: string
-): Promise<void> {
+export async function signAndValidate(textToSign: string): Promise<void> {
   // TODO: add the response at the top or bottom of the pluriverse article/agreement?
-  const signature = await generateSignature();
+  const signature = await generateSignature(textToSign);
   console.log(signature);
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   console.log(signer);
   const address = await signer.getAddress();
   console.log(address);
-  const verifyingAddress = ethers.utils.verifyMessage(
-    PluriverseAgreement,
-    signature
-  );
+  const verifyingAddress = ethers.utils.verifyMessage(textToSign, signature);
   if (verifyingAddress !== address) {
     throw new Error("Invalid Signature!");
   }

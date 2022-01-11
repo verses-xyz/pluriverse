@@ -1,4 +1,4 @@
-import { Contribution } from "src/types/common/server-api";
+import { Contribution, PatternToDisplay } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import { BlobSingle } from "src/components/BlobSingle";
 import "./ContributionCard.css";
@@ -31,7 +31,9 @@ export function ContributionCard({ contribution, hideHeader }: Props) {
 
   return (
     <div className="contributionCardContainer">
-      {!hideHeader && <h2 className="text-2xl font-bold">{pattern}</h2>}
+      {!hideHeader && (
+        <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
+      )}
       <p className="">
         {replaceJSX(PromptDescriptions[prompt], {
           [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,

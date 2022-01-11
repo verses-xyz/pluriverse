@@ -4,6 +4,7 @@ import { Fragment } from "react";
 
 export interface DropdownItem {
   name: string;
+  displayName?: string;
   onClick: () => void;
 }
 
@@ -59,7 +60,7 @@ export function Dropdown({
                     )}
                     onClick={item.onClick}
                   >
-                    {item.name}
+                    {item.displayName ?? item.name}
                   </button>
                 )}
               </Menu.Item>

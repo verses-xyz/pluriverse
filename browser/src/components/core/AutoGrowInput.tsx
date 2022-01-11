@@ -5,7 +5,7 @@ interface Props {
   value?: string;
   onChange: (value: string) => void;
   className?: string;
-  extraProps?: InputHTMLAttributes<HTMLInputElement>;
+  extraProps?: InputHTMLAttributes<HTMLTextAreaElement>;
 }
 
 export function AutoGrowInput({
@@ -47,9 +47,10 @@ export function AutoGrowInput({
     //   </span>
     <div className={`auto-grow-input ${className ? className : ""}`}>
       <textarea
+        {...(extraProps || {})}
         className="form-textarea mt-1 block w-full"
         style={{ width: "300px", height: "200px" }}
-        placeholder="Enter your response to the prompt..."
+        // placeholder="Enter your response to the prompt..."
         value={value}
         onChange={(event) => onChange(event.target.value)}
       ></textarea>

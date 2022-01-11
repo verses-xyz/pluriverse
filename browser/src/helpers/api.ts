@@ -4,6 +4,10 @@ import {
   GetContributionRequest,
   Contribution,
   GetContributionsRequest,
+  AddUserRequest,
+  Author,
+  AddUserResponse,
+  GetUserRequest,
 } from "../types/common/server-api";
 
 const ApiUrl =
@@ -63,4 +67,22 @@ export async function getContributions(
     method: "GET",
   });
   return response as Contribution[];
+}
+
+export async function getUser({ id }: GetUserRequest): Promise<Author> {
+  const response = await makeRequest(`${ApiUrl}/users/${id}`, {
+    method: "GET",
+  });
+  return response as Author;
+}
+
+export async function addUser(
+  request: AddUserRequest
+): Promise<AddUserResponse> {
+  const response = await makeRequest(`${ApiUrl}/users`, {
+    body: request,
+    method: "POST",
+  });
+  console.log(`Added ${response} user`);
+  return response as AddUserResponse;
 }

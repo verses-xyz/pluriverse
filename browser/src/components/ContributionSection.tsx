@@ -4,6 +4,7 @@ import { descriptionText } from "../classNameConstants";
 import {
   Contribution,
   Pattern,
+  PatternToDisplay,
   Prompt,
 } from "../types/common/server-api/index";
 import { Dropdown, DropdownItem } from "./core/Dropdown";
@@ -14,14 +15,25 @@ import { ButtonClass } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
 import { signAndValidate } from "src/helpers/wallet";
 import { ContributionCard } from "./ContributionCard";
+import { getUser } from "src/helpers/api";
 
 enum Page {
   TermsOfUse,
-  Sign,
+  Contribute,
   Share,
 }
 
-export const PluriverseAgreement = "I agree to...";
+// TODO: update this
+export const PluriverseAgreement = `•   I understand the history of the term pluriverse and how we intend to use it moving forward
+•   I understand how a pluriversal world is different from our current world and how we get there via the "Patterns."
+•   I want to help build the pluriverse together
+
+WE ARE TOLD THAT THE AGE OF THE METAVERSE IS UPON US. The Metaverse, led by Meta, allows and celebrates monopoly, gating access to the length and breadth of the digital ecosystem. The monopolies of the Metaverse take what was once collective and ensure it is bought, sold, measured, and speculated upon. The Metaverse expands as a homogenizing monoculture, assimilating ecosystems, displacing extant species, and enclosing digital abundance into enforced scarcity. A new-age Columbus of digits and pixels, Meta purports to chart new territory while simply recycling the harms and stagnation of the old. The Metaverse we are promised is not a gift we should accept, but a shackles in disguise. This is an empty land grab for the commons of the future and the resources of the past. This is no Metaverse, this is a monoverse.
+
+But we have brighter dreams, of brighter technological futures. Futures that are rooted in history, that prefigure infinite gardens of collective wisdom, intelligence, and collaboration. Futures where we move past promises of mere "freedom from" towards the shared capacity for building "freedoms to". Futures of polycentrism, where resources are owned and governed by the many, and where false scarcity again gives way to the creation of common spaces, collectively-owned public infrastructure, and shared, self-sovereign worlds. Spaces of plurality, where choice is meaningful because difference is prized; all the better to create a resilient ecology of diverse co-existence. We propose these dreams and futures be gathered under a different banner.
+
+Together, we can steward these new futures; we invite you to dream, collaborate, and strategize towards a different world. We propose to gather these worlds around a different banner: the Pluriverse.
+`;
 export const Placeholder = "________";
 export const replaceJSX = (
   str: string,
@@ -45,6 +57,13 @@ export const PromptDescriptions: Record<Prompt, string> = {
   [Prompt.WeNeed]: `We need {${Placeholder}} because`,
   [Prompt.Example]: `An example of {${Placeholder}} is`,
 };
+
+const PromptDescriptionsToDisplay: Record<Prompt, string> = Object.entries(
+  PromptDescriptions
+).reduce((acc, cur) => {
+  acc[cur[0]] = cur[1].replaceAll(/\{|\}/g, "");
+  return acc;
+}, {});
 
 function PreviewCard({
   walletAddress,
@@ -81,11 +100,13 @@ function TermsOfUse() {
 
   const PromptItems: DropdownItem[] = Object.keys(Prompt).map((promptKey) => ({
     name: PromptDescriptions[Prompt[promptKey as keyof typeof Prompt]],
+    displayName: PromptDescriptionsToDisplay[promptKey as keyof typeof Prompt],
     onClick: () => setSelectedPrompt(promptKey as unknown as Prompt),
   }));
   const PatternItems: DropdownItem[] = Object.keys(Pattern).map(
     (patternKey) => ({
       name: Pattern[patternKey as keyof typeof Pattern] as string,
+      displayName: PatternToDisplay[patternKey as keyof typeof Pattern],
       onClick: () => setSelectedPattern(patternKey as Pattern),
     })
   );
@@ -95,17 +116,17 @@ function TermsOfUse() {
       items={PromptItems}
       defaultOption="Select a prompt..."
       selectedItemName={
-        selectedPrompt ? (PromptDescriptions[selectedPrompt] as any) : undefined
+        selectedPrompt
+          ? (PromptDescriptionsToDisplay[selectedPrompt] as any)
+          : undefined
       }
+      className="patternSelect"
     />
   );
   const patternSelect = (
     <Dropdown
       items={PatternItems}
-      selectedItemName={
-        selectedPattern &&
-        (Pattern[selectedPattern as keyof typeof Pattern] as string)
-      }
+      selectedItemName={selectedPattern && PatternToDisplay[selectedPattern]}
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       className="patternSelect"
@@ -174,37 +195,66 @@ function TermsOfUse() {
           <div className="terms">
             <h2 className="text-3xl font-bold">TERMS OF USE AGREEMENT</h2>
             <p>
-              PLEASE READ THE ABOVE ESSAY (“<b>ESSAY</b>”) CAREFULLY BEFORE{" "}
-              <b className="shimmer">PLURIVERSE</b>-BUILDING.
+              PLEASE READ THE ABOVE ESSAY (“<b>ESSAY</b>”) BEFORE{" "}
+              <b>PLURIVERSE</b>-BUILDING.
             </p>
             <p>
-              THIS IS <b>NOT</b> A LEGAL AGREEMENT BETWEEN YOU AND ANY ENTITY;
-              RATHER, IT IS AN ACKNOWLEDGEMENT THAT YOU UNDERSTAND THE HISTORY,
-              DECOLONIAL ORIGINS, AND DEFINITION OF THE TERM{" "}
-              <b className="shimmer">“PLURIVERSE”</b> AND HOW ITS ETHIC MIGHT BE
-              EXTENDED TO THE DIGITAL REALM.
+              THIS IS <b>NOT</b> A LEGAL AGREEMENT BETWEEN YOU AND ANY ENTITY.
+              IT IS AN ACKNOWLEDGEMENT OF THE DECOLONIAL ORIGINS AND DEFINITION
+              OF THE TERM <b>“PLURIVERSE”</b> AND HOW WE MIGHT EXTEND ITS ETHIC
+              TO THE DIGITAL REALM THROUGH THE ABOVE PATTERNS (“
+              <b>PATTERNS</b>”).
             </p>
             <p>
-              BY INVOKING THE TERM <b className="shimmer">PLURIVERSE</b>, YOU
-              ARE RECOGNIZING THE PATH SET OUT BY THE ABOVE PATTERNS (“
-              <b>PATTERNS</b>”) IN BRINGING THE DIGITAL{" "}
-              <b className="shimmer">PLURIVERSE</b> ABOUT. YOU EXPRESSLY
-              ACKNOWLEDGE THAT THE ENTIRE RESPONSIBILITY / LIABILITY AS TO THE
-              REALIZATION OF THE PLURIVERSE <b>LIES WITH US</b>.
+              YOU EXPRESSLY ACKNOWLEDGE THAT THE ENTIRE RESPONSIBILITY /
+              LIABILITY AS TO THE REALIZATION OF THE PLURIVERSE{" "}
+              <b>LIES WITH US</b>.
             </p>
-            <br />
+            <p style={{ paddingTop: "0px", marginLeft: "24px" }}>
+              <ul className="list-disc">
+                <p>
+                  <li>
+                    I understand the history of the term{" "}
+                    <b className="shimmer">pluriverse</b> and how we intend to
+                    use it moving forward
+                  </li>
+                  <li>
+                    I understand how a <b className="shimmer">pluriversal</b>{" "}
+                    world is different from our current world and how we get
+                    there via the “Patterns.”
+                  </li>
+                  <li>
+                    I want to help build the{" "}
+                    <b className="shimmer">pluriverse</b> together
+                  </li>
+                </p>
+              </ul>
+            </p>
             <p className="metaText">
               A copy of the Essay will live on the permaweb and can be found at{" "}
               <a href="">Arweave</a>. It also lives on the web on{" "}
-              <a href="#">pluriverse.world</a>
+              <a href="#">pluriverse.world</a>.
+              <br />
+              To agree and sign, you need a Metamask wallet. Need help? Check
+              out this <a href="">guide</a>.
             </p>
             <div className="actionsContainer">
+              {/* TODO: link to github forking or form */}
               <button className={ButtonClass("white")}>Disagree</button>
               <ConnectWalletButton
-                onSubmit={(connectedWalletAddress) => {
-                  setWalletAddress(connectedWalletAddress);
+                onSubmit={async (connectedWalletAddress) => {
+                  // Validate user
+                  const existingUser = await getUser({
+                    id: connectedWalletAddress,
+                  });
+                  if (!existingUser) {
+                    await signAndValidate(PluriverseAgreement);
+                  }
+
+                  // finish
                   setError(undefined);
-                  setPage(Page.Sign);
+                  setWalletAddress(connectedWalletAddress);
+                  setPage(Page.Contribute);
                 }}
                 onError={handleErr}
               >
@@ -213,28 +263,10 @@ function TermsOfUse() {
             </div>
           </div>
         );
-      case Page.Sign:
+      case Page.Contribute:
         return (
           <div className="signContainer">
-            <h2 className="text-4xl font-bold">Signing</h2>
-            <p style={{ paddingTop: "0px" }}>
-              <ul className="list-disc list-inside">
-                <li>
-                  I understand the history of the term{" "}
-                  <b className="shimmer">pluriverse</b> and how we intend to use
-                  it moving forward
-                </li>
-                <li>
-                  I understand how a <b className="shimmer">pluriversal</b>{" "}
-                  world is different from our current world and how we get there
-                  via the “Patterns.”
-                </li>
-                <li>
-                  I want to help build the <b className="shimmer">pluriverse</b>{" "}
-                  together
-                </li>
-              </ul>
-            </p>
+            <h2 className="text-4xl font-bold">Contribute</h2>
             <p>
               We've provided some sentence starters to get you going. Please
               select a prompt and contribute to the{" "}
@@ -252,7 +284,7 @@ function TermsOfUse() {
                           value={response}
                           onChange={setResponse}
                           className="responseInput"
-                          // TODO: make this populate an actual live preview from an example??
+                          // TODO: make this populate an actual live preview from an example?? and shuffle?
                           extraProps={{
                             placeholder: "free gardens",
                           }}
@@ -308,7 +340,7 @@ function TermsOfUse() {
             <br />
             {/* TODO: add share on X,Y,Z CTAs */}
             <button
-              onClick={() => setPage(Page.Sign)}
+              onClick={() => setPage(Page.Contribute)}
               className={ButtonClass("blue")}
             >
               Add more

@@ -21,9 +21,20 @@ export enum Pattern {
   Regeneration = "Regeneration",
   Privacy = "Privacy",
   Voice = "Voice",
-  EngagementAndAttention = "Engagement and Attention",
+  EngagementAndAttention = "EngagementAndAttention",
   Commons = "Commons",
 }
+
+export const PatternToDisplay: Record<Pattern, string> = {
+  [Pattern.Pluriverse]: "Pluriverse",
+  [Pattern.Interoperability]: "Interoperability",
+  [Pattern.Agency]: "Agency",
+  [Pattern.Regeneration]: "Regeneration",
+  [Pattern.Privacy]: "Privacy",
+  [Pattern.Voice]: "Voice",
+  [Pattern.EngagementAndAttention]: "Engagement and Attention",
+  [Pattern.Commons]: "Commons",
+};
 
 export interface Author {
   walletId: string;
@@ -49,6 +60,16 @@ export interface AddContributionRequest {
 }
 
 export type AddContributionResponse = number;
+
+export interface AddUserRequest {
+  walletId: string;
+}
+
+export type AddUserResponse = string;
+
+export interface GetUserRequest {
+  id: string;
+}
 
 export interface GetContributionsRequest {
   offset?: number;
