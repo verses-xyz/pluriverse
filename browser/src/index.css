@@ -12,6 +12,7 @@ main,
   width: 100vw;
 }
 
+
 body {
   margin: 0;
   font-family: "EB Garamond", serif;
@@ -167,6 +168,8 @@ blockquote:before {
   transform: scale(1.4);
 } */
 
-#essay-content {
-  
+.mainContent {
+  /* TODO: background blur is terrible for perf by design */
+  /* have to either blur the blobs individually or not care */
+  /* backdrop-filter: blur(3px); */
 }

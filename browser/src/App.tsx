@@ -51,12 +51,13 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="mainContainer">
+      {/* TODO: add routing */}
       <main>
         <div className="fadeOutOnScroll">
           <Hero />
         </div>
-        <div>
+        <div className="mainContent">
           <div id="essay-content" ref={essayContentRef}>
             <EssayContent />
           </div>
@@ -66,6 +67,7 @@ function App() {
           <div className="container w-full md:max-w-3xl mx-auto pb-20">
             <ContributionSection />
           </div>
+          <div>{/* TODO: insert signatures */}</div>
         </div>
       </main>
       <GradientManager
