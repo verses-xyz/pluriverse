@@ -7,25 +7,25 @@ export default function GradientManager({
 }) {
   const gsap = useGsap();
 
-  useEffect(() => {
-    // fade out  gradient 1
-    gsap.fromTo(
-      ".gradient-1",
-      {
-        opacity: 1,
-      },
-      {
-        opacity: 0,
-        ease: "slow(0.7, 0.7, false)",
-        scrollTrigger: {
-          trigger: essayContentRef.current,
-          start: 0,
-          end: " top top",
-          scrub: true,
-        },
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   // fade out  gradient 1
+  //   gsap.fromTo(
+  //     ".gradient-1",
+  //     {
+  //       opacity: 1,
+  //     },
+  //     {
+  //       opacity: 0,
+  //       ease: "slow(0.7, 0.7, false)",
+  //       scrollTrigger: {
+  //         trigger: essayContentRef.current,
+  //         start: 0,
+  //         end: " top top",
+  //         scrub: true,
+  //       },
+  //     }
+  //   );
+  // }, []);
 
   // fade in  gradient 2
   useEffect(() => {
