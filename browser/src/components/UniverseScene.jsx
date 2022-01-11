@@ -5,6 +5,28 @@ import useGsap from "../hook/useGsap";
 import Blobs from "./Blobs";
 
 export default function UniverseScene() {
+  const { camera } = useThree();
+  const gsap = useGsap();
+
+  useEffect(() => {
+    gsap.fromTo(
+      camera.position,
+      {
+        z: 20,
+      },
+      {
+        z: -10,
+        scrollTrigger: {
+          trigger: "#essay-content",
+          start: 0,
+          end: " top top",
+          scrub: true,
+        },
+      }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <OrbitControls autoRotate={true} autoRotateSpeed={1} enableZoom={false} />

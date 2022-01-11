@@ -74,7 +74,7 @@ function App() {
         essayContentRef={essayContentRef}
         patternsContentRef={patternsContentRef}
       />
-      <div className="canvas-container">
+      <div className="canvas-container fadeOutOnScroll">
         <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
           <UniverseScene />
         </Canvas>
