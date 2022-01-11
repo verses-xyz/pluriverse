@@ -9,6 +9,8 @@ import useGsap from "./hook/useGsap";
 import { ContributionSection } from "./components/ContributionSection";
 import { SignatureContent } from "./components/SignatureContent";
 import { DevelopmentBanner } from "./components/DevelopmentBanner";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { About } from "./pages/About";
 
 function App() {
   const gsap = useGsap();
@@ -55,35 +57,47 @@ function App() {
   return (
     <div className="mainContainer">
       <DevelopmentBanner />
-      {/* TODO: add routing */}
-      <main>
-        <div className="fadeOutOnScroll">
-          <Hero />
-        </div>
-        <div className="mainContent">
-          <div id="essay-content" ref={essayContentRef}>
-            <EssayContent />
-          </div>
-          <div ref={patternsContentRef}>
-            <PatternsContent />
-          </div>
-          <div className="container w-full md:max-w-3xl mx-auto pb-20">
-            <ContributionSection />
-          </div>
-          <div>
-            <SignatureContent />
-          </div>
-        </div>
-      </main>
-      <GradientManager
-        essayContentRef={essayContentRef}
-        patternsContentRef={patternsContentRef}
-      />
-      <div className="canvas-container fadeOutOnScroll">
-        <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
-          <UniverseScene />
-        </Canvas>
-      </div>
+      <Router>
+        {/* routes */}
+        <Routes>
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <main>
+                  <div className="fadeOutOnScroll">
+                    <Hero />
+                  </div>
+                  <div className="mainContent">
+                    <div id="essay-content" ref={essayContentRef}>
+                      <EssayContent />
+                    </div>
+                    <div ref={patternsContentRef}>
+                      <PatternsContent />
+                    </div>
+                    <div className="container w-full md:max-w-3xl mx-auto pb-20">
+                      <ContributionSection />
+                    </div>
+                    <div>
+                      <SignatureContent />
+                    </div>
+                  </div>
+                </main>
+                <GradientManager
+                  essayContentRef={essayContentRef}
+                  patternsContentRef={patternsContentRef}
+                />
+                <div className="canvas-container fadeOutOnScroll">
+                  <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+                    <UniverseScene />
+                  </Canvas>
+                </div>
+              </>
+            }
+          />
+        </Routes>
+      </Router>
     </div>
   );
 }

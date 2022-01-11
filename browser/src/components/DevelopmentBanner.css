@@ -1,17 +1,14 @@
 .banner {
-    position: fixed;
-    top: 0px;
+    /* position: fixed; */
+    /* top: 0px; */
     width: 100%;
     background: #496581;
     padding: 24px;
-    z-index: 1000;
-    height:200px;
+    /* z-index: 1000; */
 }
 
-.bannerHolder {
-    height:200px;
-}
 
 .banner > p {
     padding-top: 0px;
+    font-size: 1.2rem !important;
 }

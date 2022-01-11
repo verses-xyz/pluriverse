@@ -1,11 +1,14 @@
 import "./Hero.css";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
     <div>
       <div class="flex justify-end pt-8 pr-8">
         <div class="pr-4">
-          <button className="glass-button">About</button>
+          <Link to="/about">
+            <button className="glass-button">About</button>
+          </Link>
         </div>
         <div>
           <button className="glass-button">Contribute</button>
