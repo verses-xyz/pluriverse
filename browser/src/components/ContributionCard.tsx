@@ -7,6 +7,7 @@ import {
   PromptDescriptions,
   replaceJSX,
 } from "./ContributionSection";
+import { getPatternPlaceholder } from "src/types";
 
 interface Props {
   contribution: Contribution;
@@ -33,7 +34,7 @@ export function ContributionCard({ contribution, hideHeader }: Props) {
       {!hideHeader && <h2 className="text-2xl font-bold">{pattern}</h2>}
       <p className="">
         {replaceJSX(PromptDescriptions[prompt], {
-          [Placeholder]: <b>{pattern}</b>,
+          [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
         })}{" "}
         {response}
       </p>
@@ -52,7 +53,6 @@ export function ContributionCard({ contribution, hideHeader }: Props) {
           <em>{dateDisplay}</em>
         </p>
       </div>
-      {/* </Canvas> */}
     </div>
   );
 }

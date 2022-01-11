@@ -1,4 +1,4 @@
-import { Pattern } from "../types/common/server-api";
+import { Pattern, Prompt } from "../types/common/server-api";
 
 export enum TraitType {
   Prompt,
@@ -22,6 +22,34 @@ export interface ContributionMetadata {
   external_url: string;
   background_color: string;
   attributes: ContributionAttribute<TraitType>[];
+}
+
+export function getPatternPlaceholder(
+  pattern: Pattern,
+  prompt: Prompt
+): string {
+  let placeholder = "";
+  switch (pattern) {
+    case Pattern.Pluriverse:
+    case Pattern.Commons:
+      placeholder = `the ${pattern}`;
+      break;
+
+    case Pattern.Interoperability:
+    case Pattern.Agency:
+    case Pattern.Regeneration:
+    case Pattern.Privacy:
+    case Pattern.Voice:
+      placeholder = pattern;
+      break;
+
+    case Pattern.EngagementAndAttention:
+      placeholder = "Engagement and Attention";
+      break;
+  }
+  return prompt === Prompt.LooksLike
+    ? placeholder[0].toUpperCase() + placeholder.slice(1)
+    : placeholder;
 }
 
 export const Principles: Record<
