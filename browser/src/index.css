@@ -95,7 +95,7 @@ main {
       rgba(255, 255, 255, 0.5) 50%,
       #0000 66%
     )
-    rebeccapurple;
+    rgb(198, 142, 255);
   background-size: 200% auto;
 
   color: #000;
