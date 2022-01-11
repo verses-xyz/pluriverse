@@ -193,24 +193,23 @@ function TermsOfUse() {
       case Page.TermsOfUse:
         return (
           <div className="terms">
-            <h2 className="text-3xl font-bold">TERMS OF USE AGREEMENT</h2>
+            <h2 className="text-3xl font-bold">Terms of Use</h2>
             <p>
-              PLEASE READ THE ABOVE ESSAY (“<b>ESSAY</b>”) BEFORE{" "}
-              <b>PLURIVERSE</b>-BUILDING.
+              please read the above essay ("<b>essay</b>") and patterns ("
+              <b>patterns</b>") carefully before <b>pluriverse</b>-building.
+              agreeing is an acknowledgment of the past, present, and future of
+              the pluriverse, and the collective ethic it requires. by signing,
+              you expressly acknowledge that the entire{" "}
+              <b>responsibility / liability</b> as to the realization of the
+              pluriverse <b>lies with all of us</b>.{" "}
             </p>
             <p>
-              THIS IS <b>NOT</b> A LEGAL AGREEMENT BETWEEN YOU AND ANY ENTITY.
-              IT IS AN ACKNOWLEDGEMENT OF THE DECOLONIAL ORIGINS AND DEFINITION
-              OF THE TERM <b>“PLURIVERSE”</b> AND HOW WE MIGHT EXTEND ITS ETHIC
-              TO THE DIGITAL REALM THROUGH THE ABOVE PATTERNS (“
-              <b>PATTERNS</b>”).
+              <b>
+                i want to help build the <b className="shimmer">pluriverse</b>{" "}
+                together:
+              </b>
             </p>
-            <p>
-              YOU EXPRESSLY ACKNOWLEDGE THAT THE ENTIRE RESPONSIBILITY /
-              LIABILITY AS TO THE REALIZATION OF THE PLURIVERSE{" "}
-              <b>LIES WITH US</b>.
-            </p>
-            <p style={{ paddingTop: "0px", marginLeft: "24px" }}>
+            {/* <p style={{ paddingTop: "0px", marginLeft: "24px" }}>
               <ul className="list-disc">
                 <p>
                   <li>
@@ -223,13 +222,10 @@ function TermsOfUse() {
                     world is different from our current world and how we get
                     there via the “Patterns.”
                   </li>
-                  <li>
-                    I want to help build the{" "}
-                    <b className="shimmer">pluriverse</b> together
-                  </li>
+                  <li></li>
                 </p>
               </ul>
-            </p>
+            </p> */}
             <p className="metaText">
               A copy of the Essay will live on the permaweb and can be found at{" "}
               <a href="">Arweave</a>. It also lives on the web on{" "}

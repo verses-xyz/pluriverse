@@ -7,6 +7,8 @@ import UniverseScene from "./components/UniverseScene";
 import GradientManager from "./components/GradientManager";
 import useGsap from "./hook/useGsap";
 import { ContributionSection } from "./components/ContributionSection";
+import { SignatureContent } from "./components/SignatureContent";
+import { DevelopmentBanner } from "./components/DevelopmentBanner";
 
 function App() {
   const gsap = useGsap();
@@ -52,6 +54,7 @@ function App() {
 
   return (
     <div className="mainContainer">
+      <DevelopmentBanner />
       {/* TODO: add routing */}
       <main>
         <div className="fadeOutOnScroll">
@@ -67,7 +70,9 @@ function App() {
           <div className="container w-full md:max-w-3xl mx-auto pb-20">
             <ContributionSection />
           </div>
-          <div>{/* TODO: insert signatures */}</div>
+          <div>
+            <SignatureContent />
+          </div>
         </div>
       </main>
       <GradientManager
