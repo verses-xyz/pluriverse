@@ -18,7 +18,6 @@ main,
   width: 100vw;
 }
 
-
 body {
   margin: 0;
   font-family: "EB Garamond", serif;
@@ -71,7 +70,7 @@ main {
   width: 100vw;
   background: radial-gradient(
     at 50% 100%,
-    #873740 0%,
+    #673787 0%,
     #272730 40%,
     #171720 80%,
     #070710 100%
@@ -82,7 +81,13 @@ main {
   position: fixed;
   height: 100vh;
   width: 100vw;
-  background: #272730;
+  background: radial-gradient(
+    at 50% 100%,
+    #4c3787 0%,
+    #272730 40%,
+    #171720 80%,
+    #070710 100%
+  );
 }
 
 .gradient-3 {
