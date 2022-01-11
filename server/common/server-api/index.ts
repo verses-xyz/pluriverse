@@ -50,6 +50,12 @@ export interface AddContributionRequest {
 
 export type AddContributionResponse = number;
 
+export interface AddSignatureRequest {
+  walletId: string;
+}
+
+export type AddSignatureResponse = string;
+
 export interface GetContributionsRequest {
   offset?: number;
 }

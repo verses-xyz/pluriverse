@@ -27,6 +27,7 @@ enum Pattern {
   Commons
 }
 
+// The user should be created when they first sign the artifact.
 model User {
   // This should be the wallet address
   id              String         @id

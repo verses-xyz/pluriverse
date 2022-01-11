@@ -25,11 +25,7 @@ export function addContribution({ prisma }: Services): RequestHandler {
         where: { id: walletId },
       });
       if (!existingUser) {
-        await prisma.user.create({
-          data: {
-            id: walletId,
-          },
-        });
+        throw new Error("Please sign the document to add a contribution.");
       }
 
       const result = await prisma.contribution.create({
