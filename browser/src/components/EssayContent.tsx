@@ -1,6 +1,6 @@
 export default function EssayContent() {
   return (
-    <div className="container w-full md:max-w-2xl mx-auto pb-20">
+    <div className="container w-full md:max-w-3xl mx-auto pb-9=8">
       <h1 className="font-title text-5xl text-center font-bold pb-12">
         A Pattern Language for the Pluriverse
       </h1>
@@ -42,7 +42,7 @@ export default function EssayContent() {
         gather these worlds around a different banner: the
         <b className="shimmer"> Pluriverse</b>.
       </p>
-      <h2 className="font-title text-3xl pt-16 font-bold pb-3">
+      <h2 className="font-title font-mono text-3xl pt-16 font-bold pb-3">
         Origins of the Pluriverse
       </h2>
       <p>
@@ -92,8 +92,6 @@ export default function EssayContent() {
         but not disconnection. It is this ethos towards which we hope to bring
         the digital pluriverse.
       </p>
-      {/* TODO: insert essay body rest */}
-      {/* TODO: insert signatures and contribution mechanism */}
     </div>
   );
 }
