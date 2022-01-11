@@ -29,7 +29,7 @@ export default function PatternsContent() {
             //   <p className="pt-0">{contribution.response}</p>
             //   <p className="italic text-right">–{contribution.author}</p>
             // </blockquote>
-            <ContributionCard contribution={contribution} />
+            <ContributionCard contribution={contribution} hideHeader={true} />
           ))}
         {filteredContributions.length > PreviewContributionLimit && (
           <div style={{ alignSelf: "flex-start" }} className="seeAll">

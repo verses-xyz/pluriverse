@@ -5,6 +5,7 @@ import Blob from "./Blob";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { randomEuler } from "./Blobs";
+import { replaceJSX } from "./ContributionSection";
 
 function toHex(str: string) {
   return str

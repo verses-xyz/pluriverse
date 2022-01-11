@@ -23,7 +23,7 @@ enum Page {
 
 export const PluriverseAgreement = "I agree to...";
 export const Placeholder = "________";
-const replaceJSX = (
+export const replaceJSX = (
   str: string,
   replacement: { [x: string]: any; pattern?: JSX.Element }
 ): React.ReactNode => {

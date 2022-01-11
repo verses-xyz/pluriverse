@@ -2,17 +2,22 @@ import { Contribution } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import { BlobSingle } from "src/components/BlobSingle";
 import "./ContributionCard.css";
-import { Placeholder, PromptDescriptions } from "./ContributionSection";
+import {
+  Placeholder,
+  PromptDescriptions,
+  replaceJSX,
+} from "./ContributionSection";
 
 interface Props {
   contribution: Contribution;
+  hideHeader?: boolean;
 }
 
 function truncateWallet(address: string) {
   return address.slice(0, 6) + "..." + address.slice(-4);
 }
 
-export function ContributionCard({ contribution }: Props) {
+export function ContributionCard({ contribution, hideHeader }: Props) {
   const { author, response, prompt, pattern, createdAt } = contribution;
 
   const date = dayjs(createdAt);
@@ -25,17 +30,19 @@ export function ContributionCard({ contribution }: Props) {
 
   return (
     <div className="contributionCardContainer">
-      <h2 className="text-2xl font-bold">{pattern}</h2>
-      <p className="">{`${PromptDescriptions[prompt].replace(
-        `{${Placeholder}}`,
-        pattern
-      )} ${response}`}</p>
+      {!hideHeader && <h2 className="text-2xl font-bold">{pattern}</h2>}
+      <p className="">
+        {replaceJSX(PromptDescriptions[prompt], {
+          [Placeholder]: <b>{pattern}</b>,
+        })}{" "}
+        {response}
+      </p>
       <div className="blobContainer">
         <BlobSingle
-          pattern={contribution.pattern}
-          prompt={contribution.prompt}
-          walletId={contribution.author.walletId}
-          response={contribution.response}
+          pattern={pattern}
+          prompt={prompt}
+          walletId={author.walletId}
+          response={response}
         />
       </div>
       <div className="attribution">
