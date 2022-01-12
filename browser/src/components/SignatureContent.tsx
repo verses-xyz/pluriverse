@@ -5,13 +5,17 @@ import dayjs from "dayjs";
 import "./SignatureContent.css";
 
 export function Signature({ author }: { author: Author }) {
-  const { walletId, twitterVerified, twitterUsername, createdAt } = author;
-  const authorDisplay = twitterVerified ? twitterUsername : walletId;
+  const { walletId, name, twitterVerified, twitterUsername, createdAt } =
+    author;
+  const authorDisplay = twitterVerified ? twitterUsername : name || walletId;
   const date = dayjs(createdAt);
-  const dateDisplay = date
-    .format("MMM D, YYYY [on minute] m A")
-    .replace("AM", "in the day ☀️")
-    .replace("PM", "in the night 🌙");
+  const dateDisplay = date.format(
+    `MMM D, YYYY [on minute] m ${
+      date.hour() >= 6 && date.hour() <= 18
+        ? "[in the day] ☀️"
+        : "[in the night] 🌙"
+    }`
+  );
 
   // TODO: add location
 

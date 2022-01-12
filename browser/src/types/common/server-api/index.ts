@@ -39,6 +39,7 @@ export const PatternToDisplay: Record<Pattern, string> = {
 export interface Author {
   walletId: string;
   twitterVerified: boolean;
+  name?: string;
   twitterUsername?: string;
   createdAt: Date;
 }
@@ -65,6 +66,8 @@ export type AddContributionResponse = number;
 
 export interface AddUserRequest {
   walletId: string;
+  name: string;
+  twitterUsername?: string;
 }
 
 export type AddUserResponse = string;

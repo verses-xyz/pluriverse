@@ -8,7 +8,7 @@ import {
   Prompt,
 } from "../types/common/server-api/index";
 import { Dropdown, DropdownItem } from "./core/Dropdown";
-import { addContribution, getContribution } from "src/helpers/api";
+import { addContribution, addUser, getContribution } from "src/helpers/api";
 import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
 import { ButtonClass } from "src/types/styles";
@@ -16,6 +16,7 @@ import { ConnectWalletButton } from "./core/WalletButton";
 import { signAndValidate } from "src/helpers/wallet";
 import { ContributionCard } from "./ContributionCard";
 import { getUser } from "src/helpers/api";
+import { Link } from "react-router-dom";
 
 enum Page {
   TermsOfUse,
@@ -184,6 +185,11 @@ function TermsOfUse() {
     }
   }
 
+  const [name, setName] = useState<string | undefined>(undefined);
+  const [twitterUsername, setTwitterUsername] = useState<string | undefined>(
+    undefined
+  );
+
   function renderPage() {
     switch (page) {
       case Page.TermsOfUse:
@@ -222,18 +228,26 @@ function TermsOfUse() {
                 </p>
               </ul>
             </p> */}
-            <p className="metaText">
-              A copy of the Essay will live on the permaweb and can be found at{" "}
-              <a href="">Arweave</a>. It also lives on the web on{" "}
-              <a href="#">pluriverse.world</a>.
-              <br />
-              To agree and sign, you need a Metamask wallet. Need help? Check
-              out this <a href="">guide</a>.
-            </p>
+            {/* TODO: make this better */}
+            <div className="inputs">
+              <input
+                value={name}
+                onChange={(evt) => setName(evt.target.value)}
+                placeholder="Name"
+                required
+              />
+              <input
+                value={twitterUsername}
+                onChange={(evt) => setTwitterUsername(evt.target.value)}
+                placeholder="Twitter Username"
+              />
+            </div>
+
             <div className="actionsContainer">
               {/* TODO: link to github forking or form */}
               <button className={ButtonClass("white")}>Disagree</button>
               <ConnectWalletButton
+                disabled={!name}
                 onSubmit={async (connectedWalletAddress) => {
                   // Validate user
                   const existingUser = await getUser({
@@ -241,6 +255,13 @@ function TermsOfUse() {
                   });
                   if (!existingUser) {
                     await signAndValidate(PluriverseAgreement);
+                    // add user after successful
+                    await addUser({
+                      walletId: connectedWalletAddress,
+                      name,
+                      twitterUsername,
+                    });
+                    // TODO: if twitter username is populated, should prompt user to verify and then click button to validate.
                   }
 
                   // finish
@@ -253,6 +274,15 @@ function TermsOfUse() {
                 Agree (connect wallet)
               </ConnectWalletButton>
             </div>
+
+            <p className="metaText">
+              A copy of the Essay will live on the permaweb and can be found at{" "}
+              <a href="">Arweave</a>. It also lives on the web on{" "}
+              <a href="#">pluriverse.world</a>.
+              <br />
+              To agree and sign, you need a Metamask wallet. Need help? Check
+              out this <a href="">guide</a>.
+            </p>
           </div>
         );
       case Page.Contribute:
@@ -337,6 +367,10 @@ function TermsOfUse() {
             >
               Add more
             </button>
+
+            <p>
+              See <Link to="/contributions">all contributions</Link>
+            </p>
           </div>
         );
 
@@ -357,7 +391,7 @@ function TermsOfUse() {
 
 export function ContributionSection() {
   return (
-    <div className="contributionSection text-base">
+    <div id="contribute" className="contributionSection text-base">
       <TermsOfUse />
     </div>
   );

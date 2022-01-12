@@ -23,10 +23,10 @@ export function ContributionCard({ contribution, hideHeader }: Props) {
 
   const date = dayjs(createdAt);
 
-  const { walletId, twitterVerified, twitterUsername } = author;
+  const { walletId, name, twitterVerified, twitterUsername } = author;
   const authorDisplay = twitterVerified
     ? twitterUsername
-    : truncateWallet(walletId);
+    : name || truncateWallet(walletId);
   const dateDisplay = date.format("MMM, YYYY");
 
   return (

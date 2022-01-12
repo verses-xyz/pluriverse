@@ -17,7 +17,9 @@ export function getUser({ prisma }: Services): RequestHandler {
         where: { id },
       });
 
-      res.json({ ...author, walletId: author.id } as Author);
+      res.json(
+        author ? ({ ...author, walletId: author.id } as Author) : undefined
+      );
     } catch (err) {
       console.log(err);
       if (err instanceof Prisma.PrismaClientValidationError) {

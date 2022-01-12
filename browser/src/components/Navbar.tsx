@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export function Navbar() {
   return (
@@ -25,17 +25,23 @@ export function Navbar() {
           )}
         </NavLink>
       </div>
-      <div>
+      <div className="pr-4">
+        {/* Can make this scroll instead. */}
+        <a href="/#contribute">
+          <button className={`glass-button`}>Contribute</button>
+        </a>
+      </div>
+      {/* <div className="pr-4">
         <NavLink to="/contributions">
           {({ isActive }) => (
             <button
               className={`glass-button ${isActive ? "selectedBorder" : ""}`}
             >
-              Contribute
+              Contributions
             </button>
           )}
         </NavLink>
-      </div>
+      </div> */}
     </nav>
   );
 }

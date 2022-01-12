@@ -52,7 +52,11 @@ async function makeRequest(
     method,
     body: JSON.stringify(body),
   });
-  return response.json();
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  const text = await response.text();
+  return text.length ? JSON.parse(text) : undefined;
 }
 
 // TODO: maybe enrich with location data?
@@ -93,11 +97,13 @@ export async function getContributions({
   return response as Contribution[];
 }
 
-export async function getUser({ id }: GetUserRequest): Promise<Author> {
+export async function getUser({
+  id,
+}: GetUserRequest): Promise<Author | undefined> {
   const response = await makeRequest(`${ApiUrl}/users/${id}`, {
     method: "GET",
   });
-  return response as Author;
+  return response as Author | undefined;
 }
 
 export async function getUsers({ offset }: GetUsersRequest = {}): Promise<

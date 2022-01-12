@@ -17,6 +17,37 @@
   line-height: 1.4;
 }
 
+.inputs {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+input {
+   font-family: "Roboto Mono";
+   display: inline-block;
+   background-color: rgba(255, 255, 255, 0.1);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   color: rgba(255, 255, 255, 0.8);
+   padding: 4px;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* input:required::before {
+    content: "*****************";
+    color: red;
+    z-index: 123123123;
+    width: 1000px;
+    background: red;
+    height: 400px;
+    top: 45px;
+    right: 0px;
+} */
+
 .actionsContainer {
   display: flex;
   margin-top: 24px;

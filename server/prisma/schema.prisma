@@ -33,6 +33,7 @@ model User {
   id              String         @id
   twitterVerified Boolean        @default(false)
   twitterUsername String?
+  name            String?
   createdAt       DateTime       @default(now())
   contributions   Contribution[]
 }

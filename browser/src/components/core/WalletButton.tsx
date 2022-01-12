@@ -18,6 +18,7 @@ export function ConnectWalletButton({
   children = "Connect",
   onError,
   onSubmit,
+  ...buttonProps
 }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -39,6 +40,7 @@ export function ConnectWalletButton({
       className={`${ButtonClass("blue")}`}
       onClick={onClickConnectWallet}
       disabled={loading}
+      {...buttonProps}
     >
       {loading ? "Connecting..." : children}
     </button>
