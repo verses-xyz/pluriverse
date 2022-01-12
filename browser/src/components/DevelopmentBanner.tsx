@@ -3,7 +3,6 @@ import "./DevelopmentBanner.css";
 export function DevelopmentBanner() {
   return (
     <>
-      <div className="bannerHolder"></div>
       <div className="banner">
         <p>
           If this has been shared with you, this link has been shared with you

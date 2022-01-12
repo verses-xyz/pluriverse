@@ -16,6 +16,7 @@ function App() {
   const gsap = useGsap();
 
   const essayContentRef = useRef<any>();
+  const mainRef = useRef<any>();
   const patternsContentRef = useRef<any>();
 
   useEffect(() => {
@@ -56,16 +57,29 @@ function App() {
 
   return (
     <div className="mainContainer">
-      <DevelopmentBanner />
       <Router>
         {/* routes */}
         <Routes>
-          <Route path="/about" element={<About />} />
+          <Route
+            path="/about"
+            element={
+              <>
+                <main ref={mainRef}>
+                  <About />
+                </main>
+                <GradientManager
+                  essayContentRef={mainRef}
+                  patternsContentRef={mainRef}
+                />
+              </>
+            }
+          />
           <Route
             path="/"
             element={
               <>
                 <main>
+                  <DevelopmentBanner />
                   <div className="fadeOutOnScroll">
                     <Hero />
                   </div>
