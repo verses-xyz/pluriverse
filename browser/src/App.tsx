@@ -9,8 +9,10 @@ import useGsap from "./hook/useGsap";
 import { ContributionSection } from "./components/ContributionSection";
 import { SignatureContent } from "./components/SignatureContent";
 import { DevelopmentBanner } from "./components/DevelopmentBanner";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { About } from "./pages/About";
+import { ContributionsPage } from "./pages/ContributionsPage";
+import { Navbar } from "./components/Navbar";
 
 function App() {
   const gsap = useGsap();
@@ -57,62 +59,74 @@ function App() {
 
   return (
     <div className="mainContainer">
-      <Router>
-        {/* routes */}
+      <main ref={mainRef}>
+        <DevelopmentBanner />
+        <Navbar />
         <Routes>
           <Route
-            path="/about"
+            index={true}
             element={
               <>
-                <main ref={mainRef}>
-                  <DevelopmentBanner />
-                  <About />
-                </main>
-                <GradientManager
-                  essayContentRef={mainRef}
-                  patternsContentRef={mainRef}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <>
-                <main>
-                  <DevelopmentBanner />
-                  <div className="fadeOutOnScroll">
-                    <Hero />
+                <div className="fadeOutOnScroll">
+                  <Hero />
+                </div>
+                <div className="mainContent">
+                  <div id="essay-content" ref={essayContentRef}>
+                    <EssayContent />
                   </div>
-                  <div className="mainContent">
-                    <div id="essay-content" ref={essayContentRef}>
-                      <EssayContent />
-                    </div>
-                    <div ref={patternsContentRef}>
-                      <PatternsContent />
-                    </div>
-                    <div className="container w-full md:max-w-3xl mx-auto pb-20">
-                      <ContributionSection />
-                      <br />
-                      <br />
-                      <SignatureContent />
-                    </div>
+                  <div ref={patternsContentRef}>
+                    <PatternsContent />
                   </div>
-                </main>
-                <GradientManager
-                  essayContentRef={essayContentRef}
-                  patternsContentRef={patternsContentRef}
-                />
-                <div className="canvas-container fadeOutOnScroll">
-                  <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
-                    <UniverseScene />
-                  </Canvas>
+                  <div className="container w-full md:max-w-3xl mx-auto pb-20">
+                    <ContributionSection />
+                    <br />
+                    <br />
+                    <SignatureContent />
+                  </div>
                 </div>
               </>
             }
           />
+          <Route path="about" element={<About />} />
+          <Route path="contributions" element={<ContributionsPage />} />
         </Routes>
-      </Router>
+      </main>
+      <Routes>
+        <Route
+          index={true}
+          element={
+            <>
+              <GradientManager
+                essayContentRef={essayContentRef}
+                patternsContentRef={patternsContentRef}
+              />
+              <div className="canvas-container fadeOutOnScroll">
+                <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+                  <UniverseScene />
+                </Canvas>
+              </div>
+            </>
+          }
+        />
+        <Route
+          path="about"
+          element={
+            <GradientManager
+              essayContentRef={mainRef}
+              patternsContentRef={mainRef}
+            />
+          }
+        />
+        <Route
+          path="contributions"
+          element={
+            <GradientManager
+              essayContentRef={mainRef}
+              patternsContentRef={mainRef}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 }

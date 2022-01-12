@@ -33,13 +33,13 @@ export function ContributionsPage({ highlightedContributionId }: Props) {
   );
 
   return (
-    <div>
+    <div className="container md:max-w-3xl mx-auto pb-20 pt-10">
       {highlightedContribution && (
         <div>
           <ContributionCard contribution={highlightedContribution} />
         </div>
       )}
-      <div>
+      <div className="grid grid-cols-2 gap-4 w-full">
         {maybeFilteredContributions.map((contribution) => (
           <ContributionCard contribution={contribution} />
         ))}

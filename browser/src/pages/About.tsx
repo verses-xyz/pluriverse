@@ -1,19 +1,6 @@
-import { Link } from "react-router-dom";
-
 export function About() {
   return (
     <div>
-      {/* TODO: INSERT NAV */}
-      <div className="flex justify-end pt-8 pr-8">
-        <div className="pr-4">
-          <Link to="/">
-            <button className="glass-button">Pluriverse</button>
-          </Link>
-        </div>
-        <div>
-          <button className="glass-button">Contribute</button>
-        </div>
-      </div>
       <div className="container w-full md:max-w-2xl mx-auto pb-20">
         <h2 className="text-2xl font-bold mt-12">The Story</h2>
         <p>

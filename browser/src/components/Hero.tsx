@@ -1,19 +1,8 @@
 import "./Hero.css";
-import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
     <div>
-      <div className="flex justify-end pt-8 pr-8">
-        <div className="pr-4">
-          <Link to="/about">
-            <button className="glass-button">About</button>
-          </Link>
-        </div>
-        <div>
-          <button className="glass-button">Contribute</button>
-        </div>
-      </div>
       <div className="hero fadeInDown flex flex-col items-center justify-center">
         <h1 className="text-8xl pb-5 m-0">
           Pluriverse <span className="text-3xl">[noun]</span>
