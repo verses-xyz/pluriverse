@@ -4,7 +4,6 @@ export function DevelopmentBanner() {
   return (
     <>
       <div className="banner">
-        "If this has been shared with you, running working document.
         <p>
           If this has been shared with you, twe highly value your feedback and
           participation with this artifact. For more context on the work, to
