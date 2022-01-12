@@ -40,9 +40,11 @@ export interface Author {
   walletId: string;
   twitterVerified: boolean;
   twitterUsername?: string;
+  createdAt: Date;
 }
 
 export interface Contribution {
+  id: number;
   author: Author;
   // This should be the full text response, formatted as markdown.
   response: string;
@@ -71,8 +73,13 @@ export interface GetUserRequest {
   id: string;
 }
 
+export interface GetUsersRequest {
+  offset?: number;
+}
+
 export interface GetContributionsRequest {
   offset?: number;
+  contributionId?: number;
 }
 
 export interface GetContributionRequest {

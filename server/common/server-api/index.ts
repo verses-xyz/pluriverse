@@ -21,9 +21,20 @@ export enum Pattern {
   Regeneration = "Regeneration",
   Privacy = "Privacy",
   Voice = "Voice",
-  EngagementAndAttention = "Engagement and Attention",
+  EngagementAndAttention = "EngagementAndAttention",
   Commons = "Commons",
 }
+
+export const PatternToDisplay: Record<Pattern, string> = {
+  [Pattern.Pluriverse]: "Pluriverse",
+  [Pattern.Interoperability]: "Interoperability",
+  [Pattern.Agency]: "Agency",
+  [Pattern.Regeneration]: "Regeneration",
+  [Pattern.Privacy]: "Privacy",
+  [Pattern.Voice]: "Voice",
+  [Pattern.EngagementAndAttention]: "Engagement and Attention",
+  [Pattern.Commons]: "Commons",
+};
 
 export interface Author {
   walletId: string;
@@ -33,6 +44,7 @@ export interface Author {
 }
 
 export interface Contribution {
+  id: number;
   author: Author;
   // This should be the full text response, formatted as markdown.
   response: string;
@@ -61,8 +73,13 @@ export interface GetUserRequest {
   id: string;
 }
 
+export interface GetUsersRequest {
+  offset?: number;
+}
+
 export interface GetContributionsRequest {
   offset?: number;
+  contributionId?: number;
 }
 
 export interface GetContributionRequest {

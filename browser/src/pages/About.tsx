@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-// TODO:
 export function About() {
   return (
     <div>

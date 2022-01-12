@@ -11,6 +11,7 @@ import { getContribution } from "./api-handlers/get_contribution";
 import { verify } from "./api-handlers/twitter-verify";
 import { addUser } from "./api-handlers/add_user";
 import { getUser } from "./api-handlers/get_user";
+import { getUsers } from "./api-handlers/get_users";
 // import contributions from "./api/contributions";
 
 const app = express();
@@ -34,6 +35,7 @@ app.use(cors(corsOptions));
 
 const usersRouter = express.Router();
 usersRouter.post("/", addUser(services));
+usersRouter.get("/", getUsers(services));
 usersRouter.get("/:id", getUser(services));
 app.use("/users", usersRouter);
 

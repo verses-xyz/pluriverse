@@ -6,6 +6,9 @@
   a {
     @apply underline text-blue-400 hover:text-blue-200 visited:text-purple-400
   }
+  body {
+    @apply text-gray-100
+  }
 }
 
 html,
@@ -24,7 +27,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #faf9f2;
-  color: white;
 }
 
 p {

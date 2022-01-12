@@ -14,7 +14,7 @@ interface Props {
   hideHeader?: boolean;
 }
 
-function truncateWallet(address: string) {
+export function truncateWallet(address: string) {
   return address.slice(0, 6) + "..." + address.slice(-4);
 }
 

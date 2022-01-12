@@ -23,7 +23,6 @@ export async function getWalletAddress(): Promise<string> {
 }
 
 export async function signAndValidate(textToSign: string): Promise<void> {
-  // TODO: add the response at the top or bottom of the pluriverse article/agreement?
   const signature = await generateSignature(textToSign);
   console.log(signature);
   const provider = new ethers.providers.Web3Provider(window.ethereum);

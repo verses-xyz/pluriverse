@@ -23,10 +23,7 @@ enum Page {
   Share,
 }
 
-// TODO: update this
-export const PluriverseAgreement = `•   I understand the history of the term pluriverse and how we intend to use it moving forward
-•   I understand how a pluriversal world is different from our current world and how we get there via the "Patterns."
-•   I want to help build the pluriverse together
+export const PluriverseAgreement = `I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us. i want to help build the pluriverse together:
 
 WE ARE TOLD THAT THE AGE OF THE METAVERSE IS UPON US. The Metaverse, led by Meta, allows and celebrates monopoly, gating access to the length and breadth of the digital ecosystem. The monopolies of the Metaverse take what was once collective and ensure it is bought, sold, measured, and speculated upon. The Metaverse expands as a homogenizing monoculture, assimilating ecosystems, displacing extant species, and enclosing digital abundance into enforced scarcity. A new-age Columbus of digits and pixels, Meta purports to chart new territory while simply recycling the harms and stagnation of the old. The Metaverse we are promised is not a gift we should accept, but a shackles in disguise. This is an empty land grab for the commons of the future and the resources of the past. This is no Metaverse, this is a monoverse.
 
@@ -86,7 +83,6 @@ function PreviewCard({
   return <ContributionCard contribution={contribution} />;
 }
 
-// TODO: fill in
 function TermsOfUse() {
   const [page, setPage] = useState(Page.TermsOfUse);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(

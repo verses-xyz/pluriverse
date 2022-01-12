@@ -1,3 +1,4 @@
+import { isConstructorDeclaration } from "typescript";
 import {
   AddContributionResponse,
   AddContributionRequest,
@@ -8,7 +9,23 @@ import {
   Author,
   AddUserResponse,
   GetUserRequest,
+  GetUsersRequest,
 } from "../types/common/server-api";
+
+export function withQueryParams(
+  url: string,
+  params: Record<string, string>
+): string {
+  const definedParams = Object.fromEntries(
+    Object.entries(params).flatMap(([key, val]) =>
+      val === undefined ? [] : [[key, val]]
+    )
+  );
+  const query = new URLSearchParams(definedParams);
+
+  const queryString = query.toString();
+  return queryString.length ? `${url}?${queryString}` : url;
+}
 
 const ApiUrl =
   process.env.NODE_ENV === "production"
@@ -60,12 +77,19 @@ export async function getContribution({
   return response as Contribution;
 }
 
-export async function getContributions(
-  _request: GetContributionsRequest
-): Promise<Contribution[]> {
-  const response = await makeRequest(`${ApiUrl}/contributions`, {
-    method: "GET",
-  });
+export async function getContributions({
+  offset,
+  contributionId,
+}: GetContributionsRequest): Promise<Contribution[]> {
+  const response = await makeRequest(
+    withQueryParams(`${ApiUrl}/contributions`, {
+      offset: offset ? String(offset) : offset,
+      contributionId,
+    }),
+    {
+      method: "GET",
+    }
+  );
   return response as Contribution[];
 }
 
@@ -74,6 +98,20 @@ export async function getUser({ id }: GetUserRequest): Promise<Author> {
     method: "GET",
   });
   return response as Author;
+}
+
+export async function getUsers({ offset }: GetUsersRequest = {}): Promise<
+  Author[]
+> {
+  const response = await makeRequest(
+    withQueryParams(`${ApiUrl}/users`, {
+      offset: offset ? String(offset) : offset,
+    }),
+    {
+      method: "GET",
+    }
+  );
+  return response as Author[];
 }
 
 export async function addUser(

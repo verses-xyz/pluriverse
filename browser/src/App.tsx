@@ -93,8 +93,8 @@ function App() {
                     </div>
                     <div className="container w-full md:max-w-3xl mx-auto pb-20">
                       <ContributionSection />
-                    </div>
-                    <div>
+                      <br />
+                      <br />
                       <SignatureContent />
                     </div>
                   </div>
