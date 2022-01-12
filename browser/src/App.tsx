@@ -65,6 +65,7 @@ function App() {
             element={
               <>
                 <main ref={mainRef}>
+                  <DevelopmentBanner />
                   <About />
                 </main>
                 <GradientManager
