@@ -15,6 +15,9 @@ html,
 body,
 main,
 #root {
+  /* TODO: move this to a different component that only gets rendered once */
+  counter-reset: footnote-content;
+
   margin: 0;
   padding: 0;
   height: 100vh;

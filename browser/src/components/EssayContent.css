@@ -1,0 +1,41 @@
+article {
+  counter-reset: footnote;
+}
+
+.footnote::after {
+  counter-increment: footnote;
+  content: counter(footnote);
+  font-size: 1rem;
+  display: inline-block;
+  position: relative;
+  top: -9px;
+  right: -2px;
+  color: rgb(192, 132, 252);
+}
+
+.footnote {
+}
+
+.footnote-content {
+  z-index: 4;
+  position: absolute;
+  color: rgb(192, 132, 252);
+  font-size: 0.8rem;
+  margin-top: 2px !important;
+  padding-left: 25px;
+  right: 7%;
+  text-transform: none;
+  width: 300px;
+  margin-top: -30px;
+}
+
+.footnote-content::before {
+  counter-increment: footnote-content;
+  content: counter(footnote-content);
+  font-size: 0.6rem;
+  display: inline-block;
+  position: relative;
+  top: -8px;
+  right: 5px;
+  color: rgb(192, 132, 252);
+}

@@ -1,13 +1,20 @@
+import "./EssayContent.css";
+import Footnote from "./Footnote";
+
 export default function EssayContent() {
   return (
-    <div className="container w-full md:max-w-2xl mx-auto pb-20">
+    <article className="container w-full md:max-w-2xl mx-auto pb-20">
       <h1 className="font-title text-5xl text-center font-bold pb-12">
         Towards a Digital Pluriverse
       </h1>
       <p className="pt-8">
         W
         <span className="subhead">
-          e are told that the age of the Metaverse is upon us.{" "}
+          e are told that the age of the{" "}
+          <Footnote data="Coined by the American author Neal Stephenson in his novel, Snow Crash, ‘the Metaverse’ refers to a virtual reality space of integrated networks that can be used for work and play. The term became ubiquitous in public discourse in 2021 following the announcement from Facebook founder, Mark Zuckerberg of the company’s name change to ‘Meta’ and the company’s investment into building a metaverse. ">
+            Metaverse
+          </Footnote>{" "}
+          is upon us.{" "}
         </span>
       </p>
       <p>
@@ -18,24 +25,34 @@ export default function EssayContent() {
         brought with it fracturing and commercialization. Despite the looming
         walled gardens of today, Web2 began with its own dreams of
         democratization, heralded by proliferating personal websites,
-        distributed network effects, and universal communication. The shifts
-        that we are promised are fated to repeat this cycle if the structures
-        and incentives of our digital ecosystem do not evolve alongside its
-        technological foundations; one cannot create anew with the same tired
-        tools.
+        distributed network effects, and{" "}
+        <Footnote
+          data={` Returning to documents like Tim O’Reilly’s 2005 ‘What is Web.20’ is eerily reminiscent of recent discourse. For example: “BitTorrent thus demonstrates a key Web 2.0 principle: the service automatically gets better the more people use it. While Akamai must add servers to improve service, every BitTorrent consumer brings his own resources to the party. There's an implicit "architecture of participation", a built-in ethic of cooperation, in which the service acts primarily as an intelligent broker, connecting the edges to each other and harnessing the power of the users themselves.”`}
+        >
+          universal communication
+        </Footnote>
+        . The shifts that we are promised are fated to repeat this cycle if the
+        structures and incentives of our digital ecosystem do not evolve
+        alongside its technological foundations; one cannot create anew with the
+        same tired tools.
       </p>
       <p>
         Thus, we can recognize that the Metaverse is not evolution, it is
         regression. As championed by Meta and its ilk, the Metaverse allows and
-        celebrates <b>monopoly</b>, taking what was once collective and ensure
-        it is bought, sold, measured, and speculated upon. The Metaverse expands
-        as a homogenizing <b>monoculture</b>, assimilating ecosystems,
-        displacing extant species, and enclosing digital abundance into enforced
-        scarcity. A new-age Columbus of digits and pixels, the Metaverse
-        purports to chart new territory while simply recycling the harms and
-        stagnation of the old. The Metaverse we are promised is not a gift we
-        should accept but shackles in disguise. This proposed Metaverse is truly
-        a <b>monoverse</b>.
+        celebrates <b>monopoly</b>, taking what was once{" "}
+        <Footnote
+          data={`While a collective approach may take on various forms, at its center it is an approach driven by community solidarity, group ownership, and an open commons. In Caliban and the Witch,  Silvia Federici links land privatization to a breakdown of social relationships. Discussing the transformation of agricultural structure and labor in 16th-century England following land enclosures and the loss of the commons, Federici writes that communities lost sense of their social relations – “families disintegrated, the youth left the village to join the increasing number of vagabonds or itinerant workers…while the elderly were left to fend for themselves” (72). This was in stark (and disappointing) contrast to the rich social relations that existed in the commons, where peasant solidarity and sociality thrived and women, although possessing little social power, could experience autonomy.`}
+        >
+          collective
+        </Footnote>{" "}
+        and ensure it is bought, sold, measured, and speculated upon. The
+        Metaverse expands as a homogenizing <b>monoculture</b>, assimilating
+        ecosystems, displacing extant species, and enclosing digital abundance
+        into enforced scarcity. A new-age Columbus of digits and pixels, the
+        Metaverse purports to chart new territory while simply recycling the
+        harms and stagnation of the old. The Metaverse we are promised is not a
+        gift we should accept but shackles in disguise. This proposed Metaverse
+        is truly a <b>monoverse</b>.
       </p>
       <p>
         But we have brighter dreams, of brighter technological futures. Futures
@@ -180,6 +197,6 @@ export default function EssayContent() {
         the seeds, so that this language may grow–evolving through intention and
         use, like all alive languages.
       </p>
-    </div>
+    </article>
   );
 }
