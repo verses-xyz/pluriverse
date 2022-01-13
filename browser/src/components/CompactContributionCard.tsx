@@ -34,7 +34,7 @@ export default function CompactContributionCard({
   const dateDisplay = date.format("MMM, YYYY");
 
   return (
-    <div className="contributionCardContainer">
+    <div className="compactContributionCardContainer">
       {!hideHeader && (
         <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
       )}

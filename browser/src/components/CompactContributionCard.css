@@ -1,9 +1,9 @@
-.contributionCardContainer {
-  /* max-width:350px; */
+.compactContributionCardContainer {
+  width: 300px;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  min-height: 250px;
+  height: 260px;
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.2);
   border-radius: 16px;
@@ -13,16 +13,16 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.contributionCardContainer > h2 {
+.compactContributionCardContainer > h2 {
   margin-bottom: 12px;
 }
 
-.contributionCardContainer p {
+.compactContributionCardContainer p {
   font-size: 1rem;
   padding-top: 0px;
 }
 
-.contributionCardContainer canvas {
+.compactContributionCardContainer canvas {
   height: auto !important;
 }
 
