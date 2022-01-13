@@ -39,6 +39,7 @@ export const PatternToDisplay: Record<Pattern, string> = {
 export interface Author {
   walletId: string;
   twitterVerified: boolean;
+  signature: string;
   name?: string;
   twitterUsername?: string;
   createdAt: Date;
@@ -66,11 +67,12 @@ export type AddContributionResponse = number;
 
 export interface AddUserRequest {
   walletId: string;
-  name: string;
+  signature: string;
+  name?: string;
   twitterUsername?: string;
 }
 
-export type AddUserResponse = string;
+export type AddUserResponse = Author;
 
 export interface GetUserRequest {
   id: string;
@@ -88,3 +90,9 @@ export interface GetContributionsRequest {
 export interface GetContributionRequest {
   id: number;
 }
+
+export interface VerifyTwitterRequest {
+  walletId: string;
+}
+
+export const TweetTemplate = "I am verifying for @verses_xyz: sig:";

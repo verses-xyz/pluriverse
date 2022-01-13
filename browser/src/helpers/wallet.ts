@@ -22,16 +22,14 @@ export async function getWalletAddress(): Promise<string> {
   return await provider.getSigner().getAddress();
 }
 
-export async function signAndValidate(textToSign: string): Promise<void> {
+export async function signAndValidate(textToSign: string): Promise<string> {
   const signature = await generateSignature(textToSign);
-  console.log(signature);
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  console.log(signer);
   const address = await signer.getAddress();
-  console.log(address);
   const verifyingAddress = ethers.utils.verifyMessage(textToSign, signature);
   if (verifyingAddress !== address) {
     throw new Error("Invalid Signature!");
   }
+  return signature;
 }

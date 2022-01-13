@@ -4,10 +4,18 @@ import { Author } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import "./SignatureContent.css";
 
+export function getDisplayForAuthor({
+  twitterVerified,
+  twitterUsername,
+  name,
+  walletId,
+}: Author): React.ReactNode {
+  return twitterVerified ? twitterUsername : name || walletId;
+}
+
 export function Signature({ author }: { author: Author }) {
-  const { walletId, name, twitterVerified, twitterUsername, createdAt } =
-    author;
-  const authorDisplay = twitterVerified ? twitterUsername : name || walletId;
+  const { createdAt } = author;
+  const authorDisplay = getDisplayForAuthor(author);
   const date = dayjs(createdAt);
   const dateDisplay = date.format(
     `MMM D, YYYY [on minute] m ${

@@ -10,6 +10,7 @@ import {
   AddUserResponse,
   GetUserRequest,
   GetUsersRequest,
+  VerifyTwitterRequest,
 } from "../types/common/server-api";
 
 export function withQueryParams(
@@ -129,4 +130,13 @@ export async function addUser(
   });
   console.log(`Added ${response} user`);
   return response as AddUserResponse;
+}
+
+export async function verifyTwitter(
+  request: VerifyTwitterRequest
+): Promise<void> {
+  await makeRequest(`${ApiUrl}/twitter/verify`, {
+    body: request,
+    method: "POST",
+  });
 }

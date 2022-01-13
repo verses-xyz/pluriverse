@@ -2,26 +2,35 @@ import "./ContributionSection.css";
 import { useState } from "react";
 import { descriptionText } from "../classNameConstants";
 import {
+  Author,
   Contribution,
   Pattern,
   PatternToDisplay,
   Prompt,
+  TweetTemplate,
 } from "../types/common/server-api/index";
 import { Dropdown, DropdownItem } from "./core/Dropdown";
-import { addContribution, addUser, getContribution } from "src/helpers/api";
+import {
+  addContribution,
+  addUser,
+  getContribution,
+  verifyTwitter,
+} from "src/helpers/api";
 import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
-import { ButtonClass } from "src/types/styles";
+import { ButtonClass, ButtonLinkStyling } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
 import { signAndValidate } from "src/helpers/wallet";
 import { ContributionCard } from "./ContributionCard";
 import { getUser } from "src/helpers/api";
 import { Link } from "react-router-dom";
+import { getDisplayForAuthor } from "./SignatureContent";
 
 enum Page {
   TermsOfUse,
   Contribute,
   Share,
+  TwitterVerify,
 }
 
 export const PluriverseAgreement = `I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us. i want to help build the pluriverse together:
@@ -64,18 +73,18 @@ const PromptDescriptionsToDisplay: Record<Prompt, string> = Object.entries(
 }, {});
 
 function PreviewCard({
-  walletAddress,
+  author,
   response,
   prompt,
   pattern,
 }: {
-  walletAddress?: string;
+  author: Author;
   response?: string;
   prompt: Prompt;
   pattern: Pattern;
 }) {
   const contribution: Contribution = {
-    author: { walletId: walletAddress || "...", twitterVerified: false },
+    author,
     response: response || "...",
     prompt,
     pattern,
@@ -93,7 +102,7 @@ function TermsOfUse() {
     Pattern.Pluriverse
   );
   const [response, setResponse] = useState<string | undefined>(undefined);
-  const [walletAddress, setWalletAddress] = useState<string | undefined>();
+  const [user, setUser] = useState<Author | undefined>();
 
   const PromptItems: DropdownItem[] = Object.keys(Prompt).map((promptKey) => ({
     name: PromptDescriptions[Prompt[promptKey as keyof typeof Prompt]],
@@ -172,7 +181,7 @@ function TermsOfUse() {
         prompt: selectedPrompt,
         pattern: selectedPattern,
         response,
-        walletId: walletAddress!,
+        walletId: user!.walletId,
       });
       // TODO: eliminate this and just return th actual contribution data with the response above.
       await fetchContribution(newContributionId);
@@ -189,6 +198,38 @@ function TermsOfUse() {
   const [twitterUsername, setTwitterUsername] = useState<string | undefined>(
     undefined
   );
+
+  const [lastPage, setLastPage] = useState<Page>(Page.TermsOfUse);
+  const [isTweetingProof, setIsTweetingProof] = useState<boolean>(true);
+  const [sig, setSig] = useState<string | undefined>();
+
+  function onClickTweetProof() {
+    const str = `${TweetTemplate}${sig}`;
+    window.open(
+      `https://twitter.com/intent/tweet?text=${encodeURI(str)}`,
+      "_blank"
+    );
+    setIsTweetingProof(false);
+  }
+
+  async function onClickVerifyTwitter() {
+    setIsLoading(true);
+    try {
+      await verifyTwitter({ walletId: user!.walletId });
+      setError(undefined);
+      setLastPage(Page.TermsOfUse);
+      setPage(Page.Contribute);
+    } catch (err) {
+      handleErr(err as Error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  function onClickSkipVerification() {
+    setLastPage(Page.TwitterVerify);
+    setPage(Page.Contribute);
+  }
 
   function renderPage() {
     switch (page) {
@@ -230,44 +271,71 @@ function TermsOfUse() {
             </p> */}
             {/* TODO: make this better */}
             <div className="inputs">
-              <input
-                value={name}
-                onChange={(evt) => setName(evt.target.value)}
-                placeholder="Name"
-                required
-              />
-              <input
-                value={twitterUsername}
-                onChange={(evt) => setTwitterUsername(evt.target.value)}
-                placeholder="Twitter Username"
-              />
+              <div>
+                <label>
+                  <em>Name:</em>
+                </label>
+                <input
+                  value={name}
+                  onChange={(evt) => setName(evt.target.value)}
+                  placeholder="verses"
+                  maxLength={60}
+                />
+              </div>
+              <div>
+                <label>
+                  <em>Twitter:</em>
+                </label>
+                <input
+                  value={twitterUsername}
+                  onChange={(evt) => setTwitterUsername(evt.target.value)}
+                  placeholder="verses_xyz"
+                  maxLength={15}
+                />
+              </div>
             </div>
 
             <div className="actionsContainer">
               {/* TODO: link to github forking or form */}
               <button className={ButtonClass("white")}>Disagree</button>
               <ConnectWalletButton
-                disabled={!name}
                 onSubmit={async (connectedWalletAddress) => {
                   // Validate user
-                  const existingUser = await getUser({
+                  let userToUpdate: Author | undefined;
+                  userToUpdate = await getUser({
                     id: connectedWalletAddress,
                   });
-                  if (!existingUser) {
-                    await signAndValidate(PluriverseAgreement);
+                  let nextPage: Page;
+                  let signature: string | undefined = userToUpdate?.signature;
+
+                  if (!userToUpdate) {
+                    signature = await signAndValidate(PluriverseAgreement);
                     // add user after successful
-                    await addUser({
+                    userToUpdate = await addUser({
                       walletId: connectedWalletAddress,
                       name,
                       twitterUsername,
+                      signature,
                     });
-                    // TODO: if twitter username is populated, should prompt user to verify and then click button to validate.
+                  }
+
+                  console.log(userToUpdate);
+
+                  // if twitter username is populated and not verified, redirect to verify flow.
+                  if (
+                    userToUpdate.twitterUsername &&
+                    !userToUpdate.twitterVerified
+                  ) {
+                    nextPage = Page.TwitterVerify;
+                  } else {
+                    nextPage = Page.Contribute;
                   }
 
                   // finish
                   setError(undefined);
-                  setWalletAddress(connectedWalletAddress);
-                  setPage(Page.Contribute);
+                  setSig(signature);
+                  setUser(userToUpdate);
+                  setPage(nextPage);
                 }}
                 onError={handleErr}
               >
@@ -285,9 +353,59 @@ function TermsOfUse() {
             </p>
           </div>
         );
+
+      case Page.TwitterVerify:
+        return (
+          <div className="verifyContainer">
+            {isTweetingProof ? (
+              <>
+                <p>
+                  Tweet a message to prove that you control this address. Return
+                  to this page afterwards to complete verification.
+                </p>
+                <div className="verifyActions">
+                  <button className={ButtonClass()} onClick={onClickTweetProof}>
+                    Tweet proof
+                  </button>
+                  <button
+                    className={ButtonLinkStyling}
+                    onClick={onClickSkipVerification}
+                  >
+                    Skip verification
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <p>
+                  After sending your tweet, click the button below to complete
+                  verification.
+                </p>
+                <div className="verifyActions">
+                  <button
+                    className={ButtonClass()}
+                    onClick={onClickVerifyTwitter}
+                  >
+                    Verify tweet
+                  </button>
+                  <button
+                    className={ButtonLinkStyling}
+                    onClick={onClickSkipVerification}
+                  >
+                    Skip verification
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        );
+
       case Page.Contribute:
         return (
           <div className="signContainer">
+            {/* <div className="signAttribution py-2 px-2">
+              Logged in as {getDisplayForAuthor(user!)}
+            </div> */}
             <h2 className="text-4xl font-bold">Contribute</h2>
             <p>
               We've provided some sentence starters to get you going. Please
@@ -300,7 +418,7 @@ function TermsOfUse() {
                 {selectedPrompt && (
                   <>
                     <div className="responseContainer">
-                      {promptStarter}{" "}
+                      {promptStarter} <br />
                       {
                         <AutoGrowInput
                           value={response}
@@ -319,7 +437,7 @@ function TermsOfUse() {
                 {/* TODO: add twitter username */}
               </div>
               <PreviewCard
-                walletAddress={walletAddress}
+                author={user!}
                 pattern={selectedPattern}
                 response={response}
                 prompt={selectedPrompt}
@@ -328,7 +446,7 @@ function TermsOfUse() {
 
             <div className="actionsContainer">
               <button
-                onClick={() => setPage(Page.TermsOfUse)}
+                onClick={() => setPage(lastPage)}
                 className={ButtonClass("white")}
               >
                 Back
@@ -349,7 +467,7 @@ function TermsOfUse() {
 
       case Page.Share:
         return (
-          <div className="share">
+          <div className="signContainer">
             <h2 className="text-4xl font-bold">Share</h2>
             <p>
               Thank you for contributing to the Pluriverse! You can see your
@@ -380,7 +498,7 @@ function TermsOfUse() {
   }
 
   return (
-    <div className="termsOfUseContainer">
+    <div>
       {renderPage()}
       {error && (
         <div className="errorContainer text-red-500">Error: {error}</div>
