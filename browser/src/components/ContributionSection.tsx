@@ -33,14 +33,9 @@ enum Page {
   TwitterVerify,
 }
 
-export const PluriverseAgreement = `I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us. i want to help build the pluriverse together:
+export const PluriverseAgreement = `I have read and agree to the principles of the pluriverse, and I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us. 
 
-WE ARE TOLD THAT THE AGE OF THE METAVERSE IS UPON US. The Metaverse, led by Meta, allows and celebrates monopoly, gating access to the length and breadth of the digital ecosystem. The monopolies of the Metaverse take what was once collective and ensure it is bought, sold, measured, and speculated upon. The Metaverse expands as a homogenizing monoculture, assimilating ecosystems, displacing extant species, and enclosing digital abundance into enforced scarcity. A new-age Columbus of digits and pixels, Meta purports to chart new territory while simply recycling the harms and stagnation of the old. The Metaverse we are promised is not a gift we should accept, but a shackles in disguise. This is an empty land grab for the commons of the future and the resources of the past. This is no Metaverse, this is a monoverse.
-
-But we have brighter dreams, of brighter technological futures. Futures that are rooted in history, that prefigure infinite gardens of collective wisdom, intelligence, and collaboration. Futures where we move past promises of mere "freedom from" towards the shared capacity for building "freedoms to". Futures of polycentrism, where resources are owned and governed by the many, and where false scarcity again gives way to the creation of common spaces, collectively-owned public infrastructure, and shared, self-sovereign worlds. Spaces of plurality, where choice is meaningful because difference is prized; all the better to create a resilient ecology of diverse co-existence. We propose these dreams and futures be gathered under a different banner.
-
-Together, we can steward these new futures; we invite you to dream, collaborate, and strategize towards a different world. We propose to gather these worlds around a different banner: the Pluriverse.
-`;
+I want to help build the pluriverse together.`;
 export const Placeholder = "________";
 export const replaceJSX = (
   str: string,
@@ -252,17 +247,17 @@ function TermsOfUse() {
           <div className="terms">
             <h2 className="text-3xl font-bold">Terms of Use</h2>
             <p>
-              please read the above essay ("<b>essay</b>") and patterns ("
-              <b>patterns</b>") carefully before <b>pluriverse</b>-building.
-              agreeing is an acknowledgment of the past, present, and future of
-              the pluriverse, and the collective ethic it requires. by signing,
-              you expressly acknowledge that the entire{" "}
-              <b>responsibility / liability</b> as to the realization of the
-              pluriverse <b>lies with all of us</b>.{" "}
+              Please read the above essay ("<b>essay</b>") and patterns ("
+              <b>patterns</b>") carefully before <b>pluriverse</b>-building. A
+              signature is a recognition of the past, present, and future of the
+              pluriverse, and the collective ethic it requires. Adding your name
+              is an express acknowledgement that the entire{" "}
+              <b>responsibility / liability</b> as to the realization of an
+              evolving digital pluriverse <b>lies with all of us</b>.{" "}
             </p>
             <p>
               <b>
-                i want to help build the <b className="shimmer">pluriverse</b>{" "}
+                I want to help build the <b className="shimmer">pluriverse</b>{" "}
                 together:
               </b>
             </p>
@@ -362,7 +357,7 @@ function TermsOfUse() {
                 }}
                 onError={handleErr}
               >
-                {`Agree${!user ? " (connect wallet)" : ""}`}
+                {`Agree${!user ? " (sign with wallet)" : ""}`}
               </ConnectWalletButton>
             </div>
 

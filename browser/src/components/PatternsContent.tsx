@@ -27,7 +27,7 @@ export default function PatternsContent() {
 
   return (
     <div className="container w-full md:max-w-7xl mx-auto pb-20 px-8">
-      <hr />
+      {/* <hr />
       <div className="px-3 py-20">
         <div className="grid md:grid-cols-4 items-center justify-center">
           <div className="col-span-1">
@@ -49,7 +49,7 @@ export default function PatternsContent() {
           </div>
         </div>
       </div>
-      <hr />
+      <hr /> */}
       {Object.values(Principles).map(({ title, body }, index) => (
         <PatternSection
           key={index}
