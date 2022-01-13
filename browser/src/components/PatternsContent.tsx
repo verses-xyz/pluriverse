@@ -50,18 +50,18 @@ export default function PatternsContent() {
         </div>
       </div>
       <hr /> */}
-      {Object.values(Principles).map(({ title, body }, index) => (
+      {Object.values(Principles).map(({ title, problem, solution }, index) => (
         <PatternSection
           key={index}
           title={`0${index + 1}. ${title}`}
-          body={body}
+          problem={problem}
+          solution={solution}
           contributions={getContributionsByPattern(
             contributions,
             title as Pattern
           )}
         />
       ))}
-      <hr />
     </div>
   );
 }

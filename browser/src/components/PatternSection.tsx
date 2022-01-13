@@ -6,11 +6,13 @@ import "./PatternSection.css";
 
 export default function PatternSection({
   title,
-  body,
+  problem,
+  solution,
   contributions,
 }: {
   title: string;
-  body: string;
+  problem: string;
+  solution: string;
   contributions: Contribution[];
 }) {
   const [expanded, toggle] = useToggle();
@@ -50,26 +52,13 @@ export default function PatternSection({
               <h4 className="font-title text-xl font-mono font-bold">
                 The problem
               </h4>
-              <p>{body}</p>
+              <p>{problem}</p>
             </div>
             <div>
               <h4 className="font-title text-xl font-mono font-bold">
                 The solution
               </h4>
-              <p>
-                The many worlds of the pluriverse must be connected. Meaningful
-                interoperability will be both technical and institutional; the
-                data moats of today will give way to the portable social graphs
-                and cooperative data structures of tomorrow. The many worlds of
-                the pluriverse must be connected. Meaningful interoperability
-                will be both technical and institutional; the data moats of
-                today will give way to the portable social graphs and
-                cooperative data structures of tomorrow. The many worlds of the
-                pluriverse must be connected. Meaningful interoperability will
-                be both technical and institutional; the data moats of today
-                will give way to the portable social graphs and cooperative data
-                structures of tomorrow.
-              </p>
+              <p>{solution}</p>
             </div>
           </div>
           {contributions && contributions.length > 0 && (
