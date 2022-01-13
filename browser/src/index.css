@@ -198,3 +198,8 @@ a {
 .selectedBorder {
   border: 1px solid rgb(198, 142, 255);
 }
+
+nav {
+  /* position: fixed;
+right: 0px; */
+}
