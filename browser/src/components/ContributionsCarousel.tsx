@@ -26,12 +26,13 @@ export default function ContributionsCarousel({
   const overflowContainerRef = useRef<HTMLDivElement | null>(null);
 
   // scroll by half the width of the container
-  const amountToScrollBy = overflowContainerRef?.current?.offsetWidth * 0.5;
+  // TODO: fix this
+  // const amountToScrollBy = overflowContainerRef?.current?.offsetWidth * 0.5;
 
   const onRightPress = () => {
     console.log({ overflowContainerRef });
     overflowContainerRef?.current?.scrollBy({
-      left: amountToScrollBy,
+      left: 320, // TODO: don't hardcode
       behavior: "smooth",
     });
   };
