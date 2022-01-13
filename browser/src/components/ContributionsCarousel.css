@@ -1,0 +1,27 @@
+.carouselOverflowContainer {
+  overflow-x: auto;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+}
+
+.carouselOverflowContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* todo consolidate this with the other glass buttons */
+.carouselArrowButton {
+  padding: 10px;
+  border: 0;
+  text-decoration: none;
+  border-radius: 60px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.carouselArrowButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
