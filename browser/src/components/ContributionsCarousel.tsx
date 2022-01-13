@@ -1,5 +1,4 @@
 import { Contribution } from "src/types/common/server-api";
-import getMockContributions from "src/utils/getMockContributions";
 import CompactContributionCard from "./CompactContributionCard";
 
 export default function ContributionsCarousel({
@@ -7,14 +6,13 @@ export default function ContributionsCarousel({
 }: {
   contributions: Contribution[];
 }) {
-  const mockcontributions = getMockContributions();
   return (
     <div style={{ position: "relative" }}>
       <div
         className="flex flex-row"
         style={{ overflowX: "auto", width: "100%" }}
       >
-        {mockcontributions.map((contribution) => (
+        {contributions.map((contribution) => (
           <div className="pr-4">
             <CompactContributionCard
               key={contribution.id}
