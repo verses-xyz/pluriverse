@@ -69,7 +69,7 @@ export const Principles: Record<
     solution: `We must reimagine privacy as a communal good, necessary to protect the green shoots of these transformational tendencies in a monopolized and surveilled world. Building from a foundation of distributed identity mechanisms and verification based on personhood, not either state or stake, we will reclaim the digital sphere as one in which individuals and communities can act, grow, learn, deliberate, and agitate free of surveillance. `,
   },
   [Pattern.Regeneration]: {
-    title: PatternToDisplay[Pattern.Privacy],
+    title: PatternToDisplay[Pattern.Regeneration],
     problem: `The offer of the Metaverse is transcendence of physical space, the reality is a commitment to extraction. Extractive processes leave devastation in their wake, and accrue resources to those who already have enough to lead the extraction; concentration and centralization are unavoidable. Predatory platforms and protocols can act as invasive species, succeeding only in coercion and enclosure of necessary infrastructure.`,
     solution: `We must learn from the ecological necessity of diversity and balance, and uproot these monocultures as we cultivate a sustainable digital ecosystem. Regeneration leaves resources intact, or replenishes them with use such that they do not deplete over time. Rather than externalizing its true costs, regeneration incorporates and overcomes the cost of resource use through resource generation.`,
   },
@@ -77,6 +77,11 @@ export const Principles: Record<
     title: PatternToDisplay[Pattern.Commons],
     problem: `Digital space is becoming privatized; the processes of commons enclosure that produced private property for the few and destitution for the many is repeating. We must build forms of social organization that break the binary between Adam Smith’s Market and Thomas Hobbes’ Leviathan. The current system gives us few options, caught as we are between the  surveillance state and surveillance capitalism.`,
     solution: `Our digital commons is not for sale. We must reclaim the commons, and steward shared digital space with shared responsibility. Governing a resource like a commons means ensuring sustainable use; allowing for the maximum amount of shared benefit while preserving the resource for the future. Through commoning, the walled digital gardens of the metaverse will give way to the open community gardens of the pluriverse.`,
+  },
+  [Pattern.MaintenanceAndCare]: {
+    title: PatternToDisplay[Pattern.MaintenanceAndCare],
+    problem: `Building the pathways for connected worlds and enabling the proliferation of difference is not enough. These pathways will fall into disrepair or co-optation without the necessary work of deep maintenance and care, and the responsibility that goes along with this ethos.`,
+    solution: `We must not only build the new, but sustain it; we must not only push for progress, but protect it. The work of maintenance and care is practical work: the work of keeping codebases updated, feedback incorporated, and communities informed.`,
   },
 };
 

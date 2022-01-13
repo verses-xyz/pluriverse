@@ -23,6 +23,7 @@ export enum Pattern {
   Voice = "Voice",
   EngagementAndAttention = "EngagementAndAttention",
   Commons = "Commons",
+  MaintenanceAndCare = "MaintenanceAndCare",
 }
 
 export const PatternToDisplay: Record<Pattern, string> = {
@@ -34,6 +35,7 @@ export const PatternToDisplay: Record<Pattern, string> = {
   [Pattern.Voice]: "Voice",
   [Pattern.EngagementAndAttention]: "Engagement and Attention",
   [Pattern.Commons]: "Commons",
+  [Pattern.MaintenanceAndCare]: "Maintenance and Care",
 };
 
 export interface Author {

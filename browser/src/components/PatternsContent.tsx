@@ -62,6 +62,7 @@ export default function PatternsContent() {
           )}
         />
       ))}
+      <hr />
     </div>
   );
 }
