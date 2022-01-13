@@ -44,7 +44,7 @@ export default function CompactContributionCard({
         })}{" "}
         {response}
       </p>
-      <div>
+      <div className="blobSingleContainer">
         <BlobSingle
           pattern={pattern}
           prompt={prompt}
