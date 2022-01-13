@@ -4,6 +4,7 @@
   flex-direction: column;
   padding: 20px;
   height: 260px;
+  position: relative;
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.2);
   border-radius: 16px;
@@ -11,6 +12,12 @@
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.blobSingleContainer {
+  position: absolute;
+  top: 25%;
+  opacity: 0.5;
 }
 
 .compactContributionCardContainer > h2 {
