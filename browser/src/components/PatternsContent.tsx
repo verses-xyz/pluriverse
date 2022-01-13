@@ -29,7 +29,7 @@ export default function PatternsContent() {
     <div className="container w-full md:max-w-7xl mx-auto pb-20 px-8">
       <hr />
       <div className="px-3 py-20">
-        <div className="grid grid-cols-4 items-center justify-center">
+        <div className="grid md:grid-cols-4 items-center justify-center">
           <div className="col-span-1">
             <h2 className="font-title font-mono italic text-4xl pl-8 font-bold pb-12">
               Patterns

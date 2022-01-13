@@ -45,7 +45,7 @@ export default function PatternSection({
       </div>
       {expanded && (
         <div>
-          <div className="grid grid-cols-2 gap-16 pt-8 pb-8 fadeInDownFast">
+          <div className="grid md:grid-cols-2 gap-16 pt-8 pb-8 fadeInDownFast">
             <div>
               <h4 className="font-title text-xl font-mono font-bold">
                 The problem
