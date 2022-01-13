@@ -244,9 +244,9 @@ function TermsOfUse() {
     switch (page) {
       case Page.TermsOfUse:
         return (
-          <div className="terms">
-            <h2 className="text-3xl font-bold">Terms of Use</h2>
-            <p>
+          <div className="terms p-6">
+            <h2 className="font-serif font-bold text-3xl"> <em>Terms of Use</em></h2>
+            <p className="font-sans">
               Please read the above essay ("<b>essay</b>") and patterns ("
               <b>patterns</b>") carefully before <b>pluriverse</b>-building. A
               signature is a recognition of the past, present, and future of the
@@ -256,10 +256,10 @@ function TermsOfUse() {
               evolving digital pluriverse <b>lies with all of us</b>.{" "}
             </p>
             <p>
-              <b>
+              <p className="font-sans">
                 I want to help build the <b className="shimmer">pluriverse</b>{" "}
                 together:
-              </b>
+              </p>
             </p>
             {/* <p style={{ paddingTop: "0px", marginLeft: "24px" }}>
               <ul className="list-disc">
@@ -286,7 +286,7 @@ function TermsOfUse() {
             ) : (
               <div className="inputs">
                 <div>
-                  <label>
+                  <label className="font-sans">
                     <em>Name:</em>
                   </label>
                   <input
@@ -297,7 +297,7 @@ function TermsOfUse() {
                   />
                 </div>
                 <div>
-                  <label>
+                  <label className="font-sans">
                     <em>Twitter:</em>
                   </label>
                   <input
@@ -364,9 +364,7 @@ function TermsOfUse() {
             <p className="metaText">
               A copy of the Essay will live on the permaweb and can be found at{" "}
               <a href="">Arweave</a>. It also lives on the web on{" "}
-              <a href="#">pluriverse.world</a>.
-              <br />
-              To agree and sign, you need a Metamask wallet. Need help? Check
+              <a href="#">pluriverse.world</a>. To agree and sign, you need a Metamask wallet. Need help? Check
               out this <a href="">guide</a>.
             </p>
           </div>
