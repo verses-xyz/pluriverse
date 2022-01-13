@@ -53,11 +53,12 @@ async function makeRequest(
     method,
     body: JSON.stringify(body),
   });
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
   const text = await response.text();
-  return text.length ? JSON.parse(text) : undefined;
+  const jsonResponse = text.length ? JSON.parse(text) : undefined;
+  if (!response.ok) {
+    throw new Error(jsonResponse?.error || response.statusText);
+  }
+  return jsonResponse;
 }
 
 // TODO: maybe enrich with location data?

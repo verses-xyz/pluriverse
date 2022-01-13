@@ -32,7 +32,7 @@ export function verify({ prisma }: Services): RequestHandler {
 
       if (twitterVerified) {
         console.log(`already verified user: @${existingUser.twitterUsername}`);
-        res.status(200).json({ msg: "already verified!" });
+        res.status(200);
         return;
       }
 
@@ -69,9 +69,9 @@ export function verify({ prisma }: Services): RequestHandler {
                 return;
               }
             }
-            throw new Error("No matching Tweets found");
+            res.status(400).json({ error: "No matching Tweets found" });
           } else {
-            res.status(500).json({ message: "Internal Error" });
+            res.status(500).json({ error: "Internal Error" });
           }
         }
       );

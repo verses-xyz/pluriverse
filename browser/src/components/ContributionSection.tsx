@@ -1,5 +1,5 @@
 import "./ContributionSection.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { descriptionText } from "../classNameConstants";
 import {
   Author,
@@ -20,7 +20,7 @@ import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
 import { ButtonClass, ButtonLinkStyling } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
-import { signAndValidate } from "src/helpers/wallet";
+import { getWalletAddress, signAndValidate } from "src/helpers/wallet";
 import { ContributionCard } from "./ContributionCard";
 import { getUser } from "src/helpers/api";
 import { Link } from "react-router-dom";
@@ -103,6 +103,21 @@ function TermsOfUse() {
   );
   const [response, setResponse] = useState<string | undefined>(undefined);
   const [user, setUser] = useState<Author | undefined>();
+
+  useEffect(async () => {
+    try {
+      const addr = await getWalletAddress();
+      if (addr) {
+        const maybeUser = await getUser({
+          id: addr,
+        });
+        if (maybeUser) {
+          setUser(maybeUser);
+        }
+      }
+      // eslint-disable-next-line no-empty
+    } catch {}
+  }, []);
 
   const PromptItems: DropdownItem[] = Object.keys(Prompt).map((promptKey) => ({
     name: PromptDescriptions[Prompt[promptKey as keyof typeof Prompt]],
@@ -200,7 +215,6 @@ function TermsOfUse() {
   );
 
   const [lastPage, setLastPage] = useState<Page>(Page.TermsOfUse);
-  const [isTweetingProof, setIsTweetingProof] = useState<boolean>(true);
   const [sig, setSig] = useState<string | undefined>();
 
   function onClickTweetProof() {
@@ -209,7 +223,6 @@ function TermsOfUse() {
       `https://twitter.com/intent/tweet?text=${encodeURI(str)}`,
       "_blank"
     );
-    setIsTweetingProof(false);
   }
 
   async function onClickVerifyTwitter() {
@@ -217,6 +230,7 @@ function TermsOfUse() {
     try {
       await verifyTwitter({ walletId: user!.walletId });
       setError(undefined);
+      setUser({ ...user!, twitterVerified: true });
       setLastPage(Page.TermsOfUse);
       setPage(Page.Contribute);
     } catch (err) {
@@ -269,31 +283,37 @@ function TermsOfUse() {
                 </p>
               </ul>
             </p> */}
-            {/* TODO: make this better */}
-            <div className="inputs">
-              <div>
-                <label>
-                  <em>Name:</em>
-                </label>
-                <input
-                  value={name}
-                  onChange={(evt) => setName(evt.target.value)}
-                  placeholder="verses"
-                  maxLength={60}
-                />
+            {/* TODO: maybe don't show any of this if user is already defined */}
+            {user ? (
+              <div className="inputs">
+                signing as {getDisplayForAuthor(user)}
               </div>
-              <div>
-                <label>
-                  <em>Twitter:</em>
-                </label>
-                <input
-                  value={twitterUsername}
-                  onChange={(evt) => setTwitterUsername(evt.target.value)}
-                  placeholder="verses_xyz"
-                  maxLength={15}
-                />
+            ) : (
+              <div className="inputs">
+                <div>
+                  <label>
+                    <em>Name:</em>
+                  </label>
+                  <input
+                    value={name}
+                    onChange={(evt) => setName(evt.target.value)}
+                    placeholder="verses"
+                    maxLength={60}
+                  />
+                </div>
+                <div>
+                  <label>
+                    <em>Twitter:</em>
+                  </label>
+                  <input
+                    value={twitterUsername}
+                    onChange={(evt) => setTwitterUsername(evt.target.value)}
+                    placeholder="verses_xyz"
+                    maxLength={15}
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="actionsContainer">
               {/* TODO: link to github forking or form */}
@@ -301,10 +321,13 @@ function TermsOfUse() {
               <ConnectWalletButton
                 onSubmit={async (connectedWalletAddress) => {
                   // Validate user
-                  let userToUpdate: Author | undefined;
-                  userToUpdate = await getUser({
-                    id: connectedWalletAddress,
-                  });
+                  let userToUpdate: Author | undefined = user;
+                  if (!userToUpdate) {
+                    userToUpdate = await getUser({
+                      id: connectedWalletAddress,
+                    });
+                  }
+                  // TODO: upsert user if the data does not match.
                   let nextPage: Page;
                   let signature: string | undefined = userToUpdate?.signature;
 
@@ -339,7 +362,7 @@ function TermsOfUse() {
                 }}
                 onError={handleErr}
               >
-                Agree (connect wallet)
+                {`Agree${!user ? " (connect wallet)" : ""}`}
               </ConnectWalletButton>
             </div>
 
@@ -357,46 +380,30 @@ function TermsOfUse() {
       case Page.TwitterVerify:
         return (
           <div className="verifyContainer">
-            {isTweetingProof ? (
-              <>
-                <p>
-                  Tweet a message to prove that you control this address. Return
-                  to this page afterwards to complete verification.
-                </p>
-                <div className="verifyActions">
-                  <button className={ButtonClass()} onClick={onClickTweetProof}>
-                    Tweet proof
-                  </button>
-                  <button
-                    className={ButtonLinkStyling}
-                    onClick={onClickSkipVerification}
-                  >
-                    Skip verification
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <p>
-                  After sending your tweet, click the button below to complete
-                  verification.
-                </p>
-                <div className="verifyActions">
-                  <button
-                    className={ButtonClass()}
-                    onClick={onClickVerifyTwitter}
-                  >
-                    Verify tweet
-                  </button>
-                  <button
-                    className={ButtonLinkStyling}
-                    onClick={onClickSkipVerification}
-                  >
-                    Skip verification
-                  </button>
-                </div>
-              </>
-            )}
+            <p>
+              Tweet a message to prove that you control this address. Return to
+              this page afterwards to complete verification.
+            </p>
+            <button className={ButtonClass()} onClick={onClickTweetProof}>
+              Tweet proof
+            </button>
+            <br />
+            <p>
+              After sending your tweet, click the button below to complete
+              verification. If successful, you'll proceed to contributing to the{" "}
+              <b className="shimmer">Pluriverse</b>.
+            </p>
+            <div className="verifyActions">
+              <button className={ButtonClass()} onClick={onClickVerifyTwitter}>
+                Verify tweet
+              </button>
+              <button
+                className={ButtonLinkStyling}
+                onClick={onClickSkipVerification}
+              >
+                Skip verification to contributing
+              </button>
+            </div>
           </div>
         );
 

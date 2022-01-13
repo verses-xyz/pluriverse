@@ -90,6 +90,11 @@ input::placeholder {
     flex-direction: column;
     gap: 16px;
     align-items: center;
+    text-align: left;
+}
+
+.verifyContainer > p {
+  width: 100%;
 }
 
 .verifyContainer > p:first-child {
@@ -99,7 +104,7 @@ input::placeholder {
 .verifyActions {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .contributionContainer {

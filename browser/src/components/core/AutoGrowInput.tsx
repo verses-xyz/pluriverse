@@ -45,11 +45,12 @@ export function AutoGrowInput({
     //   >
     //     {value}
     //   </span>
-    <div className={`auto-grow-input ${className ? className : ""}`}>
+    <div className={`grow-wrap ${className ? className : ""}`}>
+      {/* <div className={`grow-wrap`}> */}
       <textarea
         {...(extraProps || {})}
         className="form-textarea mt-1 block w-full"
-        style={{ width: "300px", height: "200px" }}
+        style={{ width: "300px", minHeight: "200px" }}
         // placeholder="Enter your response to the prompt..."
         value={value}
         onChange={(event) => onChange(event.target.value)}
