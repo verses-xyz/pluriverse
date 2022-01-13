@@ -5,7 +5,7 @@ export default function GradientManager({
   essayContentRef,
   patternsContentRef,
 }) {
-  const gsap = useGsap();
+  // const gsap = useGsap();
 
   // useEffect(() => {
   //   // fade out  gradient 1
@@ -28,23 +28,23 @@ export default function GradientManager({
   // }, []);
 
   // fade in  gradient 2
-  useEffect(() => {
-    gsap.fromTo(
-      ".gradient-2",
-      {
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        scrollTrigger: {
-          trigger: essayContentRef.current,
-          start: 0,
-          end: " top top",
-          scrub: true,
-        },
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   gsap.fromTo(
+  //     ".gradient-2",
+  //     {
+  //       opacity: 0,
+  //     },
+  //     {
+  //       opacity: 1,
+  //       scrollTrigger: {
+  //         trigger: essayContentRef.current,
+  //         start: 0,
+  //         end: " top top",
+  //         scrub: true,
+  //       },
+  //     }
+  //   );
+  // }, []);
 
   // // fade out gradient 2
   // useEffect(() => {
@@ -87,7 +87,7 @@ export default function GradientManager({
   return (
     <div>
       <div className="gradient-1" />
-      <div className="gradient-2" />
+      {/* <div className="gradient-2" /> */}
       {/* <div className="gradient-3" /> */}
     </div>
   );
