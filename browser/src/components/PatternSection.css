@@ -1,0 +1,16 @@
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -5%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInDownFast {
+  animation-name: fadeInDown;
+  animation-duration: 0.5s;
+}

@@ -60,7 +60,7 @@ function App() {
   return (
     <div className="mainContainer">
       <main ref={mainRef}>
-        <DevelopmentBanner />
+        {/* <DevelopmentBanner /> */}
         <Navbar />
         <Routes>
           <Route
