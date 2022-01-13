@@ -29,6 +29,7 @@ export default function ContributionsCarousel({
   const amountToScrollBy = overflowContainerRef?.current?.offsetWidth * 0.5;
 
   const onRightPress = () => {
+    console.log({ overflowContainerRef });
     overflowContainerRef?.current?.scrollBy({
       left: amountToScrollBy,
       behavior: "smooth",
