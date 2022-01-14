@@ -11,7 +11,7 @@ export async function connectWithWalletConnect(): Promise<providers.Web3Provider
   //   walletconnect: {
   //     package: WalletConnectProvider,
   //     options: {
-  //       infuraId: "2073c0b608fd45c0977dc86e1dca2e1b",
+  //       infuraId: process.env.REACT_APP_INFURA_ID,
   //     },
   //   },
   // };
@@ -25,7 +25,7 @@ export async function connectWithWalletConnect(): Promise<providers.Web3Provider
 
   // USE WALLETCONNECT LIBRARIES
   const provider = new WalletConnectProvider({
-    infuraId: "2073c0b608fd45c0977dc86e1dca2e1b", // Required
+    infuraId: process.env.REACT_APP_INFURA_ID, // Required
   });
 
   //  Enable session (triggers QR Code modal)

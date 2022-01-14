@@ -90,7 +90,7 @@ export function About() {
           Please help expand this pattern language. While abstract patterns are
           useful, examples are crucial to understand how to bring them to
           reality: concrete illustrations, historical analogues, and specific
-          visions for the future. It is these examples that we ask you to
+          visions for the future. It is these examples that we ask you to{" "}
           <a href="/#contribute">contribute</a>. For reference, see{" "}
           <a href="/contributions">all the contributions</a> by the community.
         </p>
@@ -121,7 +121,7 @@ export function About() {
           communities who have helped theorize, concretize, and enact the
           pluriverse. We also wish to acknowledge recent and contemporary work
           that we drew inspiration from in our work, including the{" "}
-          <a href="https://getdweb.net/principles/">DWeb principles</a>,
+          <a href="https://getdweb.net/principles/">DWeb principles</a>,{" "}
           <a href="https://kernel.community/en/">kernel.community</a>, and more.
         </p>
         <p>
