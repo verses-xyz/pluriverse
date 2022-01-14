@@ -10,7 +10,7 @@ article {
   position: relative;
   top: -9px;
   right: -2px;
-  color: rgb(192, 132, 252);
+  color: rgb(198, 142, 255);
 }
 
 .footnote {
@@ -19,14 +19,22 @@ article {
 .footnote-content {
   z-index: 4;
   position: absolute;
-  color: rgb(192, 132, 252);
-  font-size: 0.8rem;
+  color: white;
+  font-size: 0.85rem;
   margin-top: 2px !important;
   padding-left: 25px;
-  right: 7%;
+  right: 4%;
   text-transform: none;
-  width: 300px;
+  width: 340px;
   margin-top: -30px;
+}
+
+.footnote-content-left {
+  left: 4%;
+}
+
+.footnote-content-right {
+  right: 7%;
 }
 
 .footnote-content::before {
@@ -37,5 +45,5 @@ article {
   position: relative;
   top: -8px;
   right: 5px;
-  color: rgb(192, 132, 252);
+  color: rgb(198, 142, 255);
 }

@@ -46,26 +46,72 @@ export default function EssayContent() {
           collective
         </Footnote>{" "}
         and ensure it is bought, sold, measured, and speculated upon. The
-        Metaverse expands as a homogenizing <b>monoculture</b>, assimilating
-        ecosystems, displacing extant species, and enclosing digital abundance
-        into enforced scarcity. A new-age Columbus of digits and pixels, the
-        Metaverse purports to chart new territory while simply recycling the
-        harms and stagnation of the old. The Metaverse we are promised is not a
-        gift we should accept but shackles in disguise. This proposed Metaverse
-        is truly a <b>monoverse</b>.
+        Metaverse expands as a homogenizing{" "}
+        <Footnote
+          left
+          data={`In agriculture, a monoculture refers to the cultivation of a singular crop in an area. Though monocultures may be efficient, they present greater susceptibility to disease and pests. In Braiding Sweetgrass: Indigenous Wisdom, Scientific Knowledge, and the Teachings of Plants, Indigenous scholar and botanist, Robin Kimmerer shares the story of the Three Sisters to advocate for polycultures over monocultures. Referring to a gardening style of Native peoples, the Three Sisters refers to the interdependent relationship between species of corn, squash, and beans. Although each of the species have different needs and growth patterns, they work alongside each other in a holistic ecosystem of growth. Kimmerer imagines this harmonious agricultural system as a metaphor for intellectual and social relations: she writes that “the Three Sisters offer us a new metaphor for an emerging relationship between indigenous knowledge and Western science”, as well as functions as a model of care in which individuals use their unique gifts to “take care of each other [and] work together” (find pg no.). In our vision of the pluriverse, we seek to adopt this idea of individuality and shared/complementary knowledge. `}
+        >
+          <b>monoculture</b>
+        </Footnote>
+        ,{" "}
+        <Footnote
+          left
+          topOffset={430}
+          data={` Since the acquisition of Kevin Systrom’s photo-sharing app Instagram, Meta has undertaken a series of acquisitions, totalling 24 billion dollars and including WhatsApp, Oculus, and Giphy. This set of moves has been a concerted ploy to gain monopoly over digital/social networks.`}
+        >
+          assimilating ecosystems
+        </Footnote>
+        ,{" "}
+        <Footnote
+          left
+          topOffset={530}
+          data={`We think here of blogs, RSS feeds, community-owned forums, etc.`}
+        >
+          displacing extant species
+        </Footnote>
+        , and enclosing digital abundance into enforced scarcity. A new-age
+        Columbus of digits and pixels, the Metaverse purports to chart new
+        territory while simply recycling the harms and stagnation of the old.
+        The Metaverse we are promised is not a gift we should accept but
+        shackles in disguise. This proposed Metaverse is truly a{" "}
+        <b>monoverse</b>.
       </p>
       <p>
         But we have brighter dreams, of brighter technological futures. Futures
         that are rooted in history, that prefigure infinite gardens of
         collective wisdom, intelligence, and collaboration. Futures where we
         move past promises of mere “freedom from” towards the shared capacity
-        for building “freedom to.” Futures of <b>polycentrism</b>, where
-        falsely-imposed scarcity and data moats give way to the creation of
-        common and convivial spaces, collectively-owned resources and
+        for building{" "}
+        <Footnote
+          data={`Freedom from external restraint on action is referred to as negative freedom, here we instead call for the positive freedom of having the capacity, resources, and pathways to act upon individual and collective free will. As per Escobar: the pluriverse is merely not about 'expanding the range of choices' (liberal freedom) but is intended to transform the kinds of beings we desire to be’.`}
+        >
+          “freedom to”
+        </Footnote>
+        . Futures of{" "}
+        <Footnote
+          topOffset={140}
+          data={`Here, we draw inspiration from Elinor Ostrom’s work in governing the commons. Ostrom, Elinor. "Beyond markets and states: polycentric governance of complex economic systems." American economic review 100.3 (2010): 641-72.`}
+        >
+          <b>polycentrism</b>
+        </Footnote>
+        , where falsely-imposed scarcity and data moats give way to the creation
+        of common and convivial spaces, collectively-owned resources and
         infrastructure, and shared, self-sovereign worlds. Futures of{" "}
-        <b>plurality</b>, where choice is meaningful because difference and
-        divergence are possible. Futures that trade in the flattening of a
-        monoculture for a resilient ecology of diverse co-existence.
+        <Footnote
+          topOffset={140}
+          data={`Plurality refers to a state in which multiple alternatives co-exist. Classical pluralism in a political science context takes this and applies it to the distribution of power within a political system. As laid out by thinkers such as Robert Dahl in Who Governs?, political pluralism advocates for the peaceful co-existence and self-determination of multiple and layered groups within democratic contexts.`}
+        >
+          <b>plurality</b>
+        </Footnote>
+        , where choice is meaningful because difference and{" "}
+        <Footnote
+          topOffset={280}
+          data={`Divergence is the process of differentiation. An end-state of difference is required for pluriversality, but so is a continuous state of divergence; without this, islands of difference can merge and become monocultures, as we have already seen with the giant platforms of the current web. `}
+        >
+          divergence
+        </Footnote>
+        are possible. Futures that trade in the flattening of a monoculture for
+        a resilient ecology of diverse co-existence.
       </p>
       <p>
         These dreams are not new. In looking to the future, we look sideways to
@@ -87,23 +133,47 @@ export default function EssayContent() {
         origins of the term are themselves plural. The word has its roots in
         decolonial theory, emerging from the Zapatista movement and taken
         forward by activists and academics alike, championed especially by the
-        cultural anthropologist Arturo Escobar and the literary critic and
-        theorist Walter Mignolo.
+        cultural anthropologist{" "}
+        <Footnote
+          left
+          data={`Our work particularly draws from Escobar’s Designing the Pluriverse, the anthology Constructing the Pluriverse (ed. Bernd Reiter), and the essay collection Pluriverse: A Post-Development Dictionary (ed. Arturo Escobar, Ariel Salleh, Ashish Kothari, Federico Demaria, Alberto Acosta). `}
+        >
+          Arturo Escobar
+        </Footnote>{" "}
+        and the literary critic and theorist{" "}
+        <Footnote
+          data={`Context and content at  http://waltermignolo.com/on-pluriversality/.`}
+        >
+          Walter Mignolo
+        </Footnote>
+        .
       </p>
       <p>
         Pluriversality is a process of <em>decentering</em>. Birthed in response
-        to the the neoliberal expansion of the 1990s, which had at its core a
-        homogenous form of social organization as the driver of global
-        capitalism, pluriversality instead re-centers other forms of being,
-        knowing, and producing. The history of the term pluriverse is thus an
-        oppositional one — those organizing under the banner of the pluriverse
-        arrayed themselves against single, globalized Western system of being, a
-        never-ending juggernaut of assimilation and monopoly over society
-        itself. They advocated for financing mechanisms for the Global South
-        separate from the predatory International Monetary Fund, pushed for
-        workers’ cooperatives and collectively-owned modes of production, and
-        fought for self-government, both through large-scale anti-colonial
-        movements and small-scale community struggles for sovereignty.
+        to the the{" "}
+        <Footnote
+          data={`While a still-contested term, neoliberalism broadly refers to a set of policies favoring deregulation, privatization, globalization, and the primacy of the free market with minimal democratic constraints. Significant thinkers include  F. A. Hayek, Milton Friedman, and James Buchanan.`}
+        >
+          neoliberal
+        </Footnote>
+        expansion of the 1990s, which had at its core a homogenous form of
+        social organization as the driver of global capitalism, pluriversality
+        instead re-centers other forms of being, knowing, and{" "}
+        <Footnote
+          left
+          data={`David Graeber’s Debt provides an overview of the many structures of production, distribution, and transaction that have existed in human society in the past two thousand years, many co-existing and interacting.`}
+        >
+          producing
+        </Footnote>
+        . The history of the term pluriverse is thus an oppositional one — those
+        organizing under the banner of the pluriverse arrayed themselves against
+        single, globalized Western system of being, a never-ending juggernaut of
+        assimilation and monopoly over society itself. They advocated for
+        financing mechanisms for the Global South separate from the predatory
+        International Monetary Fund, pushed for workers’ cooperatives and
+        collectively-owned modes of production, and fought for self-government,
+        both through large-scale anti-colonial movements and small-scale
+        community struggles for sovereignty.
       </p>
       <p>
         These advocates aimed to counter the universal - not with a disregard of
@@ -121,22 +191,45 @@ export default function EssayContent() {
       </p>
       <p>
         The pursuit of pluriversality is thus a process-oriented pursuit of a
-        flowering of worlds. Grounded in the liberatory actions of autonomous
-        communities, the pluriverse is a renegotiation of accepted binaries. The
-        current digital space is being colonized by a single vision of what is
-        possible. This vision constrains us, forcing upon us an extremely
-        limiting and subjective view of how humans should be able to interact
-        with each other through and on digital networks. Spurred on by the
-        incentive structures of profit, growth, and control, the privatized web
-        necessitates a flattening of our personhood, turning us into passive
-        consumers—our power shifted to purchasing power, our selves shifted to
-        durational performances meant to be consumed by others. Just as Escobar
-        advocates for a displacement of the centrality of neoliberal and late
-        capitalist constructs, the pluriverse is a vision for the digital future
-        that makes way for a mosaic of communal, alternative, and autonomous
-        cultural and economic worlds. This can expand the partial common ground
-        and surface area of contact between these multiplicities, leading to a
-        world of difference, but not disconnection.
+        <Footnote
+          left
+          data={`In Anarchy, State, and Utopia, Robert Nozick defines a utopia as a world that every inhabitant believes to be the best possible world (e.g. there is no world they would rather be in). Since there is probably no single world that meets this criteria, it follows that a true utopia is actually a meta-utopia, or one in which many worlds are possible. If we accept this definition of utopia, the question becomes how we end up in a world where the largest possible set of worlds are available. `}
+        >
+          flowering of worlds
+        </Footnote>
+        . Grounded in the liberatory actions of{" "}
+        <Footnote
+          data={`In particular, drawing from the work of the Zapatistas, an Indigenous community in Mexico who have built a de facto autonomous system of self-governance in noncontiguous territories of the state of Chiapas, and the self-governing democratic confederalist communities in Rojava,  a de facto autonomous region in northeastern Syria.`}
+        >
+          autonomous communities
+        </Footnote>
+        , the pluriverse is a renegotiation of accepted binaries. The current
+        digital space is being colonized by a single vision of what is possible.
+        This vision constrains us, forcing upon us an extremely limiting and
+        subjective view of how humans should be able to interact with each other
+        through and on digital networks. Spurred on by the incentive structures
+        of profit, growth, and control, the privatized web necessitates a
+        flattening of our personhood, turning us into{" "}
+        <Footnote
+          left
+          data={`Multiple studies have shown the passivity of most participants in existing social media, for ex. Romero, Daniel M., et al. "Influence and passivity in social media." Joint European Conference on Machine Learning and Knowledge Discovery in Databases. Springer, Berlin, Heidelberg, 2011.`}
+        >
+          passive consumers
+        </Footnote>
+        —our power shifted to purchasing power, our selves shifted to durational
+        performances meant to be{" "}
+        <Footnote
+          data={`In opposing this, we bring in precepts of Kantian moral philosophy, particularly the convincing that a rational human being should not be treated as a means, only as an end. `}
+        >
+          consumed by others
+        </Footnote>
+        . Just as Escobar advocates for a displacement of the centrality of
+        neoliberal and late capitalist constructs, the pluriverse is a vision
+        for the digital future that makes way for a mosaic of communal,
+        alternative, and autonomous cultural and economic worlds. This can
+        expand the partial common ground and surface area of contact between
+        these multiplicities, leading to a world of difference, but not
+        disconnection.
       </p>
       <p>
         The digital pluriverse will cultivate the flourishing of many different,
@@ -148,8 +241,14 @@ export default function EssayContent() {
       <p>
         A pattern language is an organized and coherent set of <em>patterns</em>
         , each of which describes a problem and the core of a solution,
-        illustrated with examples. The term was coined by Christopher Alexander,
-        Murray Silverstein, and Sara Ishikawa in their 1977 book,{" "}
+        illustrated with{" "}
+        <Footnote
+          data={`“Each pattern describes a problem which occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use this solution a million times over, without ever doing it the same way twice” (Alexander et al. 1977, p x). `}
+        >
+          examples
+        </Footnote>
+        . The term was coined by Christopher Alexander, Murray Silverstein, and
+        Sara Ishikawa in their 1977 book,{" "}
         <em>A Pattern Language: Trees, Buildings</em>, which contains hundreds
         of patterns aimed at encapsulating a philosophy of urban design,
         architecture, and community livability. These patterns range from the
@@ -171,12 +270,16 @@ export default function EssayContent() {
         making it” (p xiii). Solutions are always contextual.
       </p>
       <p>
-        Inspired by this idea, as well as Escobar’s autonomous design
-        principles, we lay out below a set of intentions and epistemes for
-        pluriversality, modeled as the beginning of a pattern language for the
-        pluriverse. Each pattern maps to and connects with the others, in what
-        we hope will be a network that is both ever-expanding and
-        ever-concretizing.
+        Inspired by this idea, as well as{" "}
+        <Footnote
+          data={`Escobar reimagined the work of design as enabling the exercise of autonomy, and created a set of principles to allow for this pluriversal design. He writes, “If we start with the presupposition, striking perhaps but not totally far-fetched, that the contemporary world can be considered a massive design failure, certainly the result of particular design decisions, is it a matter of designing our way out?”. `}
+        >
+          Escobar’s autonomous design principles
+        </Footnote>
+        , we lay out below a set of intentions and epistemes for pluriversality,
+        modeled as the beginning of a pattern language for the pluriverse. Each
+        pattern maps to and connects with the others, in what we hope will be a
+        network that is both ever-expanding and ever-concretizing.
       </p>
       <p>
         This initial seed does not have the comprehensiveness and cohesiveness
