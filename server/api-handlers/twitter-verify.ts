@@ -32,7 +32,7 @@ export function verify({ prisma }: Services): RequestHandler {
 
       if (twitterVerified) {
         console.log(`already verified user: @${existingUser.twitterUsername}`);
-        res.status(200);
+        res.status(200).json({ message: "already verified!" });
         return;
       }
 
@@ -46,33 +46,34 @@ export function verify({ prisma }: Services): RequestHandler {
           tweet_mode: "extended",
         },
         async (error, tweets) => {
-          if (!error) {
-            for (const tweet of tweets as any) {
-              const parsedSignature = tweet.full_text
-                .slice(TweetTemplate.length)
-                .split(" ")[0];
-              if (
-                tweet.full_text.startsWith(TweetTemplate) &&
-                parsedSignature === signature
-              ) {
-                await prisma.user.update({
-                  where: { id: walletId },
-                  data: {
-                    twitterVerified: true,
-                  },
-                });
-
-                console.log(
-                  `new verified user: @${twitterUsername}, ${signature}`
-                );
-                res.status(201);
-                return;
-              }
-            }
-            res.status(400).json({ error: "No matching Tweets found" });
-          } else {
+          if (error) {
             res.status(500).json({ error: "Internal Error" });
+            return;
           }
+
+          for (const tweet of tweets as any) {
+            const parsedSignature = tweet.full_text
+              .slice(TweetTemplate.length)
+              .split(" ")[0];
+            if (
+              tweet.full_text.startsWith(TweetTemplate) &&
+              parsedSignature === signature
+            ) {
+              await prisma.user.update({
+                where: { id: walletId },
+                data: {
+                  twitterVerified: true,
+                },
+              });
+
+              console.log(
+                `new verified user: @${twitterUsername}, ${signature}`
+              );
+              res.status(201).json({ message: "success!" });
+              return;
+            }
+          }
+          res.status(400).json({ error: "No matching Tweets found" });
         }
       );
     } catch (err) {
