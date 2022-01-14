@@ -46,7 +46,7 @@ article {
 .footnote-content::before {
   counter-increment: footnote-content;
   content: counter(footnote-content);
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   display: inline-block;
   position: relative;
   top: -8px;
