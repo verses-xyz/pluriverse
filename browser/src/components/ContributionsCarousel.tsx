@@ -3,6 +3,7 @@ import CompactContributionCard from "./CompactContributionCard";
 import "./ContributionsCarousel.css";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useRef } from "react";
+import { useInView } from "react-intersection-observer";
 
 function CarouselArrow({
   left = false,
@@ -28,14 +29,25 @@ export default function ContributionsCarousel({
   // scroll by half the width of the container
   // TODO: fix this
   // const amountToScrollBy = overflowContainerRef?.current?.offsetWidth * 0.5;
+  const amountToScrollBy = 320; // TODO: don't hardcode
 
   const onRightPress = () => {
     console.log({ overflowContainerRef });
     overflowContainerRef?.current?.scrollBy({
-      left: 320, // TODO: don't hardcode
+      left: amountToScrollBy,
       behavior: "smooth",
     });
   };
+
+  const [leftInvisiblePixelRef, hideLeftControl] = useInView({
+    root: overflowContainerRef.current,
+    rootMargin: "15px",
+  });
+
+  const [rightInvisiblePixelRef, hideRightControl] = useInView({
+    root: overflowContainerRef.current,
+    rootMargin: "15px",
+  });
 
   return (
     <div style={{ position: "relative" }}>
@@ -43,29 +55,39 @@ export default function ContributionsCarousel({
         className="flex flex-row carouselOverflowContainer"
         ref={overflowContainerRef}
       >
-        {contributions.map((contribution) => (
-          <div className="pr-4" style={{ scrollSnapAlign: "start" }}>
-            <CompactContributionCard
-              key={contribution.id}
-              contribution={contribution}
-              hideHeader
-            />
+        <div style={{ display: "flex" }}>
+          <div ref={leftInvisiblePixelRef} />
+          {contributions.map((contribution) => (
+            <div className="pr-4" style={{ scrollSnapAlign: "start" }}>
+              <CompactContributionCard
+                key={contribution.id}
+                contribution={contribution}
+                hideHeader
+              />
+            </div>
+          ))}
+          <div ref={rightInvisiblePixelRef} />
+        </div>
+      </div>
+      {!hideRightControl && (
+        <>
+          <div
+            style={{ position: "absolute", top: "40%", right: -30, zIndex: 10 }}
+          >
+            <CarouselArrow onPress={onRightPress} />
           </div>
-        ))}
-      </div>
-      <div style={{ position: "absolute", top: "40%", right: -30, zIndex: 10 }}>
-        <CarouselArrow onPress={onRightPress} />
-      </div>
-      <div
-        style={{
-          top: 0,
-          right: 0,
-          position: "absolute",
-          height: "100%",
-          width: "100px",
-          backgroundImage: `linear-gradient(to right, rgba(255,0,0,0), rgb(32 32 44)  100%`,
-        }}
-      />
+          <div
+            style={{
+              top: 0,
+              right: 0,
+              position: "absolute",
+              height: "100%",
+              width: "100px",
+              backgroundImage: `linear-gradient(to right, rgba(255,0,0,0), rgb(32 32 44)  100%`,
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }
