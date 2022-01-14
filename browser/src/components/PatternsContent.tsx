@@ -9,6 +9,7 @@ function getContributionsByPattern(
   contributions: Contribution[],
   pattern: Pattern
 ) {
+  console.log(pattern);
   const filteredContributions = contributions.filter(
     (c) => c.pattern === pattern
   );
@@ -22,6 +23,8 @@ export default function PatternsContent() {
     const newContributions = await getContributions({});
     setContributions(newContributions);
   }, []);
+
+  console.log(contributions);
 
   return (
     <div className="container w-full md:max-w-7xl mx-auto pb-20 px-8">
@@ -48,18 +51,20 @@ export default function PatternsContent() {
         </div>
       </div>
       <hr /> */}
-      {Object.values(Principles).map(({ title, problem, solution }, index) => (
-        <PatternSection
-          key={index}
-          title={`0${index + 1}. ${title}`}
-          problem={problem}
-          solution={solution}
-          contributions={getContributionsByPattern(
-            contributions,
-            title as Pattern
-          )}
-        />
-      ))}
+      {Object.entries(Principles).map(
+        ([pattern, { title, problem, solution }], index) => (
+          <PatternSection
+            key={index}
+            title={`0${index + 1}. ${title}`}
+            problem={problem}
+            solution={solution}
+            contributions={getContributionsByPattern(
+              contributions,
+              pattern as Pattern
+            )}
+          />
+        )
+      )}
       <hr />
     </div>
   );

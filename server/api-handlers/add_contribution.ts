@@ -41,7 +41,9 @@ export function addContribution({ prisma }: Services): RequestHandler {
     } catch (err) {
       console.log(err);
       if (err instanceof Prisma.PrismaClientValidationError) {
-        res.status(400).json({ error: "Received invalid data." });
+        res
+          .status(400)
+          .json({ error: `Received invalid data. ${err.message}` });
         return;
       }
       res.status(400).json({ error: err.message });
