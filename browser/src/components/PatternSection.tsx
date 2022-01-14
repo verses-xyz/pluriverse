@@ -63,7 +63,7 @@ export default function PatternSection({
           </div>
           {contributions && contributions.length > 0 && (
             <div className="py-8">
-              <ContributionsCarousel />
+              <ContributionsCarousel contributions={contributions} />
             </div>
           )}
         </div>
