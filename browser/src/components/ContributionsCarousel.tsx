@@ -69,6 +69,7 @@ export default function ContributionsCarousel({
               position: "absolute",
               height: "100%",
               width: "100px",
+              zIndex: 10,
               backgroundImage: `linear-gradient(to left, rgba(255, 0, 0, 0), rgb(32, 32, 44) 100%)`,
             }}
           />
