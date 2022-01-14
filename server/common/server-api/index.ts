@@ -100,4 +100,4 @@ export interface VerifyTwitterRequest {
 }
 
 export const TweetTemplate =
-  "verifying for @verses_xyz to help create a world where many worlds may fit\n\nsig:";
+  "verifying for @verses_xyz — to a world where many worlds may fit\n\nsig:";
