@@ -4,6 +4,7 @@ import "./ContributionsCarousel.css";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useRef } from "react";
 import { useInView } from "react-intersection-observer";
+import getMockContributions from "src/utils/getMockContributions";
 
 function CarouselArrow({
   left = false,
@@ -31,6 +32,14 @@ export default function ContributionsCarousel({
   // const amountToScrollBy = overflowContainerRef?.current?.offsetWidth * 0.5;
   const amountToScrollBy = 320; // TODO: don't hardcode
 
+  const onLeftPress = () => {
+    console.log({ overflowContainerRef });
+    overflowContainerRef?.current?.scrollBy({
+      left: -amountToScrollBy,
+      behavior: "smooth",
+    });
+  };
+
   const onRightPress = () => {
     console.log({ overflowContainerRef });
     overflowContainerRef?.current?.scrollBy({
@@ -51,6 +60,25 @@ export default function ContributionsCarousel({
 
   return (
     <div style={{ position: "relative" }}>
+      {!hideLeftControl && (
+        <>
+          <div
+            style={{
+              top: 0,
+              left: 0,
+              position: "absolute",
+              height: "100%",
+              width: "100px",
+              backgroundImage: `linear-gradient(to left, rgba(255, 0, 0, 0), rgb(32, 32, 44) 100%)`,
+            }}
+          />
+          <div
+            style={{ position: "absolute", top: "40%", left: -30, zIndex: 10 }}
+          >
+            <CarouselArrow left onPress={onLeftPress} />
+          </div>
+        </>
+      )}
       <div
         className="flex flex-row carouselOverflowContainer"
         ref={overflowContainerRef}
