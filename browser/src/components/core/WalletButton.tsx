@@ -1,4 +1,4 @@
-import { connectWallet, getWalletAddress } from "src/helpers/wallet";
+import { connectBrowserWallet, getWalletAddress } from "src/helpers/wallet";
 import { ButtonClass } from "src/types/styles";
 import { ButtonHTMLAttributes, useState } from "react";
 
@@ -25,7 +25,7 @@ export function ConnectWalletButton({
   async function onClickConnectWallet() {
     setLoading(true);
     try {
-      await connectWallet();
+      await connectBrowserWallet();
       const connectedWalletAddress = await getWalletAddress();
       await onSubmit(connectedWalletAddress);
     } catch (err: unknown) {

@@ -35,3 +35,42 @@
   font-weight: bold;
   color: rgb(198, 142, 255);
 }
+
+/**
+ * COMPACT CONTRIBUTION STYLES
+ */
+
+.compactContributionCardContainer {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: 260px;
+  position: relative;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.blobSingleContainer {
+  position: absolute;
+  top: 25%;
+  opacity: 0.5;
+}
+
+.compactContributionCardContainer>h2 {
+  margin-bottom: 12px;
+}
+
+.compactContributionCardContainer p {
+  font-size: 1rem;
+  padding-top: 0px;
+}
+
+.compactContributionCardContainer canvas {
+  height: auto !important;
+}

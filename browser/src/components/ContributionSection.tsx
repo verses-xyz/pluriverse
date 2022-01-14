@@ -20,11 +20,16 @@ import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
 import { ButtonClass, ButtonLinkStyling } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
-import { getWalletAddress, signAndValidate } from "src/helpers/wallet";
+import {
+  connectWithWalletConnect,
+  getWalletAddress,
+  signAndValidate,
+} from "src/helpers/wallet";
 import { ContributionCard } from "./ContributionCard";
 import { getUser } from "src/helpers/api";
 import { Link } from "react-router-dom";
 import { getDisplayForAuthor } from "./SignatureContent";
+import { ethers } from "ethers";
 
 enum Page {
   TermsOfUse,
@@ -98,18 +103,25 @@ function TermsOfUse() {
   );
   const [response, setResponse] = useState<string | undefined>(undefined);
   const [user, setUser] = useState<Author | undefined>();
+  const [provider, setProvider] = useState<
+    ethers.providers.Web3Provider | undefined
+  >();
+
+  async function fetchUserFromWalletAddress() {
+    const addr = await getWalletAddress(provider);
+    if (addr) {
+      const maybeUser = await getUser({
+        id: addr,
+      });
+      if (maybeUser) {
+        setUser(maybeUser);
+      }
+    }
+  }
 
   useEffect(async () => {
     try {
-      const addr = await getWalletAddress();
-      if (addr) {
-        const maybeUser = await getUser({
-          id: addr,
-        });
-        if (maybeUser) {
-          setUser(maybeUser);
-        }
-      }
+      await fetchUserFromWalletAddress();
       // eslint-disable-next-line no-empty
     } catch {}
   }, []);
@@ -202,6 +214,57 @@ function TermsOfUse() {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  async function onAgree(connectedWalletAddress: string) {
+    // Validate user
+    let userToUpdate: Author | undefined = user;
+    if (!userToUpdate) {
+      userToUpdate = await getUser({
+        id: connectedWalletAddress,
+      });
+    }
+    // TODO: upsert user if the data does not match.
+    let nextPage: Page;
+    let signature: string | undefined = userToUpdate?.signature;
+
+    if (!userToUpdate) {
+      signature = await signAndValidate(PluriverseAgreement);
+      // add user after successful
+      userToUpdate = await addUser({
+        walletId: connectedWalletAddress,
+        name,
+        twitterUsername,
+        signature,
+      });
+    }
+
+    // if twitter username is populated and not verified, redirect to verify flow.
+    if (userToUpdate.twitterUsername && !userToUpdate.twitterVerified) {
+      nextPage = Page.TwitterVerify;
+    } else {
+      nextPage = Page.Contribute;
+    }
+
+    // finish
+    setError(undefined);
+    setSig(signature);
+    setUser(userToUpdate);
+    setPage(nextPage);
+    // trigger signatures to refetch
+  }
+
+  async function onConnectWalletConnect() {
+    const walletConnectProvider = await connectWithWalletConnect();
+    console.log("CONNECTED WITH WALLET CONNECT");
+    setProvider(walletConnectProvider);
+    // Update the user now that we have connected a diff account.
+    await fetchUserFromWalletAddress();
+
+    const connectedWalletAddress = await getWalletAddress(provider);
+
+    console.log("WALLET CONNECT ADDRESS: " + connectedWalletAddress);
+    await onAgree(connectedWalletAddress);
   }
 
   const [name, setName] = useState<string | undefined>(undefined);
@@ -302,7 +365,9 @@ function TermsOfUse() {
                   </label>
                   <input
                     value={twitterUsername}
-                    onChange={(evt) => setTwitterUsername(evt.target.value)}
+                    onChange={(evt) =>
+                      setTwitterUsername(evt.target.value.replaceAll("@", ""))
+                    }
                     placeholder="verses_xyz"
                     maxLength={15}
                   />
@@ -313,52 +378,18 @@ function TermsOfUse() {
             <div className="actionsContainer">
               {/* TODO: link to github forking or form */}
               <button className={ButtonClass("white")}>Disagree</button>
-              <ConnectWalletButton
-                onSubmit={async (connectedWalletAddress) => {
-                  // Validate user
-                  let userToUpdate: Author | undefined = user;
-                  if (!userToUpdate) {
-                    userToUpdate = await getUser({
-                      id: connectedWalletAddress,
-                    });
-                  }
-                  // TODO: upsert user if the data does not match.
-                  let nextPage: Page;
-                  let signature: string | undefined = userToUpdate?.signature;
-
-                  if (!userToUpdate) {
-                    signature = await signAndValidate(PluriverseAgreement);
-                    // add user after successful
-                    userToUpdate = await addUser({
-                      walletId: connectedWalletAddress,
-                      name,
-                      twitterUsername,
-                      signature,
-                    });
-                  }
-
-                  console.log(userToUpdate);
-
-                  // if twitter username is populated and not verified, redirect to verify flow.
-                  if (
-                    userToUpdate.twitterUsername &&
-                    !userToUpdate.twitterVerified
-                  ) {
-                    nextPage = Page.TwitterVerify;
-                  } else {
-                    nextPage = Page.Contribute;
-                  }
-
-                  // finish
-                  setError(undefined);
-                  setSig(signature);
-                  setUser(userToUpdate);
-                  setPage(nextPage);
-                }}
-                onError={handleErr}
-              >
+              <ConnectWalletButton onSubmit={onAgree} onError={handleErr}>
                 {`Agree${!user ? " (sign with wallet)" : ""}`}
               </ConnectWalletButton>
+            </div>
+            <div>
+              Have a multi-sig or don't have a browser-compatible wallet? Agree{" "}
+              <button
+                className={ButtonLinkStyling}
+                onClick={onConnectWalletConnect}
+              >
+                with WalletConnect instead.
+              </button>
             </div>
 
             <p className="metaText">

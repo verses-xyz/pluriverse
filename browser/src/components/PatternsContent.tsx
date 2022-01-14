@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { getContributions } from "src/helpers/api";
 import { Contribution, Pattern } from "src/types/common/server-api";
-import { ButtonClass } from "src/types/styles";
 import { Principles } from "../types";
-import { ContributionCard } from "./ContributionCard";
 import "./PatternsContent.css";
 import PatternSection from "./PatternSection";
 

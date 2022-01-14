@@ -1,10 +1,10 @@
 import { Contribution } from "src/types/common/server-api";
-import CompactContributionCard from "./CompactContributionCard";
 import "./ContributionsCarousel.css";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import getMockContributions from "src/utils/getMockContributions";
+import { ContributionCard } from "./ContributionCard";
 
 function CarouselArrow({
   left = false,
@@ -88,10 +88,11 @@ export default function ContributionsCarousel({
           <div ref={leftInvisiblePixelRef} />
           {contributions.map((contribution) => (
             <div className="pr-4" style={{ scrollSnapAlign: "start" }}>
-              <CompactContributionCard
+              <ContributionCard
                 key={contribution.id}
                 contribution={contribution}
                 hideHeader
+                isCompact
               />
             </div>
           ))}

@@ -9,6 +9,8 @@
 // TODO: these two enums can come from @server-api/types now, issue with
 // generated type enums from prisma not being actual typescript enums... need to add type workaround
 // https://github.com/prisma/prisma1/issues/3429
+
+// TODO: IF YOU CHANGE ANYTHING HERE PLEASE COPY IT INTO `server/common/server-api/index.ts`
 export enum Prompt {
   LooksLike = "LooksLike",
   WeNeed = "WeNeed",

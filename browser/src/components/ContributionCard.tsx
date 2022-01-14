@@ -12,34 +12,33 @@ import {
   replaceJSX,
 } from "./ContributionSection";
 import { getPatternPlaceholder } from "src/types";
+import { getDisplayForAuthor } from "./SignatureContent";
 
 interface Props {
   contribution: Contribution;
   hideHeader?: boolean;
+  isCompact?: boolean;
 }
 
-function truncateWallet(address: string) {
-  return address.slice(0, 6) + "..." + address.slice(-4);
-}
-
-export function getAuthorDisplayForContribution({
-  walletId,
-  name,
-  twitterVerified,
-  twitterUsername,
-}: Author) {
-  return twitterVerified ? twitterUsername : name || truncateWallet(walletId);
-}
-
-export function ContributionCard({ contribution, hideHeader }: Props) {
+export function ContributionCard({
+  contribution,
+  hideHeader,
+  isCompact = false,
+}: Props) {
   const { author, response, prompt, pattern, createdAt } = contribution;
 
-  const authorDisplay = getAuthorDisplayForContribution(author);
+  const authorDisplay = getDisplayForAuthor(author, true);
   const date = dayjs(createdAt);
   const dateDisplay = date.format("MMM, YYYY");
 
   return (
-    <div className="contributionCardContainer">
+    <div
+      className={
+        isCompact
+          ? "compactContributionCardContainer"
+          : "contributionCardContainer"
+      }
+    >
       {!hideHeader && (
         <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
       )}
@@ -49,7 +48,7 @@ export function ContributionCard({ contribution, hideHeader }: Props) {
         })}{" "}
         {response}
       </p>
-      <div className="blobContainer">
+      <div className={isCompact ? "blobSingleContainer" : "blobContainer"}>
         <BlobSingle
           pattern={pattern}
           prompt={prompt}
