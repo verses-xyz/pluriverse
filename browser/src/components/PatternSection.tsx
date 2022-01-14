@@ -33,7 +33,7 @@ export default function PatternSection({
           cursor: "pointer",
         }}
       >
-        <h3 className="font-bold font-mono text-3xl">{title}</h3>
+        <h3 className="font-bold font-mono text-xl md:text-3xl">{title}</h3>
         <div
           style={{
             display: "flex",

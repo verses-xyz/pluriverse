@@ -3,8 +3,8 @@ import Footnote from "./Footnote";
 
 export default function EssayContent() {
   return (
-    <article className="container w-full md:max-w-2xl mx-auto pb-20">
-      <h1 className="font-title text-5xl text-center font-bold pb-12">
+    <article className="container w-full px-5 md:px-0 md:max-w-2xl mx-auto pb-20">
+      <h1 className="font-title text-4xl md:text-5xl text-center font-bold pb-12">
         Towards a Digital Pluriverse
       </h1>
       <p className="pt-8">
