@@ -4,9 +4,38 @@ import { Author } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import "./SignatureContent.css";
 import { Checkmark } from "./core/Checkmark";
+import { ButtonClass } from "src/types/styles";
 
 function truncateWallet(address: string) {
   return address.slice(0, 6) + "..." + address.slice(-4);
+}
+
+function getTwitterDisplay(
+  { twitterVerified, twitterUsername }: Author,
+  { hideUsername }: { hideUsername?: boolean } = {}
+) {
+  const twitterUrl =
+    twitterUsername &&
+    twitterVerified &&
+    `https://twitter.com/${twitterUsername}`;
+
+  if (!twitterUrl) {
+    return;
+  }
+
+  return (
+    <button
+      onClick={() => {
+        window.open(twitterUrl, "_blank");
+      }}
+      className={` twitterName ${ButtonClass()}`}
+    >
+      @{twitterUsername}{" "}
+      <span>
+        <Checkmark />
+      </span>
+    </button>
+  );
 }
 
 // TODO: get ENS?
@@ -51,15 +80,15 @@ export function Signature({ author }: { author: Author }) {
   // TODO: add location
 
   return (
-    <div className="signature">
-      <p>
+    <p>
+      <div className="signature">
         <div className="display">
           <span>{nameDisplay}</span>
           <span className="date">signed {dateDisplay}</span>
         </div>
-        <div className="twitter"></div>
-      </p>
-    </div>
+        <div className="twitter">{getTwitterDisplay(author)}</div>
+      </div>
+    </p>
   );
 }
 
