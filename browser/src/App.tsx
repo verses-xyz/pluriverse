@@ -24,6 +24,22 @@ function App() {
 
   useEffect(() => {
     gsap.fromTo(
+      ".fadeInOnTermsOnContributionSection",
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: "#contributionSection",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    gsap.fromTo(
       ".fadeOutOnScroll",
       {
         opacity: 1,
@@ -39,22 +55,6 @@ function App() {
       }
     );
   }, []);
-
-  // useEffect(() => {
-  //   gsap.fromTo(
-  //     ".fadeInOnTermsOnContributionSection",
-  //     {
-  //       opacity: 0,
-  //     },
-  //     {
-  //       opacity: 1,
-  //       scrollTrigger: {
-  //         trigger: "#contributionSection",
-  //         scrub: true,
-  //       },
-  //     }
-  //   );
-  // }, []);
 
   useEffect(() => {
     gsap.fromTo(
