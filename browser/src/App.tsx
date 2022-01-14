@@ -42,6 +42,22 @@ function App() {
 
   useEffect(() => {
     gsap.fromTo(
+      ".fadeInOnTermsOnContributionSection",
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: "#contributionSection",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    gsap.fromTo(
       essayContentRef.current,
       {
         opacity: 0,
@@ -51,7 +67,7 @@ function App() {
         scrollTrigger: {
           trigger: essayContentRef.current,
           start: 0,
-          end: " top top",
+          end: "top top",
           scrub: true,
         },
       }
@@ -78,7 +94,10 @@ function App() {
                   <div ref={patternsContentRef}>
                     <PatternsContent />
                   </div>
-                  <div className="container w-full md:max-w-3xl mx-auto pb-20">
+                  <div
+                    id="contributionSection"
+                    className="container w-full md:max-w-3xl mx-auto pb-20"
+                  >
                     <ContributionSection />
                     <br />
                     <NavLink to="/contributions" className={ButtonLinkStyling}>
@@ -105,7 +124,7 @@ function App() {
                 essayContentRef={essayContentRef}
                 patternsContentRef={patternsContentRef}
               />
-              <div className="canvas-container fadeOutOnScroll">
+              <div className="canvas-container fadeOutOnScroll fadeInOnTermsOnContributionSection">
                 <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
                   <UniverseScene />
                 </Canvas>

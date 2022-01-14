@@ -30,25 +30,25 @@ export default function BlobFloating({
   const ref = useRef();
 
   // move blobs to the left
-  // const gsap = useGsap();
-  // useEffect(() => {
-  //   gsap.fromTo(
-  //     ref.current.position,
-  //     {
-  //       z: 0,
-  //     },
-  //     {
-  //       z: 40,
-  //       scrollTrigger: {
-  //         trigger: "#essay-content",
-  //         start: 0,
-  //         end: " top top",
-  //         scrub: true,
-  //       },
-  //     }
-  //   );
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const gsap = useGsap();
+  useEffect(() => {
+    gsap.fromTo(
+      ref.current.position,
+      {
+        z: 0,
+      },
+      {
+        z: 40,
+        scrollTrigger: {
+          trigger: "#essay-content",
+          start: 0,
+          end: " top top",
+          scrub: true,
+        },
+      }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime() + random * 10000;
