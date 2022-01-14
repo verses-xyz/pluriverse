@@ -5,6 +5,8 @@ import { RequestHandler } from "express";
 import { Services } from "../types";
 import { AddUserRequest, AddUserResponse } from "../common/server-api";
 
+// TODO: add location
+// TODO: add local time night vs. day
 export function addUser({ prisma }: Services): RequestHandler {
   return async (req, res) => {
     const { walletId, name, twitterUsername, signature } =

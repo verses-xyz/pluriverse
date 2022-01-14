@@ -28,7 +28,7 @@ export function ContributionCard({
   const { author, response, prompt, pattern, createdAt } = contribution;
 
   const authorDisplay = getDisplayForAuthor(author, true);
-  const date = dayjs(createdAt);
+  const date = dayjs(createdAt, { utc: true });
   const dateDisplay = date.format("MMM, YYYY");
 
   return (
