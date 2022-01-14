@@ -29,6 +29,12 @@ article {
   margin-top: -30px;
 }
 
+/* TODO: for now hide footnotes on small screens */
+@media only screen and (max-width: 1500px) {
+  .footnote-content {
+    display: none;
+  }
+}
 .footnote-content-left {
   left: 4%;
 }
