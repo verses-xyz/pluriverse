@@ -83,6 +83,22 @@ main {
   );
 }
 
+/* TODO: for now hide footnotes on small screens */
+@media only screen and (max-width: 500px) {
+  .gradient-1 {
+    position: fixed;
+    height: 100vh;
+    width: 200vw;
+    background: radial-gradient(
+      at 25% 100%,
+      #673787 0%,
+      #272730 40%,
+      #171720 80%,
+      #070710 100%
+    );
+  }
+}
+
 .gradient-2 {
   position: fixed;
   height: 100vh;
