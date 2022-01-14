@@ -9,10 +9,11 @@ import useGsap from "./hook/useGsap";
 import { ContributionSection } from "./components/ContributionSection";
 import { SignatureContent } from "./components/SignatureContent";
 import { DevelopmentBanner } from "./components/DevelopmentBanner";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import { About } from "./pages/About";
 import { ContributionsPage } from "./pages/ContributionsPage";
 import { Navbar } from "./components/Navbar";
+import { ButtonLinkStyling } from "./types/styles";
 
 function App() {
   const gsap = useGsap();
@@ -79,6 +80,10 @@ function App() {
                   </div>
                   <div className="container w-full md:max-w-3xl mx-auto pb-20">
                     <ContributionSection />
+                    <br />
+                    <NavLink to="/contributions" className={ButtonLinkStyling}>
+                      See all the contributions
+                    </NavLink>
                     <br />
                     <br />
                     <SignatureContent />

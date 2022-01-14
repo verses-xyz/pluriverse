@@ -105,7 +105,7 @@ export function About() {
         </p>
         {/* TODO: INSERT SAMPLE PATTERN CARD */}
         <h2 className="font-title text-3xl pt-16 font-bold pb-3">
-          The Patterns
+          The Process
         </h2>
         <p>
           To echo the sentiment we expressed in{" "}

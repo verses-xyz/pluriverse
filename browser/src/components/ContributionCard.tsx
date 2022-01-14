@@ -1,4 +1,8 @@
-import { Contribution, PatternToDisplay } from "src/types/common/server-api";
+import {
+  Author,
+  Contribution,
+  PatternToDisplay,
+} from "src/types/common/server-api";
 import dayjs from "dayjs";
 import { BlobSingle } from "src/components/BlobSingle";
 import "./ContributionCard.css";
@@ -14,19 +18,24 @@ interface Props {
   hideHeader?: boolean;
 }
 
-export function truncateWallet(address: string) {
+function truncateWallet(address: string) {
   return address.slice(0, 6) + "..." + address.slice(-4);
+}
+
+export function getAuthorDisplayForContribution({
+  walletId,
+  name,
+  twitterVerified,
+  twitterUsername,
+}: Author) {
+  return twitterVerified ? twitterUsername : name || truncateWallet(walletId);
 }
 
 export function ContributionCard({ contribution, hideHeader }: Props) {
   const { author, response, prompt, pattern, createdAt } = contribution;
 
+  const authorDisplay = getAuthorDisplayForContribution(author);
   const date = dayjs(createdAt);
-
-  const { walletId, name, twitterVerified, twitterUsername } = author;
-  const authorDisplay = twitterVerified
-    ? twitterUsername
-    : name || truncateWallet(walletId);
   const dateDisplay = date.format("MMM, YYYY");
 
   return (

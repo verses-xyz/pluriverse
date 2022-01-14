@@ -8,15 +8,11 @@ import {
   replaceJSX,
 } from "./ContributionSection";
 import { getPatternPlaceholder } from "src/types";
+import { getAuthorDisplayForContribution } from "./ContributionCard";
 
 interface Props {
   contribution: Contribution;
   hideHeader?: boolean;
-}
-
-// TODO: this is a fork from contribution card, should be refactored to pull out common logic
-export function truncateWallet(address: string) {
-  return address.slice(0, 6) + "..." + address.slice(-4);
 }
 
 export default function CompactContributionCard({
@@ -27,10 +23,7 @@ export default function CompactContributionCard({
 
   const date = dayjs(createdAt);
 
-  const { walletId, name, twitterVerified, twitterUsername } = author;
-  const authorDisplay = twitterVerified
-    ? twitterUsername
-    : name || truncateWallet(walletId);
+  const authorDisplay = getAuthorDisplayForContribution(author);
   const dateDisplay = date.format("MMM, YYYY");
 
   return (

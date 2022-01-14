@@ -4,6 +4,7 @@ import { Author } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import "./SignatureContent.css";
 
+// TODO: get ENS?
 export function getDisplayForAuthor({
   twitterVerified,
   twitterUsername,

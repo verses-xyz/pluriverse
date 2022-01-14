@@ -247,13 +247,13 @@ function TermsOfUse() {
           <div className="terms">
             <h2 className="text-3xl font-bold">Terms of Use</h2>
             <p>
-              Please read the above essay ("<b>essay</b>") and patterns ("
-              <b>patterns</b>") carefully before <b>pluriverse</b>-building. A
-              signature is a recognition of the past, present, and future of the
-              pluriverse, and the collective ethic it requires. Adding your name
-              is an express acknowledgement that the entire{" "}
-              <b>responsibility / liability</b> as to the realization of an
-              evolving digital pluriverse <b>lies with all of us</b>.{" "}
+              Please read the above essay ("
+              <b>essay</b>") and patterns ("
+              <b>patterns</b>") carefully. To sign is to recognize the past,
+              present, and future of the
+              <b>pluriverse</b>, and its ethic, and an acknowledgement that the{" "}
+              <b>responsibility</b> as to the realization of an evolving digital
+              pluriverse <b>lies with all of us</b>.{" "}
             </p>
             <p>
               <b>
@@ -475,7 +475,7 @@ function TermsOfUse() {
               Thank you for contributing to the Pluriverse! You can see your
               contribution below
             </p>
-            {/* TODO: add verify twitter post */}
+            {/* TODO: if not verified, add verify link */}
             <ContributionCard
               contribution={selectedContribution!}
             ></ContributionCard>
