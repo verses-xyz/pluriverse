@@ -30,7 +30,6 @@ export async function connectWithWalletConnect(): Promise<providers.Web3Provider
 
   //  Enable session (triggers QR Code modal)
   await provider.enable();
-  console.log("CREATED PROVIDER");
   return new providers.Web3Provider(provider);
 }
 

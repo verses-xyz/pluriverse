@@ -256,7 +256,6 @@ function TermsOfUse() {
 
   async function onConnectWalletConnect() {
     const walletConnectProvider = await connectWithWalletConnect();
-    console.log("CONNECTED WITH WALLET CONNECT");
     setProvider(walletConnectProvider);
     // Update the user now that we have connected a diff account.
     await fetchUserFromWalletAddress();

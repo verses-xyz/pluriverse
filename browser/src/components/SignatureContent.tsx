@@ -68,9 +68,7 @@ export function getDisplayForAuthor(
 export function Signature({ author }: { author: Author }) {
   const { createdAt, name, walletId } = author;
   const nameDisplay = name || walletId;
-  console.log(createdAt);
   const date = dayjs(createdAt, { utc: true });
-  console.log(date);
   const dateDisplay = date.format(
     `MMM D, YYYY [on minute] m ${
       date.hour() >= 6 && date.hour() <= 18

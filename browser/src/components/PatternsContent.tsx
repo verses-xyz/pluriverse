@@ -9,7 +9,6 @@ function getContributionsByPattern(
   contributions: Contribution[],
   pattern: Pattern
 ) {
-  console.log(pattern);
   const filteredContributions = contributions.filter(
     (c) => c.pattern === pattern
   );
@@ -23,8 +22,6 @@ export default function PatternsContent() {
     const newContributions = await getContributions({});
     setContributions(newContributions);
   }, []);
-
-  console.log(contributions);
 
   return (
     <div className="container w-full md:max-w-7xl mx-auto pb-20 px-8">
