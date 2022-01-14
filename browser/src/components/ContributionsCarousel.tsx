@@ -30,7 +30,7 @@ export default function ContributionsCarousel({
   // scroll by half the width of the container
   // TODO: fix this
   // const amountToScrollBy = overflowContainerRef?.current?.offsetWidth * 0.5;
-  const amountToScrollBy = 320; // TODO: don't hardcode
+  const amountToScrollBy = 600; // TODO: don't hardcode
 
   const onLeftPress = () => {
     console.log({ overflowContainerRef });
