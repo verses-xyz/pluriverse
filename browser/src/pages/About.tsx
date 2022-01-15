@@ -129,6 +129,15 @@ export function About() {
           and <a href="https://fil.org/">Filecoin Foundation</a> for their
           support of this work.
         </p>
+        <div>
+          <h3 className="font-title text-3xl pt-16 pb-0 text-center pb-2">
+            stewards 🌱
+          </h3>
+          <p className="pt-0 italic">
+            Spencer Chang · Alejandro García Salas · Divya Siddarth · Jasmine
+            Wang
+          </p>
+        </div>
       </div>
     </div>
   );

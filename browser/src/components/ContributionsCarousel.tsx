@@ -3,7 +3,6 @@ import "./ContributionsCarousel.css";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useRef } from "react";
 import { useInView } from "react-intersection-observer";
-import getMockContributions from "src/utils/getMockContributions";
 import { ContributionCard } from "./ContributionCard";
 
 function CarouselArrow({
