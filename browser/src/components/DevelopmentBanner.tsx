@@ -25,8 +25,6 @@ export function DevelopmentBanner() {
           We ask early readers to go through the artifact, and sign the artifact
           gaslessly with MetaMask, and for you to share this forward with 2-5
           more people who you think might resonate with the spirit of this work.
-          <br />— created with ❤️ from <a href="https://verses.xyz">Verses</a>,
-          which is supported with ❤️ from Gitcoin and Protocol Labs
         </p>
       </div>
     </>
