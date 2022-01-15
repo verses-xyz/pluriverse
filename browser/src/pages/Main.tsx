@@ -45,10 +45,11 @@ export function Main({ essayContentRef, patternsContentRef }: Props) {
         >
           <ContributionSection />
           <br />
-          <NavLink to="/contributions" className={ButtonLinkStyling}>
-            See all the contributions
-          </NavLink>
-          <br />
+          <div className="text-center">
+            <NavLink to="/contributions">
+              <button className={`glass-button`}>All Contributions</button>
+            </NavLink>
+          </div>
           <br />
           <SignatureContent />
         </div>
