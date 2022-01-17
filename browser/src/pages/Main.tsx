@@ -1,11 +1,13 @@
-import { Ref } from "react";
+import { Ref, useEffect, useState } from "react";
 import EssayContent from "../components/EssayContent";
 import PatternsContent from "../components/PatternsContent";
 import Hero from "../components/Hero";
 import { ContributionSection } from "../components/ContributionSection";
 import { SignatureContent } from "../components/SignatureContent";
 import { NavLink } from "react-router-dom";
-import { ButtonLinkStyling } from "../types/styles";
+import { Contribution } from "src/types/common/server-api";
+import React from "react";
+import { getContributions } from "src/helpers/api";
 
 interface Props {
   essayContentRef: Ref<any>;
@@ -16,9 +18,39 @@ export interface SignatureContext {
   // getSignatures
 }
 
-export interface ContributionsContext {
-  // getContributions
-  // getContribution
+interface ContributionsContextInfo {
+  contributions: Contribution[];
+  fetchContributions(): void;
+}
+
+export const ContributionsContext =
+  React.createContext<ContributionsContextInfo>({
+    contributions: [],
+    fetchContributions: () => {},
+  });
+
+function ContributionsProvider({ children }) {
+  const [contributions, setContributions] = useState<Contribution[]>([]);
+
+  useEffect(async () => {
+    await fetchContributions();
+  }, []);
+
+  async function fetchContributions() {
+    const newContributions = await getContributions({});
+    setContributions(newContributions);
+  }
+
+  const contributionsContext = {
+    contributions,
+    fetchContributions,
+  };
+
+  return (
+    <ContributionsContext.Provider value={contributionsContext}>
+      {children}
+    </ContributionsContext.Provider>
+  );
 }
 
 export interface WalletContext {
@@ -32,28 +64,30 @@ export function Main({ essayContentRef, patternsContentRef }: Props) {
       <div className="fadeOutOnScroll">
         <Hero />
       </div>
-      <div className="mainContent">
-        <div id="essay-content" ref={essayContentRef}>
-          <EssayContent />
-        </div>
-        <div ref={patternsContentRef}>
-          <PatternsContent />
-        </div>
-        <div
-          id="contributionSection"
-          className="container w-full md:max-w-3xl mx-auto pb-20"
-        >
-          <ContributionSection />
-          <br />
-          <div className="text-center">
-            <NavLink to="/contributions">
-              <button className={`glass-button`}>All Contributions</button>
-            </NavLink>
+      <ContributionsProvider>
+        <div className="mainContent">
+          <div id="essay-content" ref={essayContentRef}>
+            <EssayContent />
           </div>
-          <br />
-          <SignatureContent />
+          <div ref={patternsContentRef}>
+            <PatternsContent />
+          </div>
+          <div
+            id="contributionSection"
+            className="container w-full md:max-w-4xl mx-auto pb-20 px-4"
+          >
+            <ContributionSection />
+            <br />
+            <div className="text-center">
+              <NavLink to="/contributions">
+                <button className={`glass-button`}>All Contributions</button>
+              </NavLink>
+            </div>
+            <br />
+            <SignatureContent />
+          </div>
         </div>
-      </div>
+      </ContributionsProvider>
     </>
   );
 }

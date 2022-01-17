@@ -13,6 +13,7 @@ import {
 // req.geo.city
 // req.geo.country
 // https://vercel.com/changelog/ip-geolocation-now-available-for-all-plans
+// TODO: should we reject same answers?
 export function addContribution({ prisma }: Services): RequestHandler {
   return async (req, res) => {
     const { walletId, response, prompt, pattern } =

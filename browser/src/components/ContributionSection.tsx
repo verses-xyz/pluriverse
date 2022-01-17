@@ -1,5 +1,5 @@
 import "./ContributionSection.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { descriptionText } from "../classNameConstants";
 import {
   Author,
@@ -25,11 +25,19 @@ import {
   getWalletAddress,
   signAndValidate,
 } from "src/helpers/wallet";
-import { ContributionCard } from "./ContributionCard";
+import {
+  ContributionCard,
+  getFullContributionResponse,
+} from "./ContributionCard";
 import { getUser } from "src/helpers/api";
 import { Link } from "react-router-dom";
 import { getDisplayForAuthor } from "./SignatureContent";
 import { ethers } from "ethers";
+import { LoadingIndicator } from "./core/LoadingIndicator";
+import { Checkmark } from "./core/Checkmark";
+import ContributionsCarousel from "./ContributionsCarousel";
+import getMockContributions from "src/utils/getMockContributions";
+import { ContributionsContext } from "src/pages/Main";
 
 enum Page {
   TermsOfUse,
@@ -93,7 +101,114 @@ function PreviewCard({
   return <ContributionCard contribution={contribution} />;
 }
 
-function TermsOfUse() {
+interface TermsOfUseProps {
+  user?: Author;
+  handleErr(err: Error): void;
+  onConnectWalletConnect(): void;
+  onAgree(
+    walletAddress: string,
+    { name, twitterUsername }?: { name?: string; twitterUsername?: string }
+  ): void;
+}
+
+function TermsOfUse({
+  user,
+  onAgree,
+  handleErr,
+  onConnectWalletConnect,
+}: TermsOfUseProps) {
+  const [name, setName] = useState<string | undefined>(undefined);
+  const [twitterUsername, setTwitterUsername] = useState<string | undefined>(
+    undefined
+  );
+
+  return (
+    <div className="terms">
+      <div className="flex ">
+        <h2 className="text-3xl font-bold">Terms of Use</h2>
+        {user && (
+          <div className="inputs ml-auto">
+            signing as <b>{getDisplayForAuthor(user)}</b>
+          </div>
+        )}
+      </div>
+      <p>
+        Please read the above essay ("
+        <b>essay</b>") and patterns ("
+        <b>patterns</b>") carefully. To sign is to recognize the past, present,
+        and future of the
+        <b>pluriverse</b>, and its ethic, and an acknowledgement that the{" "}
+        <b>responsibility</b> as to the realization of an evolving digital
+        pluriverse <b>lies with all of us</b>.{" "}
+      </p>
+      <p>
+        <b>
+          I want to help build the <b className="shimmer">pluriverse</b>{" "}
+          together:
+        </b>
+      </p>
+      {/* TODO: maybe don't show any of this if user is already defined */}
+      {!user && (
+        <div className="inputs">
+          <div>
+            <label>
+              <em>Name:</em>
+            </label>
+            <input
+              value={name}
+              onChange={(evt) => setName(evt.target.value)}
+              placeholder="verses"
+              maxLength={60}
+            />
+          </div>
+          <div>
+            <label>
+              <em>Twitter:</em>
+            </label>
+            <input
+              value={twitterUsername}
+              onChange={(evt) =>
+                setTwitterUsername(evt.target.value.replaceAll("@", ""))
+              }
+              placeholder="verses_xyz"
+              maxLength={15}
+            />
+          </div>
+        </div>
+      )}
+
+      <div className="actionsContainer">
+        {/* TODO: link to github forking or form */}
+        <button className={ButtonClass("white")}>Disagree</button>
+        <ConnectWalletButton
+          onSubmit={(walletAddress) =>
+            onAgree(walletAddress, { name, twitterUsername })
+          }
+          onError={handleErr}
+        >
+          {`Agree${!user ? " (sign with wallet)" : ""}`}
+        </ConnectWalletButton>
+      </div>
+      <div className="text-center mt-2">
+        Don't have Metamask? Agree{" "}
+        <button className={ButtonLinkStyling} onClick={onConnectWalletConnect}>
+          with WalletConnect instead.
+        </button>
+      </div>
+
+      <p className="metaText">
+        A copy of the Essay will live on the permaweb and can be found at{" "}
+        <a href="">Arweave</a>. It also lives on the web on{" "}
+        <a href="#">pluriverse.world</a>.
+        <br />
+        To agree and sign, you need a Metamask wallet. Need help? Check out this{" "}
+        <a href="">guide</a>.
+      </p>
+    </div>
+  );
+}
+
+export function ContributionSection() {
   const [page, setPage] = useState(Page.TermsOfUse);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(
     Prompt.LooksLike
@@ -198,7 +313,13 @@ function TermsOfUse() {
 
     setIsLoading(true);
     try {
-      await signAndValidate(response);
+      await signAndValidate(
+        getFullContributionResponse({
+          response,
+          prompt: selectedPrompt,
+          pattern: selectedPattern,
+        } as any)
+      );
       const newContributionId = await addContribution({
         prompt: selectedPrompt,
         pattern: selectedPattern,
@@ -216,7 +337,10 @@ function TermsOfUse() {
     }
   }
 
-  async function onAgree(connectedWalletAddress: string) {
+  async function onAgree(
+    connectedWalletAddress: string,
+    { name, twitterUsername }: { name?: string; twitterUsername?: string } = {}
+  ) {
     // Validate user
     let userToUpdate: Author | undefined = user;
     if (!userToUpdate) {
@@ -261,15 +385,8 @@ function TermsOfUse() {
     await fetchUserFromWalletAddress();
 
     const connectedWalletAddress = await getWalletAddress(provider);
-
-    console.log("WALLET CONNECT ADDRESS: " + connectedWalletAddress);
     await onAgree(connectedWalletAddress);
   }
-
-  const [name, setName] = useState<string | undefined>(undefined);
-  const [twitterUsername, setTwitterUsername] = useState<string | undefined>(
-    undefined
-  );
 
   const [lastPage, setLastPage] = useState<Page>(Page.TermsOfUse);
   const [sig, setSig] = useState<string | undefined>();
@@ -285,11 +402,16 @@ function TermsOfUse() {
   async function onClickVerifyTwitter() {
     setIsLoading(true);
     try {
-      await verifyTwitter({ walletId: user!.walletId });
+      if (!user?.twitterVerified) {
+        await verifyTwitter({ walletId: user!.walletId });
+        setUser({ ...user!, twitterVerified: true });
+      }
       setError(undefined);
-      setUser({ ...user!, twitterVerified: true });
-      setLastPage(Page.TermsOfUse);
-      setPage(Page.Contribute);
+      // switch page after showing success
+      setTimeout(() => {
+        setLastPage(Page.TermsOfUse);
+        setPage(Page.Contribute);
+      }, 750);
     } catch (err) {
       handleErr(err as Error);
     } finally {
@@ -306,100 +428,12 @@ function TermsOfUse() {
     switch (page) {
       case Page.TermsOfUse:
         return (
-          <div className="terms">
-            <h2 className="text-3xl font-bold">Terms of Use</h2>
-            <p>
-              Please read the above essay ("
-              <b>essay</b>") and patterns ("
-              <b>patterns</b>") carefully. To sign is to recognize the past,
-              present, and future of the
-              <b>pluriverse</b>, and its ethic, and an acknowledgement that the{" "}
-              <b>responsibility</b> as to the realization of an evolving digital
-              pluriverse <b>lies with all of us</b>.{" "}
-            </p>
-            <p>
-              <b>
-                I want to help build the <b className="shimmer">pluriverse</b>{" "}
-                together:
-              </b>
-            </p>
-            {/* <p style={{ paddingTop: "0px", marginLeft: "24px" }}>
-              <ul className="list-disc">
-                <p>
-                  <li>
-                    I understand the history of the term{" "}
-                    <b className="shimmer">pluriverse</b> and how we intend to
-                    use it moving forward
-                  </li>
-                  <li>
-                    I understand how a <b className="shimmer">pluriversal</b>{" "}
-                    world is different from our current world and how we get
-                    there via the “Patterns.”
-                  </li>
-                  <li></li>
-                </p>
-              </ul>
-            </p> */}
-            {/* TODO: maybe don't show any of this if user is already defined */}
-            {user ? (
-              <div className="inputs">
-                signing as {getDisplayForAuthor(user)}
-              </div>
-            ) : (
-              <div className="inputs">
-                <div>
-                  <label>
-                    <em>Name:</em>
-                  </label>
-                  <input
-                    value={name}
-                    onChange={(evt) => setName(evt.target.value)}
-                    placeholder="verses"
-                    maxLength={60}
-                  />
-                </div>
-                <div>
-                  <label>
-                    <em>Twitter:</em>
-                  </label>
-                  <input
-                    value={twitterUsername}
-                    onChange={(evt) =>
-                      setTwitterUsername(evt.target.value.replaceAll("@", ""))
-                    }
-                    placeholder="verses_xyz"
-                    maxLength={15}
-                  />
-                </div>
-              </div>
-            )}
-
-            <div className="actionsContainer">
-              {/* TODO: link to github forking or form */}
-              <button className={ButtonClass("white")}>Disagree</button>
-              <ConnectWalletButton onSubmit={onAgree} onError={handleErr}>
-                {`Agree${!user ? " (sign with wallet)" : ""}`}
-              </ConnectWalletButton>
-            </div>
-            <div>
-              Have a multi-sig or don't have a browser-compatible wallet? Agree{" "}
-              <button
-                className={ButtonLinkStyling}
-                onClick={onConnectWalletConnect}
-              >
-                with WalletConnect instead.
-              </button>
-            </div>
-
-            <p className="metaText">
-              A copy of the Essay will live on the permaweb and can be found at{" "}
-              <a href="">Arweave</a>. It also lives on the web on{" "}
-              <a href="#">pluriverse.world</a>.
-              <br />
-              To agree and sign, you need a Metamask wallet. Need help? Check
-              out this <a href="">guide</a>.
-            </p>
-          </div>
+          <TermsOfUse
+            user={user}
+            onAgree={onAgree}
+            handleErr={handleErr}
+            onConnectWalletConnect={onConnectWalletConnect}
+          />
         );
 
       case Page.TwitterVerify:
@@ -412,15 +446,29 @@ function TermsOfUse() {
             <button className={ButtonClass()} onClick={onClickTweetProof}>
               Tweet proof
             </button>
-            <br />
             <p>
               After sending your tweet, click the button below to complete
               verification. If successful, you'll proceed to contributing to the{" "}
               <b className="shimmer">Pluriverse</b>.
             </p>
             <div className="verifyActions">
-              <button className={ButtonClass()} onClick={onClickVerifyTwitter}>
-                Verify tweet
+              <button
+                style={{ display: "inline-flex", justifyContent: "center" }}
+                className={ButtonClass()}
+                onClick={onClickVerifyTwitter}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    Verifying <LoadingIndicator style={{ marginLeft: "6px" }} />
+                  </>
+                ) : user?.twitterVerified ? (
+                  <>
+                    Verified! <Checkmark />
+                  </>
+                ) : (
+                  "Verify twitter"
+                )}
               </button>
               <button
                 className={ButtonLinkStyling}
@@ -434,66 +482,69 @@ function TermsOfUse() {
 
       case Page.Contribute:
         return (
-          <div className="signContainer">
-            {/* <div className="signAttribution py-2 px-2">
-              Logged in as {getDisplayForAuthor(user!)}
-            </div> */}
-            <h2 className="text-4xl font-bold">Contribute</h2>
-            <p>
-              We've provided some sentence starters to get you going. Please
-              select a prompt and contribute to the{" "}
-              <b className="shimmer"> Pluriverse</b>.
-            </p>
-            <div className="contributionContainer">
-              <div className="selects">
-                {promptSelect}
-                {selectedPrompt && (
-                  <>
-                    <div className="responseContainer">
-                      {promptStarter} <br />
-                      {
-                        <AutoGrowInput
-                          value={response}
-                          onChange={setResponse}
-                          className="responseInput"
-                          // TODO: make this populate an actual live preview from an example?? and shuffle?
-                          extraProps={{
-                            placeholder: "free gardens",
-                          }}
-                        />
-                      }
-                    </div>
-                    <p className={descriptionText}></p>
-                  </>
-                )}
-                {/* TODO: add twitter username */}
+          <div>
+            <div className="signContainer">
+              {/* <div className="signAttribution py-2 px-2">
+                Logged in as {getDisplayForAuthor(user!)}
+              </div> */}
+              <h2 className="text-4xl font-bold">Contribute</h2>
+              <p>
+                We've provided some sentence starters to get you going. Please
+                select a prompt and contribute to the{" "}
+                <b className="shimmer"> Pluriverse</b>.
+              </p>
+              <div className="contributionContainer">
+                <div className="selects">
+                  {promptSelect}
+                  {selectedPrompt && (
+                    <>
+                      <div className="responseContainer">
+                        {promptStarter} <br />
+                        {
+                          <AutoGrowInput
+                            value={response}
+                            onChange={setResponse}
+                            className="responseInput"
+                            // TODO: make this populate an actual live preview from an example?? and shuffle?
+                            extraProps={{
+                              placeholder: "free gardens",
+                            }}
+                          />
+                        }
+                      </div>
+                      <p className={descriptionText}></p>
+                    </>
+                  )}
+                  {/* TODO: add twitter username */}
+                </div>
+                <PreviewCard
+                  author={user!}
+                  pattern={selectedPattern}
+                  response={response}
+                  prompt={selectedPrompt}
+                />
               </div>
-              <PreviewCard
-                author={user!}
-                pattern={selectedPattern}
-                response={response}
-                prompt={selectedPrompt}
-              />
+              <div className="actionsContainer">
+                <button
+                  onClick={() => setPage(lastPage)}
+                  className={ButtonClass("white")}
+                >
+                  Back
+                </button>
+                <button
+                  onClick={onSaveContribution}
+                  className={ButtonClass("blue")}
+                >
+                  Add to Pluriverse
+                </button>
+              </div>
+              {/* TODO: fun loading animation */}
+              {isLoading && (
+                <div className="loadingContainer">
+                  Creating Pluriverse... <LoadingIndicator />
+                </div>
+              )}
             </div>
-
-            <div className="actionsContainer">
-              <button
-                onClick={() => setPage(lastPage)}
-                className={ButtonClass("white")}
-              >
-                Back
-              </button>
-              <button
-                onClick={onSaveContribution}
-                className={ButtonClass("blue")}
-              >
-                Add to Pluriverse
-              </button>
-            </div>
-            {/* TODO: fun loading animation */}
-            {isLoading && (
-              <div className="loadingContainer">Creating Pluriverse...</div>
-            )}
           </div>
         );
 
@@ -529,20 +580,37 @@ function TermsOfUse() {
     }
   }
 
-  return (
-    <div>
-      {renderPage()}
-      {error && (
-        <div className="errorContainer text-red-500">Error: {error}</div>
-      )}
-    </div>
-  );
-}
+  const { contributions } = useContext(ContributionsContext);
+  function renderPageExtra() {
+    switch (page) {
+      case Page.Contribute: {
+        const filteredContributions = contributions.filter(
+          (c) => c.pattern === selectedPattern && c.prompt === selectedPrompt
+        );
+        return (
+          <div className="contributionsPreview">
+            <ContributionsCarousel contributions={filteredContributions} />
+          </div>
+        );
+      }
 
-export function ContributionSection() {
+      case Page.TermsOfUse:
+      case Page.TwitterVerify:
+      case Page.Share:
+      default:
+        return null;
+    }
+  }
+
   return (
-    <div id="contribute" className="contributionSection text-base">
-      <TermsOfUse />
-    </div>
+    <>
+      <div id="contribute" className="contributionSection text-base">
+        {renderPage()}
+        {error && (
+          <div className="errorContainer text-red-500">Error: {error}</div>
+        )}
+      </div>
+      {renderPageExtra()}
+    </>
   );
 }

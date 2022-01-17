@@ -25,3 +25,21 @@
 .carouselArrowButton:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
+
+.carouselGradient {
+  top: 0;
+  position: absolute;
+  height: 100%;
+  width: 100px;
+  z-index: 10;
+}
+
+.right {
+  right: 0;
+  background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(32, 32, 44, .5) 100%);
+}
+
+.left {
+  left: 0;
+  background-image: linear-gradient(to left, rgba(255, 0, 0, 0), rgb(32, 32, 44, .5) 100%);
+}

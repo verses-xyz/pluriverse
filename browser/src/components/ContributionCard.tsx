@@ -20,6 +20,21 @@ interface Props {
   isCompact?: boolean;
 }
 
+export function getFullContributionResponse({
+  response,
+  prompt,
+  pattern,
+}: Contribution) {
+  return (
+    PromptDescriptions[prompt].replace(
+      Placeholder,
+      getPatternPlaceholder(pattern, prompt)
+    ) +
+    " " +
+    response
+  );
+}
+
 export function ContributionCard({
   contribution,
   hideHeader,

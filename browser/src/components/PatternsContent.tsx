@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { getContributions } from "src/helpers/api";
+import { useContext } from "react";
+import { ContributionsContext } from "src/pages/Main";
 import { Contribution, Pattern } from "src/types/common/server-api";
 import { Principles } from "../types";
 import "./PatternsContent.css";
@@ -16,12 +16,7 @@ function getContributionsByPattern(
 }
 
 export default function PatternsContent() {
-  const [contributions, setContributions] = useState<Contribution[]>([]);
-
-  useEffect(async () => {
-    const newContributions = await getContributions({});
-    setContributions(newContributions);
-  }, []);
+  const { contributions } = useContext(ContributionsContext);
 
   return (
     <div className="container w-full md:max-w-7xl mx-auto pb-20 px-8">

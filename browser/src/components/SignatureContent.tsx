@@ -15,9 +15,7 @@ function getTwitterDisplay(
   { hideUsername }: { hideUsername?: boolean } = {}
 ) {
   const twitterUrl =
-    twitterUsername &&
-    twitterVerified &&
-    `https://twitter.com/${twitterUsername}`;
+    twitterUsername && `https://twitter.com/${twitterUsername}`;
 
   if (!twitterUrl) {
     return;
@@ -31,9 +29,11 @@ function getTwitterDisplay(
       className={` twitterName ${ButtonClass()}`}
     >
       @{twitterUsername}{" "}
-      <span>
-        <Checkmark />
-      </span>
+      {twitterVerified && (
+        <span>
+          <Checkmark />
+        </span>
+      )}
     </button>
   );
 }

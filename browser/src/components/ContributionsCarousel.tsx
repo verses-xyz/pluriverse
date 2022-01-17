@@ -32,7 +32,7 @@ export default function ContributionsCarousel({
   const amountToScrollBy = 600; // TODO: don't hardcode
 
   const onLeftPress = () => {
-    console.log({ overflowContainerRef });
+    // console.log({ overflowContainerRef });
     overflowContainerRef?.current?.scrollBy({
       left: -amountToScrollBy,
       behavior: "smooth",
@@ -40,7 +40,7 @@ export default function ContributionsCarousel({
   };
 
   const onRightPress = () => {
-    console.log({ overflowContainerRef });
+    // console.log({ overflowContainerRef });
     overflowContainerRef?.current?.scrollBy({
       left: amountToScrollBy,
       behavior: "smooth",
@@ -61,17 +61,7 @@ export default function ContributionsCarousel({
     <div style={{ position: "relative" }}>
       {!hideLeftControl && (
         <>
-          <div
-            style={{
-              top: 0,
-              left: 0,
-              position: "absolute",
-              height: "100%",
-              width: "100px",
-              zIndex: 10,
-              backgroundImage: `linear-gradient(to left, rgba(255, 0, 0, 0), rgb(32, 32, 44) 100%)`,
-            }}
-          />
+          <div className="carouselGradient left" />
           <div
             style={{ position: "absolute", top: "40%", left: -30, zIndex: 10 }}
           >
@@ -105,16 +95,7 @@ export default function ContributionsCarousel({
           >
             <CarouselArrow onPress={onRightPress} />
           </div>
-          <div
-            style={{
-              top: 0,
-              right: 0,
-              position: "absolute",
-              height: "100%",
-              width: "100px",
-              backgroundImage: `linear-gradient(to right, rgba(255,0,0,0), rgb(32 32 44)  100%`,
-            }}
-          />
+          <div className="carouselGradient right" />
         </>
       )}
     </div>
