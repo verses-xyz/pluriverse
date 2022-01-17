@@ -78,7 +78,7 @@ export function Main({ essayContentRef, patternsContentRef }: Props) {
           >
             <ContributionSection />
             <br />
-            <div className="text-center">
+            <div className="text-center pb-8">
               <NavLink to="/contributions">
                 <button className={`glass-button`}>All Contributions</button>
               </NavLink>

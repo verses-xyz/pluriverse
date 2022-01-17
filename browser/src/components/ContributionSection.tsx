@@ -46,7 +46,7 @@ enum Page {
   TwitterVerify,
 }
 
-export const PluriverseAgreement = `I have read and agree to the principles of the pluriverse, and I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us. 
+export const PluriverseAgreement = `I have read and agree to the principles of the pluriverse, and I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us.
 
 I want to help build the pluriverse together.`;
 export const Placeholder = "________";
@@ -140,18 +140,18 @@ function TermsOfUse({
         acknowledgement that the <b>responsibility</b> as to the realization of
         an evolving digital pluriverse <b>lies with all of us</b>.{" "}
       </p>
-      <p>
+      <p className="text-center">
         <b>
           I want to help build the <b className="shimmer">pluriverse</b>{" "}
-          together:
+          together
         </b>
       </p>
       {/* TODO: maybe don't show any of this if user is already defined */}
       {!user && (
-        <div className="inputs">
+        <div className="inputs pt-2">
           <div>
             <label>
-              <em>Name:</em>
+              <em>Name</em>
             </label>
             <input
               value={name}
@@ -160,9 +160,9 @@ function TermsOfUse({
               maxLength={60}
             />
           </div>
-          <div>
-            <label>
-              <em>Twitter:</em>
+          <div className="pl-6">
+            <label className="pr-4">
+              <em>Twitter</em>
             </label>
             <input
               value={twitterUsername}
@@ -188,7 +188,7 @@ function TermsOfUse({
           {`Agree${!user ? " (sign with wallet)" : ""}`}
         </ConnectWalletButton>
       </div>
-      <div className="text-center mt-2">
+      <div className="text-center mt-4">
         Don't have Metamask? Agree{" "}
         <button className={ButtonLinkStyling} onClick={onConnectWalletConnect}>
           with WalletConnect instead.
