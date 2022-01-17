@@ -222,3 +222,8 @@ nav {
   /* position: fixed;
 right: 0px; */
 }
+
+footer {
+  display: flex;
+  justify-content: center;
+}

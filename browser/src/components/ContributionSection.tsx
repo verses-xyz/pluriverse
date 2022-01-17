@@ -136,10 +136,9 @@ function TermsOfUse({
         Please read the above essay ("
         <b>essay</b>") and patterns ("
         <b>patterns</b>") carefully. To sign is to recognize the past, present,
-        and future of the
-        <b>pluriverse</b>, and its ethic, and an acknowledgement that the{" "}
-        <b>responsibility</b> as to the realization of an evolving digital
-        pluriverse <b>lies with all of us</b>.{" "}
+        and future of the <b>pluriverse</b>, and its ethic, and an
+        acknowledgement that the <b>responsibility</b> as to the realization of
+        an evolving digital pluriverse <b>lies with all of us</b>.{" "}
       </p>
       <p>
         <b>

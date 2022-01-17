@@ -88,6 +88,13 @@ export function Main({ essayContentRef, patternsContentRef }: Props) {
           </div>
         </div>
       </ContributionsProvider>
+      <footer className="pt-2 pb-16">
+        <span>
+          this is a drop from <a href="https://verses.xyz">Verses</a>, which is
+          supported with ❤️ by <a href="https://gitcoin.co">Gitcoin</a> and{" "}
+          <a href="https://fil.org/">Filecoin Foundation</a>
+        </span>
+      </footer>
     </>
   );
 }
