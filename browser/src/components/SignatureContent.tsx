@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { getUsers } from "src/helpers/api";
 import { Author } from "src/types/common/server-api";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import "./SignatureContent.css";
 import { Checkmark } from "./core/Checkmark";
 import { ButtonClass } from "src/types/styles";
+
+dayjs.extend(utc);
 
 function truncateWallet(address: string) {
   return address.slice(0, 6) + "..." + address.slice(-4);
@@ -69,9 +72,10 @@ export function Signature({ author }: { author: Author }) {
   const { createdAt, name, walletId } = author;
   const nameDisplay = name || walletId;
   const date = dayjs(createdAt, { utc: true });
+  const localHour = date.local().hour();
   const dateDisplay = date.format(
     `MMM D, YYYY [on minute] m ${
-      date.hour() >= 6 && date.hour() <= 18
+      localHour >= 6 && localHour <= 18
         ? "[in the day] ☀️"
         : "[in the night] 🌙"
     }`

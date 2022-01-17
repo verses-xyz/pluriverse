@@ -73,9 +73,8 @@ export function ContributionCard({
       </div>
       <div className="attribution">
         <p className=" text-base">
-          created by{" "}
-          <em className="author text-color-purple-200">{authorDisplay}</em> on{" "}
-          <em>{dateDisplay}</em>
+          by <em className="author text-color-purple-200">{authorDisplay}</em>{" "}
+          on <em>{dateDisplay}</em>
         </p>
       </div>
     </div>
