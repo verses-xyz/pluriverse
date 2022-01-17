@@ -91,7 +91,7 @@ export default function ContributionsCarousel({
       {!hideRightControl && (
         <>
           <div
-            style={{ position: "absolute", top: "40%", right: -30, zIndex: 10 }}
+            style={{ position: "absolute", top: "40%", right: -30, zIndex: 11 }}
           >
             <CarouselArrow onPress={onRightPress} />
           </div>

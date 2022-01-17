@@ -36,10 +36,14 @@
 
 .right {
   right: 0;
-  background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(32, 32, 44, .5) 100%);
+  background-image: linear-gradient(
+    to right,
+    rgb(0 0 0 / 0%),
+    rgb(0 0 0 / 50%)
+  );
 }
 
 .left {
   left: 0;
-  background-image: linear-gradient(to left, rgba(255, 0, 0, 0), rgb(32, 32, 44, .5) 100%);
+  background-image: linear-gradient(to left, rgb(0 0 0 / 0%), rgb(0 0 0 / 50%));
 }
