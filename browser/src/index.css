@@ -99,12 +99,13 @@ main {
     height: 100vh;
     width: 200vw;
     background: radial-gradient(
-      at 25% 100%,
-      #673787 0%,
-      #272730 40%,
-      #171720 80%,
-      #070710 100%
-    );
+        at 25% 100%,
+        rgb(103, 55, 135, 0.85) 0%,
+        rgb(39, 39, 48, 0.85) 40%,
+        rgb(23, 23, 32, 0.9) 80%,
+        rgb(7, 7, 16, 1) 100%
+      ),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 398 398' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 }
 
@@ -174,7 +175,7 @@ blockquote:before {
 }
 
 .glass-button {
-  font-family: "Roboto Mono";
+  font-family: "Poppins";
   display: inline-block;
   padding: 10px 30px;
   border: 0;
