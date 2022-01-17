@@ -29,12 +29,6 @@ article {
   margin-top: -30px;
 }
 
-/* TODO: for now hide footnotes on small screens */
-@media only screen and (max-width: 1500px) {
-  .footnote-content {
-    display: none;
-  }
-}
 .footnote-content-left {
   left: 4%;
 }
@@ -52,4 +46,32 @@ article {
   top: -8px;
   right: 5px;
   color: rgb(198, 142, 255);
+}
+
+.footnote-content-mobile {
+  display: none;
+}
+
+/* TODO: for now hide footnotes on small screens */
+@media only screen and (max-width: 1500px) {
+  .footnote {
+    cursor: pointer;
+    border-bottom: rgb(198, 142, 255) solid 1px;
+    position: relative;
+  }
+  .footnote-content {
+    display: none;
+  }
+  .footnote-content-mobile {
+    background-color: black;
+    font-size: 1rem;
+    padding: 1.5rem;
+    z-index: 4;
+    display: initial;
+    position: absolute;
+    text-transform: none;
+    width: 340px;
+    top: 2.2rem;
+    left: 0;
+  }
 }

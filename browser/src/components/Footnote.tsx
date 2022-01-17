@@ -1,3 +1,5 @@
+import useToggle from "src/hook/useToggle";
+
 export default function Footnote({
   children,
   data,
@@ -9,8 +11,10 @@ export default function Footnote({
   left?: boolean;
   topOffset?: number;
 }) {
+  const [expanded, toggle] = useToggle();
+
   return (
-    <span className="footnote">
+    <span className="footnote" onClick={toggle}>
       {children}
       <div
         className={`footnote-content ${
@@ -20,6 +24,7 @@ export default function Footnote({
       >
         {data}
       </div>
+      {expanded && <div className={`footnote-content-mobile`}>{data}</div>}
     </span>
   );
 }
