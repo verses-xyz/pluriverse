@@ -41,6 +41,7 @@ export default function EssayContent() {
         regression. As championed by Meta and its ilk, the Metaverse allows and
         celebrates <b>monopoly</b>, taking what was once{" "}
         <Footnote
+          topOffset={-10}
           data={`While a collective approach may take on various forms, at its center it is an approach driven by community solidarity, group ownership, and an open commons. In Caliban and the Witch,  Silvia Federici links land privatization to a breakdown of social relationships. Discussing the transformation of agricultural structure and labor in 16th-century England following land enclosures and the loss of the commons, Federici writes that communities lost sense of their social relations – “families disintegrated, the youth left the village to join the increasing number of vagabonds or itinerant workers…while the elderly were left to fend for themselves” (72). This was in stark (and disappointing) contrast to the rich social relations that existed in the commons, where peasant solidarity and sociality thrived and women, although possessing little social power, could experience autonomy.`}
         >
           collective
