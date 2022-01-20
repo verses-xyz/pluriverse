@@ -148,7 +148,7 @@ function TermsOfUse({
       </p>
       {/* TODO: maybe don't show any of this if user is already defined */}
       {!user && (
-        <div className="inputs pt-2">
+        <div className="inputs pt-2 flex-col gap-3 md:flex-row md:gap-6">
           <div>
             <label>
               <em>Name</em>
@@ -160,8 +160,8 @@ function TermsOfUse({
               maxLength={60}
             />
           </div>
-          <div className="pl-6">
-            <label className="pr-4">
+          <div>
+            <label>
               <em>Twitter</em>
             </label>
             <input
