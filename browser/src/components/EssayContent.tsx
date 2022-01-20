@@ -1,7 +1,22 @@
 import "./EssayContent.css";
 import Footnote from "./Footnote";
+import GitInfo from "react-git-info/macro";
+import { useRef } from "react";
+import dayjs from "dayjs";
+
+// TODO: fill in repo from environment var.
+const GitRepo = "https://github.com/verses-xyz/pluriverse";
 
 export default function EssayContent() {
+  const gitInfo = useRef(GitInfo());
+
+  const { shortHash: hash, date } = gitInfo.current.commit;
+  const gitCommitLink = <a href={`${GitRepo}/commit/${hash}`}>{hash}</a>;
+  const gitLastUpdatedDate = dayjs(date);
+  const gitLastUpdatedDateDisplay = gitLastUpdatedDate.format(
+    "MMM DD, YYYY, hh:mm:ssa"
+  );
+
   return (
     <article className="container w-full px-5 md:px-0 md:max-w-2xl mx-auto pb-20">
       <h1 className="font-title text-4xl md:text-5xl text-center font-bold pb-12">
@@ -301,6 +316,11 @@ export default function EssayContent() {
         the seeds, so that this language may grow–evolving through intention and
         use, like all alive languages.
       </p>
+      <br />
+      {/* TODO: fill this in automatically from git */}
+      <div>
+        Last updated on {gitLastUpdatedDateDisplay} ({gitCommitLink})
+      </div>
     </article>
   );
 }

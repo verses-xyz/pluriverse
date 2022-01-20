@@ -146,7 +146,6 @@ function TermsOfUse({
           together
         </b>
       </p>
-      {/* TODO: maybe don't show any of this if user is already defined */}
       {!user && (
         <div className="inputs pt-2 flex-col gap-3 md:flex-row md:gap-6">
           <div>
@@ -198,10 +197,10 @@ function TermsOfUse({
       <p className="metaText">
         A copy of the Essay will live on the permaweb and can be found at{" "}
         <a href="">Arweave</a>. It also lives on the web on{" "}
-        <a href="#">pluriverse.world</a>.
+        <a href="#">pluriverse.world</a> and the <a href="">github</a>.
         <br />
-        To agree and sign, you need a Metamask wallet. Need help? Check out this{" "}
-        <a href="">guide</a>.
+        To agree and sign, you need a compatible web3 wallet. Need help? Check
+        out this <a href="">guide</a>.
       </p>
     </div>
   );
