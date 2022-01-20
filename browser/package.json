@@ -8,6 +8,7 @@
     "@react-spring/three": "^9.3.2",
     "@react-three/drei": "^8.3.1",
     "@react-three/fiber": "^7.0.24",
+    "@react-three/postprocessing": "^2.1.2",
     "@rescripts/cli": "^0.0.16",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
