@@ -5,15 +5,11 @@ export default function Hero() {
     <div>
       <div className="hero fadeInDown flex flex-col items-center justify-center">
         <h1 className="text-5xl md:text-8xl pb-5 m-0">
-          Pluriverse <span className="text-3xl">[noun]</span>
+          Towards a Digital Pluriverse
         </h1>
-        <div className="text-2xl md:text-3xl pb-8">
-          plu·​ri·​verse | \ ˈplu̇rəˌvərs \
-        </div>
-        <div className="text-2xl md:text-7xl pb-8">
+        <div className="text-2xl md:text-7xl pt-16 pb-8">
           “a world where many worlds may fit”
         </div>
-        <div className="pt-4 text-xl md:text-2xl">– Zapatistas, Chiapas</div>
       </div>
     </div>
   );

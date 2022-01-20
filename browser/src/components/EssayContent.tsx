@@ -19,9 +19,8 @@ export default function EssayContent() {
 
   return (
     <article className="container w-full px-5 md:px-0 md:max-w-2xl mx-auto pb-20">
-      <h1 className="font-title text-4xl md:text-5xl text-center font-bold pb-12">
-        Towards a Digital Pluriverse
-      </h1>
+      {/* TODO: refactor the article tag out so it includes the hero, for now let's have this invisible h1 for screen readers */}
+      <h1 style={{ display: "none" }}>Towards a Digital Pluriverse</h1>
       <p className="pt-8">
         W
         <span className="subhead">
