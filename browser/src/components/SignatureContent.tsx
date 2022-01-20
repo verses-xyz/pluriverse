@@ -75,9 +75,7 @@ export function Signature({ author }: { author: Author }) {
   const localHour = date.local().hour();
   const dateDisplay = date.format(
     `MMM D, YYYY [on minute] m ${
-      localHour >= 6 && localHour <= 18
-        ? "[in the day] ☀️"
-        : "[in the night] 🌙"
+      localHour >= 6 && localHour < 18 ? "[in the day] ☀️" : "[in the night] 🌙"
     }`
   );
 
