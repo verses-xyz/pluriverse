@@ -38,6 +38,7 @@ import { Checkmark } from "./core/Checkmark";
 import ContributionsCarousel from "./ContributionsCarousel";
 import getMockContributions from "src/utils/getMockContributions";
 import { ContributionsContext } from "src/pages/Main";
+import { getContributionLink } from "src/helpers/contributions";
 
 enum Page {
   TermsOfUse,
@@ -326,6 +327,7 @@ export function ContributionSection() {
       });
       // TODO: eliminate this and just return th actual contribution data with the response above.
       await fetchContribution(newContributionId);
+      setResponse(undefined);
       setPage(Page.Share);
       setError(undefined);
     } catch (err) {
@@ -558,6 +560,13 @@ export function ContributionSection() {
             <ContributionCard
               contribution={selectedContribution!}
             ></ContributionCard>
+            <p>
+              You can share your specific contribution with others using this
+              link:{" "}
+              <a href={getContributionLink(selectedContribution!)}>
+                {getContributionLink(selectedContribution!)}
+              </a>
+            </p>
             <br />
             {/* TODO: add share on X,Y,Z CTAs */}
             <button
@@ -568,7 +577,7 @@ export function ContributionSection() {
             </button>
 
             <p>
-              See <Link to="/contributions">all contributions</Link>
+              or explore <Link to="/contributions">other contributions</Link>
             </p>
           </div>
         );

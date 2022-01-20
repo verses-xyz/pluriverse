@@ -68,16 +68,20 @@ export function getDisplayForAuthor(
   );
 }
 
-export function Signature({ author }: { author: Author }) {
-  const { createdAt, name, walletId } = author;
-  const nameDisplay = name || walletId;
-  const date = dayjs(createdAt, { utc: true });
+export function getMinuteTimeOfDayDateDisplay(date: dayjs.Dayjs): string {
   const localHour = date.local().hour();
-  const dateDisplay = date.format(
+  return date.format(
     `MMM D, YYYY [on minute] m ${
       localHour >= 6 && localHour < 18 ? "[in the day] ☀️" : "[in the night] 🌙"
     }`
   );
+}
+
+export function Signature({ author }: { author: Author }) {
+  const { createdAt, name, walletId } = author;
+  const nameDisplay = name || walletId;
+  const date = dayjs(createdAt, { utc: true });
+  const dateDisplay = getMinuteTimeOfDayDateDisplay(date);
 
   // TODO: add location
 

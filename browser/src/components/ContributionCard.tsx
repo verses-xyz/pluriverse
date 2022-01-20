@@ -18,6 +18,7 @@ interface Props {
   contribution: Contribution;
   hideHeader?: boolean;
   isCompact?: boolean;
+  className?: string;
 }
 
 export function getFullContributionResponse({
@@ -27,7 +28,7 @@ export function getFullContributionResponse({
 }: Contribution) {
   return (
     PromptDescriptions[prompt].replace(
-      Placeholder,
+      `{${Placeholder}}`,
       getPatternPlaceholder(pattern, prompt)
     ) +
     " " +
@@ -39,6 +40,7 @@ export function ContributionCard({
   contribution,
   hideHeader,
   isCompact = false,
+  className = "",
 }: Props) {
   const { author, response, prompt, pattern, createdAt } = contribution;
 
@@ -49,9 +51,11 @@ export function ContributionCard({
   return (
     <div
       className={
-        isCompact
+        (isCompact
           ? "compactContributionCardContainer"
-          : "contributionCardContainer"
+          : "contributionCardContainer") +
+        " " +
+        className
       }
     >
       {!hideHeader && (

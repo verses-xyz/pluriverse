@@ -86,6 +86,10 @@ function App() {
           />
           <Route path="about" element={<About />} />
           <Route path="contributions" element={<ContributionsPage />} />
+          <Route
+            path="contributions/:contributionId"
+            element={<ContributionsPage />}
+          />
         </Routes>
       </main>
       <Routes>
