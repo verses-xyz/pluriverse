@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import useGsap from "src/hook/useGsap";
 
-export default function GradientManager({
-  essayContentRef,
-  patternsContentRef,
-}) {
+export default function GradientManager() {
   // const gsap = useGsap();
 
   // useEffect(() => {

@@ -1,4 +1,4 @@
-import { Ref, useEffect, useState } from "react";
+import { Ref, useEffect, useRef, useState } from "react";
 import EssayContent from "../components/EssayContent";
 import PatternsContent from "../components/PatternsContent";
 import Hero from "../components/Hero";
@@ -8,11 +8,7 @@ import { NavLink } from "react-router-dom";
 import { Contribution } from "src/types/common/server-api";
 import React from "react";
 import { getContributions } from "src/helpers/api";
-
-interface Props {
-  essayContentRef: Ref<any>;
-  patternsContentRef: Ref<any>;
-}
+import useGsap from "src/hook/useGsap";
 
 export interface SignatureContext {
   // getSignatures
@@ -58,7 +54,64 @@ export interface WalletContext {
   // setProvider
 }
 
-export function Main({ essayContentRef, patternsContentRef }: Props) {
+export function Main() {
+  const gsap = useGsap();
+
+  const essayContentRef = useRef<any>();
+  const patternsContentRef = useRef<any>();
+
+  useEffect(() => {
+    gsap.fromTo(
+      ".fadeInOnTermsOnContributionSection",
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: "#contributionSection",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    gsap.fromTo(
+      ".fadeOutOnScroll",
+      {
+        opacity: 1,
+      },
+      {
+        opacity: 0,
+        scrollTrigger: {
+          trigger: essayContentRef.current,
+          start: 0,
+          end: " top top",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    gsap.fromTo(
+      essayContentRef.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: essayContentRef.current,
+          start: 0,
+          end: "top top",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
   return (
     <>
       <div className="fadeOutOnScroll">
