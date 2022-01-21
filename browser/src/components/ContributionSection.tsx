@@ -50,6 +50,8 @@ enum Page {
 export const PluriverseAgreement = `I have read and agree to the principles of the pluriverse, and I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us.
 
 I want to help build the pluriverse together.`;
+
+const ResponseCharacterLimit = 900;
 export const Placeholder = "________";
 export const replaceJSX = (
   str: string,
@@ -506,14 +508,16 @@ export function ContributionSection() {
                             // TODO: make this populate an actual live preview from an example?? and shuffle?
                             extraProps={{
                               placeholder: "free gardens",
+                              maxLength: ResponseCharacterLimit,
                             }}
                           />
                         }
                       </div>
-                      <p className={descriptionText}></p>
+                      <p className={descriptionText}>
+                        {response?.length || 0} / {ResponseCharacterLimit}
+                      </p>
                     </>
                   )}
-                  {/* TODO: add twitter username */}
                 </div>
                 <PreviewCard
                   author={user!}
@@ -532,6 +536,7 @@ export function ContributionSection() {
                 <button
                   onClick={onSaveContribution}
                   className={ButtonClass("blue")}
+                  disabled={!response}
                 >
                   Add to Pluriverse
                 </button>
@@ -551,8 +556,8 @@ export function ContributionSection() {
           <div className="signContainer">
             <h2 className="text-4xl font-bold">Share</h2>
             <p>
-              Thank you for contributing to the Pluriverse! You can see your
-              contribution below
+              Thank you for contributing to the Pluriverse! Your contribution in
+              all its glory is below:
             </p>
             {/* TODO: if not verified, add verify link */}
             <ContributionCard
@@ -567,16 +572,18 @@ export function ContributionSection() {
             </p>
             <br />
             {/* TODO: add share on X,Y,Z CTAs */}
-            <button
-              onClick={() => setPage(Page.Contribute)}
-              className={ButtonClass("blue")}
-            >
-              Add more
-            </button>
+            <div>
+              <button
+                onClick={() => setPage(Page.Contribute)}
+                className={ButtonClass("blue")}
+              >
+                Add more contributions
+              </button>
 
-            <p>
-              or explore <Link to="/contributions">other contributions</Link>
-            </p>
+              <p className={descriptionText}>
+                or explore <Link to="/contributions">other contributions</Link>
+              </p>
+            </div>
           </div>
         );
 

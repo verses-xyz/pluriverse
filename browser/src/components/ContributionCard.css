@@ -1,9 +1,10 @@
 .contributionCardContainer {
-  /* max-width:350px; */
+  min-width: 300px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  min-height: 250px;
+  min-height: 260px;
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.2);
   border-radius: 16px;

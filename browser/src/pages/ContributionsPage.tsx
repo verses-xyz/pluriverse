@@ -44,8 +44,11 @@ export function ContributionsPage() {
 
   return (
     <>
-      <div className="container md:max-w-3xl mx-auto pb-20 pt-10">
-        <div className="mb-20">
+      <div className="container md:max-w-3xl mx-auto pb-20">
+        <div className="mb-10">
+          <h2 className="font-title text-3xl pt-16 font-bold pb-3">
+            Contributions
+          </h2>
           <p>
             Here are all the contributions to the pluriverse from the
             individuals and collectives from cyberspace. These contributions
@@ -55,6 +58,7 @@ export function ContributionsPage() {
           <p>
             Make your <Link to="#contribute">own contribution</Link>.
           </p>
+          {/* TODO: maybe put patterns here? */}
         </div>
         {highlightedContribution && (
           <div className="mb-10">
@@ -74,18 +78,18 @@ export function ContributionsPage() {
             <h3 className="text-3xl">All other contributions</h3>
           </div>
         )}
-        <div className="grid grid-cols-2 gap-4 w-full">
-          {maybeFilteredContributions.map((contribution) => (
-            <ContributionCard contribution={contribution} />
-          ))}
-          {contributions.length === ContributionsLimit && (
-            <div style={{ alignSelf: "flex-start" }} className="seeAll">
-              <button className={ButtonClass()} onClick={onSeeMore}>
-                See more
-              </button>
-            </div>
-          )}
-        </div>
+      </div>
+      <div className="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-8 px-40 justify-center mx-auto max-w-max">
+        {maybeFilteredContributions.map((contribution) => (
+          <ContributionCard contribution={contribution} />
+        ))}
+        {contributions.length === ContributionsLimit && (
+          <div style={{ alignSelf: "flex-start" }} className="seeAll">
+            <button className={ButtonClass()} onClick={onSeeMore}>
+              See more
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

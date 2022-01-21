@@ -5,7 +5,11 @@ module.exports = {
     fontFamily: {
       mono: ["Roboto Mono", "monospace"],
     },
-    extend: {},
+    extend: {
+      screens: {
+        "3xl": "1800px",
+      },
+    },
   },
   plugins: [],
   variants: {
