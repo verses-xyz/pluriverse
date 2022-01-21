@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ContributionCard } from "src/components/ContributionCard";
 import {
   getDisplayForAuthor,
@@ -43,36 +43,50 @@ export function ContributionsPage() {
   );
 
   return (
-    <div className="container md:max-w-3xl mx-auto pb-20 pt-10">
-      {highlightedContribution && (
-        <div className="mb-10">
+    <>
+      <div className="container md:max-w-3xl mx-auto pb-20 pt-10">
+        <div className="mb-20">
           <p>
-            On{" "}
-            {getMinuteTimeOfDayDateDisplay(
-              dayjs(highlightedContribution.createdAt, { utc: true })
-            )}
-            , {getDisplayForAuthor(highlightedContribution.author)} contributed:
+            Here are all the contributions to the pluriverse from the
+            individuals and collectives from cyberspace. These contributions
+            represent the plurality of the web and how all of our meanings are
+            inherently valuable.
           </p>
-          <ContributionCard
-            className="selectedBorder"
-            contribution={highlightedContribution}
-          />
-          <br />
-          <h3 className="text-3xl">All other contributions</h3>
+          <p>
+            Make your <Link to="#contribute">own contribution</Link>.
+          </p>
         </div>
-      )}
-      <div className="grid grid-cols-2 gap-4 w-full">
-        {maybeFilteredContributions.map((contribution) => (
-          <ContributionCard contribution={contribution} />
-        ))}
-        {contributions.length === ContributionsLimit && (
-          <div style={{ alignSelf: "flex-start" }} className="seeAll">
-            <button className={ButtonClass()} onClick={onSeeMore}>
-              See more
-            </button>
+        {highlightedContribution && (
+          <div className="mb-10">
+            <p>
+              On{" "}
+              {getMinuteTimeOfDayDateDisplay(
+                dayjs(highlightedContribution.createdAt, { utc: true })
+              )}
+              , {getDisplayForAuthor(highlightedContribution.author)}{" "}
+              contributed:
+            </p>
+            <ContributionCard
+              className="selectedBorder"
+              contribution={highlightedContribution}
+            />
+            <br />
+            <h3 className="text-3xl">All other contributions</h3>
           </div>
         )}
+        <div className="grid grid-cols-2 gap-4 w-full">
+          {maybeFilteredContributions.map((contribution) => (
+            <ContributionCard contribution={contribution} />
+          ))}
+          {contributions.length === ContributionsLimit && (
+            <div style={{ alignSelf: "flex-start" }} className="seeAll">
+              <button className={ButtonClass()} onClick={onSeeMore}>
+                See more
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

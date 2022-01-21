@@ -269,8 +269,6 @@ export function ContributionSection() {
     <Dropdown
       items={PatternItems}
       selectedItemName={selectedPattern && PatternToDisplay[selectedPattern]}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       className="patternSelect"
     />
   );
