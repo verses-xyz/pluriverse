@@ -1,9 +1,12 @@
 import { InputHTMLAttributes } from "react";
 import "./AutoGrowInput.css";
+import { Editor } from "./Editor";
 
 interface Props {
   value?: string;
   onChange: (value: string) => void;
+  responseLength: number | undefined;
+  setResponseLength: (value: number) => void;
   className?: string;
   extraProps?: InputHTMLAttributes<HTMLTextAreaElement>;
 }
@@ -11,6 +14,8 @@ interface Props {
 export function AutoGrowInput({
   value,
   onChange,
+  responseLength,
+  setResponseLength,
   extraProps,
   className,
 }: Props) {
@@ -45,20 +50,16 @@ export function AutoGrowInput({
     //   >
     //     {value}
     //   </span>
-    <div className={`grow-wrap ${className ? className : ""}`}>
-      {/* <div className={`grow-wrap`}> */}
-      <textarea
-        {...(extraProps || {})}
-        className="form-textarea block w-full"
-        style={{ minHeight: "150px" }}
-        // placeholder="Enter your response to the prompt..."
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      />
-    </div>
-
-    // <span contentEditable="true" role="textbox" className="contenteditableSpan">
-    //   {!value ? extraProps?.placeholder : ""}
-    // </span>
+    <>
+      <div className={`grow-wrap ${className ? className : ""}`}>
+        <Editor
+          value={value}
+          onChange={onChange}
+          responseLength={responseLength}
+          setResponseLength={setResponseLength}
+          placeholder={extraProps.placeholder ? extraProps.placeholder : null}
+        />
+      </div>
+    </>
   );
 }

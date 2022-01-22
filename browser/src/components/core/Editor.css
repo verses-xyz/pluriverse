@@ -1,0 +1,136 @@
+.ProseMirror {
+    /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+    resize: none;
+
+    /* Firefox shows scrollbar on growth, you can hide like this. */
+    overflow: hidden;
+
+    /* Identical styling required!! */
+    border: 1px solid black;
+    padding: 0.5rem;
+    font: inherit;
+
+    width: 300px; 
+    min-height: 200px; 
+    max-height: 200px;
+
+    background-color: hsla(0,0%,100%,.1)
+}
+
+/* Placeholder (at the top) */
+.ProseMirror p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+.ProseMirror > p {
+    padding-top: 0;
+    font-size: inherit;
+}
+
+.ProseMirror > p::selection{
+    background: rgba(198, 142, 255, 0.5);
+}
+
+.ProseMirror > code {
+    padding-top: 0;
+    font-size: inherit;
+}
+
+.ProseMirror > a {
+    padding-top: 0;
+    font-size: inherit;
+}
+
+.contenteditableSpan {
+    display:inline-block;
+    border: solid 1px black;
+    background: white;
+    min-width: 200px;
+    padding: 0 2px;
+}
+
+.menu {
+    border: 1px solid black;
+    border-bottom: 0px;
+    padding: 0.25rem;
+    background-color: hsla(0,0%,100%,.1);
+    border-radius: 0.375rem 0.375rem 0 0;
+    width: 100%;
+    display: inline-block;
+}
+
+.menuItem { 
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+
+.linkInput {
+    font: inherit;
+    padding-top: 0;     
+    padding-bottom: 0;     
+    border-radius: 0.375rem;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.modal {
+    background-color: hsla(0, 0%, 15%, 1);
+    width:100%;
+    max-width:576px;
+    padding:3rem; 
+    position:relative;
+    border-radius:0.375rem;
+    z-index: 9999;
+}
+
+.linkIcon {
+    font-size: 85%; 
+    padding-left: 2px;
+}
+
+.white {
+    text-align: center;
+
+    background: white;
+    background-size: 200% auto;
+
+    color: white;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.modalButtons {
+    margin-top: 24px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.addButton {
+  padding-left: 6px;
+}
+
+.cancelButton { 
+  padding-right: 6px;
+}
+
+.overlay {
+    background-color: hsla(0,0%,100%,.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    z-index: 8000;
+}

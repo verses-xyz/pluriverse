@@ -349,6 +349,7 @@ function TermsOfUse({
 
 export function ContributionSection() {
   const [page, setPage] = useState(Page.TermsOfUse);
+  const [responseLength, setResponseLength] = useState<number | undefined>(undefined);
   const {
     currentUser,
     setCurrentUser,
@@ -395,9 +396,9 @@ export function ContributionSection() {
         selectedItemName={
           selectedPrompt
             ? PromptDescriptionsToDisplay[selectedPrompt].replace(
-                "...",
-                PatternToDisplay[selectedPattern]
-              )
+              "...",
+              PatternToDisplay[selectedPattern]
+            )
             : undefined
         }
         className="patternSelect w-full"
@@ -724,6 +725,9 @@ export function ContributionSection() {
                             value={response}
                             onChange={setResponse}
                             className="responseInput"
+                            responseLength={responseLength}
+                            setResponseLength={setResponseLength}
+                            // TODO: make this populate an actual live preview from an example?? and shuffle?
                             extraProps={{
                               // placeholder: "free gardens",
                               maxLength: ResponseCharacterLimit,
@@ -818,9 +822,8 @@ export function ContributionSection() {
         {maybeFilteredPages.map((p) => (
           <div
             key={p}
-            className={`pageProgress ${
-              page === p ? "selectedPageProgress" : ""
-            }`}
+            className={`pageProgress ${page === p ? "selectedPageProgress" : ""
+              }`}
           />
         ))}
       </div>
