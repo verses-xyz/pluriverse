@@ -70,7 +70,7 @@ I am signing the document on ${date}, which lives on the permaweb on Arweave tx:
   return isDisagreeing ? PluriverseDissent : PluriverseAgreement;
 }
 
-const ResponseCharacterLimit = 900;
+export const ResponseCharacterLimit = 900;
 export const Placeholder = "________";
 export const replaceJSX = (
   str: string,
@@ -363,6 +363,7 @@ function TermsOfUse({
 
 export function ContributionSection() {
   const [page, setPage] = useState(Page.TermsOfUse);
+  const [responseLength, setResponseLength] = useState<number | undefined>(undefined);
   const {
     currentUser,
     setCurrentUser,
@@ -690,6 +691,8 @@ export function ContributionSection() {
                             value={response}
                             onChange={setResponse}
                             className="responseInput"
+                            responseLength={responseLength}
+                            setResponseLength={setResponseLength}
                             // TODO: make this populate an actual live preview from an example?? and shuffle?
                             extraProps={{
                               placeholder: "free gardens",
@@ -699,7 +702,7 @@ export function ContributionSection() {
                         }
                       </div>
                       <p className={descriptionText}>
-                        {response?.length || 0} / {ResponseCharacterLimit}
+                        {responseLength || 0} / {ResponseCharacterLimit}
                       </p>
                     </>
                   )}
@@ -824,9 +827,8 @@ export function ContributionSection() {
         {Object.values(Page).map((p) => (
           <div
             key={p}
-            className={`pageProgress ${
-              page === p ? "selectedPageProgress" : ""
-            }`}
+            className={`pageProgress ${page === p ? "selectedPageProgress" : ""
+              }`}
           />
         ))}
       </div>

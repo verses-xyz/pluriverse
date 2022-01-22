@@ -23,6 +23,9 @@ import { Suspense, useContext } from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 
+import sanitizeHtml from "sanitize-html";
+import parse from 'html-react-parser';
+
 interface Props {
   contribution: Contribution;
   hideHeader?: boolean;
@@ -95,6 +98,8 @@ export function ContributionCard({
   const contributionLink = getContributionLink(contribution);
   const { openContributionModal, openContributionId } =
     useContext(ModalContext);
+
+  const responseHtml = parse(sanitizeHtml(response));
 
   return (
     <div
