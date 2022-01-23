@@ -3,7 +3,7 @@ import {
   ScissorScene, // <- The <scene> to be rendered witin a given virtual canvas
   useScissorFrame, // <- Like useFrame, provides access to the Scissoring render loop
   useScissorInit, // <- Window into the first run of useScissorFrame. Used to initialize whatever you want
-} from "react-three-scissor";
+} from "src/components/react-three-scissor";
 import { Contribution } from "src/types/common/server-api";
 import { BlobSingle } from "./BlobSingle";
 import { Suspense, useRef } from "react";
@@ -32,6 +32,8 @@ export default function BlobContributionsScissorCanvasRenderer({
     camera.position.set(2, 2, 2);
     camera.lookAt(0, 0, 0);
     orbit.current = new OrbitControls(camera, element);
+    orbit.current.enableZoom = false;
+    orbit.current.autoRotate = true;
 
     const bBox = new THREE.Box3().setFromObject(scene);
     const size = new THREE.Vector3();
@@ -40,7 +42,7 @@ export default function BlobContributionsScissorCanvasRenderer({
     const dist = height / (2 * Math.tan((camera.fov * Math.PI) / 360));
     const pos = scene.position;
 
-    const fac = 0.75;
+    const fac = 0.85;
     camera.position.setScalar(dist).multiplyScalar(fac);
     camera.lookAt(pos);
   }, []);
