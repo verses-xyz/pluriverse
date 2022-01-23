@@ -5,14 +5,20 @@ import Hero from "../components/Hero";
 import { ContributionSection } from "../components/ContributionSection";
 import { SignatureContent } from "../components/SignatureContent";
 import { NavLink } from "react-router-dom";
-import { Contribution } from "src/types/common/server-api";
+import { Author, Contribution } from "src/types/common/server-api";
 import React from "react";
-import { getContributions } from "src/helpers/api";
+import { getContributions, getUsers } from "src/helpers/api";
 import useGsap from "src/hook/useGsap";
 
-export interface SignatureContext {
-  // getSignatures
+export interface SignaturesContextInfo {
+  signatures: Author[];
+  fetchSignatures(newSignature?: Author): void;
 }
+
+export const SignaturesContext = React.createContext<SignaturesContextInfo>({
+  signatures: [],
+  fetchSignatures: () => {},
+});
 
 interface ContributionsContextInfo {
   contributions: Contribution[];
@@ -46,6 +52,29 @@ function ContributionsProvider({ children }) {
     <ContributionsContext.Provider value={contributionsContext}>
       {children}
     </ContributionsContext.Provider>
+  );
+}
+
+function SignaturesProvider({ children }) {
+  const [authors, setAuthors] = useState<Author[]>([]);
+  useEffect(async () => {
+    await fetchSignatures();
+  }, []);
+
+  async function fetchSignatures(newSignature?: Author) {
+    const users = await getUsers();
+    setAuthors([...(newSignature ? [newSignature] : []), ...users]);
+  }
+
+  const signaturesContext = {
+    signatures: authors,
+    fetchSignatures,
+  };
+
+  return (
+    <SignaturesContext.Provider value={signaturesContext}>
+      {children}
+    </SignaturesContext.Provider>
   );
 }
 
@@ -118,28 +147,30 @@ export function Main() {
         <Hero />
       </div>
       <ContributionsProvider>
-        <div className="mainContent">
-          <div id="essay-content" ref={essayContentRef}>
-            <EssayContent />
-          </div>
-          <div ref={patternsContentRef}>
-            <PatternsContent />
-          </div>
-          <div
-            id="contributionSection"
-            className="container w-full md:max-w-4xl mx-auto pb-20 px-4"
-          >
-            <ContributionSection />
-            <br />
-            <div className="text-center pb-8">
-              <NavLink to="/contributions">
-                <button className={`glass-button`}>All Contributions</button>
-              </NavLink>
+        <SignaturesProvider>
+          <div className="mainContent">
+            <div id="essay-content" ref={essayContentRef}>
+              <EssayContent />
             </div>
-            <br />
-            <SignatureContent />
+            <div ref={patternsContentRef}>
+              <PatternsContent />
+            </div>
+            <div
+              id="contributionSection"
+              className="container w-full md:max-w-4xl mx-auto pb-20 px-4"
+            >
+              <ContributionSection />
+              <br />
+              <div className="text-center pb-8">
+                <NavLink to="/contributions">
+                  <button className={`glass-button`}>All Contributions</button>
+                </NavLink>
+              </div>
+              <br />
+              <SignatureContent />
+            </div>
           </div>
-        </div>
+        </SignaturesProvider>
       </ContributionsProvider>
       <footer className="pt-2 pb-16">
         <span>

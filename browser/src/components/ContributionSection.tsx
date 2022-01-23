@@ -37,7 +37,7 @@ import { LoadingIndicator } from "./core/LoadingIndicator";
 import { Checkmark } from "./core/Checkmark";
 import ContributionsCarousel from "./ContributionsCarousel";
 import getMockContributions from "src/utils/getMockContributions";
-import { ContributionsContext } from "src/pages/Main";
+import { ContributionsContext, SignaturesContext } from "src/pages/Main";
 import { getContributionLink } from "src/helpers/contributions";
 
 enum Page {
@@ -50,6 +50,10 @@ enum Page {
 export const PluriverseAgreement = `I have read and agree to the principles of the pluriverse, and I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us.
 
 I want to help build the pluriverse together.`;
+
+export const PluriverseDissent = `I have read and understand the pluriverse, but I disagree with the formulation and think that meaningful dissent is important. I understand that I am helping contribute to a pluriversal world through my dissent. I understand that this document and code are all open to dissenting commentary and the ability to fork and create my own. 
+
+I want to help build the pluriverse together if my points of disagreement are considered and addressed.`;
 
 const ResponseCharacterLimit = 900;
 export const Placeholder = "________";
@@ -108,29 +112,43 @@ interface TermsOfUseProps {
   user?: Author;
   handleErr(err: Error): void;
   onConnectWalletConnect(): void;
-  onAgree(
+  onSubmitWallet(
     walletAddress: string,
-    { name, twitterUsername }?: { name?: string; twitterUsername?: string }
+    {
+      name,
+      twitterUsername,
+      isDisagreeing,
+    }?: { name?: string; twitterUsername?: string; isDisagreeing?: boolean }
   ): void;
+  onContinue(): void;
 }
 
 function TermsOfUse({
   user,
-  onAgree,
+  onSubmitWallet,
   handleErr,
   onConnectWalletConnect,
+  onContinue,
 }: TermsOfUseProps) {
   const [name, setName] = useState<string | undefined>(undefined);
   const [twitterUsername, setTwitterUsername] = useState<string | undefined>(
     undefined
   );
 
+  async function onDisagree(walletAddress: string) {
+    await onSubmitWallet(walletAddress, {
+      name,
+      twitterUsername,
+      isDisagreeing: true,
+    });
+  }
+
   return (
     <div className="terms">
       <div className="flex ">
         <h2 className="text-3xl font-bold">Terms of Use</h2>
         {user && (
-          <div className="inputs ml-auto">
+          <div className="ml-auto">
             signing as <b>{getDisplayForAuthor(user)}</b>
           </div>
         )}
@@ -179,16 +197,25 @@ function TermsOfUse({
       )}
 
       <div className="actionsContainer">
-        {/* TODO: link to github forking or form */}
-        <button className={ButtonClass("white")}>Disagree</button>
-        <ConnectWalletButton
-          onSubmit={(walletAddress) =>
-            onAgree(walletAddress, { name, twitterUsername })
-          }
-          onError={handleErr}
-        >
-          {`Agree${!user ? " (sign with wallet)" : ""}`}
-        </ConnectWalletButton>
+        {user?.signature ? (
+          <button className={ButtonClass()} onClick={onContinue}>
+            Continue
+          </button>
+        ) : (
+          <>
+            <ConnectWalletButton onSubmit={onDisagree} onError={handleErr}>
+              Disagree
+            </ConnectWalletButton>
+            <ConnectWalletButton
+              onSubmit={(walletAddress) =>
+                onSubmitWallet(walletAddress, { name, twitterUsername })
+              }
+              onError={handleErr}
+            >
+              {`Agree`}
+            </ConnectWalletButton>
+          </>
+        )}
       </div>
       <div className="text-center mt-4">
         Don't have Metamask? Agree{" "}
@@ -222,6 +249,7 @@ export function ContributionSection() {
   const [provider, setProvider] = useState<
     ethers.providers.Web3Provider | undefined
   >();
+  const { fetchSignatures } = useContext(SignaturesContext);
 
   async function fetchUserFromWalletAddress() {
     const addr = await getWalletAddress(provider);
@@ -337,9 +365,13 @@ export function ContributionSection() {
     }
   }
 
-  async function onAgree(
+  async function onSubmitWallet(
     connectedWalletAddress: string,
-    { name, twitterUsername }: { name?: string; twitterUsername?: string } = {}
+    {
+      name,
+      twitterUsername,
+      isDisagreeing,
+    }: { name?: string; twitterUsername?: string; isDisagreeing?: boolean } = {}
   ) {
     // Validate user
     let userToUpdate: Author | undefined = user;
@@ -349,33 +381,39 @@ export function ContributionSection() {
       });
     }
     // TODO: upsert user if the data does not match.
-    let nextPage: Page;
     let signature: string | undefined = userToUpdate?.signature;
 
     if (!userToUpdate) {
-      signature = await signAndValidate(PluriverseAgreement);
+      signature = await signAndValidate(
+        isDisagreeing ? PluriverseDissent : PluriverseAgreement
+      );
       // add user after successful
       userToUpdate = await addUser({
         walletId: connectedWalletAddress,
         name,
         twitterUsername,
         signature,
+        // TODO: mark that they are disagreeing
       });
-    }
-
-    // if twitter username is populated and not verified, redirect to verify flow.
-    if (userToUpdate.twitterUsername && !userToUpdate.twitterVerified) {
-      nextPage = Page.TwitterVerify;
-    } else {
-      nextPage = Page.Contribute;
     }
 
     // finish
     setError(undefined);
-    setSig(signature);
     setUser(userToUpdate);
-    setPage(nextPage);
+    navigateFromTerms();
     // trigger signatures to refetch
+    fetchSignatures(userToUpdate);
+  }
+
+  function navigateFromTerms() {
+    // if twitter username is populated and not verified, redirect to verify flow.
+    let nextPage: Page;
+    if (user && user.twitterUsername && !user.twitterVerified) {
+      nextPage = Page.TwitterVerify;
+    } else {
+      nextPage = Page.Contribute;
+    }
+    setPage(nextPage);
   }
 
   async function onConnectWalletConnect() {
@@ -385,14 +423,13 @@ export function ContributionSection() {
     await fetchUserFromWalletAddress();
 
     const connectedWalletAddress = await getWalletAddress(provider);
-    await onAgree(connectedWalletAddress);
+    await onSubmitWallet(connectedWalletAddress);
   }
 
   const [lastPage, setLastPage] = useState<Page>(Page.TermsOfUse);
-  const [sig, setSig] = useState<string | undefined>();
 
   function onClickTweetProof() {
-    const str = `${TweetTemplate}${sig}`;
+    const str = `${TweetTemplate}${user!.signature}`;
     window.open(
       `https://twitter.com/intent/tweet?text=${encodeURI(str)}`,
       "_blank"
@@ -430,9 +467,10 @@ export function ContributionSection() {
         return (
           <TermsOfUse
             user={user}
-            onAgree={onAgree}
+            onSubmitWallet={onSubmitWallet}
             handleErr={handleErr}
             onConnectWalletConnect={onConnectWalletConnect}
+            onContinue={navigateFromTerms}
           />
         );
 

@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { getUsers } from "src/helpers/api";
+import { useContext } from "react";
 import { Author } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import "./SignatureContent.css";
 import { Checkmark } from "./core/Checkmark";
 import { ButtonClass } from "src/types/styles";
+import { SignaturesContext } from "src/pages/Main";
 
 dayjs.extend(utc);
 
@@ -99,16 +99,12 @@ export function Signature({ author }: { author: Author }) {
 }
 
 export function SignatureContent() {
-  const [authors, setAuthors] = useState<Author[]>([]);
-  useEffect(async () => {
-    const users = await getUsers();
-    setAuthors(users);
-  }, []);
+  const { signatures } = useContext(SignaturesContext);
 
   return (
     <div className="signatureContainer">
       <h2 className="text-4xl font-bold">Signatures</h2>
-      {authors.map((author) => (
+      {signatures.map((author) => (
         <Signature author={author} />
       ))}
     </div>
