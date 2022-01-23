@@ -61,11 +61,11 @@
     ]
   },
   "devDependencies": {
-    "@common": "link:../server/common/",
     "@types/react-helmet": "^6.1.5",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
     "autoprefixer": "^10.4.0",
+    "common": "link:../server/common/",
     "eslint": "^8.5.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.3.0",
