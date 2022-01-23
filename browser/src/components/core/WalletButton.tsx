@@ -35,6 +35,7 @@ export function ConnectWalletButton({
       setLoading(false);
     }
   }
+
   return (
     <button
       className={`${ButtonClass("blue")}`}

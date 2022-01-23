@@ -87,6 +87,10 @@ const PromptDescriptionsToDisplay: Record<Prompt, string> = Object.entries(
   return acc;
 }, {});
 
+function getTweetIntentLink(text: string): string {
+  return `https://twitter.com/intent/tweet?text=${encodeURI(text)}`;
+}
+
 function PreviewCard({
   author,
   response,
@@ -429,11 +433,8 @@ export function ContributionSection() {
   const [lastPage, setLastPage] = useState<Page>(Page.TermsOfUse);
 
   function onClickTweetProof() {
-    const str = `${TweetTemplate}${user!.signature}`;
-    window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURI(str)}`,
-      "_blank"
-    );
+    const tweetText = `${TweetTemplate}${user!.signature}`;
+    window.open(getTweetIntentLink(tweetText), "_blank");
   }
 
   async function onClickVerifyTwitter() {
@@ -481,7 +482,11 @@ export function ContributionSection() {
               Tweet a message to prove that you control this address. Return to
               this page afterwards to complete verification.
             </p>
-            <button className={ButtonClass()} onClick={onClickTweetProof}>
+            <button
+              // className="twitter-share-button"
+              className={ButtonClass()}
+              onClick={onClickTweetProof}
+            >
               Tweet proof
             </button>
             <p>
@@ -589,13 +594,16 @@ export function ContributionSection() {
           </div>
         );
 
-      case Page.Share:
+      case Page.Share: {
+        const contributionLink = getContributionLink(selectedContribution!);
+        const contributionShareText = `My contribution to the pluriverse, a world where many worlds may fit\n\n${contributionLink}`;
+
         return (
           <div className="signContainer">
             <h2 className="text-4xl font-bold">Share</h2>
             <p>
               Thank you for contributing to the Pluriverse! Your contribution in
-              all its glory is below:
+              all its glorious plurality is below:
             </p>
             {/* TODO: if not verified, add verify link */}
             <ContributionCard
@@ -603,13 +611,31 @@ export function ContributionSection() {
             ></ContributionCard>
             <p>
               You can share your specific contribution with others using this
-              link:{" "}
-              <a href={getContributionLink(selectedContribution!)}>
-                {getContributionLink(selectedContribution!)}
-              </a>
+              link: <a href={contributionLink}>{contributionLink}</a>
             </p>
             <br />
-            {/* TODO: add share on X,Y,Z CTAs */}
+            <div className="flex gap-2">
+              <button
+                // className="twitter-share-button"
+                className={ButtonClass()}
+                onClick={() => {
+                  window.open(
+                    getTweetIntentLink(contributionShareText),
+                    "_blank"
+                  );
+                }}
+              >
+                Share on Twitter
+              </button>
+              <button
+                className={ButtonClass()}
+                onClick={() => {
+                  navigator.clipboard.writeText(contributionLink);
+                }}
+              >
+                Copy Link
+              </button>
+            </div>
             <div>
               <button
                 onClick={() => setPage(Page.Contribute)}
@@ -624,6 +650,7 @@ export function ContributionSection() {
             </div>
           </div>
         );
+      }
 
       default:
         throw Error("unreachable");
