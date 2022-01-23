@@ -24,7 +24,9 @@ export function getContributions({ prisma }: Services): RequestHandler {
             author: true,
           },
         });
-        contributions.push(highlightedContribution);
+        if (highlightedContribution) {
+          contributions.push(highlightedContribution);
+        }
       }
 
       const storageContributions = await prisma.contribution.findMany({
