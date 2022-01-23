@@ -15,6 +15,8 @@ import { getContributions } from "src/helpers/api";
 import { Contribution } from "src/types/common/server-api";
 import { ButtonClass } from "src/types/styles";
 import { Helmet } from "react-helmet";
+import getMockContributions from "src/utils/getMockContributions";
+import CanvasContributionsRenderer from "src/components/CanvasContributionsRenderer";
 
 dayjs.extend(utc);
 
@@ -26,7 +28,9 @@ export function ContributionsPage() {
   const highlightedContributionId = contributionId
     ? Number(contributionId)
     : undefined;
-  const [contributions, setContributions] = useState<Contribution[]>([]);
+  const [contributions, setContributions] = useState<Contribution[]>(
+    getMockContributions()
+  );
 
   console.log(contributionId);
 
@@ -79,7 +83,7 @@ export function ContributionsPage() {
   }
 
   return (
-    <>
+    <CanvasContributionsRenderer>
       <div className="container md:max-w-3xl mx-auto pb-20">
         <div className="mb-10">
           <h2 className="font-title text-3xl pt-16 font-bold pb-3">
@@ -128,6 +132,6 @@ export function ContributionsPage() {
           </div>
         )}
       </div>
-    </>
+    </CanvasContributionsRenderer>
   );
 }
