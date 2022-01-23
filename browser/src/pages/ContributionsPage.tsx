@@ -121,6 +121,7 @@ export function ContributionsPage() {
             />
             <br />
             <h3 className="text-3xl">All other contributions</h3>
+            {getMetaTagsForHighlightedContribution(highlightedContribution)}
           </div>
         )}
       </div>
