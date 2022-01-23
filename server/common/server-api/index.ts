@@ -15,7 +15,10 @@ export enum Prompt {
   LooksLike = "LooksLike",
   WeNeed = "WeNeed",
   Example = "Example",
+<<<<<<< HEAD
   FreeForm = "FreeForm",
+=======
+>>>>>>> 616959e (revert bad change)
 }
 export enum Pattern {
   Pluriverse = "Pluriverse",
