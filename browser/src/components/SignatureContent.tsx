@@ -41,13 +41,22 @@ function getTwitterDisplay(
   );
 }
 
-// TODO: get ENS?
-export function getDisplayForAuthor(
-  { twitterVerified, twitterUsername, name, walletId }: Author,
+export function getTextDisplayForAuthor(
+  { name, walletId }: Author,
   shouldTruncate?: boolean
 ): React.ReactNode {
   const walletAddr = shouldTruncate ? truncateWallet(walletId) : walletId;
   const nameDisplay = name || walletAddr;
+  return nameDisplay;
+}
+
+// TODO: get ENS?
+export function getDisplayForAuthor(
+  author: Author,
+  shouldTruncate?: boolean
+): React.ReactNode {
+  const { twitterVerified, twitterUsername } = author;
+  const nameDisplay = getTextDisplayForAuthor(author, shouldTruncate);
   const twitterUrl =
     twitterUsername &&
     twitterVerified &&

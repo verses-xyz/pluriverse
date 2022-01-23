@@ -2,14 +2,20 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ContributionCard } from "src/components/ContributionCard";
+import {
+  ContributionCard,
+  getFullContributionResponse,
+} from "src/components/ContributionCard";
 import {
   getDisplayForAuthor,
   getMinuteTimeOfDayDateDisplay,
+  getTextDisplayForAuthor,
 } from "src/components/SignatureContent";
 import { getContributions } from "src/helpers/api";
 import { Contribution } from "src/types/common/server-api";
 import { ButtonClass } from "src/types/styles";
+import { Helmet } from "react-helmet";
+
 dayjs.extend(utc);
 
 const ContributionsLimit = 500;
@@ -41,6 +47,45 @@ export function ContributionsPage() {
   const maybeFilteredContributions = contributions.filter(
     (c) => !highlightedContributionId || c.id !== highlightedContributionId
   );
+
+  function getMetaTagsForHighlightedContribution(contribution: Contribution) {
+    const fullResponse = getFullContributionResponse(contribution);
+    const { author } = contribution;
+    const authorDisplay = getTextDisplayForAuthor(author, true);
+
+    const maybeTwitterCreatorTag =
+      author.twitterVerified && author.twitterUsername ? (
+        <meta
+          name="twitter:creator"
+          content={`@${contribution.author.twitterUsername}`}
+        />
+      ) : null;
+    return (
+      <Helmet>
+        <meta name="description" content={fullResponse} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content={`Contribution to the Pluriverse by ${getTextDisplayForAuthor(
+            contribution.author,
+            true
+          )}`}
+        />
+        <meta property="og:description" content={fullResponse} />
+        {/* TODO: make PNG of the blob? <meta property="og:image" content="%PUBLIC_URL%/logo192.png" /> */}
+
+        <meta
+          name="twitter:title"
+          content={`Contribution to the Pluriverse by ${authorDisplay}`}
+        />
+        <meta
+          name="twitter:description"
+          content="Introducing the pluriverse as a banner for new, communal futures and a Pattern Language for a world where many worlds may fit"
+        />
+        {maybeTwitterCreatorTag}
+      </Helmet>
+    );
+  }
 
   return (
     <>
