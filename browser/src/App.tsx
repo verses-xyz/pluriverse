@@ -41,7 +41,7 @@ function App() {
           }
         />
         <Route path="about" element={<GradientManager />} />
-        <Route path="contributions" element={<GradientManager />} />
+        <Route path="contributions*" element={<GradientManager />} />
       </Routes>
     </div>
   );
