@@ -9,6 +9,7 @@ import { Author, Contribution } from "src/types/common/server-api";
 import React from "react";
 import { getContributions, getUsers } from "src/helpers/api";
 import useGsap from "src/hook/useGsap";
+import BlobContributionsScissorCanvasRendererWithContributions from "src/components/BlobContributionsScissorCanvasRendererWithContributions";
 
 export interface SignaturesContextInfo {
   signatures: Author[];
@@ -142,6 +143,7 @@ export function Main() {
         <Hero />
       </div>
       <ContributionsProvider>
+        <BlobContributionsScissorCanvasRendererWithContributions />
         <SignaturesProvider>
           <div className="mainContent">
             <div id="essay-content" ref={essayContentRef}>

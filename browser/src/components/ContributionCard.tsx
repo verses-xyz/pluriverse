@@ -9,6 +9,7 @@ import {
 } from "./ContributionSection";
 import { getPatternPlaceholder } from "src/types";
 import { getDisplayForAuthor } from "./SignatureContent";
+import BlobSingleScissorWindow from "./BlobSingleScissorWindow";
 
 interface Props {
   contribution: Contribution;
@@ -38,7 +39,7 @@ export function ContributionCard({
   isCompact = false,
   className = "",
 }: Props) {
-  const { author, response, prompt, pattern, createdAt } = contribution;
+  const { author, response, prompt, pattern, createdAt, id } = contribution;
 
   const authorDisplay = getDisplayForAuthor(author, true);
   const date = dayjs(createdAt, { utc: true });
@@ -64,12 +65,7 @@ export function ContributionCard({
         {response}
       </p>
       <div className={isCompact ? "blobSingleContainer" : "blobContainer"}>
-        <BlobSingle
-          pattern={pattern}
-          prompt={prompt}
-          walletId={author.walletId}
-          response={response}
-        />
+        <BlobSingleScissorWindow id={id} />
       </div>
       <div className="attribution">
         <p className=" text-base">

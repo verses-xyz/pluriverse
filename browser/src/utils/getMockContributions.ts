@@ -22,7 +22,7 @@ export default function getMockContributions() {
   for (let i = 0; i < 12; i++) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    mockContributions.push(mockContrubution);
+    mockContributions.push({ ...mockContrubution, id: i });
   }
 
   return mockContributions;
