@@ -1,8 +1,6 @@
 import { Canvas } from "@react-three/fiber";
-import React, { useEffect, useRef } from "react";
 import UniverseScene from "./components/UniverseScene";
 import GradientManager from "./components/GradientManager";
-import useGsap from "./hook/useGsap";
 import { DevelopmentBanner } from "./components/DevelopmentBanner";
 import { Routes, Route } from "react-router-dom";
 import { About } from "./pages/About";

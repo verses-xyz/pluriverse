@@ -4,9 +4,40 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 ReactDOM.render(
   <React.StrictMode>
+    <Helmet>
+      <title>Towards a Digital Pluriverse</title>
+
+      {/* <!-- Social media tags --> */}
+      <meta property="og:type" content="article" />
+
+      <meta property="og:title" content="Towards a Digital Pluriverse" />
+
+      <meta
+        property="og:description"
+        content="Introducing the pluriverse as a banner for new, communal futures and a Pattern Language for a world where many worlds may fit"
+      />
+
+      <meta property="og:image" content="%PUBLIC_URL%/logo192.png" />
+
+      <meta property="og:site_name" content="Pluriverse" />
+
+      <meta name="twitter:title" content="Towards a Digital Pluriverse" />
+
+      <meta
+        name="twitter:description"
+        content="Introducing the pluriverse as a banner for new, communal futures and a Pattern Language for a world where many worlds may fit"
+      />
+
+      <meta name="twitter:image" content="%PUBLIC_URL%/logo192.png" />
+
+      <meta name="twitter:site" content="@verses_xyz" />
+
+      <meta name="twitter:creator" content="@verses_xyz" />
+    </Helmet>
     <Router>
       {/* routes */}
       <Routes>
