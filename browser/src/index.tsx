@@ -21,8 +21,6 @@ ReactDOM.render(
         content="Introducing the pluriverse as a banner for new, communal futures and a Pattern Language for a world where many worlds may fit"
       />
 
-      <meta property="og:image" content="%PUBLIC_URL%/logo192.png" />
-
       <meta property="og:site_name" content="Pluriverse" />
 
       <meta name="twitter:title" content="Towards a Digital Pluriverse" />
@@ -31,8 +29,6 @@ ReactDOM.render(
         name="twitter:description"
         content="Introducing the pluriverse as a banner for new, communal futures and a Pattern Language for a world where many worlds may fit"
       />
-
-      <meta name="twitter:image" content="%PUBLIC_URL%/logo192.png" />
 
       <meta name="twitter:site" content="@verses_xyz" />
 
