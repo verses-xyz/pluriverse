@@ -72,10 +72,7 @@ export function ContributionsPage() {
         {/* TODO: make PNG of the blob? <meta property="og:image" content="%PUBLIC_URL%/logo192.png" /> */}
 
         <meta name="twitter:title" content={title} />
-        <meta
-          name="twitter:description"
-          content="Introducing the pluriverse as a banner for new, communal futures and a Pattern Language for a world where many worlds may fit"
-        />
+        <meta name="twitter:description" content={fullResponse} />
         {maybeTwitterCreatorTag}
       </Helmet>
     );
