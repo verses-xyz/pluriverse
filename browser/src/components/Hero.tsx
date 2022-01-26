@@ -10,6 +10,7 @@ export default function Hero() {
         <div className="text-2xl md:text-7xl pt-16 pb-8">
           “a world where many worlds may fit”
         </div>
+        <span className="heroAttribution">– Zapatistas, Chiapas</span>
       </div>
     </div>
   );
