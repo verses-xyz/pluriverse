@@ -23,6 +23,13 @@ function App() {
             element={<ContributionsPage />}
           />
         </Routes>
+        <footer className="pt-2 pb-16">
+          <span>
+            a drop from <a href="https://verses.xyz">Verses</a>, which is
+            supported with 💜&nbsp; by <a href="https://gitcoin.co">Gitcoin</a>{" "}
+            and <a href="https://fil.org/">Filecoin Foundation</a>
+          </span>
+        </footer>
       </main>
       <Routes>
         <Route

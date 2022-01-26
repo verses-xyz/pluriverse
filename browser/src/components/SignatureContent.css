@@ -15,11 +15,11 @@
 
 .signatureContainer p {
     font-size: 1.2rem;
+    padding-top: 12px;
 }
 
 .signature {
     width: 100%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
 }
 
@@ -38,7 +38,7 @@
 
 
 .twitterName.twitterName {
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 24px;
     display: inline-flex;
     align-items: center;

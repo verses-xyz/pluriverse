@@ -80,16 +80,16 @@ export function ContributionsPage() {
 
   return (
     <>
-      <div className="container md:max-w-3xl mx-auto pb-20">
+      <div className="container md:max-w-3xl mx-auto pb-10">
         <div className="mb-10">
           <h2 className="font-title text-3xl pt-16 font-bold pb-3">
-            Contributions
+            Contributions to the Pluriverse
           </h2>
           <p>
-            Here are all the contributions to the pluriverse from the
-            individuals and collectives from cyberspace. These contributions
-            represent the plurality of the web and how all of our meanings are
-            inherently valuable.
+            We have collected contributions to the pluriverse from individuals
+            and collectives of cyberspace who have signed onto this document.
+            These contributions represent the plurality of the web and how all
+            of our meanings are inherently valuable.
           </p>
           <p>
             Make your <Link to="#contribute">own contribution</Link>.
@@ -116,7 +116,7 @@ export function ContributionsPage() {
           </div>
         )}
       </div>
-      <div className="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-8 px-40 justify-center mx-auto max-w-max">
+      <div className="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-8 px-40 justify-center mx-auto max-w-max pb-20">
         {maybeFilteredContributions.map((contribution) => (
           <ContributionCard contribution={contribution} />
         ))}

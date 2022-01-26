@@ -483,6 +483,7 @@ export function ContributionSection() {
       case Page.TwitterVerify:
         return (
           <div className="verifyContainer">
+            <h2 className="text-3xl font-bold">Terms of Verification</h2>
             <p>
               Tweet a message to prove that you control this address. Return to
               this page afterwards to complete verification.
@@ -535,7 +536,7 @@ export function ContributionSection() {
               {/* <div className="signAttribution py-2 px-2">
                 Logged in as {getDisplayForAuthor(user!)}
               </div> */}
-              <h2 className="text-4xl font-bold">Contribute</h2>
+              <h2 className="text-3xl font-bold">Terms of Contribution</h2>
               <p>
                 We've provided some sentence starters to get you going. Please
                 select a prompt and contribute to the{" "}
@@ -605,7 +606,7 @@ export function ContributionSection() {
 
         return (
           <div className="signContainer">
-            <h2 className="text-4xl font-bold">Share</h2>
+            <h2 className="text-3xl font-bold">Terms of Sharing</h2>
             <p>
               Thank you for contributing to the Pluriverse! Your contribution in
               all its glorious plurality is below:

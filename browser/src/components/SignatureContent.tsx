@@ -98,7 +98,7 @@ export function Signature({ author }: { author: Author }) {
     <p>
       <div className="signature">
         <div className="display">
-          <span>{nameDisplay}</span>
+          <b>{nameDisplay}</b>
           <span className="date">signed {dateDisplay}</span>
         </div>
         <div className="twitter">{getTwitterDisplay(author)}</div>
@@ -112,7 +112,7 @@ export function SignatureContent() {
 
   return (
     <div className="signatureContainer">
-      <h2 className="text-4xl font-bold">Signatures</h2>
+      <h2 className="text-4xl font-bold mb-2">Credits</h2>
       {signatures.map((author) => (
         <Signature author={author} />
       ))}
