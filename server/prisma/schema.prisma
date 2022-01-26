@@ -14,6 +14,7 @@ enum Prompt {
   LooksLike
   WeNeed
   Example
+  FreeForm
 }
 
 enum Pattern {

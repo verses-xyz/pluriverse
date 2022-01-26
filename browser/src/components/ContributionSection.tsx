@@ -83,12 +83,24 @@ export const PromptDescriptions: Record<Prompt, string> = {
   [Prompt.LooksLike]: `{${Placeholder}} looks like`,
   [Prompt.WeNeed]: `We need {${Placeholder}} because`,
   [Prompt.Example]: `An example of {${Placeholder}} is`,
+  [Prompt.FreeForm]: ``,
 };
 
 const PromptDescriptionsToDisplay: Record<Prompt, string> = Object.entries(
   PromptDescriptions
-).reduce((acc, cur) => {
-  acc[cur[0]] = cur[1].replaceAll(/\{|\}/g, "");
+).reduce((acc, [prompt, placeholder]) => {
+  switch (prompt) {
+    case Prompt.FreeForm:
+      acc[prompt] = Placeholder + " (free form)";
+      break;
+
+    case Prompt.LooksLike:
+    case Prompt.WeNeed:
+    case Prompt.Example:
+      acc[prompt] = placeholder.replaceAll(/\{|\}/g, "");
+      break;
+  }
+
   return acc;
 }, {});
 

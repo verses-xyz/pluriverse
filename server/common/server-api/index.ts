@@ -15,6 +15,7 @@ export enum Prompt {
   LooksLike = "LooksLike",
   WeNeed = "WeNeed",
   Example = "Example",
+  FreeForm = "FreeForm",
 }
 export enum Pattern {
   Pluriverse = "Pluriverse",

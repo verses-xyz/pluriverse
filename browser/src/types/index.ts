@@ -28,13 +28,17 @@ export function getPatternPlaceholder(
   pattern: Pattern,
   prompt: Prompt
 ): string {
+  if (prompt === Prompt.FreeForm) {
+    return "";
+  }
+
   let placeholder = PatternToDisplay[pattern];
   switch (pattern) {
     case Pattern.Pluriverse:
     case Pattern.Commons:
       placeholder = `the ${pattern}`;
   }
-  return prompt === Prompt.LooksLike
+  return [Prompt.LooksLike].includes(prompt)
     ? placeholder[0].toUpperCase() + placeholder.slice(1)
     : placeholder;
 }
