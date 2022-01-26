@@ -18,12 +18,13 @@ export function DevelopmentBanner() {
             running working document
           </a>
           , and/or join the conversation on our{" "}
-          <a href="https://t.me/+3nysH7Ja6pszZWI5">Telegram</a>. We are
-          currently workshopping contributions with organizations.
+          <a href="https://t.me/+3nysH7Ja6pszZWI5">Telegram</a>. We are happy to
+          help workshop contributions with individuals who'd like to comment
+          about a particular organization (e.g. about the place they work).
         </p>
         <p>
           We ask early readers to go through the artifact, and sign the artifact
-          gaslessly with MetaMask, and for you to share this forward with 2-5
+          gaslessly with your wallet, and for you to share this forward with 2-5
           more people who you think might resonate with the spirit of this work.
         </p>
       </div>
