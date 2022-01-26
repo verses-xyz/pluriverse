@@ -47,13 +47,18 @@ enum Page {
   TwitterVerify,
 }
 
+// TODO: when on arweave, put the arweave transaction ID and link in the body of this agreement
+// TODO: Change to function, fill in those template placeholders.
 export const PluriverseAgreement = `I have read and agree to the principles of the pluriverse, and I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us.
 
-I want to help build the pluriverse together.`;
+I want to help build the pluriverse together.
 
-export const PluriverseDissent = `I have read and understand the pluriverse, but I disagree with the formulation and think that meaningful dissent is important. I understand that I am helping contribute to a pluriversal world through my dissent. I understand that this document and code are all open to dissenting commentary and the ability to fork and create my own. 
+I am signing the version of the document on {date}, stored on Arweave via transaction {transactionId}`;
+export const PluriverseDissent = `I have read and understand the pluriverse, but disagree. Plural worlds are made possible when each of us consistently prepares space for disagreement and dissent. 
 
-I want to help build the pluriverse together if my points of disagreement are considered and addressed.`;
+This considered refusal is a signed gift which guarantees that I will continue to attend to reality as I see it, while acknowledging that even disobedience is a kind of participation. I will use my divergent perspective to inspire curious and creative work and strive to keep surprising others with courageous choices.
+
+I am signing the version of the document on {date}, stored on Arweave via transaction {transactionId}`;
 
 const ResponseCharacterLimit = 900;
 export const Placeholder = "________";
