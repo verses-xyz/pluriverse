@@ -16,9 +16,9 @@ export default function EssayContent() {
     "MMM DD, YYYY, hh:mm:ssa"
   );
 
-  // TODO: fill in.
-  const arweaveTransactionId = process.env.REACT_APP_ARWEAVE_TRANSACTION;
-  const arweaveDocLink = process.env.REACT_APP_ARWEAVE_;
+  // TODO: fill in. read from `arweave` file
+  const arweaveTransactionId = "zVZxs7r1lMmaL5qIdZZOJ1i-OOIdeAL1Gp3A7DmgtRM";
+  const arweaveDocLink = `https://viewblock.io/arweave/tx/${arweaveTransactionId}`;
 
   return (
     <article className="container w-full px-5 md:px-0 md:max-w-2xl mx-auto pb-20">
