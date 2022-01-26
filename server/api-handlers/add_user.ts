@@ -2,12 +2,12 @@
 
 import { Prisma } from "@prisma/client";
 import { RequestHandler } from "express";
-import { Services } from "../types";
+import { Services, ArweaveSignatureTags, DocType } from "../types";
 import { AddUserRequest, AddUserResponse } from "../common/server-api";
 
 // TODO: add location
 // TODO: add local time night vs. day
-export function addUser({ prisma }: Services): RequestHandler {
+export function addUser({ prisma, arweave }: Services): RequestHandler {
   return async (req, res) => {
     const { walletId, name, twitterUsername, signature } =
       req.body as AddUserRequest;
@@ -22,6 +22,22 @@ export function addUser({ prisma }: Services): RequestHandler {
           twitterUsername,
           signature,
         },
+      });
+      // add to arweave
+      // TODO: fill in essayRef from request
+      console.log("");
+      const doc = await arweave.addDocument(walletId, result, {
+        ...result,
+        walletId: result.id,
+        docType: DocType.Signature,
+        essayRef: "tx123",
+      } as ArweaveSignatureTags as any);
+      console.log(doc);
+
+      // store new document in the database with user?
+      await prisma.user.update({
+        where: { id: walletId },
+        data: { transactionId: doc.txID },
       });
 
       res.json({ ...result, walletId: result.id } as AddUserResponse);

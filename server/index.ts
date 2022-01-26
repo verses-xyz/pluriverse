@@ -12,6 +12,7 @@ import { verify } from "./api-handlers/twitter-verify";
 import { addUser } from "./api-handlers/add_user";
 import { getUser } from "./api-handlers/get_user";
 import { getUsers } from "./api-handlers/get_users";
+import { ArweaveClient } from "ar-wrapper";
 // import contributions from "./api/contributions";
 
 const app = express();
@@ -24,7 +25,11 @@ const corsOptions = {
 const port = process.env.PORT || 3001;
 
 const prisma = new PrismaClient();
-const services = { prisma };
+
+const address = process.env.ARWEAVE_ADDRESS;
+const keyfile = process.env.ARWEAVE_KEY;
+const arweave = new ArweaveClient(address, keyfile);
+const services = { prisma, arweave };
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
