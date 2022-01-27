@@ -7,56 +7,7 @@ import { About } from "./pages/About";
 import { ContributionsPage } from "./pages/ContributionsPage";
 import { Navbar } from "./components/Navbar";
 import { Main } from "./pages/Main";
-import React, { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import { Author } from "./types/common/server-api";
-import { fetchUserFromWalletAddress } from "./helpers/user";
-
-export interface UserContextInfo {
-  provider: ethers.providers.Web3Provider | undefined;
-  setProvider(provider: ethers.providers.Web3Provider | undefined): void;
-  currentUser: Author | undefined;
-  setCurrentUser(user: Author | undefined): void;
-}
-
-export const UserContext = React.createContext<UserContextInfo>({
-  provider: undefined,
-  setProvider: () => {},
-  currentUser: undefined,
-  setCurrentUser: () => {},
-});
-
-function UserProvider({ children }) {
-  const [provider, setProvider] = useState(
-    window.ethereum
-      ? new ethers.providers.Web3Provider(window.ethereum)
-      : undefined
-  );
-  const [currentUser, setCurrentUser] = useState<Author | undefined>();
-
-  useEffect(async () => {
-    try {
-      if (provider) {
-        const fetchedUser = await fetchUserFromWalletAddress(provider);
-        setCurrentUser(fetchedUser);
-      } else {
-        setCurrentUser(undefined);
-      }
-      // eslint-disable-next-line no-empty
-    } catch {}
-  }, [provider]);
-
-  const userContext = {
-    provider,
-    setProvider,
-    currentUser,
-    setCurrentUser,
-  };
-
-  return (
-    <UserContext.Provider value={userContext}>{children}</UserContext.Provider>
-  );
-}
+import { UserProvider } from "./helpers/user";
 
 function App() {
   return (

@@ -1,7 +1,6 @@
-import { connectBrowserWallet, getWalletAddress } from "src/helpers/wallet";
 import { ButtonClass } from "src/types/styles";
 import { ButtonHTMLAttributes, useContext, useState } from "react";
-import { UserContext } from "src/App";
+import { UserContext } from "src/helpers/user";
 
 interface BaseProps {
   children?: React.ReactNode;
@@ -22,13 +21,13 @@ export function ConnectWalletButton({
   ...buttonProps
 }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
-  const { provider } = useContext(UserContext);
+  const { connectWallet, getWalletAddress } = useContext(UserContext);
 
   async function onClickConnectWallet() {
     setLoading(true);
     try {
-      await connectBrowserWallet();
-      const connectedWalletAddress = await getWalletAddress(provider);
+      await connectWallet();
+      const connectedWalletAddress = await getWalletAddress();
       await onSubmit(connectedWalletAddress);
     } catch (err: unknown) {
       console.log(err);

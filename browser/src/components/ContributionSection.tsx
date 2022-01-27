@@ -20,11 +20,11 @@ import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
 import { ButtonClass, ButtonLinkStyling } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
-import {
-  connectWithWalletConnect,
-  getWalletAddress,
-  signAndValidate,
-} from "src/helpers/wallet";
+// import {
+//   connectWithWalletConnect,
+//   getWalletAddress,
+//   signAndValidate,
+// } from "src/helpers/wallet";
 import {
   ContributionCard,
   getFullContributionResponse,
@@ -32,14 +32,12 @@ import {
 import { getUser } from "src/helpers/api";
 import { Link } from "react-router-dom";
 import { getDisplayForAuthor } from "./SignatureContent";
-import { ethers } from "ethers";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 import { Checkmark } from "./core/Checkmark";
 import ContributionsCarousel from "./ContributionsCarousel";
-import getMockContributions from "src/utils/getMockContributions";
 import { ContributionsContext, SignaturesContext } from "src/pages/Main";
 import { getContributionLink } from "src/helpers/contributions";
-import { UserContext } from "src/App";
+import { UserContext } from "src/helpers/user";
 
 enum Page {
   TermsOfUse,
@@ -264,8 +262,13 @@ export function ContributionSection() {
     Pattern.Pluriverse
   );
   const [response, setResponse] = useState<string | undefined>(undefined);
-  const { currentUser, setCurrentUser, provider, setProvider } =
-    useContext(UserContext);
+  const {
+    currentUser,
+    setCurrentUser,
+    provider,
+    setProvider,
+    signAndValidate,
+  } = useContext(UserContext);
   const { fetchSignatures } = useContext(SignaturesContext);
 
   const PromptItems: DropdownItem[] = Object.keys(Prompt).map((promptKey) => ({
@@ -343,8 +346,7 @@ export function ContributionSection() {
           response,
           prompt: selectedPrompt,
           pattern: selectedPattern,
-        } as any),
-        provider
+        } as any)
       );
       const newContributionId = await addContribution({
         prompt: selectedPrompt,
@@ -372,6 +374,7 @@ export function ContributionSection() {
       isDisagreeing,
     }: { name?: string; twitterUsername?: string; isDisagreeing?: boolean } = {}
   ) {
+    console.log("connected wallet address: " + connectedWalletAddress);
     // Validate user
     let userToUpdate: Author | undefined = currentUser;
     if (!userToUpdate) {
@@ -384,8 +387,7 @@ export function ContributionSection() {
 
     if (!userToUpdate) {
       signature = await signAndValidate(
-        isDisagreeing ? PluriverseDissent : PluriverseAgreement,
-        provider
+        isDisagreeing ? PluriverseDissent : PluriverseAgreement
       );
       // add user after successful
       userToUpdate = await addUser({
@@ -421,15 +423,14 @@ export function ContributionSection() {
   }, [currentUser]);
 
   async function onConnectWalletConnect() {
-    const walletConnectProvider = await connectWithWalletConnect();
-    // NOTE: we have to keep using walletConnectProvider instead of provider because
-    // useState hook is async and value won't be reflected til next render.
-    setProvider(walletConnectProvider);
-
-    const connectedWalletAddress = await getWalletAddress(
-      walletConnectProvider
-    );
-    await onSubmitWallet(connectedWalletAddress);
+    // const walletConnectProvider = await connectWithWalletConnect();
+    // // NOTE: we have to keep using walletConnectProvider instead of provider because
+    // // useState hook is async and value won't be reflected til next render.
+    // setProvider(walletConnectProvider);
+    // const connectedWalletAddress = await getWalletAddress(
+    //   walletConnectProvider
+    // );
+    // await onSubmitWallet(connectedWalletAddress);
   }
 
   const [lastPage, setLastPage] = useState<Page>(Page.TermsOfUse);
@@ -530,9 +531,6 @@ export function ContributionSection() {
         return (
           <div>
             <div className="signContainer">
-              {/* <div className="signAttribution py-2 px-2">
-                Logged in as {getDisplayForAuthor(user!)}
-              </div> */}
               <h2 className="text-3xl font-bold">Terms of Contribution</h2>
               <p>
                 We've provided some sentence starters to get you going. Please
