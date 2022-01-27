@@ -139,6 +139,14 @@ interface TermsOfUseProps {
   onContinue(): void;
 }
 
+function getUserLabel(user: Author, text: string) {
+  return (
+    <div className="ml-auto">
+      {text} <b>{getDisplayForAuthor(user)}</b>
+    </div>
+  );
+}
+
 function TermsOfUse({
   user,
   onSubmitWallet,
@@ -163,11 +171,7 @@ function TermsOfUse({
     <div className="terms">
       <div className="flex ">
         <h2 className="text-3xl font-bold">Terms of Use</h2>
-        {user && (
-          <div className="ml-auto">
-            signing as <b>{getDisplayForAuthor(user)}</b>
-          </div>
-        )}
+        {user && getUserLabel(user, "signing as")}
       </div>
       <p>
         Please read the above essay ("
@@ -466,7 +470,10 @@ export function ContributionSection() {
       case Page.TwitterVerify:
         return (
           <div className="verifyContainer">
-            <h2 className="text-3xl font-bold">Terms of Verification</h2>
+            <div className="flex ">
+              <h2 className="text-3xl font-bold">Terms of Verification</h2>
+              {currentUser && getUserLabel(currentUser, "verifying for")}
+            </div>
             <p>
               Tweet a message to prove that you control this address. Return to
               this page afterwards to complete verification.
@@ -516,7 +523,10 @@ export function ContributionSection() {
         return (
           <div>
             <div className="signContainer">
-              <h2 className="text-3xl font-bold">Terms of Contribution</h2>
+              <div className="flex">
+                <h2 className="text-3xl font-bold">Terms of Contribution</h2>
+                {currentUser && getUserLabel(currentUser, "contributing as")}
+              </div>
               <p>
                 We've provided some sentence starters to get you going. Please
                 select a prompt and contribute to the{" "}
@@ -586,7 +596,10 @@ export function ContributionSection() {
 
         return (
           <div className="signContainer">
-            <h2 className="text-3xl font-bold">Terms of Sharing</h2>
+            <div className="flex ">
+              <h2 className="text-3xl font-bold">Terms of Sharing</h2>
+              {currentUser && getUserLabel(currentUser, "sharing from")}
+            </div>
             <p>
               Thank you for contributing to the Pluriverse! Your contribution in
               all its glorious plurality is below:
