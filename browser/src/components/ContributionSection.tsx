@@ -272,8 +272,15 @@ export function ContributionSection() {
   >();
   const { fetchSignatures } = useContext(SignaturesContext);
 
-  async function fetchUserFromWalletAddress() {
-    const addr = await getWalletAddress(provider);
+  async function fetchUserFromWalletAddress(
+    providerToFetch?: ethers.providers.Web3Provider
+  ) {
+    // Prevent error when neither provider nor ethereum is defined.
+    if (!providerToFetch && !window.ethereum) {
+      return;
+    }
+
+    const addr = await getWalletAddress(providerToFetch);
     if (addr) {
       const maybeUser = await getUser({
         id: addr,
@@ -286,7 +293,7 @@ export function ContributionSection() {
 
   useEffect(async () => {
     try {
-      await fetchUserFromWalletAddress();
+      await fetchUserFromWalletAddress(provider);
       // eslint-disable-next-line no-empty
     } catch {}
   }, []);
@@ -439,11 +446,15 @@ export function ContributionSection() {
 
   async function onConnectWalletConnect() {
     const walletConnectProvider = await connectWithWalletConnect();
+    // NOTE: we have to keep using walletConnectProvider instead of provider because
+    // useState hook is async and value won't be reflected til next render.
     setProvider(walletConnectProvider);
     // Update the user now that we have connected a diff account.
-    await fetchUserFromWalletAddress();
+    await fetchUserFromWalletAddress(walletConnectProvider);
 
-    const connectedWalletAddress = await getWalletAddress(provider);
+    const connectedWalletAddress = await getWalletAddress(
+      walletConnectProvider
+    );
     await onSubmitWallet(connectedWalletAddress);
   }
 
