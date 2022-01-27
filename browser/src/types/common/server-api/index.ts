@@ -48,6 +48,7 @@ export interface Author {
   name?: string;
   twitterUsername?: string;
   createdAt: Date;
+  disagrees: boolean;
 }
 
 export interface Contribution {
@@ -75,6 +76,8 @@ export interface AddUserRequest {
   signature: string;
   name?: string;
   twitterUsername?: string;
+  essayRef: string;
+  disagrees: boolean;
 }
 
 export type AddUserResponse = Author;
@@ -102,3 +105,5 @@ export interface VerifyTwitterRequest {
 
 export const TweetTemplate =
   "verifying for @verses_xyz — to a world where many worlds may fit\n\nsig:";
+
+export const ArweaveEssayDocumentName = "PluriverseEssay";

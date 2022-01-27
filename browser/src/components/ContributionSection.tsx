@@ -360,7 +360,7 @@ export function ContributionSection() {
   async function onSubmitWallet({
     name,
     twitterUsername,
-    isDisagreeing,
+    isDisagreeing = false,
   }: {
     name?: string;
     twitterUsername?: string;
@@ -391,7 +391,9 @@ export function ContributionSection() {
         name,
         twitterUsername,
         signature,
-        // TODO: mark that they are disagreeing
+        // TODO: fill in with arweave essay ref.
+        essayRef: "",
+        disagrees: isDisagreeing,
       });
     }
 
