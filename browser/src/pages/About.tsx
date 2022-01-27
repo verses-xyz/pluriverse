@@ -42,46 +42,37 @@ export function About() {
           software, and helped inspire the world’s first wiki.
         </p>
         <h2 className="font-title text-3xl pt-16 font-bold pb-3">The Space</h2>
-        {/* <p>
-        [tk technical choices - we used Arweave, implemented with this
-        infrastructure, etc. here are the decisions we made, their limitations,
-        what we would hope to be able to say. We are open-sourcing our work,
-        here is our Github]
-      </p> */}
-        {/* <ul>
-        <li>
-          <p>React three fiber</p>
-        </li>
-        <li>
-          <p>More details in our readme!</p>
-        </li>
-      </ul> */}
         <p>
           We have{" "}
           <a href="https://github.com/verses-xyz/pluriverse">
             open-sourced our work
           </a>{" "}
-          to share infrastructure and enable others to build a pattern language
-          around their own principles. We are extremely excited for others to
-          fork this codebase and seed their own pattern languages to help their
-          community members build a liveable and alive digital world for
-          themselves.
+          to share infrastructure in enabling others to build a pattern language
+          around their own principles and inspiring other artifacts in this
+          space. We are extremely excited for others to fork this codebase and
+          seed their own pattern languages to help their community members build
+          a liveable and alive digital world for themselves.
         </p>
         <p>
-          Right now, the data that is submitted is stored on a centralized
-          server, which means every community that wants to create their own
-          pattern languages needs to spin up and run their own server. We’d have
-          liked to build this in a serverless way and cover hosting fees, as we
-          did with the Declaration, but were unable to do so given the resource
-          constraints of our team. We hope to make this infrastructure more
-          community-friendly in our next iteration.
+          Right now, signatures and contributions submitted go through a central
+          server and are primarily stored and served from our database. The
+          essay content and the signatures are both stored on the permaweb on
+          Arweave for the public commons. Signatures are associated with the
+          essay, which is automatically versioned on any changes to the essay
+          file in the Github.
         </p>
+        {/* TODO: fill in ideal <p></p> */}
         <p>
           We are working on acknowledgement tokens, reflective of the
-          contribution universes, for everyone who engages with this artifact
-          for a later release. We are interested in enabling broader communities
-          of philosophical, political, and good faith discourse and engagement
-          around our artifacts; this is one experiment towards that end.
+          contribution universes and personalized to contributions, for everyone
+          who engages with this artifact for a later release. We are interested
+          in enabling broader communities of philosophical, political, and good
+          faith discourse and engagement around our artifacts; this is one
+          experiment towards that end. We hope these tokens can be a playful yet
+          serious representation of the commitment to building the pluriverse
+          together, distribute ownership of our personal contributions, and
+          encourage reciprocity in the sharing of different worlds with each
+          other.
         </p>
         <h2 className="font-title text-3xl pt-16 font-bold pb-3">
           The Patterns
@@ -90,9 +81,13 @@ export function About() {
           Please help expand this pattern language. While abstract patterns are
           useful, examples are crucial to understand how to bring them to
           reality: concrete illustrations, historical analogues, and specific
-          visions for the future. It is these examples that we ask you to{" "}
-          <a href="/#contribute">contribute</a>. For reference, see{" "}
-          <a href="/contributions">all the contributions</a> by the community.
+          visions for the future. We ask you to{" "}
+          <a href="/#contribute">contribute to these examples</a>. For
+          reference, see <a href="/contributions">all the contributions</a> by
+          the community. If you have ideas for other patterns that we should
+          consider adding, please join our{" "}
+          <a href="https://t.me/+3nysH7Ja6pszZWI5">Telegram</a> and give us
+          feedback!
         </p>
         <p>
           If you would like to contribute in modes not afforded to you by the
