@@ -7,6 +7,7 @@ import { About } from "./pages/About";
 import { ContributionsPage } from "./pages/ContributionsPage";
 import { Navbar } from "./components/Navbar";
 import { Main } from "./pages/Main";
+import { UserProvider } from "./helpers/user";
 
 function App() {
   return (
@@ -14,15 +15,17 @@ function App() {
       <main>
         <DevelopmentBanner />
         <Navbar />
-        <Routes>
-          <Route index={true} element={<Main />} />
-          <Route path="about" element={<About />} />
-          <Route path="contributions" element={<ContributionsPage />} />
-          <Route
-            path="contributions/:contributionId"
-            element={<ContributionsPage />}
-          />
-        </Routes>
+        <UserProvider>
+          <Routes>
+            <Route index={true} element={<Main />} />
+            <Route path="about" element={<About />} />
+            <Route path="contributions" element={<ContributionsPage />} />
+            <Route
+              path="contributions/:contributionId"
+              element={<ContributionsPage />}
+            />
+          </Routes>
+        </UserProvider>
         <footer className="pt-2 pb-16">
           <span>
             a drop from <a href="https://verses.xyz">Verses</a>, which is

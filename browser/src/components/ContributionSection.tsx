@@ -1,5 +1,5 @@
 import "./ContributionSection.css";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { descriptionText } from "../classNameConstants";
 import {
   Author,
@@ -21,24 +21,19 @@ import React from "react";
 import { ButtonClass, ButtonLinkStyling } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
 import {
-  connectWithWalletConnect,
-  getWalletAddress,
-  signAndValidate,
-} from "src/helpers/wallet";
-import {
   ContributionCard,
   getFullContributionResponse,
 } from "./ContributionCard";
 import { getUser } from "src/helpers/api";
 import { Link } from "react-router-dom";
 import { getDisplayForAuthor } from "./SignatureContent";
-import { ethers } from "ethers";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 import { Checkmark } from "./core/Checkmark";
 import ContributionsCarousel from "./ContributionsCarousel";
-import getMockContributions from "src/utils/getMockContributions";
 import { ContributionsContext, SignaturesContext } from "src/pages/Main";
 import { getContributionLink } from "src/helpers/contributions";
+import { UserContext } from "src/helpers/user";
+import { AsyncButton } from "./core/AsyncButton";
 
 enum Page {
   TermsOfUse,
@@ -132,15 +127,15 @@ function PreviewCard({
 interface TermsOfUseProps {
   user?: Author;
   handleErr(err: Error): void;
-  onConnectWalletConnect(): void;
-  onSubmitWallet(
-    walletAddress: string,
-    {
-      name,
-      twitterUsername,
-      isDisagreeing,
-    }?: { name?: string; twitterUsername?: string; isDisagreeing?: boolean }
-  ): void;
+  onSubmitWallet({
+    name,
+    twitterUsername,
+    isDisagreeing,
+  }?: {
+    name?: string;
+    twitterUsername?: string;
+    isDisagreeing?: boolean;
+  }): Promise<void>;
   onContinue(): void;
 }
 
@@ -148,16 +143,16 @@ function TermsOfUse({
   user,
   onSubmitWallet,
   handleErr,
-  onConnectWalletConnect,
   onContinue,
 }: TermsOfUseProps) {
   const [name, setName] = useState<string | undefined>(undefined);
   const [twitterUsername, setTwitterUsername] = useState<string | undefined>(
     undefined
   );
+  const { currentUserWalletAddress } = useContext(UserContext);
 
-  async function onDisagree(walletAddress: string) {
-    await onSubmitWallet(walletAddress, {
+  async function onDisagree() {
+    await onSubmitWallet({
       name,
       twitterUsername,
       isDisagreeing: true,
@@ -188,7 +183,7 @@ function TermsOfUse({
           together
         </b>
       </p>
-      {!user && (
+      {!user && currentUserWalletAddress && (
         <div className="inputs pt-2 flex-col gap-3 md:flex-row md:gap-6">
           <div>
             <label>
@@ -222,36 +217,27 @@ function TermsOfUse({
           <button className={ButtonClass()} onClick={onContinue}>
             Continue
           </button>
-        ) : (
+        ) : currentUserWalletAddress ? (
           <>
-            <ConnectWalletButton onSubmit={onDisagree} onError={handleErr}>
+            <AsyncButton onSubmit={onDisagree} onError={handleErr}>
               Disagree
-            </ConnectWalletButton>
-            <ConnectWalletButton
-              onSubmit={(walletAddress) =>
-                onSubmitWallet(walletAddress, { name, twitterUsername })
-              }
+            </AsyncButton>
+            <AsyncButton
+              onSubmit={() => onSubmitWallet({ name, twitterUsername })}
               onError={handleErr}
             >
-              {`Agree`}
-            </ConnectWalletButton>
+              Agree
+            </AsyncButton>
           </>
+        ) : (
+          <ConnectWalletButton onError={handleErr}>Connect</ConnectWalletButton>
         )}
       </div>
-      <div className="text-center mt-4">
-        Don't have Metamask? Agree{" "}
-        <button className={ButtonLinkStyling} onClick={onConnectWalletConnect}>
-          with WalletConnect instead.
-        </button>
-      </div>
 
+      {/* TODO: fill in help guide */}
       <p className="metaText">
-        A copy of the Essay will live on the permaweb and can be found at{" "}
-        <a href="">Arweave</a>. It also lives on the web on{" "}
-        <a href="#">pluriverse.world</a> and the <a href="">github</a>.
-        <br />
-        To agree and sign, you need a compatible web3 wallet. Need help? Check
-        out this <a href="">guide</a>.
+        To sign your agreement or dissent, you need a compatible web3 wallet.
+        Need help? Check out this <a href="">guide</a>.
       </p>
     </div>
   );
@@ -266,37 +252,13 @@ export function ContributionSection() {
     Pattern.Pluriverse
   );
   const [response, setResponse] = useState<string | undefined>(undefined);
-  const [user, setUser] = useState<Author | undefined>();
-  const [provider, setProvider] = useState<
-    ethers.providers.Web3Provider | undefined
-  >();
+  const {
+    currentUser,
+    setCurrentUser,
+    signAndValidate,
+    currentUserWalletAddress,
+  } = useContext(UserContext);
   const { fetchSignatures } = useContext(SignaturesContext);
-
-  async function fetchUserFromWalletAddress(
-    providerToFetch?: ethers.providers.Web3Provider
-  ) {
-    // Prevent error when neither provider nor ethereum is defined.
-    if (!providerToFetch && !window.ethereum) {
-      return;
-    }
-
-    const addr = await getWalletAddress(providerToFetch);
-    if (addr) {
-      const maybeUser = await getUser({
-        id: addr,
-      });
-      if (maybeUser) {
-        setUser(maybeUser);
-      }
-    }
-  }
-
-  useEffect(async () => {
-    try {
-      await fetchUserFromWalletAddress(provider);
-      // eslint-disable-next-line no-empty
-    } catch {}
-  }, []);
 
   const PromptItems: DropdownItem[] = Object.keys(Prompt).map((promptKey) => ({
     name: PromptDescriptions[Prompt[promptKey as keyof typeof Prompt]],
@@ -379,7 +341,7 @@ export function ContributionSection() {
         prompt: selectedPrompt,
         pattern: selectedPattern,
         response,
-        walletId: user!.walletId,
+        walletId: currentUser!.walletId,
       });
       // TODO: eliminate this and just return th actual contribution data with the response above.
       await fetchContribution(newContributionId);
@@ -393,19 +355,27 @@ export function ContributionSection() {
     }
   }
 
-  async function onSubmitWallet(
-    connectedWalletAddress: string,
-    {
-      name,
-      twitterUsername,
-      isDisagreeing,
-    }: { name?: string; twitterUsername?: string; isDisagreeing?: boolean } = {}
-  ) {
+  // TODO: this should be able to use the wallet address dervied
+  // from context.
+  async function onSubmitWallet({
+    name,
+    twitterUsername,
+    isDisagreeing,
+  }: {
+    name?: string;
+    twitterUsername?: string;
+    isDisagreeing?: boolean;
+  } = {}) {
+    if (!currentUserWalletAddress) {
+      throw new Error("Submitting signature without connected wallet.");
+    }
+
+    console.log("connected wallet address: " + currentUserWalletAddress);
     // Validate user
-    let userToUpdate: Author | undefined = user;
+    let userToUpdate: Author | undefined = currentUser;
     if (!userToUpdate) {
       userToUpdate = await getUser({
-        id: connectedWalletAddress,
+        id: currentUserWalletAddress,
       });
     }
     // TODO: upsert user if the data does not match.
@@ -417,7 +387,7 @@ export function ContributionSection() {
       );
       // add user after successful
       userToUpdate = await addUser({
-        walletId: connectedWalletAddress,
+        walletId: currentUserWalletAddress,
         name,
         twitterUsername,
         signature,
@@ -427,63 +397,39 @@ export function ContributionSection() {
 
     // finish
     setError(undefined);
-    setUser(userToUpdate);
-    // TODO: fix this with the user context hook coming in
-    let nextPage: Page;
-    if (
-      userToUpdate &&
-      userToUpdate.twitterUsername &&
-      !userToUpdate.twitterVerified
-    ) {
-      nextPage = Page.TwitterVerify;
-    } else {
-      nextPage = Page.Contribute;
-    }
-    setPage(nextPage);
-    // navigateFromTerms();
-
+    setCurrentUser(userToUpdate);
+    navigateFromTerms(userToUpdate);
     // trigger signatures to refetch
     fetchSignatures(userToUpdate);
   }
 
-  function navigateFromTerms() {
-    // if twitter username is populated and not verified, redirect to verify flow.
-    let nextPage: Page;
-    if (user && user.twitterUsername && !user.twitterVerified) {
-      nextPage = Page.TwitterVerify;
-    } else {
-      nextPage = Page.Contribute;
-    }
-    setPage(nextPage);
-  }
-
-  async function onConnectWalletConnect() {
-    const walletConnectProvider = await connectWithWalletConnect();
-    // NOTE: we have to keep using walletConnectProvider instead of provider because
-    // useState hook is async and value won't be reflected til next render.
-    setProvider(walletConnectProvider);
-    // Update the user now that we have connected a diff account.
-    await fetchUserFromWalletAddress(walletConnectProvider);
-
-    const connectedWalletAddress = await getWalletAddress(
-      walletConnectProvider
-    );
-    await onSubmitWallet(connectedWalletAddress);
-  }
+  const navigateFromTerms = useCallback(
+    (user: Author | undefined = currentUser) => {
+      // if twitter username is populated and not verified, redirect to verify flow.
+      let nextPage: Page;
+      if (user && user.twitterUsername && !user.twitterVerified) {
+        nextPage = Page.TwitterVerify;
+      } else {
+        nextPage = Page.Contribute;
+      }
+      setPage(nextPage);
+    },
+    [currentUser]
+  );
 
   const [lastPage, setLastPage] = useState<Page>(Page.TermsOfUse);
 
   function onClickTweetProof() {
-    const tweetText = `${TweetTemplate}${user!.signature}`;
+    const tweetText = `${TweetTemplate}${currentUser!.signature}`;
     window.open(getTweetIntentLink(tweetText), "_blank");
   }
 
   async function onClickVerifyTwitter() {
     setIsLoading(true);
     try {
-      if (!user?.twitterVerified) {
-        await verifyTwitter({ walletId: user!.walletId });
-        setUser({ ...user!, twitterVerified: true });
+      if (!currentUser?.twitterVerified) {
+        await verifyTwitter({ walletId: currentUser!.walletId });
+        setCurrentUser({ ...currentUser!, twitterVerified: true });
       }
       setError(undefined);
       // switch page after showing success
@@ -508,10 +454,9 @@ export function ContributionSection() {
       case Page.TermsOfUse:
         return (
           <TermsOfUse
-            user={user}
+            user={currentUser}
             onSubmitWallet={onSubmitWallet}
             handleErr={handleErr}
-            onConnectWalletConnect={onConnectWalletConnect}
             onContinue={navigateFromTerms}
           />
         );
@@ -547,7 +492,7 @@ export function ContributionSection() {
                   <>
                     Verifying <LoadingIndicator style={{ marginLeft: "6px" }} />
                   </>
-                ) : user?.twitterVerified ? (
+                ) : currentUser?.twitterVerified ? (
                   <>
                     Verified! <Checkmark />
                   </>
@@ -569,9 +514,6 @@ export function ContributionSection() {
         return (
           <div>
             <div className="signContainer">
-              {/* <div className="signAttribution py-2 px-2">
-                Logged in as {getDisplayForAuthor(user!)}
-              </div> */}
               <h2 className="text-3xl font-bold">Terms of Contribution</h2>
               <p>
                 We've provided some sentence starters to get you going. Please
@@ -605,7 +547,7 @@ export function ContributionSection() {
                   )}
                 </div>
                 <PreviewCard
-                  author={user!}
+                  author={currentUser!}
                   pattern={selectedPattern}
                   response={response}
                   prompt={selectedPrompt}

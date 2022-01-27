@@ -78,11 +78,6 @@ function SignaturesProvider({ children }) {
   );
 }
 
-export interface WalletContext {
-  // getProvider
-  // setProvider
-}
-
 export function Main() {
   const gsap = useGsap();
 
