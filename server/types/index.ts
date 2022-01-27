@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import { ArweaveClient } from "ar-wrapper";
+// import { ArweaveClient } from "ar-wrapper";
 export interface Services {
   prisma: PrismaClient;
-  arweave: ArweaveClient;
+  // arweave: ArweaveClient;
+  arweave: {};
 }
 
 export enum DocType {
