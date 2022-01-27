@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 import React from "react";
 
 export interface UserContextInfo {
-  provider: ethers.providers.Web3Provider | undefined;
-  setProvider(provider: ethers.providers.Web3Provider | undefined): void;
   currentUser: Author | undefined;
   setCurrentUser(user: Author | undefined): void;
   connectWallet(): Promise<providers.Web3Provider>;
@@ -20,8 +18,6 @@ export interface UserContextInfo {
 }
 
 export const UserContext = React.createContext<UserContextInfo>({
-  provider: undefined,
-  setProvider: () => {},
   currentUser: undefined,
   setCurrentUser: () => {},
   connectWallet: async () => ({} as any),
@@ -156,8 +152,6 @@ export function UserProvider({ children }) {
   }, [provider]);
 
   const userContext = {
-    provider,
-    setProvider,
     currentUser,
     setCurrentUser,
     connectWallet,

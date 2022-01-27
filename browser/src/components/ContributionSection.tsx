@@ -20,11 +20,6 @@ import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
 import { ButtonClass, ButtonLinkStyling } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
-// import {
-//   connectWithWalletConnect,
-//   getWalletAddress,
-//   signAndValidate,
-// } from "src/helpers/wallet";
 import {
   ContributionCard,
   getFullContributionResponse,
@@ -131,7 +126,6 @@ function PreviewCard({
 interface TermsOfUseProps {
   user?: Author;
   handleErr(err: Error): void;
-  onConnectWalletConnect(): void;
   onSubmitWallet(
     walletAddress: string,
     {
@@ -147,7 +141,6 @@ function TermsOfUse({
   user,
   onSubmitWallet,
   handleErr,
-  onConnectWalletConnect,
   onContinue,
 }: TermsOfUseProps) {
   const [name, setName] = useState<string | undefined>(undefined);
@@ -237,12 +230,6 @@ function TermsOfUse({
           </>
         )}
       </div>
-      <div className="text-center mt-4">
-        Don't have Metamask? Agree{" "}
-        <button className={ButtonLinkStyling} onClick={onConnectWalletConnect}>
-          with WalletConnect instead.
-        </button>
-      </div>
 
       {/* TODO: fill in help guide */}
       <p className="metaText">
@@ -262,13 +249,8 @@ export function ContributionSection() {
     Pattern.Pluriverse
   );
   const [response, setResponse] = useState<string | undefined>(undefined);
-  const {
-    currentUser,
-    setCurrentUser,
-    provider,
-    setProvider,
-    signAndValidate,
-  } = useContext(UserContext);
+  const { currentUser, setCurrentUser, signAndValidate } =
+    useContext(UserContext);
   const { fetchSignatures } = useContext(SignaturesContext);
 
   const PromptItems: DropdownItem[] = Object.keys(Prompt).map((promptKey) => ({
@@ -366,6 +348,8 @@ export function ContributionSection() {
     }
   }
 
+  // TODO: this should be able to use the wallet address dervied
+  // from context.
   async function onSubmitWallet(
     connectedWalletAddress: string,
     {
@@ -402,36 +386,24 @@ export function ContributionSection() {
     // finish
     setError(undefined);
     setCurrentUser(userToUpdate);
-    navigateFromTerms();
+    navigateFromTerms(userToUpdate);
     // trigger signatures to refetch
     fetchSignatures(userToUpdate);
   }
 
-  const navigateFromTerms = useCallback(() => {
-    // if twitter username is populated and not verified, redirect to verify flow.
-    let nextPage: Page;
-    if (
-      currentUser &&
-      currentUser.twitterUsername &&
-      !currentUser.twitterVerified
-    ) {
-      nextPage = Page.TwitterVerify;
-    } else {
-      nextPage = Page.Contribute;
-    }
-    setPage(nextPage);
-  }, [currentUser]);
-
-  async function onConnectWalletConnect() {
-    // const walletConnectProvider = await connectWithWalletConnect();
-    // // NOTE: we have to keep using walletConnectProvider instead of provider because
-    // // useState hook is async and value won't be reflected til next render.
-    // setProvider(walletConnectProvider);
-    // const connectedWalletAddress = await getWalletAddress(
-    //   walletConnectProvider
-    // );
-    // await onSubmitWallet(connectedWalletAddress);
-  }
+  const navigateFromTerms = useCallback(
+    (user: Author | undefined = currentUser) => {
+      // if twitter username is populated and not verified, redirect to verify flow.
+      let nextPage: Page;
+      if (user && user.twitterUsername && !user.twitterVerified) {
+        nextPage = Page.TwitterVerify;
+      } else {
+        nextPage = Page.Contribute;
+      }
+      setPage(nextPage);
+    },
+    [currentUser]
+  );
 
   const [lastPage, setLastPage] = useState<Page>(Page.TermsOfUse);
 
@@ -473,7 +445,6 @@ export function ContributionSection() {
             user={currentUser}
             onSubmitWallet={onSubmitWallet}
             handleErr={handleErr}
-            onConnectWalletConnect={onConnectWalletConnect}
             onContinue={navigateFromTerms}
           />
         );
