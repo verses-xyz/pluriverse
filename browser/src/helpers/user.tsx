@@ -52,48 +52,6 @@ export function UserProvider({ children }) {
   >();
   const [currentUser, setCurrentUser] = useState<Author | undefined>();
 
-  // Connects a WalletConnect wallet.
-  // async function connectWithWalletConnect(): Promise<providers.Web3Provider> {
-  //   //  Create WalletConnect Provider
-
-  //   // USE web3Modal
-  //   // const providerOptions = {
-  //   //   walletconnect: {
-  //   //     package: WalletConnectProvider,
-  //   //     options: {
-  //   //       infuraId: process.env.REACT_APP_INFURA_ID,
-  //   //     },
-  //   //   },
-  //   // };
-  //   // const web3Modal = new Web3Modal({
-  //   //   network: "mainnet",
-  //   //   cacheProvider: false,
-  //   //   disableInjectedProvider: false,
-  //   //   providerOptions,
-  //   // });
-  //   // const provider = await web3Modal.connect();
-
-  //   // USE WALLETCONNECT LIBRARIES
-  //   const provider = new WalletConnectProvider({
-  //     infuraId: process.env.REACT_APP_INFURA_ID, // Required
-  //   });
-
-  //   //  Enable session (triggers QR Code modal)
-  //   await provider.enable();
-  //   return new providers.Web3Provider(provider);
-  // }
-
-  // // Uses window.ethereum to connect wallet
-  // async function connectBrowserWallet() {
-  //   if (!window.ethereum) {
-  //     throw new Error(
-  //       "No wallet found. Please install Metamask or another Web3 wallet provider."
-  //     );
-  //   }
-
-  //   await window.ethereum.request({ method: "eth_requestAccounts" });
-  // }
-
   async function fetchUserFromWalletAddress(): Promise<void> {
     const addr = await getWalletAddress();
     if (addr) {
