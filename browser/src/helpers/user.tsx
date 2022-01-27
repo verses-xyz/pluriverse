@@ -10,21 +10,21 @@ import React from "react";
 export interface UserContextInfo {
   currentUser: Author | undefined;
   setCurrentUser(user: Author | undefined): void;
-  connectWallet(): Promise<providers.Web3Provider>;
+  connectWallet(): Promise<void>;
   generateSignature(textToSign: string): Promise<string>;
-  getWalletAddress(): Promise<string>;
+  currentUserWalletAddress: string | undefined;
   signAndValidate(textToSign: string): Promise<string>;
-  fetchUserFromWalletAddress(): Promise<Author | undefined>;
+  fetchUserFromWalletAddress(): Promise<void>;
 }
 
 export const UserContext = React.createContext<UserContextInfo>({
   currentUser: undefined,
   setCurrentUser: () => {},
-  connectWallet: async () => ({} as any),
+  connectWallet: async () => {},
   generateSignature: async () => "",
-  getWalletAddress: async () => "",
+  currentUserWalletAddress: undefined,
   signAndValidate: async () => "",
-  fetchUserFromWalletAddress: async () => undefined,
+  fetchUserFromWalletAddress: async () => {},
 });
 
 const Web3ModalProviderOptions = {
@@ -47,6 +47,9 @@ export function UserProvider({ children }) {
       ? new ethers.providers.Web3Provider(window.ethereum)
       : undefined
   );
+  const [currentUserWalletAddress, setCurrentUserWalletAddress] = useState<
+    string | undefined
+  >();
   const [currentUser, setCurrentUser] = useState<Author | undefined>();
 
   // Connects a WalletConnect wallet.
@@ -91,21 +94,22 @@ export function UserProvider({ children }) {
   //   await window.ethereum.request({ method: "eth_requestAccounts" });
   // }
 
-  async function fetchUserFromWalletAddress(): Promise<Author | undefined> {
+  async function fetchUserFromWalletAddress(): Promise<void> {
     const addr = await getWalletAddress();
     if (addr) {
-      return getUser({
+      const newUser = await getUser({
         id: addr,
       });
+      setCurrentUser(newUser);
+      setCurrentUserWalletAddress(newUser?.walletId);
     }
   }
 
-  async function connectWallet(): Promise<providers.Web3Provider> {
+  async function connectWallet(): Promise<void> {
     const instance = await web3Modal.connect();
     await instance.enable();
     const newProvider = new providers.Web3Provider(instance);
     setProvider(newProvider);
-    return newProvider;
   }
 
   // Utility methods for accessing a connected wallet account.
@@ -142,8 +146,11 @@ export function UserProvider({ children }) {
   useEffect(async () => {
     try {
       if (provider) {
-        const fetchedUser = await fetchUserFromWalletAddress();
-        setCurrentUser(fetchedUser);
+        const addr = await getWalletAddress();
+        await fetchUserFromWalletAddress();
+        // this needs to be after the fetch from user to handle when we've connected
+        // our wallet but user doesn't exist (to override the null wallet id from user db)
+        setCurrentUserWalletAddress(addr);
       } else {
         setCurrentUser(undefined);
       }
@@ -156,7 +163,7 @@ export function UserProvider({ children }) {
     setCurrentUser,
     connectWallet,
     generateSignature,
-    getWalletAddress,
+    currentUserWalletAddress,
     signAndValidate,
     fetchUserFromWalletAddress,
   };

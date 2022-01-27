@@ -33,6 +33,7 @@ import ContributionsCarousel from "./ContributionsCarousel";
 import { ContributionsContext, SignaturesContext } from "src/pages/Main";
 import { getContributionLink } from "src/helpers/contributions";
 import { UserContext } from "src/helpers/user";
+import { AsyncButton } from "./core/AsyncButton";
 
 enum Page {
   TermsOfUse,
@@ -126,14 +127,15 @@ function PreviewCard({
 interface TermsOfUseProps {
   user?: Author;
   handleErr(err: Error): void;
-  onSubmitWallet(
-    walletAddress: string,
-    {
-      name,
-      twitterUsername,
-      isDisagreeing,
-    }?: { name?: string; twitterUsername?: string; isDisagreeing?: boolean }
-  ): void;
+  onSubmitWallet({
+    name,
+    twitterUsername,
+    isDisagreeing,
+  }?: {
+    name?: string;
+    twitterUsername?: string;
+    isDisagreeing?: boolean;
+  }): Promise<void>;
   onContinue(): void;
 }
 
@@ -147,9 +149,10 @@ function TermsOfUse({
   const [twitterUsername, setTwitterUsername] = useState<string | undefined>(
     undefined
   );
+  const { currentUserWalletAddress } = useContext(UserContext);
 
-  async function onDisagree(walletAddress: string) {
-    await onSubmitWallet(walletAddress, {
+  async function onDisagree() {
+    await onSubmitWallet({
       name,
       twitterUsername,
       isDisagreeing: true,
@@ -180,7 +183,7 @@ function TermsOfUse({
           together
         </b>
       </p>
-      {!user && (
+      {!user && currentUserWalletAddress && (
         <div className="inputs pt-2 flex-col gap-3 md:flex-row md:gap-6">
           <div>
             <label>
@@ -214,20 +217,20 @@ function TermsOfUse({
           <button className={ButtonClass()} onClick={onContinue}>
             Continue
           </button>
-        ) : (
+        ) : currentUserWalletAddress ? (
           <>
-            <ConnectWalletButton onSubmit={onDisagree} onError={handleErr}>
+            <AsyncButton onSubmit={onDisagree} onError={handleErr}>
               Disagree
-            </ConnectWalletButton>
-            <ConnectWalletButton
-              onSubmit={(walletAddress) =>
-                onSubmitWallet(walletAddress, { name, twitterUsername })
-              }
+            </AsyncButton>
+            <AsyncButton
+              onSubmit={() => onSubmitWallet({ name, twitterUsername })}
               onError={handleErr}
             >
-              {`Agree`}
-            </ConnectWalletButton>
+              Agree
+            </AsyncButton>
           </>
+        ) : (
+          <ConnectWalletButton onError={handleErr}>Connect</ConnectWalletButton>
         )}
       </div>
 
@@ -249,8 +252,12 @@ export function ContributionSection() {
     Pattern.Pluriverse
   );
   const [response, setResponse] = useState<string | undefined>(undefined);
-  const { currentUser, setCurrentUser, signAndValidate } =
-    useContext(UserContext);
+  const {
+    currentUser,
+    setCurrentUser,
+    signAndValidate,
+    currentUserWalletAddress,
+  } = useContext(UserContext);
   const { fetchSignatures } = useContext(SignaturesContext);
 
   const PromptItems: DropdownItem[] = Object.keys(Prompt).map((promptKey) => ({
@@ -350,20 +357,25 @@ export function ContributionSection() {
 
   // TODO: this should be able to use the wallet address dervied
   // from context.
-  async function onSubmitWallet(
-    connectedWalletAddress: string,
-    {
-      name,
-      twitterUsername,
-      isDisagreeing,
-    }: { name?: string; twitterUsername?: string; isDisagreeing?: boolean } = {}
-  ) {
-    console.log("connected wallet address: " + connectedWalletAddress);
+  async function onSubmitWallet({
+    name,
+    twitterUsername,
+    isDisagreeing,
+  }: {
+    name?: string;
+    twitterUsername?: string;
+    isDisagreeing?: boolean;
+  } = {}) {
+    if (!currentUserWalletAddress) {
+      throw new Error("Submitting signature without connected wallet.");
+    }
+
+    console.log("connected wallet address: " + currentUserWalletAddress);
     // Validate user
     let userToUpdate: Author | undefined = currentUser;
     if (!userToUpdate) {
       userToUpdate = await getUser({
-        id: connectedWalletAddress,
+        id: currentUserWalletAddress,
       });
     }
     // TODO: upsert user if the data does not match.
@@ -375,7 +387,7 @@ export function ContributionSection() {
       );
       // add user after successful
       userToUpdate = await addUser({
-        walletId: connectedWalletAddress,
+        walletId: currentUserWalletAddress,
         name,
         twitterUsername,
         signature,
