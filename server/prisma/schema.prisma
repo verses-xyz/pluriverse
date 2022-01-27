@@ -39,6 +39,7 @@ model User {
   name            String?
   createdAt       DateTime       @default(now())
   transactionId   String?
+  disagrees       Boolean        @default(false)
   contributions   Contribution[]
 }
 

@@ -48,6 +48,7 @@ export interface Author {
   name?: string;
   twitterUsername?: string;
   createdAt: Date;
+  disagrees: boolean;
 }
 
 export interface Contribution {
@@ -76,6 +77,7 @@ export interface AddUserRequest {
   name?: string;
   twitterUsername?: string;
   essayRef: string;
+  disagrees: boolean;
 }
 
 export type AddUserResponse = Author;
