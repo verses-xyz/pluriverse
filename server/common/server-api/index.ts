@@ -75,6 +75,7 @@ export interface AddUserRequest {
   signature: string;
   name?: string;
   twitterUsername?: string;
+  essayRef: string;
 }
 
 export type AddUserResponse = Author;
@@ -103,4 +104,4 @@ export interface VerifyTwitterRequest {
 export const TweetTemplate =
   "verifying for @verses_xyz — to a world where many worlds may fit\n\nsig:";
 
-const ArweaveEssayDocumentName = "PluriverseEssay";
+export const ArweaveEssayDocumentName = "PluriverseEssay";

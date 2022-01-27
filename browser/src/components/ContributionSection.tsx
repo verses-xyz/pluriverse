@@ -391,6 +391,8 @@ export function ContributionSection() {
         name,
         twitterUsername,
         signature,
+        // TODO: fill in with arweave essay ref.
+        essayRef: "",
         // TODO: mark that they are disagreeing
       });
     }
