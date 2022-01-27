@@ -25,8 +25,10 @@ export default function EssayContent() {
       <EssayBody />
       <br />
       <div>
-        Last updated on {gitLastUpdatedDateDisplay} ({gitCommitLink}) and stored
-        on Arweave via <a href={arweaveDocLink}>tx:{arweaveTransactionId}</a>.
+        Last updated on {gitLastUpdatedDateDisplay} ({gitCommitLink}). A copy of
+        the Essay lives on the permaweb and can be found on{" "}
+        <a href={arweaveDocLink}>Arweave tx:{arweaveTransactionId}</a>. It also
+        lives in cyberspace at <a href="#">pluriverse.world</a>
       </div>
     </article>
   );

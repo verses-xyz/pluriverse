@@ -47,7 +47,7 @@ export async function connectBrowserWallet() {
 // Utility methods for accessing a connected wallet account.
 export async function generateSignature(
   textToSign: string,
-  provider: providers.Web3Provider = new providers.Web3Provider(window.ethereum)
+  provider: providers.Web3Provider
 ): Promise<string> {
   // Sign the declaration. Any errors here should be handled by the caller.
   const signer = provider.getSigner();
@@ -55,14 +55,14 @@ export async function generateSignature(
 }
 
 export async function getWalletAddress(
-  provider: providers.Web3Provider = new providers.Web3Provider(window.ethereum)
+  provider: providers.Web3Provider
 ): Promise<string> {
   return await provider.getSigner().getAddress();
 }
 
 export async function signAndValidate(
   textToSign: string,
-  provider: providers.Web3Provider = new providers.Web3Provider(window.ethereum)
+  provider: providers.Web3Provider
 ): Promise<string> {
   const signature = await generateSignature(textToSign);
   const signer = provider.getSigner();
