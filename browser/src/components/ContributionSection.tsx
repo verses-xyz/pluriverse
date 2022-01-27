@@ -428,7 +428,20 @@ export function ContributionSection() {
     // finish
     setError(undefined);
     setUser(userToUpdate);
-    navigateFromTerms();
+    // TODO: fix this with the user context hook coming in
+    let nextPage: Page;
+    if (
+      userToUpdate &&
+      userToUpdate.twitterUsername &&
+      !userToUpdate.twitterVerified
+    ) {
+      nextPage = Page.TwitterVerify;
+    } else {
+      nextPage = Page.Contribute;
+    }
+    setPage(nextPage);
+    // navigateFromTerms();
+
     // trigger signatures to refetch
     fetchSignatures(userToUpdate);
   }

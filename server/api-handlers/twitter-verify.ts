@@ -47,18 +47,21 @@ export function verify({ prisma }: Services): RequestHandler {
         },
         async (error, tweets) => {
           if (error) {
+            console.log(error);
             res.status(500).json({ error: "Internal Error" });
             return;
           }
 
-          for (const tweet of tweets as any) {
-            const parsedSignature = tweet.full_text
-              .slice(TweetTemplate.length)
+          const tweetsWithSig = tweets.filter((t) =>
+            t.full_text.includes("sig:")
+          );
+
+          for (const tweet of tweetsWithSig as any) {
+            const tweetText = tweet.full_text;
+            const parsedSignature = tweetText
+              .slice(tweetText.indexOf("sig:") + 4)
               .split(" ")[0];
-            if (
-              tweet.full_text.startsWith(TweetTemplate) &&
-              parsedSignature === signature
-            ) {
+            if (parsedSignature === signature) {
               await prisma.user.update({
                 where: { id: walletId },
                 data: {
