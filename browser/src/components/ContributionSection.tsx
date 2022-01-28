@@ -150,7 +150,7 @@ interface TermsOfUseProps {
 function getUserLabel(user: Author, text: string) {
   return (
     <div className="ml-auto">
-      {text} <b>{getDisplayForAuthor(user)}</b>
+      {text} <b>{getDisplayForAuthor(user, true)}</b>
     </div>
   );
 }
@@ -179,7 +179,12 @@ function TermsOfUse({
     <div className="terms">
       <div className="flex ">
         <h2 className="text-3xl font-bold">Terms of Use</h2>
-        {user && getUserLabel(user, "signing as")}
+        {user ||
+          (currentUserWalletAddress &&
+            getUserLabel(
+              user || { walletId: currentUserWalletAddress },
+              "signing as"
+            ))}
       </div>
       <p>
         Please read the above essay ("
