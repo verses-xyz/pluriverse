@@ -10,6 +10,8 @@ import {
 import { getPatternPlaceholder } from "src/types";
 import { getDisplayForAuthor } from "./SignatureContent";
 import BlobSingleScissorWindow from "./BlobSingleScissorWindow";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei/core/OrbitControls";
 
 interface Props {
   contribution: Contribution;
@@ -65,7 +67,24 @@ export function ContributionCard({
         {response}
       </p>
       <div className={isCompact ? "blobSingleContainer" : "blobContainer"}>
-        <BlobSingleScissorWindow id={id} />
+        {id ? (
+          <BlobSingleScissorWindow id={id} />
+        ) : (
+          // TODO: add all the things needed
+          <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+            <OrbitControls
+              autoRotate={true}
+              autoRotateSpeed={1}
+              enableZoom={false}
+            />
+            <BlobSingle
+              pattern={pattern}
+              prompt={prompt}
+              walletId={author.walletId}
+              response={response}
+            />
+          </Canvas>
+        )}
       </div>
       <div className="attribution">
         <p className=" text-base">

@@ -7,6 +7,12 @@ interface iScissorRootState {
   windows: {
     [key: string]: iScissorWindow;
   };
+  scenes: {
+    [key: string]: {
+      scene: THREE.Scene;
+      camera?: THREE.Camera | undefined;
+    };
+  };
   frameSubscribers: {
     [key: string]: tScissorCallback;
   };
@@ -31,12 +37,23 @@ interface iScissorRootState {
 
 export default create<iScissorRootState>((set: any, get: any) => ({
   windows: {},
+  scenes: {},
   addWindow: (window: HTMLElement, id?: string) => {
     const uuid = id ?? THREE.MathUtils.generateUUID();
     set(
       produce((state: iScissorRootState) => {
+        const maybeScene = state.scenes[uuid];
+        const rect = window.getBoundingClientRect();
         state.windows[uuid] = {
           element: window,
+          scene: maybeScene?.scene,
+          // TODO: idk where this camera is coming from so its always initializing a camera
+          camera: new THREE.PerspectiveCamera(
+            75,
+            rect.width / rect.height,
+            0.1,
+            1000
+          ),
         };
       })
     );
@@ -50,10 +67,15 @@ export default create<iScissorRootState>((set: any, get: any) => ({
       })
     ),
 
-  addScene: (scene: THREE.Scene, id: string, camera?: THREE.Camera) =>
-    set(
+  addScene: (scene: THREE.Scene, id: string, camera?: THREE.Camera) => {
+    console.log(`adding scene for ${id}`);
+    return set(
       produce((state: iScissorRootState) => {
-        console.log("addScene");
+        console.log(`addScene with cameara:${Boolean(camera)}`);
+        state.scenes[id] = {
+          scene,
+          camera,
+        };
         if (state.windows[id]) {
           const elem = state.windows[id].element;
           const rect = elem.getBoundingClientRect();
@@ -69,9 +91,17 @@ export default create<iScissorRootState>((set: any, get: any) => ({
           state.windows[id].hasInit = false;
         }
       })
-    ),
+    );
+  },
 
-  removeScene: (id: string) => get().removeWindow(id),
+  removeScene: (id: string) => {
+    get().removeWindow(id);
+    set(
+      produce((state: iScissorRootState) => {
+        delete state.scenes[id];
+      })
+    );
+  },
 
   sethasInit: (hasInit: boolean, id: string) =>
     set(

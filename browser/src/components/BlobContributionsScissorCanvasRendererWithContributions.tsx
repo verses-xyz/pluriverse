@@ -9,3 +9,14 @@ export default function BlobContributionsScissorCanvasRendererWithContributions(
     <BlobContributionsScissorCanvasRenderer contributions={contributions} />
   );
 }
+
+// interface BlobContext {
+//   addWindow: (window: HTMLElement, id?: string | undefined) => string;
+//   removeWindow: (id: string) => any;
+//   addScene: (
+//     scene: THREE.Scene,
+//     id: string,
+//     camera?: THREE.Camera | undefined
+//   ) => any;
+//   removeScene: (id: string) => any;
+// }

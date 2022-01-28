@@ -15,6 +15,7 @@ const ScissorScene = forwardRef<
   const removeScene = store((s) => s.removeScene);
   const localRef = useRef<THREE.Scene>();
   const combinedRef = useCombinedRefs<THREE.Scene>(ref, localRef);
+  console.log(localRef);
 
   useEffect(() => {
     console.log(localRef);

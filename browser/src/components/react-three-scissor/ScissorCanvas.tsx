@@ -13,6 +13,7 @@ function ScissorRenderer() {
     [key: string]: tScissorCallback;
   };
   const sethasInit = store((s) => s.sethasInit);
+  console.log(windows);
 
   const { gl } = useThree();
 
@@ -39,6 +40,7 @@ function ScissorRenderer() {
 
         const rect = element.getBoundingClientRect();
         const { left, right, top, bottom, width, height } = rect;
+        // IntersectionObserver.observe(element);
 
         const isOffscreen =
           bottom < 0 ||
