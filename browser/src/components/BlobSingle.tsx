@@ -5,7 +5,6 @@ import Blob from "./Blob";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { randomEuler } from "./Blobs";
-import { replaceJSX } from "./ContributionSection";
 
 function toHex(str: string) {
   return str
@@ -26,8 +25,8 @@ function getMessageChunk(
   return float * range * eightCount + val_start;
 }
 
-const PromptDensityStart = 0.25;
-const PromptDensityIncrement = 0.5;
+const PromptDensityStart = 0.35;
+const PromptDensityIncrement = 0.4;
 const PromptAlphaStart = 0.75;
 const PromptAlphaIncrement = 0.07;
 const PatternColorIncrement = 0.1;
@@ -76,7 +75,7 @@ export function BlobSingle({
       <Blob
         size={5}
         meshProps={{ rotation }}
-        speed={getMessageChunk(message, 0, 0, 0.5)}
+        speed={getMessageChunk(message, 0, 0.1, 0.5)}
         color={Object.keys(Pattern).indexOf(pattern) * PatternColorIncrement}
         alpha={
           PromptAlphaStart +

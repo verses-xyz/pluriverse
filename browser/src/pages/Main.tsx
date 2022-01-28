@@ -152,17 +152,20 @@ export function Main() {
             <div ref={patternsContentRef}>
               <PatternsContent />
             </div>
+            <div className="text-center my-8">
+              <NavLink to="/contributions">
+                <button className={`glass-button`}>
+                  Browse all contributions
+                </button>
+              </NavLink>
+            </div>
             <div
               id="contributionSection"
               className="container w-full md:max-w-4xl mx-auto pb-20 px-4"
             >
               <ContributionSection />
               <br />
-              <div className="text-center pb-8">
-                <NavLink to="/contributions">
-                  <button className={`glass-button`}>All Contributions</button>
-                </NavLink>
-              </div>
+
               <br />
               <SignatureContent />
             </div>

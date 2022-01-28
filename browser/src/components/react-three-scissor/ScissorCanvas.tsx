@@ -45,12 +45,16 @@ function ScissorRenderer() {
   const sethasInit = store((s) => s.sethasInit);
 
   const { gl } = useThree();
+  gl.autoClear = false;
 
-  // console.log({ windows });
   const drawWindows = () => {
     gl.setScissorTest(false);
     gl.clear(true, true);
     gl.setScissorTest(true);
+    // NOTE: if no windows are on screen, need to make it clear so that it doesn't render a black screen and cover everything.
+    if (!windows.length) {
+      gl.setClearAlpha(0);
+    }
 
     for (const key in windows) {
       const { scene, element, camera, hasInit } = windows[key];
@@ -69,7 +73,6 @@ function ScissorRenderer() {
 
         const rect = element.getBoundingClientRect();
         const { left, right, top, bottom, width, height } = rect;
-        // IntersectionObserver.observe(element);
 
         const isVisible = visible(element);
 
@@ -95,7 +98,6 @@ function ScissorRenderer() {
               camera,
               element,
             });
-
           gl.render(scene, camera);
         }
       }
@@ -113,10 +115,14 @@ const ScissorCanvas = forwardRef<
   HTMLCanvasElement,
   React.PropsWithChildren<Props>
 >((props, ref) => {
-  const windows = store((s) => s.windows) as { [key: string]: iScissorWindow };
-  const canFindWindows = Object.keys(windows).length > 0;
-
-  return canFindWindows ? (
+  // ref?.addEventListener(
+  //   "webglcontextlost",
+  //   function (event) {
+  //     event.preventDefault();
+  //   },
+  //   false
+  // );
+  return (
     <Canvas
       ref={ref}
       style={{
@@ -133,7 +139,7 @@ const ScissorCanvas = forwardRef<
       <ScissorRenderer />
       {props.children}
     </Canvas>
-  ) : null;
+  );
 });
 
 export default ScissorCanvas;

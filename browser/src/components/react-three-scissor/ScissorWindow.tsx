@@ -16,7 +16,6 @@ const ScissorWindow = forwardRef<
   const combinedRef = useCombinedRefs<HTMLDivElement>(ref, localRef);
 
   useEffect(() => {
-    console.log("WIINDOW LOCAL RFEF: " + { localRef });
     if (localRef.current) {
       const _uuid = addWindow(localRef.current, uuid);
       return () => removeWindow(_uuid);

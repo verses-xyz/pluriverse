@@ -47,18 +47,21 @@ enum Page {
   TwitterVerify,
 }
 
-function getAgreementToSign(isDisagreeing: boolean, transactionId): string {
+function getAgreementToSign(
+  isDisagreeing: boolean,
+  transactionId: string
+): string {
   const date = getMinuteTimeOfDayDateDisplay(dayjs());
   const PluriverseAgreement = `I have read and agree to the principles of the pluriverse, and I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us.
 
 I want to help build the pluriverse together.
 
-I am signing the document on ${date}, which is stored on Arweave tx:${transactionId}`;
+I am signing the document on ${date}, which lives on the permaweb on Arweave tx:${transactionId}`;
   const PluriverseDissent = `I have read and understand the pluriverse, but disagree. Plural worlds are made possible when each of us consistently prepares space for disagreement and dissent. 
 
 This considered refusal is a signed gift which guarantees that I will continue to attend to reality as I see it, while acknowledging that even disobedience is a kind of participation. I will use my divergent perspective to inspire curious and creative work and strive to keep surprising others with courageous choices.
 
-I am signing the document on ${date}, which is stored on Arweave tx:${transactionId}`;
+I am signing the document on ${date}, which lives on the permaweb on Arweave tx:${transactionId}`;
 
   return isDisagreeing ? PluriverseDissent : PluriverseAgreement;
 }
@@ -179,12 +182,11 @@ function TermsOfUse({
     <div className="terms">
       <div className="flex ">
         <h2 className="text-3xl font-bold">Terms of Use</h2>
-        {user ||
-          (currentUserWalletAddress &&
-            getUserLabel(
-              user || { walletId: currentUserWalletAddress },
-              "signing as"
-            ))}
+        {(user || currentUserWalletAddress) &&
+          getUserLabel(
+            user || { walletId: currentUserWalletAddress },
+            "signing as"
+          )}
       </div>
       <p>
         Please read the above essay ("
