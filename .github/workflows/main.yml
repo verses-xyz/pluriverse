@@ -27,7 +27,7 @@ jobs:
       
       # Runs a set of commands using the runners shell
       - name: Arweave Publish
-        uses: verses-xyz/arweave-publish-action@v1.1
+        uses: verses-xyz/arweave-publish-action@v1.2
         with:
           wallet-address: ${{ env.WALLET_ADDRESS }}               # Public address for admin wallet
           wallet-key: ${{ env.WALLET_KEY }}                       # JSON Key for associated admin wallet
