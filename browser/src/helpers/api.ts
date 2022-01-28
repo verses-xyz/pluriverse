@@ -140,3 +140,67 @@ export async function verifyTwitter(
     method: "POST",
   });
 }
+
+// FOR ARWEAVE //
+
+interface Tag {
+  name: string;
+  value: string;
+}
+
+interface Edge {
+  node: {
+    id: string;
+    tags: {
+      find: (fn: (t: Tag) => boolean) => Tag;
+    };
+  };
+}
+
+export async function fetchLatestEssayTxId(): Promise<string> {
+  const req = await fetch("https://arweave.net/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    // TODO: fill in the browser/src/components/EssayBody.tsx not hardcoded
+    // TODO: fill in owner address from environment variable
+    body: JSON.stringify({
+      query: `
+      query {
+        transactions(
+          tags: [
+            {
+              name: "DOC_NAME",
+              values: ["pluriverse:browser/src/components/EssayBody.tsx"]
+            }
+          ],
+          owners: ["aek33fcNH1qbb-SsDEqBF1KDWb8R1mxX6u4QGoo3tAs"],
+        ) {
+          edges {
+            node {
+              id
+              tags {
+                name
+                value
+              }
+            }
+          }
+        }
+      }
+      `,
+    }),
+  });
+  const json = await req.json();
+  return (json.data.transactions.edges as Edge[])
+    .sort((a, b) => {
+      // we reverse sort edges if version is not defined to get latest version
+      const getVersion = (edge: Edge): number =>
+        parseInt(
+          edge.node.tags.find((tag: Tag) => tag.name === "DOC_VERSION").value
+        ) || 0;
+      return getVersion(b) - getVersion(a);
+    })
+    .map((e) => e.node.id)[0];
+}

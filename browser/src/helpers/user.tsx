@@ -7,6 +7,20 @@ import Web3Modal from "web3modal";
 import { useEffect, useState } from "react";
 import React from "react";
 
+const Web3ModalProviderOptions = {
+  walletconnect: {
+    package: WalletConnectProvider,
+    options: {
+      infuraId: process.env.REACT_APP_INFURA_ID,
+    },
+  },
+};
+const web3Modal = new Web3Modal({
+  network: "mainnet",
+  cacheProvider: true,
+  providerOptions: Web3ModalProviderOptions,
+});
+
 export interface UserContextInfo {
   currentUser: Author | undefined;
   setCurrentUser(user: Author | undefined): void;
@@ -25,20 +39,6 @@ export const UserContext = React.createContext<UserContextInfo>({
   currentUserWalletAddress: undefined,
   signAndValidate: async () => "",
   fetchUserFromWalletAddress: async () => {},
-});
-
-const Web3ModalProviderOptions = {
-  walletconnect: {
-    package: WalletConnectProvider,
-    options: {
-      infuraId: process.env.REACT_APP_INFURA_ID,
-    },
-  },
-};
-const web3Modal = new Web3Modal({
-  network: "mainnet",
-  cacheProvider: true,
-  providerOptions: Web3ModalProviderOptions,
 });
 
 export function UserProvider({ children }) {

@@ -8,6 +8,7 @@ import { ContributionsPage } from "./pages/ContributionsPage";
 import { Navbar } from "./components/Navbar";
 import { Main } from "./pages/Main";
 import { UserProvider } from "./helpers/user";
+import { ArweaveProvider } from "./helpers/contexts/ArweaveContext";
 
 function App() {
   return (
@@ -16,15 +17,17 @@ function App() {
         <DevelopmentBanner />
         <Navbar />
         <UserProvider>
-          <Routes>
-            <Route index={true} element={<Main />} />
-            <Route path="about" element={<About />} />
-            <Route path="contributions" element={<ContributionsPage />} />
-            <Route
-              path="contributions/:contributionId"
-              element={<ContributionsPage />}
-            />
-          </Routes>
+          <ArweaveProvider>
+            <Routes>
+              <Route index={true} element={<Main />} />
+              <Route path="about" element={<About />} />
+              <Route path="contributions" element={<ContributionsPage />} />
+              <Route
+                path="contributions/:contributionId"
+                element={<ContributionsPage />}
+              />
+            </Routes>
+          </ArweaveProvider>
         </UserProvider>
         <footer className="pt-2 pb-16">
           <span>
