@@ -7,7 +7,8 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-    paths: "browser/src/components/EssayBody.tsx"
+    paths:
+    - "browser/src/components/EssayBody.tsx"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,29 +26,9 @@ jobs:
       - uses: actions/checkout@v2
       
       # Runs a set of commands using the runners shell
-      - name: Update arweave config
-        run: |
-          echo "Committing to arweave file"
-          # re-deploy content to arweave
-          # overwrite content in browser/arweave
-          # echo "\n" > "browser/arweave"
-
-      - name: Commit files
-        id: commit
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git add --all
-          if [-z "$(git status --porcelain)"]; then
-             echo "::set-output name=push::false"
-          else
-             git commit -m "Add changes" -a
-             echo "::set-output name=push::true"
-          fi
-        shell: bash
-        
-      - name: Push changes
-        if: steps.commit.outputs.push == 'true'
-        uses: ad-m/github-push-action@master
+      - name: Arweave Publish
+        uses: verses-xyz/arweave-publish-action@v1.1
         with:
-           github_token: ${{ secrets.GITHUB_TOKEN }}
+          wallet-address: ${{ env.WALLET_ADDRESS }}               # Public address for admin wallet
+          wallet-key: ${{ env.WALLET_KEY }}                       # JSON Key for associated admin wallet
+          document-path: "browser/src/components/EssayBody.tsx"   # Path of document to mirror
