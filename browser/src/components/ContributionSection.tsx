@@ -26,7 +26,10 @@ import {
 } from "./ContributionCard";
 import { getUser } from "src/helpers/api";
 import { Link } from "react-router-dom";
-import { getDisplayForAuthor } from "./SignatureContent";
+import {
+  getDisplayForAuthor,
+  getMinuteTimeOfDayDateDisplay,
+} from "./SignatureContent";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 import { Checkmark } from "./core/Checkmark";
 import ContributionsCarousel from "./ContributionsCarousel";
@@ -34,6 +37,8 @@ import { ContributionsContext, SignaturesContext } from "src/pages/Main";
 import { getContributionLink } from "src/helpers/contributions";
 import { UserContext } from "src/helpers/user";
 import { AsyncButton } from "./core/AsyncButton";
+import dayjs from "dayjs";
+import { ArweaveContext } from "src/helpers/contexts/ArweaveContext";
 
 enum Page {
   TermsOfUse,
@@ -42,18 +47,24 @@ enum Page {
   TwitterVerify,
 }
 
-// TODO: when on arweave, put the arweave transaction ID and link in the body of this agreement
-// TODO: Change to function, fill in those template placeholders.
-export const PluriverseAgreement = `I have read and agree to the principles of the pluriverse, and I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us.
+function getAgreementToSign(
+  isDisagreeing: boolean,
+  transactionId: string
+): string {
+  const date = getMinuteTimeOfDayDateDisplay(dayjs());
+  const PluriverseAgreement = `I have read and agree to the principles of the pluriverse, and I acknowledge that the entire responsibility / liability as to the realization of the pluriverse lies with all of us.
 
 I want to help build the pluriverse together.
 
-I am signing the version of the document on {date}, stored on Arweave via transaction {transactionId}`;
-export const PluriverseDissent = `I have read and understand the pluriverse, but disagree. Plural worlds are made possible when each of us consistently prepares space for disagreement and dissent. 
+I am signing the document on ${date}, which lives on the permaweb on Arweave tx:${transactionId}`;
+  const PluriverseDissent = `I have read and understand the pluriverse, but disagree. Plural worlds are made possible when each of us consistently prepares space for disagreement and dissent. 
 
 This considered refusal is a signed gift which guarantees that I will continue to attend to reality as I see it, while acknowledging that even disobedience is a kind of participation. I will use my divergent perspective to inspire curious and creative work and strive to keep surprising others with courageous choices.
 
-I am signing the version of the document on {date}, stored on Arweave via transaction {transactionId}`;
+I am signing the document on ${date}, which lives on the permaweb on Arweave tx:${transactionId}`;
+
+  return isDisagreeing ? PluriverseDissent : PluriverseAgreement;
+}
 
 const ResponseCharacterLimit = 900;
 export const Placeholder = "________";
@@ -142,7 +153,7 @@ interface TermsOfUseProps {
 function getUserLabel(user: Author, text: string) {
   return (
     <div className="ml-auto">
-      {text} <b>{getDisplayForAuthor(user)}</b>
+      {text} <b>{getDisplayForAuthor(user, true)}</b>
     </div>
   );
 }
@@ -171,7 +182,11 @@ function TermsOfUse({
     <div className="terms">
       <div className="flex ">
         <h2 className="text-3xl font-bold">Terms of Use</h2>
-        {user && getUserLabel(user, "signing as")}
+        {(user || currentUserWalletAddress) &&
+          getUserLabel(
+            user || { walletId: currentUserWalletAddress },
+            "signing as"
+          )}
       </div>
       <p>
         Please read the above essay ("
@@ -262,6 +277,7 @@ export function ContributionSection() {
     signAndValidate,
     currentUserWalletAddress,
   } = useContext(UserContext);
+  const { latestEssayTxId } = useContext(ArweaveContext);
   const { fetchSignatures } = useContext(SignaturesContext);
 
   const PromptItems: DropdownItem[] = Object.keys(Prompt).map((promptKey) => ({
@@ -348,6 +364,7 @@ export function ContributionSection() {
         walletId: currentUser!.walletId,
       });
       // TODO: eliminate this and just return th actual contribution data with the response above.
+      // TODO: incoroprate this into the context so it updates everywhere
       await fetchContribution(newContributionId);
       setResponse(undefined);
       setPage(Page.Share);
@@ -387,7 +404,7 @@ export function ContributionSection() {
 
     if (!userToUpdate) {
       signature = await signAndValidate(
-        isDisagreeing ? PluriverseDissent : PluriverseAgreement
+        getAgreementToSign(isDisagreeing, latestEssayTxId)
       );
       // add user after successful
       userToUpdate = await addUser({

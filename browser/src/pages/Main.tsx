@@ -9,6 +9,7 @@ import { Author, Contribution } from "src/types/common/server-api";
 import React from "react";
 import { getContributions, getUsers } from "src/helpers/api";
 import useGsap from "src/hook/useGsap";
+import BlobContributionsScissorCanvasRendererWithContributions from "src/components/BlobContributionsScissorCanvasRendererWithContributions";
 
 export interface SignaturesContextInfo {
   signatures: Author[];
@@ -142,6 +143,7 @@ export function Main() {
         <Hero />
       </div>
       <ContributionsProvider>
+        <BlobContributionsScissorCanvasRendererWithContributions />
         <SignaturesProvider>
           <div className="mainContent">
             <div id="essay-content" ref={essayContentRef}>
@@ -150,17 +152,20 @@ export function Main() {
             <div ref={patternsContentRef}>
               <PatternsContent />
             </div>
+            <div className="text-center my-8">
+              <NavLink to="/contributions">
+                <button className={`glass-button`}>
+                  Browse all contributions
+                </button>
+              </NavLink>
+            </div>
             <div
               id="contributionSection"
               className="container w-full md:max-w-4xl mx-auto pb-20 px-4"
             >
               <ContributionSection />
               <br />
-              <div className="text-center pb-8">
-                <NavLink to="/contributions">
-                  <button className={`glass-button`}>All Contributions</button>
-                </NavLink>
-              </div>
+
               <br />
               <SignatureContent />
             </div>

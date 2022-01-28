@@ -1,5 +1,5 @@
 import useToggle from "src/hook/useToggle";
-import { Contribution } from "src/types/common/server-api";
+import { Contribution, Pattern } from "src/types/common/server-api";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import ContributionsCarousel from "./ContributionsCarousel";
 import "./PatternSection.css";
@@ -9,10 +9,12 @@ export default function PatternSection({
   problem,
   solution,
   contributions,
+  pattern,
 }: {
   title: string;
   problem: string;
   solution: string;
+  pattern: Pattern;
   contributions: Contribution[];
 }) {
   const [expanded, toggle] = useToggle();
@@ -33,7 +35,11 @@ export default function PatternSection({
           cursor: "pointer",
         }}
       >
-        <h3 className="font-bold font-mono text-xl md:text-3xl">{title}</h3>
+        {/* TODO: click to get link to this page */}
+        {/* TODO: add onto contribution card to get back here */}
+        <h3 id={pattern} className="font-bold font-mono text-xl md:text-3xl">
+          {title}
+        </h3>
         <div
           style={{
             display: "flex",
@@ -47,7 +53,7 @@ export default function PatternSection({
       </div>
       {expanded && (
         <div>
-          <div className="grid md:grid-cols-2 gap-16 pt-8 pb-8 fadeInDownFast">
+          <div className="grid md:grid-cols-2 gap-16 my-8 fadeInDownFast">
             <div>
               <h4 className="font-title text-xl font-mono font-bold">
                 The problem
@@ -62,7 +68,7 @@ export default function PatternSection({
             </div>
           </div>
           {contributions && contributions.length > 0 && (
-            <div className="py-8">
+            <div className="my-8">
               <ContributionsCarousel contributions={contributions} />
             </div>
           )}

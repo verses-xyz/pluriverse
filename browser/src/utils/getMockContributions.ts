@@ -2,9 +2,10 @@ import { Contribution } from "../../../server/common/server-api";
 
 const mockContrubution = {
   id: 11,
-  response: "a place and time where another world is possible",
+  response:
+    "lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, quisquam. lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, quisquam.  lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, quisquam. ",
   prompt: "LooksLike",
-  pattern: "Pluriverse",
+  pattern: "Interoperability",
   createdAt: "2022-01-09T23:32:14.174Z",
   authorWalletId: "0x130C65c95A9c8fc80cC0360f23F85960B3B5Fa56",
   author: {
@@ -22,7 +23,13 @@ export default function getMockContributions() {
   for (let i = 0; i < 12; i++) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    mockContributions.push(mockContrubution);
+    mockContributions.push({ ...mockContrubution, id: i });
+  }
+
+  for (let i = 13; i < 24; i++) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    mockContributions.push({ ...mockContrubution, pattern: "Agency", id: i });
   }
 
   return mockContributions;

@@ -20,27 +20,29 @@ article {
   z-index: 4;
   position: absolute;
   color: white;
-  font-size: 0.85rem;
+  /* font-size: 0.85rem; */
+  font-size: 1rem;
   margin-top: 2px !important;
   padding-left: 25px;
   right: 4%;
   text-transform: none;
-  width: 340px;
+  /* width: 340px; */
+  width: 400px;
   margin-top: -30px;
 }
 
 .footnote-content-left {
-  left: 4.5%;
+  left: 2.5%;
 }
 
 .footnote-content-right {
-  right: 7%;
+  right: 2.5%;
 }
 
 .footnote-content::before {
   counter-increment: footnote-content;
   content: counter(footnote-content);
-  font-size: 0.8rem;
+  font-size: 1rem;
   display: inline-block;
   position: relative;
   top: -8px;
@@ -53,7 +55,7 @@ article {
 }
 
 /* TODO: for now hide footnotes on small screens */
-@media only screen and (max-width: 1500px) {
+@media only screen and (max-width: 1650px) {
   .footnote {
     cursor: pointer;
     border-bottom: rgb(198, 142, 255) solid 1px;

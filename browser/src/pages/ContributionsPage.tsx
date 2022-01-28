@@ -15,6 +15,7 @@ import { getContributions } from "src/helpers/api";
 import { Contribution } from "src/types/common/server-api";
 import { ButtonClass } from "src/types/styles";
 import { Helmet } from "react-helmet";
+import BlobContributionsScissorCanvasRenderer from "src/components/BlobContributionsScissorCanvasRenderer";
 
 dayjs.extend(utc);
 
@@ -80,6 +81,7 @@ export function ContributionsPage() {
 
   return (
     <>
+      <BlobContributionsScissorCanvasRenderer contributions={contributions} />
       <div className="container md:max-w-3xl mx-auto pb-10">
         <div className="mb-10">
           <h2 className="font-title text-3xl pt-16 font-bold pb-3">
@@ -118,7 +120,7 @@ export function ContributionsPage() {
       </div>
       <div className="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-8 px-40 justify-center mx-auto max-w-max pb-20">
         {maybeFilteredContributions.map((contribution) => (
-          <ContributionCard contribution={contribution} />
+          <ContributionCard contribution={contribution} key={contribution.id} />
         ))}
         {contributions.length === ContributionsLimit && (
           <div style={{ alignSelf: "flex-start" }} className="seeAll">
