@@ -1,8 +1,4 @@
-import {
-  Author,
-  Contribution,
-  PatternToDisplay,
-} from "src/types/common/server-api";
+import { Contribution, PatternToDisplay } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import { BlobSingle } from "src/components/BlobSingle";
 import "./ContributionCard.css";
