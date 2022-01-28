@@ -35,7 +35,9 @@ function visible(element: HTMLElement) {
 }
 
 function ScissorRenderer() {
-  const windows = store((s) => s.windows) as { [key: string]: iScissorWindow };
+  const windows = store((s) => s.windows) as {
+    [key: string]: { [uuid: string]: iScissorWindow };
+  };
   const frameSubscribers = store((s) => s.frameSubscribers) as {
     [key: string]: tScissorCallback;
   };
@@ -57,48 +59,50 @@ function ScissorRenderer() {
     }
 
     for (const key in windows) {
-      const { scene, element, camera, hasInit } = windows[key];
+      for (const uuid in windows[key]) {
+        const { scene, element, camera, hasInit } = windows[key][uuid];
 
-      if (scene && camera) {
-        if (!hasInit) {
-          if (initSubscribers[key])
-            initSubscribers[key]({
-              scene,
-              camera,
-              element,
-            });
-          scene.add(camera);
-          sethasInit(true, key);
-        }
+        if (scene && camera) {
+          if (!hasInit) {
+            if (initSubscribers[key])
+              initSubscribers[key]({
+                scene,
+                camera,
+                element,
+              });
+            scene.add(camera);
+            sethasInit(true, key, uuid);
+          }
 
-        const rect = element.getBoundingClientRect();
-        const { left, right, top, bottom, width, height } = rect;
+          const rect = element.getBoundingClientRect();
+          const { left, right, top, bottom, width, height } = rect;
 
-        const isVisible = visible(element);
+          const isVisible = visible(element);
 
-        const isOffscreen =
-          bottom < 0 ||
-          top > gl.domElement.clientHeight ||
-          right < 0 ||
-          left > gl.domElement.clientWidth;
+          const isOffscreen =
+            bottom < 0 ||
+            top > gl.domElement.clientHeight ||
+            right < 0 ||
+            left > gl.domElement.clientWidth;
 
-        if (!isOffscreen && isVisible) {
-          const positiveYUpBottom = gl.domElement.clientHeight - bottom;
-          gl.setScissor(left, positiveYUpBottom, width, height);
-          gl.setViewport(left, positiveYUpBottom, width, height);
+          if (!isOffscreen && isVisible) {
+            const positiveYUpBottom = gl.domElement.clientHeight - bottom;
+            gl.setScissor(left, positiveYUpBottom, width, height);
+            gl.setViewport(left, positiveYUpBottom, width, height);
 
-          // @ts-ignore
-          camera.aspect = rect.width / rect.height;
-          // @ts-ignore
-          camera.updateProjectionMatrix();
+            // @ts-ignore
+            camera.aspect = rect.width / rect.height;
+            // @ts-ignore
+            camera.updateProjectionMatrix();
 
-          if (frameSubscribers[key])
-            frameSubscribers[key]({
-              scene,
-              camera,
-              element,
-            });
-          gl.render(scene, camera);
+            if (frameSubscribers[key])
+              frameSubscribers[key]({
+                scene,
+                camera,
+                element,
+              });
+            gl.render(scene, camera);
+          }
         }
       }
     }

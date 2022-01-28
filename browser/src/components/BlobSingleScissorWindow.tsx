@@ -3,7 +3,5 @@ import {
 } from "src/components/react-three-scissor";
 
 export default function BlobSingleScissorWindow({ id }: { id: number }) {
-  return (
-    <ScissorWindow style={{ width: "100%", height: 150 }} uuid={`${id}`} />
-  );
+  return <ScissorWindow style={{ width: "100%", height: 150 }} id={`${id}`} />;
 }
