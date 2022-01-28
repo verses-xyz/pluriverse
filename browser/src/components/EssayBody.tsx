@@ -4,7 +4,7 @@ import Footnote from "./Footnote";
 export function EssayBody() {
   return (
     <>
-      {/* TODO: refactor the article tag out so it includes the hero, for now let's have this invisible h1 for screen readers */}
+      {/* TODO: refactor the article tag out so it includes the hero. for now let's have this invisible h1 for screen readers */}
       <h1 style={{ display: "none" }}>Towards a Digital Pluriverse</h1>
       <p className="pt-8">
         W
