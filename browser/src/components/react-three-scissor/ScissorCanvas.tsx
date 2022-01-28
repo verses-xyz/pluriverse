@@ -1,23 +1,34 @@
 import { Canvas, Props, useFrame, useThree } from "@react-three/fiber";
-import React, { forwardRef, useEffect } from "react";
+import React, { forwardRef } from "react";
 import store from "./store";
 
 import { iScissorWindow, tScissorCallback } from "./ScissorTypes";
+import { CarouselGradientClassName } from "src/classNameConstants";
 
 // https://stackoverflow.com/questions/704758/how-do-i-check-if-an-element-is-really-visible-with-javascript
-function visible(element) {
+const ElementClassNamesToIgnore = [CarouselGradientClassName];
+function visible(element: HTMLElement) {
   if (element.offsetWidth === 0 || element.offsetHeight === 0) return false;
-  var height = document.documentElement.clientHeight,
-    rects = element.getClientRects(),
-    on_top = function (r) {
-      var x = (r.left + r.right) / 2,
-        y = (r.top + r.bottom) / 2;
-      return document.elementFromPoint(x, y) === element;
-    };
-  for (var i = 0, l = rects.length; i < l; i++) {
-    var r = rects[i],
-      in_viewport =
-        r.top > 0 ? r.top <= height : r.bottom > 0 && r.bottom <= height;
+  const height = document.documentElement.clientHeight;
+  const rects = element.getClientRects();
+  const on_top = function (r) {
+    const x = (r.left + r.right) / 2;
+    const y = (r.top + r.bottom) / 2;
+    return (
+      document
+        .elementsFromPoint(x, y)
+        .filter(
+          (e) =>
+            !ElementClassNamesToIgnore.some((className) =>
+              e.className.includes(className)
+            )
+        )[0] === element
+    );
+  };
+  for (let i = 0, l = rects.length; i < l; i++) {
+    const r = rects[i];
+    const in_viewport =
+      r.top > 0 ? r.top <= height : r.bottom > 0 && r.bottom <= height;
     if (in_viewport && on_top(r)) return true;
   }
   return false;

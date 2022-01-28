@@ -4,6 +4,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import { ContributionCard } from "./ContributionCard";
+import { CarouselGradientClassName } from "src/classNameConstants";
 
 function CarouselArrow({
   left = false,
@@ -61,7 +62,7 @@ export default function ContributionsCarousel({
     <div style={{ position: "relative" }}>
       {!hideLeftControl && (
         <>
-          <div className="carouselGradient left" />
+          <div className={`${CarouselGradientClassName} left`} />
           <div
             style={{ position: "absolute", top: "40%", left: -30, zIndex: 10 }}
           >
@@ -95,7 +96,7 @@ export default function ContributionsCarousel({
           >
             <CarouselArrow onPress={onRightPress} />
           </div>
-          <div className="carouselGradient right" />
+          <div className={`${CarouselGradientClassName} right`} />
         </>
       )}
     </div>
