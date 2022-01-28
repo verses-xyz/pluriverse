@@ -2,8 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Pattern, Prompt } from "../types/common/server-api";
 import { sha256 } from "ethers/lib/utils";
 import Blob from "./Blob";
-import { OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
 import { randomEuler } from "./Blobs";
 
 function toHex(str: string) {

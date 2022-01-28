@@ -139,11 +139,11 @@ export function Main() {
 
   return (
     <>
-      <div className="fadeOutOnScroll">
-        <Hero />
-      </div>
       <ContributionsProvider>
         <BlobContributionsScissorCanvasRendererWithContributions />
+        <div className="fadeOutOnScroll">
+          <Hero />
+        </div>
         <SignaturesProvider>
           <div className="mainContent">
             <div id="essay-content" ref={essayContentRef}>

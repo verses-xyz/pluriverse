@@ -9,6 +9,7 @@ import { BlobSingle } from "./BlobSingle";
 import { Suspense, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { LoadingIndicator } from "./core/LoadingIndicator";
 
 export default function BlobContributionsScissorCanvasRenderer({
   contributions,
@@ -49,6 +50,25 @@ export default function BlobContributionsScissorCanvasRenderer({
     camera.lookAt(pos);
   }, contributionIdsAsStrings);
 
+  function renderContributionScene({
+    id,
+    pattern,
+    prompt,
+    response,
+    author,
+  }: Contribution) {
+    return (
+      <ScissorScene uuid={`${id}`} key={id}>
+        <BlobSingle
+          pattern={pattern}
+          prompt={prompt}
+          walletId={author.walletId}
+          response={response}
+        />
+      </ScissorScene>
+    );
+  }
+
   return (
     <ScissorCanvas
       gl={{
@@ -65,19 +85,8 @@ export default function BlobContributionsScissorCanvasRenderer({
         zIndex: -1,
       }}
     >
-      <Suspense fallback={null}>
-        {contributions.map(({ id, pattern, prompt, response, author }) => {
-          return (
-            <ScissorScene uuid={`${id}`} key={id}>
-              <BlobSingle
-                pattern={pattern}
-                prompt={prompt}
-                walletId={author.walletId}
-                response={response}
-              />
-            </ScissorScene>
-          );
-        })}
+      <Suspense fallback={<LoadingIndicator />}>
+        {contributions.map(renderContributionScene)}
       </Suspense>
     </ScissorCanvas>
   );

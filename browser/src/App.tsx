@@ -1,4 +1,7 @@
-import { Canvas } from "@react-three/fiber";
+import { lazy, Suspense } from "react";
+const Canvas = lazy(() =>
+  import("@react-three/fiber").then((module) => ({ default: module.Canvas }))
+);
 import UniverseScene from "./components/UniverseScene";
 import GradientManager from "./components/GradientManager";
 import { DevelopmentBanner } from "./components/DevelopmentBanner";
@@ -9,6 +12,7 @@ import { Navbar } from "./components/Navbar";
 import { Main } from "./pages/Main";
 import { UserProvider } from "./helpers/user";
 import { ArweaveProvider } from "./helpers/contexts/ArweaveContext";
+import { LoadingIndicator } from "./components/core/LoadingIndicator";
 
 function App() {
   return (
@@ -44,9 +48,11 @@ function App() {
             <>
               <GradientManager />
               <div className="canvas-container fadeOutOnScroll fadeInOnTermsOnContributionSection">
-                <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
-                  <UniverseScene />
-                </Canvas>
+                <Suspense fallback={null}>
+                  <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+                    <UniverseScene />
+                  </Canvas>
+                </Suspense>
               </div>
             </>
           }

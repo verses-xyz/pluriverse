@@ -1,7 +1,10 @@
 import fragmentShader from "../shaders/fragment.glsl";
 import vertexShader from "../shaders/vertex.glsl";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, lazy, Suspense } from "react";
 import { MeshProps } from "@react-three/fiber";
+import { LoadingIndicator } from "./core/LoadingIndicator";
+// const fragmentShader = lazy(() => import("../shaders/fragment.glsl"));
+// const vertexShader = lazy(() => import("../shaders/vertex.glsl"));
 
 interface ShaderProps {
   speed: number;
@@ -52,15 +55,18 @@ export function BlobShaderMaterial({
   }, [color, speed, density, strength, offset, alpha]);
 
   return (
-    <shaderMaterial
-      key={[color, speed, density, strength, offset, alpha].join(" ")}
-      ref={ref}
-      attach="material"
-      {...data}
-    />
+    <Suspense fallback={<LoadingIndicator />}>
+      <shaderMaterial
+        key={[color, speed, density, strength, offset, alpha].join(" ")}
+        ref={ref}
+        attach="material"
+        {...data}
+      />
+    </Suspense>
   );
 }
 
+// TODO: add suspense stuff here
 export default function Blob({
   size,
   meshProps = {},
