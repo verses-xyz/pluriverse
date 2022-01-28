@@ -49,6 +49,7 @@ export function EssayBody() {
         Metaverse expands as a homogenizing{" "}
         <Footnote
           left
+          topOffset={-80}
           data={`In agriculture, a monoculture refers to the cultivation of a singular crop in an area. Though monocultures may be efficient, they present greater susceptibility to disease and pests. In Braiding Sweetgrass: Indigenous Wisdom, Scientific Knowledge, and the Teachings of Plants, Indigenous scholar and botanist, Robin Kimmerer shares the story of the Three Sisters to advocate for polycultures over monocultures. Referring to a gardening style of Native peoples, the Three Sisters refers to the interdependent relationship between species of corn, squash, and beans. Although each of the species have different needs and growth patterns, they work alongside each other in a holistic ecosystem of growth. Kimmerer imagines this harmonious agricultural system as a metaphor for intellectual and social relations: she writes that “the Three Sisters offer us a new metaphor for an emerging relationship between indigenous knowledge and Western science”, as well as functions as a model of care in which individuals use their unique gifts to “take care of each other [and] work together” (find pg no.). In our vision of the pluriverse, we seek to adopt this idea of individuality and shared/complementary knowledge. `}
         >
           <b>monoculture</b>
