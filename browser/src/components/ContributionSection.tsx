@@ -480,58 +480,61 @@ export function ContributionSection() {
             user={currentUser}
             onSubmitWallet={onSubmitWallet}
             handleErr={handleErr}
-            onContinue={navigateFromTerms}
+            onContinue={() => navigateFromTerms()}
           />
         );
 
       case Page.TwitterVerify:
         return (
-          <div className="verifyContainer">
-            <div className="flex ">
+          <div>
+            <div className="flex mb-6">
               <h2 className="text-3xl font-bold">Terms of Verification</h2>
               {currentUser && getUserLabel(currentUser, "verifying for")}
             </div>
-            <p>
-              Tweet a message to prove that you control this address. Return to
-              this page afterwards to complete verification.
-            </p>
-            <button
-              // className="twitter-share-button"
-              className={ButtonClass()}
-              onClick={onClickTweetProof}
-            >
-              Tweet proof
-            </button>
-            <p>
-              After sending your tweet, click the button below to complete
-              verification. If successful, you'll proceed to contributing to the{" "}
-              <b className="shimmer">Pluriverse</b>.
-            </p>
-            <div className="verifyActions">
+            <div className="verifyContainer">
+              <p>
+                Tweet a message to prove that you control this address. Return
+                to this page afterwards to complete verification.
+              </p>
               <button
-                style={{ display: "inline-flex", justifyContent: "center" }}
+                // className="twitter-share-button"
                 className={ButtonClass()}
-                onClick={onClickVerifyTwitter}
-                disabled={isLoading}
+                onClick={onClickTweetProof}
               >
-                {isLoading ? (
-                  <>
-                    Verifying <LoadingIndicator style={{ marginLeft: "6px" }} />
-                  </>
-                ) : currentUser?.twitterVerified ? (
-                  <>
-                    Verified! <Checkmark />
-                  </>
-                ) : (
-                  "Verify twitter"
-                )}
+                Tweet proof
               </button>
-              <button
-                className={ButtonLinkStyling}
-                onClick={onClickSkipVerification}
-              >
-                Skip verification to contributing
-              </button>
+              <p>
+                After sending your tweet, click the button below to complete
+                verification. If successful, you'll proceed to contributing to
+                the <b className="shimmer">Pluriverse</b>.
+              </p>
+              <div className="verifyActions">
+                <button
+                  style={{ display: "inline-flex", justifyContent: "center" }}
+                  className={ButtonClass()}
+                  onClick={onClickVerifyTwitter}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      Verifying{" "}
+                      <LoadingIndicator style={{ marginLeft: "6px" }} />
+                    </>
+                  ) : currentUser?.twitterVerified ? (
+                    <>
+                      Verified! <Checkmark />
+                    </>
+                  ) : (
+                    "Verify twitter"
+                  )}
+                </button>
+                <button
+                  className={ButtonLinkStyling}
+                  onClick={onClickSkipVerification}
+                >
+                  Skip verification to contributing
+                </button>
+              </div>
             </div>
           </div>
         );
