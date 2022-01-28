@@ -1,7 +1,6 @@
 import "./EssayBody.css";
 import Footnote from "./Footnote";
 
-
 export function EssayBody() {
   return (
     <>
