@@ -4,6 +4,25 @@ import store from "./store";
 
 import { iScissorWindow, tScissorCallback } from "./ScissorTypes";
 
+// https://stackoverflow.com/questions/704758/how-do-i-check-if-an-element-is-really-visible-with-javascript
+function visible(element) {
+  if (element.offsetWidth === 0 || element.offsetHeight === 0) return false;
+  var height = document.documentElement.clientHeight,
+    rects = element.getClientRects(),
+    on_top = function (r) {
+      var x = (r.left + r.right) / 2,
+        y = (r.top + r.bottom) / 2;
+      return document.elementFromPoint(x, y) === element;
+    };
+  for (var i = 0, l = rects.length; i < l; i++) {
+    var r = rects[i],
+      in_viewport =
+        r.top > 0 ? r.top <= height : r.bottom > 0 && r.bottom <= height;
+    if (in_viewport && on_top(r)) return true;
+  }
+  return false;
+}
+
 function ScissorRenderer() {
   const windows = store((s) => s.windows) as { [key: string]: iScissorWindow };
   const frameSubscribers = store((s) => s.frameSubscribers) as {
@@ -42,13 +61,15 @@ function ScissorRenderer() {
         const { left, right, top, bottom, width, height } = rect;
         // IntersectionObserver.observe(element);
 
+        const isVisible = visible(element);
+
         const isOffscreen =
           bottom < 0 ||
           top > gl.domElement.clientHeight ||
           right < 0 ||
           left > gl.domElement.clientWidth;
 
-        if (!isOffscreen) {
+        if (!isOffscreen && isVisible) {
           const positiveYUpBottom = gl.domElement.clientHeight - bottom;
           gl.setScissor(left, positiveYUpBottom, width, height);
           gl.setViewport(left, positiveYUpBottom, width, height);
