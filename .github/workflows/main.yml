@@ -29,6 +29,6 @@ jobs:
       - name: Arweave Publish
         uses: verses-xyz/arweave-publish-action@v1.2
         with:
-          wallet-address: ${{ env.WALLET_ADDRESS }}               # Public address for admin wallet
-          wallet-key: ${{ env.WALLET_KEY }}                       # JSON Key for associated admin wallet
+          wallet-address: ${{ secrets.WALLET_ADDRESS }}               # Public address for admin wallet
+          wallet-key: ${{ secrets.WALLET_KEY }}                       # JSON Key for associated admin wallet
           document-path: "browser/src/components/EssayBody.tsx"   # Path of document to mirror
