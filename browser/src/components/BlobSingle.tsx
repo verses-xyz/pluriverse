@@ -60,8 +60,7 @@ export function BlobSingle({
   }, [contrib]);
 
   return (
-    <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
-      <OrbitControls autoRotate={true} autoRotateSpeed={2} enableZoom={false} />
+    <>
       <ambientLight intensity={0.5} />
       <directionalLight intensity={0.3} position={[5, 25, 20]} />
       <pointLight intensity={1} position={[-10, -25, -10]} />
@@ -91,6 +90,6 @@ export function BlobSingle({
         strength={getMessageChunk(message, 2, 0.04, 0.2)}
         offset={getMessageChunk(message, 3, 0, 2 * Math.PI)}
       />
-    </Canvas>
+    </>
   );
 }
