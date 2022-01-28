@@ -10,12 +10,14 @@ const ScissorScene = forwardRef<
   THREE.Scene,
   React.PropsWithChildren<iScissorGroupProps>
 >(({ uuid, children, ...rest }, ref) => {
+  console.log("render ScissorScene ", uuid);
   const addScene = store((s) => s.addScene);
   const removeScene = store((s) => s.removeScene);
   const localRef = useRef<THREE.Scene>();
   const combinedRef = useCombinedRefs<THREE.Scene>(ref, localRef);
 
   useEffect(() => {
+    console.log(localRef);
     if (localRef.current) {
       addScene(localRef.current, uuid);
       return () => removeScene(uuid);

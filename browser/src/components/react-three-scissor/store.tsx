@@ -53,6 +53,7 @@ export default create<iScissorRootState>((set: any, get: any) => ({
   addScene: (scene: THREE.Scene, id: string, camera?: THREE.Camera) =>
     set(
       produce((state: iScissorRootState) => {
+        console.log("addScene");
         if (state.windows[id]) {
           const elem = state.windows[id].element;
           const rect = elem.getBoundingClientRect();

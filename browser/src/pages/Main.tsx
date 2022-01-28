@@ -10,6 +10,7 @@ import React from "react";
 import { getContributions, getUsers } from "src/helpers/api";
 import useGsap from "src/hook/useGsap";
 import BlobContributionsScissorCanvasRendererWithContributions from "src/components/BlobContributionsScissorCanvasRendererWithContributions";
+import getMockContributions from "src/utils/getMockContributions";
 
 export interface SignaturesContextInfo {
   signatures: Author[];
@@ -33,7 +34,9 @@ export const ContributionsContext =
   });
 
 function ContributionsProvider({ children }) {
-  const [contributions, setContributions] = useState<Contribution[]>([]);
+  const [contributions, setContributions] = useState<Contribution[]>(
+    getMockContributions()
+  );
 
   useEffect(async () => {
     await fetchContributions();

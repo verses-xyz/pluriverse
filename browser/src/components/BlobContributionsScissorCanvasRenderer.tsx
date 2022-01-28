@@ -19,12 +19,14 @@ export default function BlobContributionsScissorCanvasRenderer({
     return null;
   }
 
+  const contributionIdsAsStrings = contributions.map((c) => `${c.id}`);
+
   const orbit = useRef<OrbitControls>();
   useScissorFrame(() => {
     if (orbit.current) {
       orbit.current.update();
     }
-  }, []);
+  }, contributionIdsAsStrings);
 
   useScissorInit(({ camera: genericCamera, element, scene }) => {
     const camera = genericCamera as THREE.PerspectiveCamera;
@@ -45,7 +47,7 @@ export default function BlobContributionsScissorCanvasRenderer({
     const fac = 0.85;
     camera.position.setScalar(dist).multiplyScalar(fac);
     camera.lookAt(pos);
-  }, []);
+  }, contributionIdsAsStrings);
 
   return (
     <ScissorCanvas

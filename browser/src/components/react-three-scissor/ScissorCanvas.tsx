@@ -16,6 +16,7 @@ function ScissorRenderer() {
 
   const { gl } = useThree();
 
+  // console.log({ windows });
   const drawWindows = () => {
     gl.setScissorTest(false);
     gl.clear(true, true);
