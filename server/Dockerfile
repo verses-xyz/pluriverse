@@ -7,7 +7,9 @@ WORKDIR /usr/src/app
 # Install app dependencies
 COPY package.json .
 COPY yarn.lock .
+COPY prisma .
 RUN yarn
+RUN npx prisma generate
 RUN yarn global add typescript
 
 # Copy source code and static files
