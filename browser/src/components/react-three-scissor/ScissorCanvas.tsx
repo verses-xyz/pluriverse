@@ -32,7 +32,6 @@ function ScissorRenderer() {
     [key: string]: tScissorCallback;
   };
   const sethasInit = store((s) => s.sethasInit);
-  console.log(windows);
 
   const { gl } = useThree();
 

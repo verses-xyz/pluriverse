@@ -68,10 +68,8 @@ export default create<iScissorRootState>((set: any, get: any) => ({
     ),
 
   addScene: (scene: THREE.Scene, id: string, camera?: THREE.Camera) => {
-    console.log(`adding scene for ${id}`);
     return set(
       produce((state: iScissorRootState) => {
-        console.log(`addScene with cameara:${Boolean(camera)}`);
         state.scenes[id] = {
           scene,
           camera,
