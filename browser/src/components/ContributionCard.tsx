@@ -95,7 +95,7 @@ export function ContributionCard({
         <a className="ml-right" href={contributionLink}>
           <MdLink />
         </a>
-        <p className="ml-auto text-base">
+        <p className="ml-auto text-base  items-center whitespace-nowrap">
           by <em className="author text-color-purple-200">{authorDisplay}</em>{" "}
           on <em>{dateDisplay}</em>
         </p>

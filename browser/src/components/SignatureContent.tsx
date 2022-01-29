@@ -62,7 +62,10 @@ export function getDisplayForAuthor(
     twitterVerified &&
     `https://twitter.com/${twitterUsername}`;
   return (
-    <span>
+    <span
+      className="inline-flex gap-1 items-center overflow-hidden"
+      style={{ maxWidth: "150px" }}
+    >
       {nameDisplay}{" "}
       {twitterUrl && (
         <button
