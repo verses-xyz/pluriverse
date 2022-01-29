@@ -65,31 +65,33 @@ export function ContributionCard({
           <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
         )}
       </div>
-      <p className="">
-        {replaceJSX(PromptDescriptions[prompt], {
-          [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
-        })}{" "}
-        {response}
-      </p>
-      <div className={isCompact ? "blobSingleContainer" : "blobContainer"}>
-        {id ? (
-          <BlobSingleScissorWindow id={id} />
-        ) : (
-          // TODO: add all the things needed
-          <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
-            <OrbitControls
-              autoRotate={true}
-              autoRotateSpeed={1}
-              enableZoom={false}
-            />
-            <BlobSingle
-              pattern={pattern}
-              prompt={prompt}
-              walletId={author.walletId}
-              response={response}
-            />
-          </Canvas>
-        )}
+      <div className="responseContainer">
+        <p className="response">
+          {replaceJSX(PromptDescriptions[prompt], {
+            [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
+          })}{" "}
+          {response}
+        </p>
+        <div className={isCompact ? "blobSingleContainer" : "blobContainer"}>
+          {id ? (
+            <BlobSingleScissorWindow id={id} />
+          ) : (
+            // TODO: add all the things needed
+            <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+              <OrbitControls
+                autoRotate={true}
+                autoRotateSpeed={1}
+                enableZoom={false}
+              />
+              <BlobSingle
+                pattern={pattern}
+                prompt={prompt}
+                walletId={author.walletId}
+                response={response}
+              />
+            </Canvas>
+          )}
+        </div>
       </div>
       <div className="attribution">
         <a className="ml-right" href={contributionLink}>
