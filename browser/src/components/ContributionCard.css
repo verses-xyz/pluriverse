@@ -60,6 +60,12 @@
 
 .compactContributionCardContainer p {
   /* z-index: 10; */
+  overflow-y:clip;
+  text-overflow:ellipsis;
+  white-space: break-spaces;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
 }
 
 .blobSingleContainer {
