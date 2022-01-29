@@ -23,11 +23,12 @@ import { Suspense, useContext } from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 
-import sanitizeHtml from "sanitize-html";
 import parse from 'html-react-parser';
+import sanitizeHtml from "sanitize-html";
+import ContributionsCarousel from "./ContributionsCarousel";
 
 interface Props {
-  contribution: Contribution;
+  contribution: ClientContribution;
   hideHeader?: boolean;
   isCompact?: boolean;
   className?: string;
@@ -39,7 +40,7 @@ export function getFullContributionResponse({
   response,
   prompt,
   pattern,
-}: Contribution) {
+}: ClientContribution) {
   return (
     PromptDescriptions[prompt].replace(
       `{${Placeholder}}`,
@@ -90,7 +91,7 @@ export function ContributionCard({
   renderCanvas,
   full,
 }: Props) {
-  const { author, response, prompt, pattern, createdAt, id } = contribution;
+  const { author, response, responseHtml, prompt, pattern, createdAt, id } = contribution;
 
   const authorDisplay = getDisplayForAuthor(author, true);
   const date = dayjs(createdAt, { utc: true });
@@ -99,7 +100,23 @@ export function ContributionCard({
   const { openContributionModal, openContributionId } =
     useContext(ModalContext);
 
-  const responseHtml = parse(sanitizeHtml(response));
+
+  const renderHtml = (resp: string): string | JSX.Element | JSX.Element[] => {
+    // Remove first p tag to prevent first text going to next line, sanitize html string
+    // and then convert to JSX element
+    return parse(
+      sanitizeHtml(
+        resp.replace(
+          /<p[^>]*>|<\/p[^>]*>/,
+          ""
+        )
+      )
+    )
+  };
+
+  const input = renderHtml(
+    responseHtml || response
+  );
 
   return (
     <div
@@ -129,8 +146,36 @@ export function ContributionCard({
                   <FiMaximize2 />
                 </button> */}
       </div>
+<<<<<<< HEAD
       <div className={`responseContainerContributionCard`}>
         <p className="response">{getContributionCardResponse(contribution)}</p>
+=======
+      <p className="">
+        {replaceJSX(PromptDescriptions[prompt], {
+          [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
+        })}{" "}
+        {input}
+      </p>
+      <div className={isCompact ? "blobSingleContainer" : "blobContainer"}>
+        {id ? (
+          <BlobSingleScissorWindow id={id} />
+        ) : (
+          // TODO: add all the things needed
+          <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+            <OrbitControls
+              autoRotate={true}
+              autoRotateSpeed={1}
+              enableZoom={false}
+            />
+            <BlobSingle
+              pattern={pattern}
+              prompt={prompt}
+              walletId={author.walletId}
+              response={response}
+            />
+          </Canvas>
+        )}
+>>>>>>> 3184758... add link validation
       </div>
       <div className="mt-auto">
         {!isCompact && <hr className="mt-2" />}

@@ -3,7 +3,7 @@ import { useCallback, useContext, useState } from "react";
 import { descriptionText } from "../classNameConstants";
 import {
   Author,
-  Contribution,
+  ClientContribution,
   Pattern,
   PatternToDisplay,
   Prompt,
@@ -36,6 +36,9 @@ import { AsyncButton } from "./core/AsyncButton";
 import dayjs from "dayjs";
 import { ArweaveContext } from "src/helpers/contexts/ArweaveContext";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
+
+import { Converter } from "showdown";
+
 
 enum Page {
   TermsOfUse = "TermsOfUse",
@@ -212,7 +215,7 @@ function PreviewCard({
   prompt: Prompt;
   pattern: Pattern;
 }) {
-  const contribution: Contribution = {
+  const contribution: ClientContribution = {
     author,
     response: response || "...",
     prompt,
@@ -461,10 +464,11 @@ export function ContributionSection() {
           pattern: selectedPattern,
         } as any)
       );
+      const toMarkdownConverter = new Converter();
       const newContributionId = await addContribution({
         prompt: selectedPrompt,
         pattern: selectedPattern,
-        response,
+        response: toMarkdownConverter.makeMarkdown(response),
         walletId: currentUser!.walletId,
       });
       // TODO: eliminate this and just return th actual contribution data with the response above.

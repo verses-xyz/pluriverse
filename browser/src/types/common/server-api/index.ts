@@ -61,10 +61,15 @@ export interface Contribution {
   createdAt: Date;
 }
 
+export interface ClientContribution extends Contribution {
+  responseHtml?: string;
+}
+
 export interface AddContributionRequest {
   walletId: string;
   // This should be the full text response, formatted as markdown.
   response: string;
+  // Full text response formatted as markdown as HTML.
   prompt: Prompt;
   pattern: Pattern;
 }
