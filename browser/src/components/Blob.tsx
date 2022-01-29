@@ -2,7 +2,6 @@ import fragmentShader from "../shaders/fragment.glsl";
 import vertexShader from "../shaders/vertex.glsl";
 import { useMemo, useRef } from "react";
 import { MeshProps } from "@react-three/fiber";
-import { MeshWobbleMaterial } from "@react-three/drei";
 
 interface ShaderProps {
   speed: number;
