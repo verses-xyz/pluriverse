@@ -2,6 +2,7 @@ import fragmentShader from "../shaders/fragment.glsl";
 import vertexShader from "../shaders/vertex.glsl";
 import { useMemo, useRef } from "react";
 import { MeshProps } from "@react-three/fiber";
+import { MeshWobbleMaterial } from "@react-three/drei";
 
 interface ShaderProps {
   speed: number;
@@ -68,7 +69,7 @@ export default function Blob({
 }: BlobProps) {
   return (
     <mesh {...meshProps}>
-      <icosahedronGeometry attach="geometry" args={[size, 64, 64]} />
+      <icosahedronGeometry attach="geometry" args={[size, 16]} />
       <BlobShaderMaterial {...shaderProps} />
     </mesh>
   );

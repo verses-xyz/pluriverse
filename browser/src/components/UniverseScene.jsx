@@ -1,5 +1,4 @@
 import { OrbitControls, Stars } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
 import {
   Bloom,
   DepthOfField,
@@ -9,8 +8,6 @@ import {
   BrightnessContrast,
   HueSaturation,
 } from "@react-three/postprocessing";
-import { useEffect, useRef } from "react";
-import useGsap from "../hook/useGsap";
 import Blobs from "./Blobs";
 
 export default function UniverseScene() {
