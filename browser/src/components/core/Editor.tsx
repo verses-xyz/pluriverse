@@ -13,6 +13,11 @@ import Placeholder from "@tiptap/extension-placeholder";
 import History from "@tiptap/extension-history";
 import CharacterCount from "@tiptap/extension-character-count";
 
+import { Converter } from "showdown";
+import sanitizeHtml from "sanitize-html";
+import isURL from "validator/lib/isURL";
+
+
 import { ButtonClass } from "src/types/styles";
 import { ResponseCharacterLimit } from "../ContributionSection";
 import "./Editor.css";
@@ -35,18 +40,17 @@ export function Editor({
 }: Props) {
   const [linkInput, setLinkInput] = useState<string | null>(null);
   const [displayLinkModal, setDisplayLinkModal] = useState<boolean>(false);
-
-  const sanitize = (inputHtml: string): string => {
-    // Remove first p tag to prevent text going to next line
-    return inputHtml.replace(
-      /<p[^>]*>|<\/p[^>]*>/,
-      ""
-    );
-  };
+  const [isInvalidInput, setIsInvalidInput] = useState<boolean>(false);
 
   const openModal = () => {
     setDisplayLinkModal(true)
     toggleBackgroundScrollingOnModal(false);
+  }
+
+  const closeModal = () => {
+    setDisplayLinkModal(false);
+    setLinkInput(null);
+    toggleBackgroundScrollingOnModal(true)
   }
 
   // Set Cmd/Ctrl-k shortcut
@@ -76,27 +80,37 @@ export function Editor({
     ],
     onUpdate: ({ editor }) => {
       onChange(
-        sanitize(
-          editor.getHTML()
-        )
+        sanitizeHtml(editor.getHTML())
       );
+      // Okay so what we want is ContributionCard should render the 
+      // html directly to be fast, but we should store markdown
+      // so we should keep onChange the same so that contribution card is
+      // recieve the html, but we need to find a way to persist the
+      // markdown, but only to the request and not the contribution card
+      // maybe a set markdown field? or an optional value on the AddContributionRequest 
       setResponseLength(editor.storage.characterCount.characters());
     },
   })
 
-  const setLink = (cancel: boolean) => {
-    if (cancel) {
-      // Previous url
-      return editor.getAttributes('link').href;
+  const setLink = (save: boolean) => {
+    setIsInvalidInput(false);
+    if (!save) {
+      closeModal();
     }
-    var url = linkInput;
 
-    // TODO: Add Link validation
-
-    if (url === "" || url === null || url === undefined) {
-      //editor.chain().focus().extendMarkRange('link').unsetLink().run()
-      editor.chain().focus().unsetLink().run()
-      return
+    var url = null;
+    // If link is not null, check if it's valid and display error message otherwise.
+    if (!(linkInput === "" || linkInput === null || linkInput === undefined)) {
+      if (isURL(linkInput)) {
+        url = linkInput;
+      } else {
+        setIsInvalidInput(true);
+        return;
+      }
+    } else {
+      editor.chain().focus().unsetLink().run();
+      closeModal();
+      return;
     }
 
     // Add so href doesn't point to pluriverse.world/{url}  
@@ -107,22 +121,9 @@ export function Editor({
       url = "http://" + url;
     }
 
-    // Update link
-    editor.chain().focus().setLink({ href: url }).run()
-  };
-
-  const onClickAddLink = () => {
-    setLink(false);
-    setDisplayLinkModal(false);
-    setLinkInput(null);
-    toggleBackgroundScrollingOnModal(true)
-  };
-
-  const onCloseModal = () => {
-    setLink(true);
-    setDisplayLinkModal(false);
-    setLinkInput(null);
-    toggleBackgroundScrollingOnModal(true);
+    // Set link.
+    editor.chain().focus().setLink({ href: url }).run();
+    closeModal();
   };
 
   const getPreviousLink = () => {
@@ -168,30 +169,30 @@ export function Editor({
               }}
               className={`menuItem linkIcon ${displayLinkModal ? 'shimmer' : 'white'}`}
             >
-              <strong>🔗</strong> 
+              <strong>🔗</strong>
             </button>
           </div>
         </>
       }
-      <Modal 
-        isOpen={displayLinkModal} 
+      <Modal
+        isOpen={displayLinkModal}
         onAfterOpen={getPreviousLink}
-        className="modal" 
+        className="modal"
         overlayClassName="overlay"
         onRequestClose={() => onCloseModal()}
         shouldCloseOnOverlayClick={true}
       >
         <h3 className="text-3xl font-bold">
-          Add Link 
+          Add Link
         </h3>
         <div>
-          <input 
-            type="url" 
-            className="linkInput"
+          <input
+            type="url"
+            className={`linkInput ${isInvalidInput && "invalidLink"}`}
             placeholder="https://interdependence.online/declaration"
-            value={linkInput}
+            value={linkInput || ""}
             onInput={e => {
-              setLinkInput(e.target.value)
+              setLinkInput((e.target.value) || "")
             }}
             onKeyPress={handleKeyPress}
             autoFocus
@@ -201,24 +202,24 @@ export function Editor({
           <div className="cancelButton">
             <button
               className={`${ButtonClass("blue")}`}
-              onClick={onCloseModal}
+              onClick={() => setLink(false)}
             >
-              Cancel 
+              Cancel
             </button>
           </div>
           <div className="addButton">
             <button
               className={`${ButtonClass("blue")}`}
-              onClick={onClickAddLink}
+              onClick={() => setLink(true)}
             >
-              Save 
+              Save
             </button>
           </div>
         </div>
       </Modal>
-      <EditorContent 
-        className="form-textarea block w-full" 
-        editor={editor} 
+      <EditorContent
+        className="form-textarea block w-full"
+        editor={editor}
       />
     </>
   )

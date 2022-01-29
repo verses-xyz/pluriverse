@@ -2,6 +2,7 @@ import {
   AddContributionResponse,
   AddContributionRequest,
   GetContributionRequest,
+  ClientContribution,
   Contribution,
   GetContributionsRequest,
   AddUserRequest,
@@ -12,6 +13,8 @@ import {
   VerifyTwitterRequest,
   GetStatsResponse,
 } from "../types/common/server-api";
+
+import { Converter } from "showdown";
 
 export function withQueryParams(
   url: string,
@@ -70,23 +73,28 @@ export async function addContribution(
     body: request,
     method: "POST",
   });
-  console.log(`Added ${response} contribution`);
   return response as AddContributionResponse;
 }
 
 export async function getContribution({
   id,
-}: GetContributionRequest): Promise<Contribution> {
+}: GetContributionRequest): Promise<ClientContribution> {
   const response = await makeRequest(`${ApiUrl}/contributions/${id}`, {
     method: "GET",
   });
-  return response as Contribution;
+
+  const mdToHtmlConverter = new Converter();
+  response.responseHtml = mdToHtmlConverter.makeHtml(
+    response.response
+  );
+
+  return response as ClientContribution;
 }
 
 export async function getContributions({
   offset,
   contributionId,
-}: GetContributionsRequest): Promise<Contribution[]> {
+}: GetContributionsRequest): Promise<ClientContribution[]> {
   const response = await makeRequest(
     withQueryParams(`${ApiUrl}/contributions`, {
       offset: offset ? String(offset) : offset,
@@ -96,7 +104,16 @@ export async function getContributions({
       method: "GET",
     }
   );
-  return response as Contribution[];
+
+  const mdToHtmlConverter = new Converter();
+  const responseWithHtml = response.map((res) => {
+    res.responseHtml = mdToHtmlConverter.makeHtml(
+      res.response
+    );
+    return res;
+  });
+
+  return response as ClientContribution[];
 }
 
 export async function getUser({

@@ -78,6 +78,10 @@
     margin-top: 24px;
 }
 
+.invalidLink {
+    border-color: red;
+}
+
 .modal {
     background-color: hsla(0, 0%, 15%, 1);
     width:100%;

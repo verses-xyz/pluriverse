@@ -24,11 +24,12 @@ import { ModalContext } from "src/helpers/contexts/ModalContext";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 import BlobsPostProcessing from "./BlobsPostProcessing";
 
-import sanitizeHtml from "sanitize-html";
 import parse from 'html-react-parser';
+import sanitizeHtml from "sanitize-html";
+import ContributionsCarousel from "./ContributionsCarousel";
 
 interface Props {
-  contribution: Contribution;
+  contribution: ClientContribution;
   hideHeader?: boolean;
   isCompact?: boolean;
   className?: string;
@@ -40,7 +41,7 @@ export function getFullContributionResponse({
   response,
   prompt,
   pattern,
-}: Contribution) {
+}: ClientContribution) {
   return (
     PromptDescriptions[prompt].replace(
       `{${Placeholder}}`,
@@ -110,7 +111,7 @@ export function ContributionCard({
   renderCanvas,
   full,
 }: Props) {
-  const { author, response, prompt, pattern, createdAt, id } = contribution;
+  const { author, response, responseHtml, prompt, pattern, createdAt, id } = contribution;
 
   const authorDisplay = getDisplayForAuthor(author, true);
   const date = dayjs(createdAt, { utc: true });
@@ -119,17 +120,31 @@ export function ContributionCard({
   const { openContributionModal, openContributionId } =
     useContext(ModalContext);
 
-  const responseHtml = parse(sanitizeHtml(response));
+
+  const renderHtml = (resp: string): string | JSX.Element | JSX.Element[] => {
+    // Remove first p tag to prevent first text going to next line, sanitize html string
+    // and then convert to JSX element
+    return parse(
+      sanitizeHtml(
+        resp.replace(
+          /<p[^>]*>|<\/p[^>]*>/,
+          ""
+        )
+      )
+    )
+  };
+
+  const input = renderHtml(
+    responseHtml || response
+  );
 
   return (
     <div
-      className={`compactContributionCardContainer ${className} ${
-        full ? "full" : ""
-      } ${
-        contribution && openContributionId === contribution.id
+      className={`compactContributionCardContainer ${className} ${full ? "full" : ""
+        } ${contribution && openContributionId === contribution.id
           ? "selectedBorder"
           : ""
-      }
+        }
  `}
       onClick={() =>
         id
@@ -152,45 +167,48 @@ export function ContributionCard({
           <p className="author text-color-purple-200">{authorDisplay}</p>
           <p>{dateDisplay}</p>
         </p>
+
+        <div className={`responseContainerContributionCard`}>
+          <p className="response">{getContributionCardResponse(contribution)}</p>
+        </div>
+        {/* blob container */}
+        <div
+          style={{
+            height: "96px",
+            width: "96px",
+            top: "calc(50% + 24px)",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            cursor: "pointer",
+          }}
+          className="absolute"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {id === undefined || renderCanvas ? (
+            <Suspense fallback={<LoadingIndicator />}>
+              <Canvas
+                frameloop="demand"
+                camera={{ position: [0, 0, 14], fov: 50 }}
+                style={{ cursor: "pointer" }}
+              >
+                <OrbitControls
+                  autoRotate={true}
+                  autoRotateSpeed={5}
+                  enableZoom={false}
+                />
+                <BlobSingle
+                  pattern={pattern}
+                  prompt={prompt}
+                  walletId={author.walletId}
+                  response={response}
+                />
+                {/* <BlobsPostProcessing includeBloom={false} /> */}
+              </Canvas>
+            </Suspense>
+          ) : (
+            <BlobSingleScissorWindow id={id} />
+          )}
+        </div>
       </div>
-      {/* blob container */}
-      <div
-        style={{
-          height: "96px",
-          width: "96px",
-          top: "calc(50% + 24px)",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          cursor: "pointer",
-        }}
-        className="absolute"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {id === undefined || renderCanvas ? (
-          <Suspense fallback={<LoadingIndicator />}>
-            <Canvas
-              frameloop="demand"
-              camera={{ position: [0, 0, 14], fov: 50 }}
-              style={{ cursor: "pointer" }}
-            >
-              <OrbitControls
-                autoRotate={true}
-                autoRotateSpeed={5}
-                enableZoom={false}
-              />
-              <BlobSingle
-                pattern={pattern}
-                prompt={prompt}
-                walletId={author.walletId}
-                response={response}
-              />
-              {/* <BlobsPostProcessing includeBloom={false} /> */}
-            </Canvas>
-          </Suspense>
-        ) : (
-          <BlobSingleScissorWindow id={id} />
-        )}
-      </div>
-    </div>
-  );
+      );
 }
