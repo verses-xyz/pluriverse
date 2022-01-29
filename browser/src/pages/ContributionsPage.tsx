@@ -109,11 +109,11 @@ export function ContributionsPage() {
               contributed:
             </p>
             <ContributionCard
-              className="selectedBorder"
+              className="selectedBorder mt-4"
               contribution={highlightedContribution}
             />
             <br />
-            <h3 className="text-3xl">All other contributions</h3>
+            <p>All other contributions can be explored below.</p>
             {getMetaTagsForHighlightedContribution(highlightedContribution)}
           </div>
         )}

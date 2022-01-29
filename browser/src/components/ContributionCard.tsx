@@ -12,6 +12,8 @@ import { getDisplayForAuthor } from "./SignatureContent";
 import BlobSingleScissorWindow from "./BlobSingleScissorWindow";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei/core/OrbitControls";
+import { MdLink } from "react-icons/md";
+import { getContributionLink } from "src/helpers/contributions";
 
 interface Props {
   contribution: Contribution;
@@ -46,6 +48,7 @@ export function ContributionCard({
   const authorDisplay = getDisplayForAuthor(author, true);
   const date = dayjs(createdAt, { utc: true });
   const dateDisplay = date.format("MMM, YYYY");
+  const contributionLink = getContributionLink(contribution);
 
   return (
     <div
@@ -57,9 +60,11 @@ export function ContributionCard({
         className
       }
     >
-      {!hideHeader && (
-        <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
-      )}
+      <div className="flex">
+        {!hideHeader && (
+          <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
+        )}
+      </div>
       <p className="">
         {replaceJSX(PromptDescriptions[prompt], {
           [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
@@ -87,7 +92,10 @@ export function ContributionCard({
         )}
       </div>
       <div className="attribution">
-        <p className=" text-base">
+        <a className="ml-right" href={contributionLink}>
+          <MdLink />
+        </a>
+        <p className="ml-auto text-base">
           by <em className="author text-color-purple-200">{authorDisplay}</em>{" "}
           on <em>{dateDisplay}</em>
         </p>
