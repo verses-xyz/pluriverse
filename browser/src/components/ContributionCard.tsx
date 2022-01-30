@@ -65,7 +65,7 @@ export function ContributionCard({
           <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
         )}
       </div>
-      <div className="responseContainer">
+      <div className="responseContainerContributionCard">
         <p className="response">
           {replaceJSX(PromptDescriptions[prompt], {
             [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
