@@ -77,8 +77,8 @@
 .blobSingleContainer {
   position: absolute;
   height: 100px;
-  width: 90px;
-  left: 110px;
+  width: 150px;
+  left: 80px;
   top: 25%;
   opacity: 0.5;
 }
