@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { fetchLatestEssayTxId } from "../api";
+import { ArweaveEssayTransaction, fetchLatestArweaveEssay } from "../api";
 
 export interface ArweaveContextInfo {
-  latestEssayTxId: string;
+  latestEssayInfo?: ArweaveEssayTransaction;
 }
 
 export const ArweaveContext = React.createContext<ArweaveContextInfo>({
-  latestEssayTxId: "",
+  latestEssayInfo: undefined,
 });
 
 export function ArweaveProvider({ children }) {
-  const [txId, setTxId] = useState("");
+  const [essayTransaction, setEssayTransaction] = useState<
+    ArweaveEssayTransaction | undefined
+  >(undefined);
   useEffect(() => {
-    fetchLatestEssayTxId().then((res) => setTxId(res));
+    fetchLatestArweaveEssay().then((res) => setEssayTransaction(res));
   }, []);
 
-  const arweaveContext = { latestEssayTxId: txId };
+  const arweaveContext = { latestEssayInfo: essayTransaction };
   return (
     <ArweaveContext.Provider value={arweaveContext}>
       {children}

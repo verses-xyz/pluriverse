@@ -5,3 +5,7 @@ export function getContributionLink(contribution: Contribution) {
     "https://" + window.location.host + `/contributions/${contribution.id}`
   );
 }
+
+export function getArweaveLink(transactionId: string): string {
+  return `https://viewblock.io/arweave/tx/${transactionId}`;
+}

@@ -3,13 +3,15 @@ import { useContext, useRef } from "react";
 import dayjs from "dayjs";
 import { EssayBody } from "./EssayBody";
 import { ArweaveContext } from "src/helpers/contexts/ArweaveContext";
+import { getArweaveLink } from "src/helpers/contributions";
 
 // TODO: fill in repo from environment var.
 const GitRepo = "https://github.com/verses-xyz/pluriverse";
 
 export default function EssayContent() {
   const gitInfo = useRef(GitInfo());
-  const { latestEssayTxId } = useContext(ArweaveContext);
+  const { latestEssayInfo } = useContext(ArweaveContext);
+  const { transactionId = "" } = latestEssayInfo || {};
 
   const { shortHash: hash, date } = gitInfo.current.commit;
   const gitCommitLink = <a href={`${GitRepo}/commit/${hash}`}>{hash}</a>;
@@ -18,7 +20,7 @@ export default function EssayContent() {
     "MMM DD, YYYY, hh:mm:ssa"
   );
 
-  const arweaveDocLink = `https://viewblock.io/arweave/tx/${latestEssayTxId}`;
+  const arweaveDocLink = transactionId ? getArweaveLink(transactionId) : "";
 
   return (
     <article className="container w-full px-5 md:px-0 md:max-w-2xl mx-auto pb-20">
@@ -27,8 +29,8 @@ export default function EssayContent() {
       <div>
         Last updated on {gitLastUpdatedDateDisplay} ({gitCommitLink}). A copy of
         the Essay lives on the permaweb and can be found on{" "}
-        <a href={arweaveDocLink}>Arweave tx:{latestEssayTxId.slice(0, 20)}</a>.
-        It also lives in cyberspace at <a href="#">pluriverse.world</a>
+        <a href={arweaveDocLink}>Arweave tx:{transactionId.slice(0, 20)}</a>. It
+        also lives in cyberspace at <a href="#">pluriverse.world</a>
       </div>
     </article>
   );

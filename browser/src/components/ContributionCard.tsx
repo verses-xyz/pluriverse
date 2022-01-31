@@ -39,7 +39,7 @@ export function getFullContributionResponse({
 
 export function ContributionCard({
   contribution,
-  hideHeader,
+  hideHeader = true,
   isCompact = false,
   className = "",
 }: Props) {
@@ -65,13 +65,16 @@ export function ContributionCard({
           <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
         )}
       </div>
-      <div className="responseContainerContributionCard">
+      <div className={`responseContainerContributionCard`}>
         <p className="response">
           {replaceJSX(PromptDescriptions[prompt], {
             [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
           })}{" "}
           {response}
         </p>
+      </div>
+      <div className="mt-auto">
+        {!isCompact && <hr className="mt-2" />}
         <div className={isCompact ? "blobSingleContainer" : "blobContainer"}>
           {id ? (
             <BlobSingleScissorWindow id={id} />
@@ -92,15 +95,15 @@ export function ContributionCard({
             </Canvas>
           )}
         </div>
-      </div>
-      <div className="attribution">
-        <a className="ml-right" href={contributionLink}>
-          <MdLink />
-        </a>
-        <p className="ml-auto text-base  items-center whitespace-nowrap">
-          by <em className="author text-color-purple-200">{authorDisplay}</em>{" "}
-          on <em>{dateDisplay}</em>
-        </p>
+        <div className="attribution">
+          <a className="ml-right" href={contributionLink}>
+            <MdLink />
+          </a>
+          <p className="ml-auto text-base  items-center whitespace-nowrap">
+            by <em className="author text-color-purple-200">{authorDisplay}</em>{" "}
+            on <em>{dateDisplay}</em>
+          </p>
+        </div>
       </div>
     </div>
   );

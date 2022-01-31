@@ -34,17 +34,17 @@ import { LoadingIndicator } from "./core/LoadingIndicator";
 import { Checkmark } from "./core/Checkmark";
 import ContributionsCarousel from "./ContributionsCarousel";
 import { ContributionsContext, SignaturesContext } from "src/pages/Main";
-import { getContributionLink } from "src/helpers/contributions";
+import { getArweaveLink, getContributionLink } from "src/helpers/contributions";
 import { UserContext } from "src/helpers/user";
 import { AsyncButton } from "./core/AsyncButton";
 import dayjs from "dayjs";
 import { ArweaveContext } from "src/helpers/contexts/ArweaveContext";
 
 enum Page {
-  TermsOfUse,
-  Contribute,
-  Share,
-  TwitterVerify,
+  TermsOfUse = "TermsOfUse",
+  TwitterVerify = "TwitterVerify",
+  Contribute = "Contribute",
+  Share = "Share",
 }
 
 function getAgreementToSign(
@@ -169,6 +169,9 @@ function TermsOfUse({
     undefined
   );
   const { currentUserWalletAddress } = useContext(UserContext);
+  const { latestEssayInfo } = useContext(ArweaveContext);
+  const { version, transactionId = "" } = latestEssayInfo || {};
+  const arweaveDocLink = transactionId ? getArweaveLink(transactionId) : "";
 
   async function onDisagree() {
     await onSubmitWallet({
@@ -181,7 +184,7 @@ function TermsOfUse({
   return (
     <div className="terms">
       <div className="flex ">
-        <h2 className="text-3xl font-bold">Terms of Use</h2>
+        <h2 className="text-3xl font-bold">Terms of Signing</h2>
         {(user || currentUserWalletAddress) &&
           getUserLabel(
             user || { walletId: currentUserWalletAddress },
@@ -196,10 +199,19 @@ function TermsOfUse({
         acknowledgement that the <b>responsibility</b> as to the realization of
         an evolving digital pluriverse <b>lies with all of us</b>.{" "}
       </p>
+      {latestEssayInfo && (
+        <p>
+          Your signature will be associated with version {version} of the essay
+          and stored on{" "}
+          <a href={arweaveDocLink}>Arweave tx:{transactionId.slice(0, 20)}</a>.
+        </p>
+      )}
+      <br />
+      <hr />
       <p className="text-center">
         <b>
-          I want to help build the <b className="shimmer">pluriverse</b>{" "}
-          together
+          "I want to help build the <b className="shimmer">pluriverse</b>{" "}
+          together"
         </b>
       </p>
       {!user && currentUserWalletAddress && (
@@ -264,13 +276,6 @@ function TermsOfUse({
 
 export function ContributionSection() {
   const [page, setPage] = useState(Page.TermsOfUse);
-  const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(
-    Prompt.LooksLike
-  );
-  const [selectedPattern, setSelectedPattern] = useState<Pattern>(
-    Pattern.Pluriverse
-  );
-  const [response, setResponse] = useState<string | undefined>(undefined);
   const {
     currentUser,
     setCurrentUser,
@@ -279,6 +284,14 @@ export function ContributionSection() {
   } = useContext(UserContext);
   const { latestEssayTxId } = useContext(ArweaveContext);
   const { fetchSignatures } = useContext(SignaturesContext);
+
+  const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(
+    Prompt.LooksLike
+  );
+  const [selectedPattern, setSelectedPattern] = useState<Pattern>(
+    Pattern.Pluriverse
+  );
+  const [response, setResponse] = useState<string | undefined>(undefined);
 
   const PromptItems: DropdownItem[] = Object.keys(Prompt).map((promptKey) => ({
     name: PromptDescriptions[Prompt[promptKey as keyof typeof Prompt]],
@@ -698,9 +711,25 @@ export function ContributionSection() {
     }
   }
 
+  function renderPageProgress() {
+    console.log(Object.keys(Page));
+    return (
+      <div className="pageProgressContainer mb-8">
+        {Object.values(Page).map((p) => (
+          <div
+            className={`pageProgress ${
+              page === p ? "selectedPageProgress" : ""
+            }`}
+          />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <>
       <div id="contribute" className="contributionSection text-base">
+        {renderPageProgress()}
         {renderPage()}
         {error && (
           <div className="errorContainer text-red-500">Error: {error}</div>

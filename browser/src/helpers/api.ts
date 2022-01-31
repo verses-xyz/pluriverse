@@ -157,7 +157,20 @@ interface Edge {
   };
 }
 
-export async function fetchLatestEssayTxId(): Promise<string> {
+export interface ArweaveEssayTransaction {
+  transactionId: string;
+  version: number;
+}
+
+function getVersionForArweaveTransaction(edge: Edge): number {
+  return (
+    parseInt(
+      edge.node.tags.find((tag: Tag) => tag.name === "DOC_VERSION").value
+    ) || 0
+  );
+}
+
+export async function fetchLatestArweaveEssay(): Promise<ArweaveEssayTransaction> {
   const req = await fetch("https://arweave.net/graphql", {
     method: "POST",
     headers: {
@@ -196,11 +209,12 @@ export async function fetchLatestEssayTxId(): Promise<string> {
   return (json.data.transactions.edges as Edge[])
     .sort((a, b) => {
       // we reverse sort edges if version is not defined to get latest version
-      const getVersion = (edge: Edge): number =>
-        parseInt(
-          edge.node.tags.find((tag: Tag) => tag.name === "DOC_VERSION").value
-        ) || 0;
-      return getVersion(b) - getVersion(a);
+      return (
+        getVersionForArweaveTransaction(b) - getVersionForArweaveTransaction(a)
+      );
     })
-    .map((e) => e.node.id)[0];
+    .map((e) => ({
+      transactionId: e.node.id,
+      version: getVersionForArweaveTransaction(e),
+    }))[0];
 }
