@@ -5,27 +5,28 @@ export function DevelopmentBanner() {
     <>
       <div className="banner">
         <p>
-          This artifact is currently a work in progress and should not be shared
-          publicly on social media. If this link has been shared with you, we
-          would highly treasure your feedback and participation with this
-          artifact.
+          This artifact is currently scheduled for release on February 7, and
+          should not be shared publicly on social media.
         </p>
         <p>
-          For more context on the artifact, to leave feedback, and/or to
-          schedule a call with one of the core stewards to see how you might
-          contribute, please see our{" "}
-          <a href="https://docs.google.com/document/d/1Tes7GTDx_cQNlTVwE6_jMFuLN1N3SQUzrA3dypYv3Nw/edit">
-            running working document
+          The text is undergoing a significant revision, mostly to acknowledge
+          our positionality as a collective, as well as to add significant
+          caveats, clarifications, and acknowledgements. If you'd like to see a
+          tweet thread about this work with contextualization, please see this
+          <a href="https://docs.google.com/document/d/1UpG7mOYExdWnk0XBwwWGaCoa5ITD-xo7qQDU5HquW04/edit">
+            document
           </a>
-          , and/or join the conversation on our{" "}
-          <a href="https://t.me/+3nysH7Ja6pszZWI5">Telegram</a>. We are happy to
-          help workshop contributions with individuals who'd like to comment
-          about a particular organization (e.g. about the place they work).
+          If you'd like to view the draft in progress,{" "}
+          <a href="https://docs.google.com/document/d/1a1FEBgIboRXBTVCpxal7QtS0kVltXN2KU9zDVMkqaC4/edit#">
+            please see here
+          </a>
         </p>
         <p>
-          We ask early readers to go through the artifact, and sign the artifact
-          gaslessly with your wallet, and for you to share this forward with 2-5
-          more people who you think might resonate with the spirit of this work.
+          We ask early readers to go through the artifact, sign the artifact
+          gaslessly with your wallet, and contribute example cards to our
+          pattern seed set. We would also love for you to share this forward
+          with 2-5 more people who you think might resonate with the spirit of
+          this work. Thank you for being here, and for engaging with this work!"
         </p>
       </div>
     </>
