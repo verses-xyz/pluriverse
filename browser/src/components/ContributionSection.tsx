@@ -292,6 +292,7 @@ export function ContributionSection() {
   } = useContext(UserContext);
   const { latestEssayTxId } = useContext(ArweaveContext);
   const { fetchSignatures } = useContext(SignaturesContext);
+  const { fetchContribution, contributions } = useContext(ContributionsContext);
 
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(
     Prompt.LooksLike
@@ -359,8 +360,8 @@ export function ContributionSection() {
     Contribution | undefined
   >(undefined);
 
-  async function fetchContribution(id: number) {
-    const contribution = await getContribution({ id });
+  async function updateContribution(id: number) {
+    const contribution = await fetchContribution(id);
     setSelectedContribution(contribution);
   }
 
@@ -386,7 +387,7 @@ export function ContributionSection() {
       });
       // TODO: eliminate this and just return th actual contribution data with the response above.
       // TODO: incoroprate this into the context so it updates everywhere
-      await fetchContribution(newContributionId);
+      await updateContribution(newContributionId);
       setResponse(undefined);
       setPage(Page.Share);
       setError(undefined);
@@ -651,6 +652,7 @@ export function ContributionSection() {
             {/* TODO: if not verified, add verify link */}
             <ContributionCard
               contribution={selectedContribution!}
+              renderCanvas={true}
             ></ContributionCard>
             <p>
               You can share your specific contribution with others using this
@@ -700,7 +702,6 @@ export function ContributionSection() {
     }
   }
 
-  const { contributions } = useContext(ContributionsContext);
   function renderPageExtra() {
     switch (page) {
       case Page.Contribute: {

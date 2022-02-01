@@ -20,6 +20,7 @@ interface Props {
   hideHeader?: boolean;
   isCompact?: boolean;
   className?: string;
+  renderCanvas?: boolean;
 }
 
 export function getFullContributionResponse({
@@ -42,6 +43,7 @@ export function ContributionCard({
   hideHeader = true,
   isCompact = false,
   className = "",
+  renderCanvas,
 }: Props) {
   const { author, response, prompt, pattern, createdAt, id } = contribution;
 
@@ -76,14 +78,15 @@ export function ContributionCard({
       <div className="mt-auto">
         {!isCompact && <hr className="mt-2" />}
         <div className={isCompact ? "blobSingleContainer" : "blobContainer"}>
-          {id ? (
-            <BlobSingleScissorWindow id={id} />
-          ) : (
+          {!id || renderCanvas ? (
             // TODO: add all the things needed
-            <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+            <Canvas
+              camera={{ position: [0, 0, 20], fov: 50 }}
+              style={{ cursor: "pointer" }}
+            >
               <OrbitControls
                 autoRotate={true}
-                autoRotateSpeed={1}
+                autoRotateSpeed={5}
                 enableZoom={false}
               />
               <BlobSingle
@@ -93,6 +96,8 @@ export function ContributionCard({
                 response={response}
               />
             </Canvas>
+          ) : (
+            <BlobSingleScissorWindow id={id} />
           )}
         </div>
         <div className="attribution">
