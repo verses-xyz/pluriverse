@@ -39,6 +39,7 @@ import { UserContext } from "src/helpers/user";
 import { AsyncButton } from "./core/AsyncButton";
 import dayjs from "dayjs";
 import { ArweaveContext } from "src/helpers/contexts/ArweaveContext";
+import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 enum Page {
   TermsOfUse = "TermsOfUse",
@@ -46,6 +47,13 @@ enum Page {
   Contribute = "Contribute",
   Share = "Share",
 }
+
+const PageNames: { [key in Page]: string } = {
+  [Page.TermsOfUse]: "Signing",
+  [Page.TwitterVerify]: "Verification",
+  [Page.Contribute]: "Contribution",
+  [Page.Share]: "Sharing",
+};
 
 function getAgreementToSign(
   isDisagreeing: boolean,
@@ -453,8 +461,6 @@ export function ContributionSection() {
     [currentUser]
   );
 
-  const [lastPage, setLastPage] = useState<Page>(Page.TermsOfUse);
-
   function onClickTweetProof() {
     const tweetText = `${TweetTemplate}${currentUser!.signature}`;
     window.open(getTweetIntentLink(tweetText), "_blank");
@@ -470,7 +476,6 @@ export function ContributionSection() {
       setError(undefined);
       // switch page after showing success
       setTimeout(() => {
-        setLastPage(Page.TermsOfUse);
         setPage(Page.Contribute);
       }, 750);
     } catch (err) {
@@ -478,11 +483,6 @@ export function ContributionSection() {
     } finally {
       setIsLoading(false);
     }
-  }
-
-  function onClickSkipVerification() {
-    setLastPage(Page.TwitterVerify);
-    setPage(Page.Contribute);
   }
 
   function renderPage() {
@@ -565,15 +565,6 @@ export function ContributionSection() {
                   </div>
                 </div>
               </ol>
-
-              <div className="verifyActions">
-                <button
-                  className={ButtonLinkStyling}
-                  onClick={onClickSkipVerification}
-                >
-                  Skip verification to contributing
-                </button>
-              </div>
             </div>
           </div>
         );
@@ -625,12 +616,6 @@ export function ContributionSection() {
                 />
               </div>
               <div className="actionsContainer">
-                <button
-                  onClick={() => setPage(lastPage)}
-                  className={ButtonClass("white")}
-                >
-                  Back
-                </button>
                 <button
                   onClick={onSaveContribution}
                   className={ButtonClass("blue")}
@@ -752,6 +737,59 @@ export function ContributionSection() {
     );
   }
 
+  function getPreviousPage() {
+    let pageIndex = Object.values(Page).indexOf(page);
+    if (
+      page === Page.Contribute &&
+      (currentUser?.twitterVerified || !currentUser?.twitterUsername)
+    ) {
+      pageIndex--;
+    }
+    return pageIndex - 1 >= 0
+      ? (Object.values(Page)[pageIndex - 1] as Page)
+      : undefined;
+  }
+
+  function getNextPage() {
+    const pageIndex = Object.values(Page).indexOf(page);
+    return pageIndex + 1 < Object.keys(Page).length
+      ? (Object.values(Page)[pageIndex + 1] as Page)
+      : undefined;
+  }
+
+  function renderPageNavigation() {
+    if (page === Page.TermsOfUse) {
+      return;
+    }
+
+    const pageIndex = Object.values(Page).indexOf(page);
+    const previousPage = getPreviousPage();
+    const nextPage = page === Page.Contribute ? undefined : getNextPage();
+
+    console.log(pageIndex, previousPage, nextPage);
+
+    return (
+      <div className="flex mt-8">
+        {previousPage && (
+          <button
+            className={`${ButtonClass()} mr-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
+            onClick={() => setPage(previousPage)}
+          >
+            <MdArrowBack /> {PageNames[previousPage]}
+          </button>
+        )}
+        {nextPage && (
+          <button
+            className={`${ButtonClass()} ml-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
+            onClick={() => setPage(nextPage)}
+          >
+            {PageNames[nextPage]} <MdArrowForward />
+          </button>
+        )}
+      </div>
+    );
+  }
+
   return (
     <>
       <div id="contribute" className="contributionSection text-base">
@@ -760,6 +798,7 @@ export function ContributionSection() {
         {error && (
           <div className="errorContainer text-red-500">Error: {error}</div>
         )}
+        {renderPageNavigation()}
       </div>
       {renderPageExtra()}
     </>
