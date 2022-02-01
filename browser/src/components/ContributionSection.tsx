@@ -294,6 +294,8 @@ export function ContributionSection() {
   const { fetchSignatures } = useContext(SignaturesContext);
   const { fetchContribution, contributions } = useContext(ContributionsContext);
 
+  // TODO: add unmount effect to have "alert unsaved changes" if response is filled in and on contribution page
+
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(
     Prompt.LooksLike
   );
