@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import Modal from "react-modal";
+import { MdLink } from "react-icons/md";
 
 // Tiptap + extensions
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -82,6 +83,7 @@ export function Editor({
       onChange(
         sanitizeHtml(editor.getHTML())
       );
+      console.log(editor.state.doc)
       // Okay so what we want is ContributionCard should render the 
       // html directly to be fast, but we should store markdown
       // so we should keep onChange the same so that contribution card is
@@ -169,7 +171,7 @@ export function Editor({
               }}
               className={`menuItem linkIcon ${displayLinkModal ? 'shimmer' : 'white'}`}
             >
-              <strong>🔗</strong>
+              <MdLink className={`${displayLinkModal ? 'iconShimmer' : 'white'}`} />
             </button>
           </div>
         </>
@@ -179,7 +181,7 @@ export function Editor({
         onAfterOpen={getPreviousLink}
         className="modal"
         overlayClassName="overlay"
-        onRequestClose={() => onCloseModal()}
+        onRequestClose={() => closeModal()}
         shouldCloseOnOverlayClick={true}
       >
         <h3 className="text-3xl font-bold">

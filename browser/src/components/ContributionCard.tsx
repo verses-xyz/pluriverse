@@ -1,5 +1,5 @@
 import {
-  Contribution,
+  ClientContribution,
   PatternToDisplay,
   Prompt,
 } from "src/types/common/server-api";
@@ -152,9 +152,11 @@ export function ContributionCard({
           : null
       }
     >
-      {!hideHeader && (
-        <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
-      )}
+      {
+        !hideHeader && (
+          <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
+        )
+      }
       {/* actual response */}
       <p className="h-full overflow-y-auto mb-32 response">
         {getContributionCardResponse(contribution)}
