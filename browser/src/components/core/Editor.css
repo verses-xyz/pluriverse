@@ -93,7 +93,6 @@
 }
 
 .linkIcon {
-    font-size: 85%; 
     padding-left: 2px;
 }
 
@@ -138,3 +137,24 @@
     justify-content:center;
     z-index: 8000;
 }
+
+.iconShimmer {
+    text-align: center;
+  
+    background: linear-gradient(
+        90deg,
+        #0000 33%,
+        rgba(255, 255, 255, 0.5) 50%,
+        #0000 66%
+      )
+      rgb(198, 142, 255);
+    background-size: 200% auto;
+  
+    color: rgb(198, 142, 255);
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  
+    animation: shine 2s linear infinite;
+  }

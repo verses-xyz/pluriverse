@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 import {
   Contribution,
   PatternToDisplay,
   Prompt,
 } from "src/types/common/server-api";
+=======
+import { ClientContribution, PatternToDisplay } from "src/types/common/server-api";
+>>>>>>> 3f698bd... WIP markdown support
 import dayjs from "dayjs";
 import { BlobSingle } from "src/components/BlobSingle";
 import "./ContributionCard.css";
@@ -146,36 +150,8 @@ export function ContributionCard({
                   <FiMaximize2 />
                 </button> */}
       </div>
-<<<<<<< HEAD
       <div className={`responseContainerContributionCard`}>
         <p className="response">{getContributionCardResponse(contribution)}</p>
-=======
-      <p className="">
-        {replaceJSX(PromptDescriptions[prompt], {
-          [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
-        })}{" "}
-        {input}
-      </p>
-      <div className={isCompact ? "blobSingleContainer" : "blobContainer"}>
-        {id ? (
-          <BlobSingleScissorWindow id={id} />
-        ) : (
-          // TODO: add all the things needed
-          <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
-            <OrbitControls
-              autoRotate={true}
-              autoRotateSpeed={1}
-              enableZoom={false}
-            />
-            <BlobSingle
-              pattern={pattern}
-              prompt={prompt}
-              walletId={author.walletId}
-              response={response}
-            />
-          </Canvas>
-        )}
->>>>>>> 3184758... add link validation
       </div>
       <div className="mt-auto">
         {!isCompact && <hr className="mt-2" />}
