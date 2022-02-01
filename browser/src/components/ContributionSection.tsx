@@ -504,43 +504,69 @@ export function ContributionSection() {
               <h2 className="text-3xl font-bold">Terms of Verification</h2>
               {currentUser && getUserLabel(currentUser, "verifying for")}
             </div>
-            <div className="verifyContainer">
+            <div className="verifyContainer ">
               <p>
-                Tweet a message to prove that you control this address. Return
-                to this page afterwards to complete verification.
+                <em>(this is optional)</em>
               </p>
-              <button
-                // className="twitter-share-button"
-                className={ButtonClass()}
-                onClick={onClickTweetProof}
-              >
-                Tweet proof
-              </button>
-              <p>
-                After sending your tweet, click the button below to complete
-                verification. If successful, you'll proceed to contributing to
-                the <b className="shimmer">Pluriverse</b>.
-              </p>
+              <ol className="list-decimal list-inside	">
+                <div className="grid twitterSteps">
+                  <p className="pt-0">
+                    <li>
+                      <span>
+                        Tweet a message to prove that you control your wallet
+                        address. Make sure to keep the "sig:0x123..." part at
+                        the end, but feel free to add your own spin on the
+                        message that comes before. Come back after to verify the
+                        tweet.
+                      </span>
+                    </li>
+                  </p>
+                  <div className="ml-auto">
+                    <button
+                      // className="twitter-share-button"
+                      className={`${ButtonClass()}`}
+                      onClick={onClickTweetProof}
+                    >
+                      Tweet proof
+                    </button>
+                  </div>
+                  <p className="pt-0 mt-4">
+                    <li>
+                      <span>
+                        After your tweet is sent, press the Verify button. If
+                        successful, your twitter handle and contribution will be
+                        linked.
+                      </span>
+                    </li>
+                  </p>
+                  <div className="ml-auto">
+                    <button
+                      style={{
+                        display: "inline-flex",
+                        justifyContent: "center",
+                      }}
+                      className={`${ButtonClass()}`}
+                      onClick={onClickVerifyTwitter}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <>
+                          Verifying{" "}
+                          <LoadingIndicator style={{ marginLeft: "6px" }} />
+                        </>
+                      ) : currentUser?.twitterVerified ? (
+                        <>
+                          Verified! <Checkmark />
+                        </>
+                      ) : (
+                        "Verify twitter"
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </ol>
+
               <div className="verifyActions">
-                <button
-                  style={{ display: "inline-flex", justifyContent: "center" }}
-                  className={ButtonClass()}
-                  onClick={onClickVerifyTwitter}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <>
-                      Verifying{" "}
-                      <LoadingIndicator style={{ marginLeft: "6px" }} />
-                    </>
-                  ) : currentUser?.twitterVerified ? (
-                    <>
-                      Verified! <Checkmark />
-                    </>
-                  ) : (
-                    "Verify twitter"
-                  )}
-                </button>
                 <button
                   className={ButtonLinkStyling}
                   onClick={onClickSkipVerification}

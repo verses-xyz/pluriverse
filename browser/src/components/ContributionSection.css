@@ -175,3 +175,8 @@ ul > li:not(:first-child) {
 .selectedPageProgress {
   background: #ffffff;
 }
+
+.twitterSteps {
+  grid-template-columns: auto auto;
+  grid-gap: 8px;
+}
