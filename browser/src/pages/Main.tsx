@@ -5,11 +5,10 @@ import Hero from "../components/Hero";
 import { ContributionSection } from "../components/ContributionSection";
 import { SignatureContent } from "../components/SignatureContent";
 import { NavLink } from "react-router-dom";
-import { Author, Contribution } from "src/types/common/server-api";
+import { Author } from "src/types/common/server-api";
 import React from "react";
-import { getContribution, getContributions, getUsers } from "src/helpers/api";
+import { getUsers } from "src/helpers/api";
 import useGsap from "src/hook/useGsap";
-import BlobContributionsScissorCanvasRendererWithContributions from "src/components/BlobContributionsScissorCanvasRendererWithContributions";
 
 export interface SignaturesContextInfo {
   signatures: Author[];
@@ -20,57 +19,6 @@ export const SignaturesContext = React.createContext<SignaturesContextInfo>({
   signatures: [],
   fetchSignatures: () => {},
 });
-
-interface ContributionsContextInfo {
-  contributions: Contribution[];
-  fetchContributions(): void;
-  fetchContribution(id: number): Promise<Contribution>;
-}
-
-export const ContributionsContext =
-  React.createContext<ContributionsContextInfo>({
-    contributions: [],
-    fetchContributions: () => {},
-    fetchContribution: () => Promise.resolve(undefined),
-  });
-
-function ContributionsProvider({ children }) {
-  const [contributions, setContributions] = useState<Contribution[]>([]);
-  const contributionIdsSet = useRef(new Set<number>());
-
-  useEffect(async () => {
-    await fetchContributions();
-  }, []);
-
-  async function fetchContributions() {
-    const newContributions = await getContributions({});
-    for (const { id } of newContributions) {
-      contributionIdsSet.current.add(id);
-    }
-    setContributions(newContributions);
-  }
-
-  async function fetchContribution(id: number) {
-    const contribution = await getContribution({ id });
-    if (!contributionIdsSet.current.has(id)) {
-      contributionIdsSet.current.add(id);
-      setContributions([...contributions, contribution]);
-    }
-    return contribution;
-  }
-
-  const contributionsContext = {
-    contributions,
-    fetchContributions,
-    fetchContribution,
-  };
-
-  return (
-    <ContributionsContext.Provider value={contributionsContext}>
-      {children}
-    </ContributionsContext.Provider>
-  );
-}
 
 function SignaturesProvider({ children }) {
   const [authors, setAuthors] = useState<Author[]>([]);
@@ -158,36 +106,33 @@ export function Main() {
       <div className="fadeOutOnScroll">
         <Hero />
       </div>
-      <ContributionsProvider>
-        <BlobContributionsScissorCanvasRendererWithContributions />
-        <SignaturesProvider>
-          <div className="mainContent">
-            <div id="essay-content" ref={essayContentRef}>
-              <EssayContent />
-            </div>
-            <div ref={patternsContentRef}>
-              <PatternsContent />
-            </div>
-            <div className="text-center my-8">
-              <NavLink to="/contributions">
-                <button className={`glass-button`}>
-                  Browse all contributions
-                </button>
-              </NavLink>
-            </div>
-            <div
-              id="contributionSection"
-              className="container w-full md:max-w-4xl mx-auto pb-20 px-4"
-            >
-              <ContributionSection />
-              <br />
-
-              <br />
-              <SignatureContent />
-            </div>
+      <SignaturesProvider>
+        <div className="mainContent">
+          <div id="essay-content" ref={essayContentRef}>
+            <EssayContent />
           </div>
-        </SignaturesProvider>
-      </ContributionsProvider>
+          <div ref={patternsContentRef}>
+            <PatternsContent />
+          </div>
+          <div className="text-center my-8">
+            <NavLink to="/contributions">
+              <button className={`glass-button`}>
+                Browse all contributions
+              </button>
+            </NavLink>
+          </div>
+          <div
+            id="contributionSection"
+            className="container w-full md:max-w-4xl mx-auto pb-20 px-4"
+          >
+            <ContributionSection />
+            <br />
+
+            <br />
+            <SignatureContent />
+          </div>
+        </div>
+      </SignaturesProvider>
     </>
   );
 }

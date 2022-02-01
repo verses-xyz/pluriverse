@@ -9,6 +9,9 @@ import { Navbar } from "./components/Navbar";
 import { Main } from "./pages/Main";
 import { UserProvider } from "./helpers/user";
 import { ArweaveProvider } from "./helpers/contexts/ArweaveContext";
+import { ModalProvider } from "./helpers/contexts/ModalContext";
+import { ContributionsProvider } from "./helpers/contexts/ContributionsContext";
+import BlobContributionsScissorCanvasRendererWithContributions from "./components/BlobContributionsScissorCanvasRendererWithContributions";
 
 function App() {
   return (
@@ -18,15 +21,20 @@ function App() {
         <Navbar />
         <UserProvider>
           <ArweaveProvider>
-            <Routes>
-              <Route index={true} element={<Main />} />
-              <Route path="about" element={<About />} />
-              <Route path="contributions" element={<ContributionsPage />} />
-              <Route
-                path="contributions/:contributionId"
-                element={<ContributionsPage />}
-              />
-            </Routes>
+            <ContributionsProvider>
+              <BlobContributionsScissorCanvasRendererWithContributions />
+              <ModalProvider>
+                <Routes>
+                  <Route index={true} element={<Main />} />
+                  <Route path="about" element={<About />} />
+                  <Route path="contributions" element={<ContributionsPage />} />
+                  <Route
+                    path="contributions/:contributionId"
+                    element={<ContributionsPage />}
+                  />
+                </Routes>
+              </ModalProvider>
+            </ContributionsProvider>
           </ArweaveProvider>
         </UserProvider>
         <footer className="pt-2 pb-16">

@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -15,9 +14,6 @@ import { getContributions } from "src/helpers/api";
 import { Contribution } from "src/types/common/server-api";
 import { ButtonClass } from "src/types/styles";
 import { Helmet } from "react-helmet";
-import BlobContributionsScissorCanvasRenderer from "src/components/BlobContributionsScissorCanvasRenderer";
-
-dayjs.extend(utc);
 
 const ContributionsLimit = 500;
 const ContributionsPageLimit = 100;
@@ -42,6 +38,7 @@ export function ContributionsPage() {
     // TODO:
   }
 
+  // TODO: if highlightedContribution, then open the contribution modal with it
   const highlightedContribution =
     highlightedContributionId &&
     contributions.find((c) => c.id === highlightedContributionId);
@@ -97,7 +94,7 @@ export function ContributionsPage() {
 
   return (
     <>
-      <BlobContributionsScissorCanvasRenderer contributions={contributions} />
+      {/* <BlobContributionsScissorCanvasRenderer contributions={contributions} /> */}
       {highlightedContribution
         ? getMetaTagsForHighlightedContribution(highlightedContribution)
         : getMetaTags()}

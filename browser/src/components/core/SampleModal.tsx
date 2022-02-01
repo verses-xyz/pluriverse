@@ -14,18 +14,18 @@ interface Props {
 
 Modal.setAppElement("#root");
 
-export function SampleModal({ }: Props) {
+export function SampleModal({}: Props) {
   const [displayLinkModal, setDisplayLinkModal] = useState<boolean>(false);
 
   const openModal = () => {
     setDisplayLinkModal(true);
     toggleBackgroundScrollingOnModal(false);
-  }
+  };
 
   const closeModal = () => {
     setDisplayLinkModal(false);
     toggleBackgroundScrollingOnModal(true);
-  }
+  };
 
   const toggleBackgroundScrollingOnModal = (scrollable: boolean) => {
     if (scrollable) {
@@ -33,7 +33,7 @@ export function SampleModal({ }: Props) {
     } else {
       document.body.style.overflow = "hidden";
     }
-  }
+  };
 
   return (
     <>
@@ -44,8 +44,7 @@ export function SampleModal({ }: Props) {
         overlayClassName="overlay"
         onRequestClose={() => closeModal()}
         shouldCloseOnOverlayClick={true}
-      >
-      </Modal>
+      ></Modal>
     </>
-  )
+  );
 }

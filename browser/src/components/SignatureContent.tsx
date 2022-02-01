@@ -1,13 +1,10 @@
 import { useContext } from "react";
 import { Author } from "src/types/common/server-api";
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
 import "./SignatureContent.css";
 import { Checkmark } from "./core/Checkmark";
 import { ButtonClass } from "src/types/styles";
 import { SignaturesContext } from "src/pages/Main";
-
-dayjs.extend(utc);
 
 function truncateWallet(address: string) {
   return address.slice(0, 6) + "..." + address.slice(-4);

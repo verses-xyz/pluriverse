@@ -33,7 +33,8 @@ import {
 import { LoadingIndicator } from "./core/LoadingIndicator";
 import { Checkmark } from "./core/Checkmark";
 import ContributionsCarousel from "./ContributionsCarousel";
-import { ContributionsContext, SignaturesContext } from "src/pages/Main";
+import { SignaturesContext } from "src/pages/Main";
+import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
 import { getArweaveLink, getContributionLink } from "src/helpers/contributions";
 import { UserContext } from "src/helpers/user";
 import { AsyncButton } from "./core/AsyncButton";

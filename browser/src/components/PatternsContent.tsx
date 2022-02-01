@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ContributionsContext } from "src/pages/Main";
+import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
 import { Contribution, Pattern } from "src/types/common/server-api";
 import { Principles } from "../types";
 import ContributionsCarousel from "./ContributionsCarousel";

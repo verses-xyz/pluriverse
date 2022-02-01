@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ContributionsContext } from "src/pages/Main";
+import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
 import BlobContributionsScissorCanvasRenderer from "./BlobContributionsScissorCanvasRenderer";
 
 export default function BlobContributionsScissorCanvasRendererWithContributions() {

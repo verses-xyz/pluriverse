@@ -242,3 +242,28 @@ footer {
   z-index: 12313123131231;
   position: absolute;
 }
+
+
+.modal {
+  background-color: hsla(0, 0%, 20%, 1);
+  width: 100%;
+  max-width: 576px;
+  padding: 3rem;
+  position: relative;
+  border-radius: 0.4rem;
+  z-index: 5000;
+}
+
+.overlay {
+  background-color: hsla(0, 0%, 100%, .1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}

@@ -13,7 +13,10 @@ import BlobSingleScissorWindow from "./BlobSingleScissorWindow";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei/core/OrbitControls";
 import { MdLink } from "react-icons/md";
+import { FiMaximize2 } from "react-icons/fi";
 import { getContributionLink } from "src/helpers/contributions";
+import { useContext } from "react";
+import { ModalContext } from "src/helpers/contexts/ModalContext";
 
 interface Props {
   contribution: Contribution;
@@ -21,6 +24,7 @@ interface Props {
   isCompact?: boolean;
   className?: string;
   renderCanvas?: boolean;
+  full?: boolean;
 }
 
 export function getFullContributionResponse({
@@ -44,6 +48,7 @@ export function ContributionCard({
   isCompact = false,
   className = "",
   renderCanvas,
+  full,
 }: Props) {
   const { author, response, prompt, pattern, createdAt, id } = contribution;
 
@@ -51,6 +56,8 @@ export function ContributionCard({
   const date = dayjs(createdAt, { utc: true });
   const dateDisplay = date.format("MMM, YYYY");
   const contributionLink = getContributionLink(contribution);
+  const { openContributionModal, openContributionId } =
+    useContext(ModalContext);
 
   return (
     <div
@@ -59,8 +66,15 @@ export function ContributionCard({
           ? "compactContributionCardContainer"
           : "contributionCardContainer") +
         " " +
-        className
+        className +
+        " " +
+        (full ? "full" : "") +
+        " " +
+        (contribution && openContributionId === contribution.id
+          ? "selectedBorder"
+          : "")
       }
+      onClick={() => (id ? openContributionModal(contribution) : null)}
     >
       <div className="flex">
         {!hideHeader && (
@@ -77,7 +91,10 @@ export function ContributionCard({
       </div>
       <div className="mt-auto">
         {!isCompact && <hr className="mt-2" />}
-        <div className={isCompact ? "blobSingleContainer" : "blobContainer"}>
+        <div
+          className={isCompact ? "blobSingleContainer" : "blobContainer"}
+          onClick={(e) => e.stopPropagation()}
+        >
           {!id || renderCanvas ? (
             // TODO: add all the things needed
             <Canvas
@@ -101,9 +118,22 @@ export function ContributionCard({
           )}
         </div>
         <div className="attribution">
-          <a className="ml-right" href={contributionLink}>
-            <MdLink />
-          </a>
+          {id && (
+            <>
+              {full ? (
+                <a className="mr-auto" href={contributionLink}>
+                  <MdLink />
+                </a>
+              ) : (
+                <button
+                  className="mr-auto"
+                  onClick={() => openContributionModal(contribution)}
+                >
+                  <FiMaximize2 />
+                </button>
+              )}
+            </>
+          )}
           <p className="ml-auto text-base  items-center whitespace-nowrap">
             by <em className="author text-color-purple-200">{authorDisplay}</em>{" "}
             on <em>{dateDisplay}</em>

@@ -16,6 +16,10 @@
   height: 400px;
 }
 
+.full.full {
+  height:fit-content;
+}
+
 .contributionCardContainer > h2 {
   margin-bottom: 12px;
 }
