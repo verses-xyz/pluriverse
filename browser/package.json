@@ -34,6 +34,7 @@
     "react-helmet": "^6.1.0",
     "react-icons": "^4.3.1",
     "react-intersection-observer": "^8.33.1",
+    "react-modal": "^3.14.4",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "react-three-scissor": "^1.0.0",
