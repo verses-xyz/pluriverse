@@ -40,7 +40,9 @@ export function Navbar() {
         <div>
           {/* Can make this scroll instead. */}
           <a href="/#contribute">
-            <button className={`glass-button`}>Contribute</button>
+            <button className={`glass-button glass-button-cta`}>
+              Contribute
+            </button>
           </a>
         </div>
       </div>

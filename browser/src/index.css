@@ -193,23 +193,23 @@ blockquote:before {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* .glass-button::before {
+.glass-button-cta::before {
   position: absolute;
-  top: 5px;
-  left: 10%;
+  top: 2.5px;
+  left: 5%;
   z-index: -1;
-  width: 80%;
-  height: 30px;
+  width: 90%;
+  height: 40px;
   border-radius: 50px;
-  background-color: #cad0e0;
+  background-color: rgb(186, 120, 253);
   filter: blur(10px);
   content: "";
   transition: 0.5s;
 }
 
-.glass-button:hover::before {
+.glass-button-cta:hover::before {
   transform: scale(1.4);
-} */
+}
 
 .mainContent {
   /* TODO: background blur is terrible for perf by design */
