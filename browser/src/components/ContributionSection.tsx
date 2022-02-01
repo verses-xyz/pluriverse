@@ -10,12 +10,7 @@ import {
   TweetTemplate,
 } from "../types/common/server-api/index";
 import { Dropdown, DropdownItem } from "./core/Dropdown";
-import {
-  addContribution,
-  addUser,
-  getContribution,
-  verifyTwitter,
-} from "src/helpers/api";
+import { addContribution, addUser, verifyTwitter } from "src/helpers/api";
 import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
 import { ButtonClass, ButtonLinkStyling } from "src/types/styles";
@@ -727,7 +722,6 @@ export function ContributionSection() {
   }
 
   function renderPageProgress() {
-    console.log(Object.keys(Page));
     return (
       <div className="pageProgressContainer mb-8">
         {Object.values(Page).map((p) => (
@@ -769,8 +763,6 @@ export function ContributionSection() {
     const pageIndex = Object.values(Page).indexOf(page);
     const previousPage = getPreviousPage();
     const nextPage = page === Page.Contribute ? undefined : getNextPage();
-
-    console.log(pageIndex, previousPage, nextPage);
 
     return (
       <div className="flex mt-8">
