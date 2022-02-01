@@ -49,6 +49,22 @@ export function ContributionsPage() {
     (c) => !highlightedContributionId || c.id !== highlightedContributionId
   );
 
+  function getMetaTags() {
+    const title = "Contributions to the Digital Pluriverse";
+    const description = "Contributions from the community to the pluriverse.";
+    return (
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+      </Helmet>
+    );
+  }
+
   function getMetaTagsForHighlightedContribution(contribution: Contribution) {
     const fullResponse = getFullContributionResponse(contribution);
     const { author } = contribution;
@@ -82,6 +98,9 @@ export function ContributionsPage() {
   return (
     <>
       <BlobContributionsScissorCanvasRenderer contributions={contributions} />
+      {highlightedContribution
+        ? getMetaTagsForHighlightedContribution(highlightedContribution)
+        : getMetaTags()}
       <div className="container md:max-w-3xl mx-auto pb-10">
         <div className="mb-10">
           <h2 className="font-title text-3xl pt-16 font-bold pb-3">
@@ -114,7 +133,6 @@ export function ContributionsPage() {
             />
             <br />
             <p>All other contributions can be explored below.</p>
-            {getMetaTagsForHighlightedContribution(highlightedContribution)}
           </div>
         )}
       </div>
