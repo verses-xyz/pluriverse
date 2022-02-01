@@ -1,4 +1,4 @@
-import { Ref, useEffect, useRef, useState } from "react";
+import { Ref, useContext, useEffect, useRef, useState } from "react";
 import EssayContent from "../components/EssayContent";
 import PatternsContent from "../components/PatternsContent";
 import Hero from "../components/Hero";
@@ -9,6 +9,7 @@ import { Author } from "src/types/common/server-api";
 import React from "react";
 import { getUsers } from "src/helpers/api";
 import useGsap from "src/hook/useGsap";
+import { StatsContext } from "src/helpers/contexts/StatsContext";
 
 export interface SignaturesContextInfo {
   signatures: Author[];
@@ -48,6 +49,9 @@ export function Main() {
 
   const essayContentRef = useRef<any>();
   const patternsContentRef = useRef<any>();
+
+  const { stats } = useContext(StatsContext);
+  const { authorsTotal, contributionsTotal } = stats || {};
 
   useEffect(() => {
     gsap.fromTo(
@@ -115,6 +119,13 @@ export function Main() {
             <PatternsContent />
           </div>
           <div className="text-center my-8">
+            {stats && (
+              <div className="mb-2">
+                <b>{authorsTotal}</b> members of the{" "}
+                <b className="shimmer">Pluriverse</b> community have signed, and{" "}
+                <b>{contributionsTotal}</b> contributions have been submitted.
+              </div>
+            )}
             <NavLink to="/contributions">
               <button className={`glass-button`}>
                 Browse all contributions

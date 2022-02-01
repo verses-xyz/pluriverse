@@ -12,6 +12,7 @@ import { ArweaveProvider } from "./helpers/contexts/ArweaveContext";
 import { ModalProvider } from "./helpers/contexts/ModalContext";
 import { ContributionsProvider } from "./helpers/contexts/ContributionsContext";
 import BlobContributionsScissorCanvasRendererWithContributions from "./components/BlobContributionsScissorCanvasRendererWithContributions";
+import { StatsProvider } from "./helpers/contexts/StatsContext";
 
 function App() {
   return (
@@ -24,15 +25,20 @@ function App() {
             <ContributionsProvider>
               <BlobContributionsScissorCanvasRendererWithContributions />
               <ModalProvider>
-                <Routes>
-                  <Route index={true} element={<Main />} />
-                  <Route path="about" element={<About />} />
-                  <Route path="contributions" element={<ContributionsPage />} />
-                  <Route
-                    path="contributions/:contributionId"
-                    element={<ContributionsPage />}
-                  />
-                </Routes>
+                <StatsProvider>
+                  <Routes>
+                    <Route index={true} element={<Main />} />
+                    <Route path="about" element={<About />} />
+                    <Route
+                      path="contributions"
+                      element={<ContributionsPage />}
+                    />
+                    <Route
+                      path="contributions/:contributionId"
+                      element={<ContributionsPage />}
+                    />
+                  </Routes>
+                </StatsProvider>
               </ModalProvider>
             </ContributionsProvider>
           </ArweaveProvider>

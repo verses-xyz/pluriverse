@@ -10,6 +10,7 @@ import {
   GetUserRequest,
   GetUsersRequest,
   VerifyTwitterRequest,
+  GetStatsResponse,
 } from "../types/common/server-api";
 
 export function withQueryParams(
@@ -139,6 +140,10 @@ export async function verifyTwitter(
     body: request,
     method: "POST",
   });
+}
+
+export async function getStats(): Promise<GetStatsResponse> {
+  return makeRequest(`${ApiUrl}/stats`, { method: "GET" });
 }
 
 // FOR ARWEAVE //

@@ -20,7 +20,7 @@ export default function PatternsContent() {
   const { contributions } = useContext(ContributionsContext);
 
   return (
-    <div className="container w-full md:max-w-7xl mx-auto mb-8 pb-4">
+    <div className="container w-full md:max-w-7xl mx-auto mb-8">
       <h2
         id={Pattern.Pluriverse}
         className="font-title font-mono text-4xl font-bold mb-8"

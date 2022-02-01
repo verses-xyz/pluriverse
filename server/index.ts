@@ -12,6 +12,7 @@ import { verify } from "./api-handlers/twitter-verify";
 import { addUser } from "./api-handlers/add_user";
 import { getUser } from "./api-handlers/get_user";
 import { getUsers } from "./api-handlers/get_users";
+import { getStats } from "./api-handlers/get_stats";
 // import { ArweaveClient } from "ar-wrapper";
 // import contributions from "./api/contributions";
 
@@ -53,6 +54,8 @@ app.use("/contributions", contributionsRouter);
 const twitterRouter = express.Router();
 twitterRouter.post("/verify", verify(services));
 app.use("/twitter", twitterRouter);
+
+app.get("/stats", getStats(services));
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);

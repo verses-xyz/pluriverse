@@ -103,6 +103,11 @@ export interface VerifyTwitterRequest {
   walletId: string;
 }
 
+export interface GetStatsResponse {
+  authorsTotal: number;
+  contributionsTotal: number;
+}
+
 export const TweetTemplate =
   "verifying for @verses_xyz — to a pluriverse, a world where many worlds may fit\n\nsig:";
 
