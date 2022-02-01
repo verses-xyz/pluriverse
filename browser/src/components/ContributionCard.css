@@ -41,6 +41,7 @@
 .author {
   font-weight: bold;
   color: rgb(198, 142, 255);
+  display: inline;
 }
 
 /**

@@ -80,6 +80,12 @@ export function ContributionCard({
         {!hideHeader && (
           <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
         )}
+        {/* <button
+                  className="mr-auto"
+                  onClick={() => openContributionModal(contribution)}
+                >
+                  <FiMaximize2 />
+                </button> */}
       </div>
       <div className={`responseContainerContributionCard`}>
         <p className="response">
@@ -120,21 +126,14 @@ export function ContributionCard({
         <div className="attribution">
           {id && (
             <>
-              {full ? (
-                <a className="mr-auto" href={contributionLink}>
+              {full && (
+                <a className="mr-3" href={contributionLink}>
                   <MdLink />
                 </a>
-              ) : (
-                <button
-                  className="mr-auto"
-                  onClick={() => openContributionModal(contribution)}
-                >
-                  <FiMaximize2 />
-                </button>
               )}
             </>
           )}
-          <p className="ml-auto text-base  items-center whitespace-nowrap">
+          <p className="ml-auto text-base inline">
             by <em className="author text-color-purple-200">{authorDisplay}</em>{" "}
             on <em>{dateDisplay}</em>
           </p>
