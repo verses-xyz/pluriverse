@@ -188,7 +188,7 @@ function TermsOfUse({
   return (
     <div className="terms">
       <div className="flex ">
-        <h2 className="text-3xl font-bold">Terms of Signing</h2>
+        <h2 className="text-3xl font-bold">Terms of Support</h2>
         {(user || currentUserWalletAddress) &&
           getUserLabel(
             user || { walletId: currentUserWalletAddress },
