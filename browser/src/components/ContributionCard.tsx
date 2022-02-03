@@ -17,6 +17,7 @@ import { useInView } from 'react-intersection-observer';
 import { getContributionLink } from "src/helpers/contributions";
 import {useContext, useMemo} from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
+import BlobsPostProcessing from "./BlobsPostProcessing";
 
 interface Props {
   contribution: Contribution;
@@ -118,6 +119,7 @@ export function ContributionCard({
                 walletId={author.walletId}
                 response={response}
               />
+              <BlobsPostProcessing />
             </Canvas>
           ) : (
             <BlobSingleScissorWindow id={id} />

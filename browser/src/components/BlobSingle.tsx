@@ -5,6 +5,14 @@ import Blob from "./Blob";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { randomEuler } from "./Blobs";
+import {
+  Bloom,
+  DepthOfField,
+  EffectComposer,
+  HueSaturation,
+  Noise,
+  Vignette,
+} from "@react-three/postprocessing";
 
 function toHex(str: string) {
   return str

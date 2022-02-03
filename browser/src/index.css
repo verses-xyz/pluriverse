@@ -85,12 +85,15 @@ main {
   position: fixed;
   height: 100vh;
   width: 100vw;
+  z-index: 1;
 }
 
-.gradient-1 {
-  position: fixed;
-  height: 100vh;
+.universe-gradient {
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
   width: 100vw;
+  position: fixed;
   /* background: radial-gradient(
     at 50% 100%,
     #673787 0%,
@@ -107,13 +110,16 @@ main {
       rgb(7, 7, 16, 1) 100%
     ),
     url("data:image/svg+xml,%3Csvg viewBox='0 0 398 398' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-attachment: fixed;
 }
 
 /* TODO: for now hide footnotes on small screens */
 @media only screen and (max-width: 500px) {
-  .gradient-1 {
+  .universe-gradient {
     position: fixed;
-    height: 100vh;
+    min-height: 100vh;
+    /* mobile viewport bug fix */
+    min-height: -webkit-fill-available;
     width: 200vw;
     background: radial-gradient(
         at 25% 100%,
@@ -123,27 +129,8 @@ main {
         rgb(7, 7, 16, 1) 100%
       ),
       url("data:image/svg+xml,%3Csvg viewBox='0 0 398 398' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-attachment: fixed;
   }
-}
-
-.gradient-2 {
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  background: radial-gradient(
-    at 50% 100%,
-    #4c3787 0%,
-    #272730 40%,
-    #171720 80%,
-    #070710 100%
-  );
-}
-
-.gradient-3 {
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  background: linear-gradient(to right, #fbc7d4, #9796f0);
 }
 
 .shimmer {
@@ -262,7 +249,6 @@ footer {
   position: absolute;
 }
 
-
 .modal {
   background-color: hsla(0, 0%, 20%, 1);
   width: 100%;
@@ -274,7 +260,7 @@ footer {
 }
 
 .overlay {
-  background-color: hsla(0, 0%, 100%, .1);
+  background-color: hsla(0, 0%, 100%, 0.1);
   position: fixed;
   top: 0;
   left: 0;
