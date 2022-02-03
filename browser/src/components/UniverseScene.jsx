@@ -36,6 +36,22 @@ export default function UniverseScene() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    gsap.fromTo(
+      camera.position,
+      {
+        z: 5,
+      },
+      {
+        z: 15,
+        scrollTrigger: {
+          trigger: "#contributionSection",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
   return (
     <>
       <OrbitControls

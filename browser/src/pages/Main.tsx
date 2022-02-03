@@ -61,7 +61,7 @@ export function Main() {
         opacity: fixedOpacity,
       },
       {
-        opacity: 1,
+        opacity: 0.3,
         scrollTrigger: {
           trigger: "#contributionSection",
           scrub: true,
