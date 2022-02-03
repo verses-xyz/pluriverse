@@ -52,12 +52,13 @@ export function Main() {
 
   const { stats } = useContext(StatsContext);
   const { authorsTotal, contributionsTotal } = stats || {};
+  const fixedOpacity = 0.05;
 
   useEffect(() => {
     gsap.fromTo(
       ".fadeInOnTermsOnContributionSection",
       {
-        opacity: 0,
+        opacity: fixedOpacity,
       },
       {
         opacity: 1,
@@ -76,7 +77,7 @@ export function Main() {
         opacity: 1,
       },
       {
-        opacity: 0,
+        opacity: fixedOpacity,
         scrollTrigger: {
           trigger: essayContentRef.current,
           start: 0,
@@ -91,7 +92,7 @@ export function Main() {
     gsap.fromTo(
       essayContentRef.current,
       {
-        opacity: 0,
+        opacity: fixedOpacity,
       },
       {
         opacity: 1,

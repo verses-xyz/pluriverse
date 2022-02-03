@@ -11,6 +11,7 @@ article {
 }
 
 .footnote::after {
+  text-indent: 0;
   counter-increment: footnote;
   content: counter(footnote);
   font-size: 1rem;
@@ -47,6 +48,7 @@ p:hover .footnote-content {
 }
 
 .footnote-content {
+  text-indent: 0;
   opacity: 0.3;
   transition: opacity 0.8s ease, max-height 0.4s ease;
   z-index: 4;

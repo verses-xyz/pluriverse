@@ -24,7 +24,7 @@ export default function UniverseScene() {
         z: 20,
       },
       {
-        z: 0,
+        z: 5,
         scrollTrigger: {
           trigger: "#essay-content",
           start: 0,

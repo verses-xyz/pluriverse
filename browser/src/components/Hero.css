@@ -1,6 +1,6 @@
 .hero {
   color: white;
-  height: 100vh;
+  height: 90vh;
 }
 
 @keyframes fadeInDown {
@@ -21,6 +21,5 @@
 }
 
 .heroAttribution {
-  text-align: center;
   margin-left: 30px;
 }

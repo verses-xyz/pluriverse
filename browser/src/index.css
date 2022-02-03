@@ -35,19 +35,37 @@ body {
 
 p {
   font-size: 1.5rem;
-  padding-top: 24px;
+  padding: 24px 0;
+}
+
+article > p {
+  text-indent: 2rem;
+}
+
+article > h2 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+span {
+  text-indent: 0;
 }
 
 h1 + p::first-letter {
   float: left;
-  font-size: 6rem;
+  font-size: 4rem;
   line-height: 0.65;
-  margin: 0.1em 0.1em 2 0;
+  margin: 0.05em 0.1em 0 0;
+}
+
+h1 + p {
+  text-indent: 0;
+  margin-bottom: 1em;
 }
 
 .subhead {
   text-transform: uppercase;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   line-height: 1.4rem;
 }
 
@@ -177,37 +195,39 @@ blockquote:before {
   font-family: "Roboto Mono";
   display: inline-block;
   padding: 10px 30px;
-  border: 0;
   text-decoration: none;
   border-radius: 60px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .glass-button:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+
 .glass-button-cta::before {
   position: absolute;
-  top: 2.5px;
+  top: 0;
   left: 0;
   z-index: -1;
   width: 100%;
-  height: 40px;
-  border-radius: 50px;
+  height: 100%;
+  border-radius: 60px;
   background-color: rgb(186, 120, 253);
-  filter: blur(10px);
+  opacity: 0.6;
   content: "";
   transition: 0.5s;
 }
-
 .glass-button-cta:hover::before {
   transform: scale(1.1);
+  filter: blur(10px);
+  opacity: 1;
 }
 
 .mainContent {
@@ -223,7 +243,7 @@ blockquote:before {
 a {
 }
 
-.selectedBorder.selectedBorder {
+.selectedBorder {
   border: 1px solid rgb(198, 142, 255);
 }
 
