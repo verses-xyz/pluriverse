@@ -6,29 +6,19 @@ import {
 } from "src/components/react-three-scissor";
 import { Contribution } from "src/types/common/server-api";
 import { BlobSingle } from "./BlobSingle";
-import { Suspense, useRef } from "react";
+import { useRef, memo, useCallback, useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import store from "./react-three-scissor/store";
 
-export default function BlobContributionsScissorCanvasRenderer({
+function BlobContributionsScissorCanvasRenderer({
   contributions,
 }: {
   contributions: Contribution[];
 }) {
-  if (!contributions || contributions.length === 0) {
-    return null;
-  }
-
   const contributionIdsAsStrings = contributions.map((c) => `${c.id}`);
-
   const orbit = useRef<OrbitControls>();
-  useScissorFrame(() => {
-    if (orbit.current) {
-      orbit.current.update();
-    }
-  }, contributionIdsAsStrings);
-
-  useScissorInit(({ camera: genericCamera, element, scene }) => {
+  const cb = useCallback(({ camera: genericCamera, element, scene }) => {
     const camera = genericCamera as THREE.PerspectiveCamera;
 
     camera.position.set(2, 2, 2);
@@ -47,7 +37,29 @@ export default function BlobContributionsScissorCanvasRenderer({
     const fac = 0.85;
     camera.position.setScalar(dist).multiplyScalar(fac);
     camera.lookAt(pos);
-  }, contributionIdsAsStrings);
+  }, []);
+
+  const blobs = useMemo(() => {
+    return contributions.map(({ id, pattern, prompt, response, author }) => {
+      return (
+        <ScissorScene uuid={`${id}`} key={id}>
+          <BlobSingle
+            pattern={pattern}
+            prompt={prompt}
+            walletId={author.walletId}
+            response={response}
+          />
+        </ScissorScene>
+      );
+    });
+  }, [contributionIdsAsStrings]);
+
+  const addInitSubscriber = store((s) => s.addInitSubscriber);
+  const removeInitSubscriber = store((s) => s.removeInitSubscriber);
+  useEffect(() => {
+    addInitSubscriber(cb, contributionIdsAsStrings);
+    return () => removeInitSubscriber(contributionIdsAsStrings);
+  }, []);
 
   return (
     <ScissorCanvas
@@ -65,20 +77,10 @@ export default function BlobContributionsScissorCanvasRenderer({
         zIndex: -1,
       }}
     >
-      <Suspense fallback={null}>
-        {contributions.map(({ id, pattern, prompt, response, author }) => {
-          return (
-            <ScissorScene uuid={`${id}`} key={id}>
-              <BlobSingle
-                pattern={pattern}
-                prompt={prompt}
-                walletId={author.walletId}
-                response={response}
-              />
-            </ScissorScene>
-          );
-        })}
-      </Suspense>
+      {blobs}
     </ScissorCanvas>
   );
 }
+
+const MemoizedComponent = memo(BlobContributionsScissorCanvasRenderer);
+export default MemoizedComponent;

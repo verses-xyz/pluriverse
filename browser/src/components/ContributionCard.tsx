@@ -13,9 +13,9 @@ import BlobSingleScissorWindow from "./BlobSingleScissorWindow";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei/core/OrbitControls";
 import { MdLink } from "react-icons/md";
-import { FiMaximize2 } from "react-icons/fi";
+import { useInView } from 'react-intersection-observer';
 import { getContributionLink } from "src/helpers/contributions";
-import { useContext } from "react";
+import {useContext, useMemo} from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 
 interface Props {

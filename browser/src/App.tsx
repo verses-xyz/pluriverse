@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="mainContainer">
       <main>
-        <DevelopmentBanner />
+        {/*<DevelopmentBanner />*/}
         <Navbar />
         <UserProvider>
           <ArweaveProvider>
@@ -58,7 +58,7 @@ function App() {
             <>
               <GradientManager />
               <div className="canvas-container fadeOutOnScroll fadeInOnTermsOnContributionSection">
-                <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+                <Canvas camera={{ position: [0, 0, 10], fov: 50 }}>
                   <UniverseScene />
                 </Canvas>
               </div>

@@ -95,12 +95,13 @@ function ScissorRenderer() {
             // @ts-ignore
             camera.updateProjectionMatrix();
 
-            if (frameSubscribers[key])
+            if (frameSubscribers[key]) {
               frameSubscribers[key]({
                 scene,
                 camera,
                 element,
               });
+            }
             gl.render(scene, camera);
           }
         }

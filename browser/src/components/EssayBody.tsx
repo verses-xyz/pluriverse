@@ -240,12 +240,11 @@ export function EssayBody() {
             <>
               Freedom from external restraint on action is referred to as{" "}
               <em>negative freedom</em>. Here, we instead call for the{" "}
-              <em>positive freedom</em>{" "}
-              of having the capacity, resources, and pathways to act upon
-              individual and collective free will. As per Escobar: the
-              pluriverse is not merely about “'expanding the range of choices'
-              (liberal freedom) but is intended to transform the kinds of beings
-              we desire to be”.
+              <em>positive freedom</em> of having the capacity, resources, and
+              pathways to act upon individual and collective free will. As per
+              Escobar: the pluriverse is not merely about “'expanding the range
+              of choices' (liberal freedom) but is intended to transform the
+              kinds of beings we desire to be”.
             </>
           }
         >
