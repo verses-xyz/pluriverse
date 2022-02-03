@@ -38,12 +38,6 @@ export default function UniverseScene() {
           bokehScale={0.4}
           height={480}
         />
-        <Bloom
-          luminanceThreshold={0}
-          luminanceSmoothing={7}
-          height={300}
-          opacity={3}
-        />
         <Noise opacity={0.025} />
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
         <HueSaturation hue={0.6} saturation={0.3} />
