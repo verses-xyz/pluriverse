@@ -56,7 +56,6 @@ function App() {
           index={true}
           element={
             <>
-              <GradientManager />
               <div className="canvas-container fadeOutOnScroll fadeInOnTermsOnContributionSection">
                 <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
                   <UniverseScene />
@@ -65,9 +64,10 @@ function App() {
             </>
           }
         />
-        <Route path="about" element={<GradientManager />} />
-        <Route path="contributions*" element={<GradientManager />} />
+        <Route path="about" />
+        <Route path="contributions*" />
       </Routes>
+      <div className="universe-gradient" />
     </div>
   );
 }
