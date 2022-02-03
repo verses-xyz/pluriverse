@@ -24,7 +24,8 @@ export default function UniverseScene() {
         shadow-bias={-0.0001}
       />
       <Stars radius={500} depth={50} count={1500} factor={15} />
-      <BlobsPostProcessing />
+      {/* TODO: comment out for now due to perf degradation */}
+      {/* <BlobsPostProcessing /> */}
       <Blobs />
     </>
   );
