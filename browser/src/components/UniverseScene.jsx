@@ -11,28 +11,6 @@ import {
 import Blobs from "./Blobs";
 
 export default function UniverseScene() {
-  // const { camera } = useThree();
-  // const gsap = useGsap();
-
-  // useEffect(() => {
-  //   gsap.fromTo(
-  //     camera.position,
-  //     {
-  //       z: 20,
-  //     },
-  //     {
-  //       z: -10,
-  //       scrollTrigger: {
-  //         trigger: "#essay-content",
-  //         start: 0,
-  //         end: " top top",
-  //         scrub: true,
-  //       },
-  //     }
-  //   );
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   return (
     <>
       <OrbitControls autoRotate={true} autoRotateSpeed={1} enableZoom={false} />
@@ -60,15 +38,14 @@ export default function UniverseScene() {
           bokehScale={0.4}
           height={480}
         />
-        {/* <Bloom
+        <Bloom
           luminanceThreshold={0}
-          luminanceSmoothing={9}
+          luminanceSmoothing={7}
           height={300}
           opacity={3}
-        /> */}
+        />
         <Noise opacity={0.025} />
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
-        {/* <BrightnessContrast brightness={0.2} contrast={0.4} /> */}
         <HueSaturation hue={0.6} saturation={0.3} />
       </EffectComposer>
       <Blobs />
