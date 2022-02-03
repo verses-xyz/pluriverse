@@ -65,20 +65,18 @@ export default function BlobContributionsScissorCanvasRenderer({
         zIndex: -1,
       }}
     >
-      <Suspense fallback={null}>
-        {contributions.map(({ id, pattern, prompt, response, author }) => {
-          return (
-            <ScissorScene uuid={`${id}`} key={id}>
-              <BlobSingle
-                pattern={pattern}
-                prompt={prompt}
-                walletId={author.walletId}
-                response={response}
-              />
-            </ScissorScene>
-          );
-        })}
-      </Suspense>
+      {contributions.map(({ id, pattern, prompt, response, author }) => {
+        return (
+          <ScissorScene uuid={`${id}`} key={id}>
+            <BlobSingle
+              pattern={pattern}
+              prompt={prompt}
+              walletId={author.walletId}
+              response={response}
+            />
+          </ScissorScene>
+        );
+      })}
     </ScissorCanvas>
   );
 }
