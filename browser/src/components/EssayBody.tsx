@@ -548,7 +548,7 @@ export function EssayBody() {
         digital space, across emerging technologies. Pluriversality can underpin
         these choices, lending an ethos to the difficult work to come.
       </p>
-      <h2 className="font-title text-3xl pt-20 pb-3">
+      <h2 className="font-title text-3xl pt-20 pb-3 font-semibold">
         A Pattern Language for the Pluriverse
       </h2>
       <p>
