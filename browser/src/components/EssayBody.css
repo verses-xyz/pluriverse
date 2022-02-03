@@ -14,29 +14,62 @@ article {
 }
 
 .footnote {
+  text-align: left;
+  z-index: 999;
+}
+
+.footnote:hover > .footnote-content {
+  opacity: 1;
+  user-select: text;
+  max-height: initial;
+  -webkit-mask-image: none;
+}
+
+p:hover .footnote-content {
+  opacity: 0.7;
+  user-select: text;
+  max-height: initial;
+  -webkit-mask-image: none;
 }
 
 .footnote-content {
+  opacity: 0.3;
+  transition: opacity 0.8s ease;
   z-index: 4;
   position: absolute;
   color: white;
-  /* font-size: 0.85rem; */
+
   font-size: 1rem;
-  margin-top: 2px !important;
+  display: inline;
+  -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+
+  line-height: 1.5rem;
+  max-height: calc(3 * 1.5rem);
+  overflow: hidden;
+  padding-top: 3px;
+
   padding-left: 25px;
   right: 4%;
   text-transform: none;
-  /* width: 340px; */
   width: 400px;
   margin-top: -30px;
+  user-select: none;
+  text-overflow: ellipsis;
+}
+
+.footnote-content::after {
+  position: absolute;
+  content: "...";
+  inset-block-end: 0;
+  inset-inline-end: -1.5rem;
 }
 
 .footnote-content-left {
-  left: 2.5%;
+  left: 5%;
 }
 
 .footnote-content-right {
-  right: 2.5%;
+  right: 5%;
 }
 
 .footnote-content::before {

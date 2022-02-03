@@ -12,11 +12,11 @@ export function DevelopmentBanner() {
           The text is undergoing a significant revision, mostly to acknowledge
           our positionality as a collective, as well as to add significant
           caveats, clarifications, and acknowledgements. If you'd like to see a
-          tweet thread about this work with contextualization, please see this
+          tweet thread about this work with contextualization, please see this{" "}
           <a href="https://docs.google.com/document/d/1UpG7mOYExdWnk0XBwwWGaCoa5ITD-xo7qQDU5HquW04/edit">
-            document
+            document.
           </a>
-          If you'd like to view the draft in progress,{" "}
+          {" "}If you'd like to view the draft in progress,{" "}
           <a href="https://docs.google.com/document/d/1a1FEBgIboRXBTVCpxal7QtS0kVltXN2KU9zDVMkqaC4/edit#">
             please see here
           </a>

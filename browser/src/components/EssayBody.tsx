@@ -10,7 +10,7 @@ export function EssayBody() {
         W
         <span className="subhead">
           e are told that the age of the{" "}
-          <Footnote data="Coined by the American author Neal Stephenson in his novel, Snow Crash, ‘the Metaverse’ refers to a virtual reality space of integrated networks that can be used for work and play. The term became ubiquitous in public discourse in 2021 following the announcement from Facebook founder, Mark Zuckerberg of the company’s name change to ‘Meta’ and the company’s investment into building a metaverse. ">
+          <Footnote data={`Coined by the American author Neal Stephenson in his novel, Snow Crash, ‘the Metaverse’ refers to a virtual reality space of integrated networks that can be used for work and play. The term became ubiquitous in public discourse in 2021 following the announcement from Facebook founder, Mark Zuckerberg of the company’s name change to ‘Meta’ and the company’s investment into building a metaverse. `}>
             Metaverse
           </Footnote>{" "}
           is upon us.{" "}
