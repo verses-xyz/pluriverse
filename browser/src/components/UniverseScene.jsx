@@ -1,14 +1,7 @@
 import { OrbitControls, Stars } from "@react-three/drei";
-import {
-  Bloom,
-  DepthOfField,
-  EffectComposer,
-  Noise,
-  Vignette,
-  BrightnessContrast,
-  HueSaturation,
-} from "@react-three/postprocessing";
+
 import Blobs from "./Blobs";
+import BlobsPostProcessing from "./BlobsPostProcessing";
 
 export default function UniverseScene() {
   return (
@@ -31,17 +24,7 @@ export default function UniverseScene() {
         shadow-bias={-0.0001}
       />
       <Stars radius={500} depth={50} count={1500} factor={15} />
-      <EffectComposer>
-        <DepthOfField
-          focusDistance={0}
-          focalLength={0.5}
-          bokehScale={0.4}
-          height={480}
-        />
-        <Noise opacity={0.025} />
-        <Vignette eskil={false} offset={0.1} darkness={1.1} />
-        <HueSaturation hue={0.6} saturation={0.3} />
-      </EffectComposer>
+      <BlobsPostProcessing />
       <Blobs />
     </>
   );
