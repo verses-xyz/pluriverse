@@ -2,6 +2,10 @@ article {
   counter-reset: footnote;
 }
 
+.footnote {
+  display: inline;
+}
+
 .footnote::after {
   counter-increment: footnote;
   content: counter(footnote);
@@ -13,28 +17,23 @@ article {
   color: rgb(198, 142, 255);
 }
 
-.footnote {
-  text-align: left;
-  z-index: 999;
-}
-
 .footnote:hover > .footnote-content {
   opacity: 1;
   user-select: text;
-  max-height: initial;
-  -webkit-mask-image: none;
+  max-height: 50vh;
+  -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,1)));
 }
 
 p:hover .footnote-content {
-  opacity: 0.7;
+  opacity: 0.5;
   user-select: text;
-  max-height: initial;
-  -webkit-mask-image: none;
+  max-height: 50vh;
+  -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,1)));
 }
 
 .footnote-content {
   opacity: 0.3;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.8s ease, max-height 0.4s ease;
   z-index: 4;
   position: absolute;
   color: white;

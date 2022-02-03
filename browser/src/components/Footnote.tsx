@@ -7,7 +7,7 @@ export default function Footnote({
   topOffset,
 }: {
   children: any;
-  data: string;
+  data: any;
   left?: boolean;
   topOffset?: number;
 }) {
