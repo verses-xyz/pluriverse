@@ -1,9 +1,10 @@
 import { Canvas, Props, useFrame, useThree } from "@react-three/fiber";
-import React, { forwardRef } from "react";
+import React, { forwardRef, Suspense } from "react";
 import store from "./store";
 
 import { iScissorWindow, tScissorCallback } from "./ScissorTypes";
 import { CarouselGradientClassName } from "src/classNameConstants";
+import { LoadingIndicator } from "../core/LoadingIndicator";
 
 // https://stackoverflow.com/questions/704758/how-do-i-check-if-an-element-is-really-visible-with-javascript
 const ElementClassNamesToIgnore = [CarouselGradientClassName];
@@ -130,9 +131,6 @@ const ScissorCanvas = forwardRef<
   return (
     <Canvas
       ref={ref}
-      // TODO: this cannot use demand because it needs to update whenever the window is resized
-      // or scrolled. Could be more efficient if we have a listener on the window for these events so it isn't re-rendering every frame.
-      // frameloop="demand"
       style={{
         position: "fixed",
         left: "0",
