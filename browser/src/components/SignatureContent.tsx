@@ -96,7 +96,7 @@ export function Signature({ author }: { author: Author }) {
   // TODO: add location
 
   return (
-    <p className="pb-0 pt-3">
+    <p className="pb-0 pt-4">
       <div className="signature">
         <div className="display">
           <b>{nameDisplay}</b>
