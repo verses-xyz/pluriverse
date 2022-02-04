@@ -26,7 +26,7 @@ export default function EssayContent() {
     <article className="container w-full px-5 md:px-0 md:max-w-2xl mx-auto pb-20">
       <EssayBody />
       <br />
-      <div className="opacity-50">
+      <div className="opacity-80">
         Last updated on {gitLastUpdatedDateDisplay} ({gitCommitLink}). A copy of
         the Essay lives on the permaweb and can be found on{" "}
         <a href={arweaveDocLink}>Arweave tx:{transactionId.slice(0, 20)}</a>. It

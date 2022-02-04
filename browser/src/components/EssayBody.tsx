@@ -408,6 +408,7 @@ export function EssayBody() {
         alternative forms of{" "}
         <Footnote
           left
+          topOffset={-40}
           data={
             <>
               Multiple examples of pluriversality appear in{" "}
@@ -438,7 +439,7 @@ export function EssayBody() {
         , and{" "}
         <Footnote
           left
-          topOffset={170}
+          topOffset={180}
           data={
             <>
               David Graeber’s <em>Debt</em> provides an overview of the many

@@ -6,7 +6,6 @@ export default function BlobContributionsScissorCanvasRendererWithContributions(
   const { contributions } = useContext(ContributionsContext);
 
   if (contributions && contributions.length > 0) {
-    console.log('whole wrapper re-render')
     return (
       <BlobContributionsScissorCanvasRenderer contributions={contributions} />
     );

@@ -38,10 +38,6 @@ p {
   padding: 24px 0;
 }
 
-article > p {
-  text-indent: 2rem;
-}
-
 article > h2 {
   text-align: center;
   font-size: 2rem;
