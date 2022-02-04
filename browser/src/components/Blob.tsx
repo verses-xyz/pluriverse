@@ -30,8 +30,17 @@ const IcosahedronGeos: Record<string, IcosahedronGeometry> = Object.fromEntries(
   ])
 );
 
+const LowResIcosahedronGeos: Record<string, IcosahedronGeometry> =
+  Object.fromEntries(
+    Object.entries(BlobSizes).map(([sizeChoice, size]) => [
+      sizeChoice as SizeChoice,
+      new IcosahedronGeometry(size, 1),
+    ])
+  );
+
 interface BlobProps extends ShaderProps {
   sizeType: SizeChoice;
+  lowRes?: boolean;
   meshProps?: MeshProps;
 }
 
@@ -75,6 +84,7 @@ export function BlobShaderMaterial({
       ref={ref}
       attach="material"
       {...data}
+      precision="lowp"
     />
   );
 }
@@ -82,10 +92,16 @@ export function BlobShaderMaterial({
 export default function Blob({
   sizeType,
   meshProps = {},
+  lowRes,
   ...shaderProps
 }: BlobProps) {
   return (
-    <mesh {...meshProps} geometry={IcosahedronGeos[sizeType]}>
+    <mesh
+      {...meshProps}
+      geometry={
+        lowRes ? LowResIcosahedronGeos[sizeType] : IcosahedronGeos[sizeType]
+      }
+    >
       <BlobShaderMaterial {...shaderProps} />
     </mesh>
   );

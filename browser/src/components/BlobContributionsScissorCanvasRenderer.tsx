@@ -4,10 +4,11 @@ import {
 } from "src/components/react-three-scissor";
 import { Contribution } from "src/types/common/server-api";
 import { BlobSingle } from "./BlobSingle";
-import { useRef, memo, useCallback, useEffect, useMemo } from "react";
+import { useRef, memo, useCallback, useEffect, useMemo, Suspense } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import store from "./react-three-scissor/store";
+import { LoadingIndicator } from "./core/LoadingIndicator";
 
 function BlobContributionsScissorCanvasRenderer({
   contributions,
@@ -41,12 +42,26 @@ function BlobContributionsScissorCanvasRenderer({
     return contributions.map(({ id, pattern, prompt, response, author }) => {
       return (
         <ScissorScene uuid={`${id}`} key={id}>
-          <BlobSingle
-            pattern={pattern}
-            prompt={prompt}
-            walletId={author.walletId}
-            response={response}
-          />
+          <Suspense
+            fallback={
+              // TODO: this never seems to be triggered
+              <LoadingIndicator />
+              // <BlobSingle
+              //   pattern={pattern}
+              //   prompt={prompt}
+              //   walletId={author.walletId}
+              //   response={response}
+              //   lowRes
+              // />
+            }
+          >
+            <BlobSingle
+              pattern={pattern}
+              prompt={prompt}
+              walletId={author.walletId}
+              response={response}
+            />
+          </Suspense>
         </ScissorScene>
       );
     });

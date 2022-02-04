@@ -34,11 +34,13 @@ export function BlobSingle({
   pattern,
   response,
   prompt,
+  lowRes,
 }: {
   walletId: string;
   pattern: string;
   response: string;
   prompt: string;
+  lowRes?: boolean;
 }): React.ReactElement {
   // 64 chars long sha256 str
   const contrib = `${walletId}: ${response}`;
@@ -72,6 +74,7 @@ export function BlobSingle({
       />
       <Blob
         sizeType={SizeChoice.Medium}
+        lowRes={lowRes}
         meshProps={{ rotation }}
         speed={getMessageChunk(message, 0, 0.1, 0.5)}
         color={Object.keys(Pattern).indexOf(pattern) * PatternColorIncrement}
