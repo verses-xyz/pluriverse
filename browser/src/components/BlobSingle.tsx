@@ -58,7 +58,7 @@ export function BlobSingle({
   useEffect(() => {
     const handler = setTimeout(() => {
       setMessage(sha256(`0x${toHex(contrib)}`));
-    }, 500);
+    }, 0);
 
     return () => {
       // teardown
