@@ -16,7 +16,7 @@ import { Helmet } from "react-helmet";
 import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
 
 const ContributionsLimit = 500;
-const ContributionsPageLimit = 100;
+const ContributionsPageLimit = 50;
 const RandomFloor = 100;
 
 function safeGet<T, V>(map: Map<T, V>, key: T, defaultValue: V): V {
@@ -32,8 +32,20 @@ export function ContributionsPage() {
   const [contributionRandomOrderMapping, setContributionRandomOrderMapping] =
     useState<Map<number, number>>(new Map());
 
+  const [numContributionsToRender, setNumContributionsToRender] = useState(
+    ContributionsPageLimit
+  );
+
   function onSeeMore() {
-    // TODO:
+    const newNumContributionsToRender =
+      numContributionsToRender + ContributionsPageLimit;
+    if (newNumContributionsToRender > ContributionsLimit) {
+      // TODO: fetch more from remote
+      // fetchContributions(ContributionsLimit);
+    }
+    setNumContributionsToRender(
+      Math.min(newNumContributionsToRender, contributions.length)
+    );
   }
 
   // TODO: if highlightedContribution, then open the contribution modal with it
@@ -50,6 +62,11 @@ export function ContributionsPage() {
           safeGet(contributionRandomOrderMapping, a.id, 0.5 * RandomFloor) -
           safeGet(contributionRandomOrderMapping, b.id, 0.5 * RandomFloor)
       );
+
+  const contributionsToShow = sortedContributions.slice(
+    0,
+    numContributionsToRender
+  );
 
   function getMetaTags() {
     const title = "Contributions to the Digital Pluriverse";
@@ -106,7 +123,7 @@ export function ContributionsPage() {
   }
 
   return (
-    <div>
+    <div className=" pb-20">
       {/* <BlobContributionsScissorCanvasRenderer contributions={contributions} /> */}
       {highlightedContribution
         ? getMetaTagsForHighlightedContribution(highlightedContribution)
@@ -153,13 +170,13 @@ export function ContributionsPage() {
           </button>
         </div>
       </div>
-      <div className="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-8 px-40 justify-center mx-auto max-w-max pb-20">
-        {sortedContributions.map((contribution) => (
+      <div className="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-8 px-40 justify-center mx-auto max-w-max">
+        {contributionsToShow.map((contribution) => (
           <ContributionCard contribution={contribution} key={contribution.id} />
         ))}
       </div>
-      {contributions.length === ContributionsLimit && (
-        <div style={{ alignSelf: "flex-start" }} className="seeAll">
+      {numContributionsToRender < contributions.length && (
+        <div style={{ textAlign: "center" }} className="seeAll pt-8">
           <button className={ButtonClass()} onClick={onSeeMore}>
             See more
           </button>

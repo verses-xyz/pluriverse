@@ -1,13 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Author } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import "./SignatureContent.css";
 import { Checkmark } from "./core/Checkmark";
 import { SignaturesContext } from "src/pages/Main";
+import { ButtonClass } from "src/types/styles";
 
 function truncateWallet(address: string) {
   return address.slice(0, 6) + "..." + address.slice(-4);
 }
+
+const SignaturePageSize = 50;
+const SignaturesLimit = 500;
 
 function getTwitterDisplay(
   { twitterVerified, twitterUsername }: Author,
@@ -111,12 +115,35 @@ export function Signature({ author }: { author: Author }) {
 export function SignatureContent() {
   const { signatures } = useContext(SignaturesContext);
 
+  const [numSignaturesToRender, setNumSignaturesToRender] =
+    useState(SignaturePageSize);
+
+  const signaturesToRender = signatures.slice(0, numSignaturesToRender);
+
+  function onSeeMore() {
+    const newNumSignaturesToRender = numSignaturesToRender + SignaturePageSize;
+    if (newNumSignaturesToRender > SignaturesLimit) {
+      // TODO: fetch more from remote
+      // fetchSignatures(SignaturesLimit);
+    }
+    setNumSignaturesToRender(
+      Math.min(newNumSignaturesToRender, signatures.length)
+    );
+  }
+
   return (
     <div className="signatureContainer">
       <h2 className="text-4xl font-bold mb-2 text-center">Signatures</h2>
-      {signatures.map((author) => (
+      {signaturesToRender.map((author) => (
         <Signature key={author.walletId} author={author} />
       ))}
+      {numSignaturesToRender < signatures.length && (
+        <div style={{ textAlign: "center" }} className="seeAll pt-8">
+          <button className={ButtonClass()} onClick={onSeeMore}>
+            See more
+          </button>
+        </div>
+      )}
     </div>
   );
 }
