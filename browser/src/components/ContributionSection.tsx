@@ -8,12 +8,12 @@ import {
   PatternToDisplay,
   Prompt,
   TweetTemplate,
-} from "../types/common/server-api/index";
+} from "../types/common/server-api";
 import { Dropdown, DropdownItem } from "./core/Dropdown";
 import { addContribution, addUser, verifyTwitter } from "src/helpers/api";
 import { AutoGrowInput } from "./core/AutoGrowInput";
 import React from "react";
-import { ButtonClass, ButtonLinkStyling } from "src/types/styles";
+import { ButtonClass } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
 import {
   ContributionCard,
@@ -98,7 +98,7 @@ export const PromptDescriptions: Record<Prompt, string> = {
 
 const PromptDescriptionsToDisplay: Record<Prompt, string> = Object.entries(
   PromptDescriptions
-).reduce((acc, [prompt, placeholder]) => {
+).reduce<Record<Prompt, string>>((acc, [prompt, placeholder]) => {
   switch (prompt) {
     case Prompt.FreeForm:
       acc[prompt] = Placeholder + " (free form)";
@@ -112,7 +112,7 @@ const PromptDescriptionsToDisplay: Record<Prompt, string> = Object.entries(
   }
 
   return acc;
-}, {});
+}, {} as Record<Prompt, string>);
 
 function getTweetIntentLink(text: string): string {
   return `https://twitter.com/intent/tweet?text=${encodeURI(text)}`;
