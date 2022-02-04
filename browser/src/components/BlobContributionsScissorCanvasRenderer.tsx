@@ -75,23 +75,25 @@ function BlobContributionsScissorCanvasRenderer({
   }, []);
 
   return (
-    <ScissorCanvas
-      gl={{
-        antialias: true,
-      }}
-      shadows
-      style={{
-        position: "fixed",
-        left: "0",
-        top: "0",
-        width: "100%",
-        height: "100%",
-        display: "block",
-        zIndex: -1,
-      }}
-    >
-      {blobs}
-    </ScissorCanvas>
+    <Suspense fallback={<LoadingIndicator />}>
+      <ScissorCanvas
+        gl={{
+          antialias: true,
+        }}
+        shadows
+        style={{
+          position: "fixed",
+          left: "0",
+          top: "0",
+          width: "100%",
+          height: "100%",
+          display: "block",
+          zIndex: -1,
+        }}
+      >
+        {blobs}
+      </ScissorCanvas>
+    </Suspense>
   );
 }
 
