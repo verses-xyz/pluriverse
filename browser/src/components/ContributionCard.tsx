@@ -1,10 +1,15 @@
-import { Contribution, PatternToDisplay } from "src/types/common/server-api";
+import {
+  Contribution,
+  PatternToDisplay,
+  Prompt,
+} from "src/types/common/server-api";
 import dayjs from "dayjs";
 import { BlobSingle } from "src/components/BlobSingle";
 import "./ContributionCard.css";
 import {
   Placeholder,
   PromptDescriptions,
+  replaceAllJSX,
   replaceJSX,
 } from "./ContributionSection";
 import { getPatternPlaceholder } from "src/types";
@@ -16,7 +21,6 @@ import { MdLink } from "react-icons/md";
 import { getContributionLink } from "src/helpers/contributions";
 import { Suspense, useContext } from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
-import BlobsPostProcessing from "./BlobsPostProcessing";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 
 interface Props {
@@ -41,6 +45,35 @@ export function getFullContributionResponse({
     " " +
     response
   );
+}
+
+export function getContributionCardResponse({
+  response,
+  prompt,
+  pattern,
+}: Contribution) {
+  switch (prompt) {
+    case Prompt.LooksLike:
+    case Prompt.WeNeed:
+    case Prompt.Example:
+      return (
+        <>
+          {replaceJSX(PromptDescriptions[prompt], {
+            [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
+          })}{" "}
+          {response}
+        </>
+      );
+    // TODO: this doesn't replace with the right case from before.
+    case Prompt.FreeForm:
+      console.log("replacing freeform");
+      return replaceAllJSX(
+        response,
+        PatternToDisplay[pattern],
+        <b>{PatternToDisplay[pattern]}</b>,
+        { ignoreCase: true, includePlaceholder: false }
+      );
+  }
 }
 
 export function ContributionCard({
@@ -89,12 +122,7 @@ export function ContributionCard({
                 </button> */}
       </div>
       <div className={`responseContainerContributionCard`}>
-        <p className="response">
-          {replaceJSX(PromptDescriptions[prompt], {
-            [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
-          })}{" "}
-          {response}
-        </p>
+        <p className="response">{getContributionCardResponse(contribution)}</p>
       </div>
       <div className="mt-auto">
         {!isCompact && <hr className="mt-2" />}

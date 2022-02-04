@@ -74,14 +74,18 @@ const ResponseCharacterLimit = 900;
 export const Placeholder = "________";
 export const replaceJSX = (
   str: string,
-  replacement: { [x: string]: any; pattern?: JSX.Element }
+  replacement: { [x: string]: any; pattern?: JSX.Element },
+  {
+    includePlaceholder = true,
+    ignoreCase = false,
+  }: { includePlaceholder?: boolean; ignoreCase?: boolean } = {}
 ): React.ReactNode => {
   const result: any[] = [];
   const keys = Object.keys(replacement);
   const getRegExp = () => {
     const regexp: any[] = [];
-    keys.forEach((key) => regexp.push(`{${key}}`));
-    return new RegExp(regexp.join("|"));
+    keys.forEach((key) => regexp.push(includePlaceholder ? `{${key}}` : key));
+    return new RegExp(regexp.join("|"), ignoreCase ? "ig" : "g");
   };
   str.split(getRegExp()).forEach((item, i) => {
     result.push(
@@ -91,6 +95,74 @@ export const replaceJSX = (
   });
   return result;
 };
+
+export const replaceAllJSX = (
+  str: string,
+  replacementStr: string,
+  pattern?: JSX.Element,
+  {
+    includePlaceholder = true,
+    ignoreCase = false,
+  }: { includePlaceholder?: boolean; ignoreCase?: boolean } = {}
+): React.ReactNode => {
+  const result: any[] = [];
+  const getRegExp = () => {
+    return new RegExp(
+      includePlaceholder ? `{${replacementStr}}` : replacementStr,
+      ignoreCase ? "ig" : "g"
+    );
+  };
+  str.split(getRegExp()).forEach((item, i) => {
+    result.push(item, <React.Fragment key={i}>{pattern}</React.Fragment>);
+  });
+  return result;
+};
+
+// TODO: need to handle replacing with JSX but also providing match...
+// export const replaceJSXWithMatch = (
+//   str: string,
+//   replacementStr: string,
+//   pattern: (match: string) => JSX.Element,
+//   {
+//     includePlaceholder = true,
+//     ignoreCase = false,
+//   }: { includePlaceholder?: boolean; ignoreCase?: boolean } = {}
+// ): React.ReactNode => {
+//   const result: any[] = [];
+//   const getRegExp = () => {
+//     return new RegExp(
+//       includePlaceholder ? `{${replacementStr}}` : replacementStr,
+//       ignoreCase ? "i" : ""
+//     );
+//   };
+//   const SpecialMatchDelimeterStart = "{{{{";
+//   const SpecialMatchDelimeterEnd = "}}}}";
+//   str.replaceAll(
+//     getRegExp(),
+//     (match) =>
+//       `${SpecialMatchDelimeterStart}${pattern(
+//         match
+//       )}${SpecialMatchDelimeterEnd}`
+//   );
+
+//   const getDelimetedRegExp = () => {
+//     const mainRegex = includePlaceholder
+//       ? `{${replacementStr}}`
+//       : replacementStr;
+//     return new RegExp(
+//       SpecialMatchDelimeterStart + mainRegex + SpecialMatchDelimeterEnd,
+//       ignoreCase ? "i" : ""
+//     );
+//   };
+
+//   str.split(getDelimetedRegExp()).forEach((item, i) => {
+//     result.push(
+//       item,
+//       <React.Fragment key={i}>{replacement[keys[i]]}</React.Fragment>
+//     );
+//   });
+//   return result;
+// };
 
 export const PromptDescriptions: Record<Prompt, string> = {
   [Prompt.LooksLike]: `{${Placeholder}} looks like`,
@@ -468,6 +540,19 @@ export function ContributionSection() {
     window.open(getTweetIntentLink(tweetText), "_blank");
   }
 
+  function isResponseValid() {
+    if (!response) {
+      return false;
+    }
+
+    return (
+      selectedPrompt !== Prompt.FreeForm ||
+      response
+        .toLocaleLowerCase()
+        .indexOf(PatternToDisplay[selectedPattern].toLocaleLowerCase()) > 0
+    );
+  }
+
   async function onClickVerifyTwitter() {
     setIsLoading(true);
     try {
@@ -582,7 +667,8 @@ export function ContributionSection() {
               <p>
                 We've provided some sentence starters to get you going. Please
                 select a prompt and contribute to the{" "}
-                <b className="shimmer"> Pluriverse</b>.
+                <b className="shimmer"> Pluriverse</b>. If you use the free-form
+                option, you must include the chosen pattern in your response.
               </p>
               <div className="contributionContainer">
                 <div className="selects">
@@ -621,7 +707,7 @@ export function ContributionSection() {
                 <button
                   onClick={onSaveContribution}
                   className={ButtonClass("blue")}
-                  disabled={!response}
+                  disabled={!isResponseValid()}
                 >
                   Add to Pluriverse
                 </button>
