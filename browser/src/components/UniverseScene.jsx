@@ -21,6 +21,21 @@ export default function UniverseScene() {
     gsap.fromTo(
       camera.position,
       {
+        z: 5,
+      },
+      {
+        z: 15,
+        scrollTrigger: {
+          trigger: "#contributionSection",
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    gsap.fromTo(
+      camera.position,
+      {
         z: 20,
       },
       {
@@ -28,28 +43,12 @@ export default function UniverseScene() {
         scrollTrigger: {
           trigger: "#essay-content",
           start: 0,
-          end: " top top",
+          end: "top top",
           scrub: true,
         },
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    gsap.fromTo(
-      camera.position,
-      {
-        z: 5,
-      },
-      {
-        z: 15,
-        scrollTrigger: {
-          trigger: "#contributionSection",
-          scrub: true,
-        },
-      }
-    );
   }, []);
 
   return (
