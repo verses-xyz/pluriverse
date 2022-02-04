@@ -56,6 +56,8 @@ export default function ContributionsCarousel({
     rootMargin: "15px",
   });
 
+  // TODO: add paging here like in ContributionsPage, probably only render 10 and then load more on a see more item?
+
   return (
     <div style={{ position: "relative" }}>
       {!hideLeftControl && (
