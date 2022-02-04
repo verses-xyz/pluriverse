@@ -118,7 +118,7 @@ export function ContributionCard({
                 walletId={author.walletId}
                 response={response}
               />
-              <BlobsPostProcessing />
+              {/* <BlobsPostProcessing /> */}
             </Canvas>
           ) : (
             <BlobSingleScissorWindow id={id} />

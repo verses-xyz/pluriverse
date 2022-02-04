@@ -68,7 +68,7 @@ export default function Blob({
 }: BlobProps) {
   return (
     <mesh {...meshProps}>
-      <icosahedronGeometry attach="geometry" args={[size, 14]} />
+      <icosahedronGeometry attach="geometry" args={[size, 8]} />
       <BlobShaderMaterial {...shaderProps} />
     </mesh>
   );
