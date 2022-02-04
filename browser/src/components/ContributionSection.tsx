@@ -112,8 +112,16 @@ export const replaceAllJSX = (
       ignoreCase ? "ig" : "g"
     );
   };
-  str.split(getRegExp()).forEach((item, i) => {
-    result.push(item, <React.Fragment key={i}>{pattern}</React.Fragment>);
+  const results = str.split(getRegExp());
+  if (results.length === 1) {
+    return results[0];
+  }
+  results.forEach((item, i) => {
+    if (i === results.length - 1) {
+      result.push(item);
+    } else {
+      result.push(item, <React.Fragment key={i}>{pattern}</React.Fragment>);
+    }
   });
   return result;
 };

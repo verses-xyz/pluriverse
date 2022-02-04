@@ -52,6 +52,10 @@ export function getContributionCardResponse({
   prompt,
   pattern,
 }: Contribution) {
+  if (!response) {
+    return response;
+  }
+
   switch (prompt) {
     case Prompt.LooksLike:
     case Prompt.WeNeed:
@@ -66,7 +70,6 @@ export function getContributionCardResponse({
       );
     // TODO: this doesn't replace with the right case from before.
     case Prompt.FreeForm:
-      console.log("replacing freeform");
       return replaceAllJSX(
         response,
         PatternToDisplay[pattern],
