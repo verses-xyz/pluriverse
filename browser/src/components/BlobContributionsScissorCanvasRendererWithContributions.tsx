@@ -5,9 +5,13 @@ import BlobContributionsScissorCanvasRenderer from "./BlobContributionsScissorCa
 export default function BlobContributionsScissorCanvasRendererWithContributions() {
   const { contributions } = useContext(ContributionsContext);
 
-  return (
-    <BlobContributionsScissorCanvasRenderer contributions={contributions} />
-  );
+  if (contributions && contributions.length > 0) {
+    return (
+      <BlobContributionsScissorCanvasRenderer contributions={contributions} />
+    );
+  } else {
+    return <></>;
+  }
 }
 
 // interface BlobContext {

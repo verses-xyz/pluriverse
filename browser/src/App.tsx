@@ -1,6 +1,5 @@
 import { Canvas } from "@react-three/fiber";
 import UniverseScene from "./components/UniverseScene";
-import GradientManager from "./components/GradientManager";
 import { DevelopmentBanner } from "./components/DevelopmentBanner";
 import { Routes, Route } from "react-router-dom";
 import { About } from "./pages/About";

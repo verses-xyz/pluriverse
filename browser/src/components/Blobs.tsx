@@ -1,12 +1,14 @@
 import BlobFloating, { BlobFloatingProps } from "./BlobFloating";
 
-const randomVector = (r) => [
+type Vec3 = [number, number, number];
+
+const randomVector: (r: number) => Vec3 = (r: number) => [
   r / 2 - Math.random() * r,
   r / 2 - Math.random() * r,
   r / 2 - Math.random() * r,
 ];
 
-export const randomEuler = () => [
+export const randomEuler: () => Vec3 = () => [
   Math.random() * Math.PI,
   Math.random() * Math.PI,
   Math.random() * Math.PI,
@@ -14,7 +16,7 @@ export const randomEuler = () => [
 
 const blobData: BlobFloatingProps[] = Array.from({ length: 12 }, (r = 10) => ({
   meshProps: {
-    position: randomVector(r),
+    position: randomVector(r as number),
     rotation: randomEuler(),
   },
   random: Math.random(),

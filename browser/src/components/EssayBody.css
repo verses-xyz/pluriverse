@@ -6,7 +6,12 @@ article {
   display: inline;
 }
 
+.footnote-text {
+  text-decoration: underline dotted rgba(198, 142, 255, 0.7) 2px;
+}
+
 .footnote::after {
+  text-indent: 0;
   counter-increment: footnote;
   content: counter(footnote);
   font-size: 1rem;
@@ -15,23 +20,35 @@ article {
   top: -9px;
   right: -2px;
   color: rgb(198, 142, 255);
+  box-sizing: border-box;
+  background-color: rgba(198, 142, 255, 0);
+  border: 1px solid rgba(198, 142, 255, 0);
+  border-radius: 2px;
+  transition: all 0.4s ease;
+  line-height: 0.9rem;
+  padding: 0.05rem 0.1rem;
 }
 
-.footnote:hover > .footnote-content {
+.footnote:hover > .footnote-content, .footnote.expanded > .footnote-content {
   opacity: 1;
   user-select: text;
   max-height: 50vh;
   -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,1)));
 }
 
+.footnote:hover::after, .footnote:hover .footnote-content::before {
+  background-color: rgba(198, 142, 255, 0.3);
+  border: 1px solid rgb(198, 142, 255);
+}
+
 p:hover .footnote-content {
   opacity: 0.5;
-  user-select: text;
   max-height: 50vh;
   -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,1)));
 }
 
 .footnote-content {
+  text-indent: 0;
   opacity: 0.3;
   transition: opacity 0.8s ease, max-height 0.4s ease;
   z-index: 4;
@@ -77,9 +94,16 @@ p:hover .footnote-content {
   font-size: 1rem;
   display: inline-block;
   position: relative;
-  top: -8px;
+  top: -6px;
   right: 5px;
   color: rgb(198, 142, 255);
+  box-sizing: border-box;
+  background-color: rgba(198, 142, 255, 0);
+  border: 1px solid rgba(198, 142, 255, 0);
+  border-radius: 2px;
+  transition: all 0.4s ease;
+  line-height: 0.9rem;
+  padding: 0.05rem 0.1rem;
 }
 
 .footnote-content-mobile {
@@ -90,7 +114,6 @@ p:hover .footnote-content {
 @media only screen and (max-width: 1650px) {
   .footnote {
     cursor: pointer;
-    border-bottom: rgb(198, 142, 255) solid 1px;
     position: relative;
   }
   .footnote-content {

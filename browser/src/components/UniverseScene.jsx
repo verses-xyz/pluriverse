@@ -1,12 +1,55 @@
 import { OrbitControls, Stars } from "@react-three/drei";
-
 import Blobs from "./Blobs";
+import { useEffect } from "react";
+import { useThree } from "@react-three/fiber";
+import useGsap from "../hook/useGsap";
 import BlobsPostProcessing from "./BlobsPostProcessing";
 
 export default function UniverseScene() {
+  const { camera } = useThree();
+  const gsap = useGsap();
+
+  useEffect(() => {
+    gsap.fromTo(
+      camera.position,
+      {
+        z: 5,
+      },
+      {
+        z: 15,
+        scrollTrigger: {
+          trigger: "#contributionSection",
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    gsap.fromTo(
+      camera.position,
+      {
+        z: 20,
+      },
+      {
+        z: 5,
+        scrollTrigger: {
+          trigger: "#essay-content",
+          start: 0,
+          end: "top top",
+          scrub: true,
+        },
+      }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
-      <OrbitControls autoRotate={true} autoRotateSpeed={1} enableZoom={false} />
+      <OrbitControls
+        autoRotate={true}
+        autoRotateSpeed={0.3}
+        enableZoom={false}
+      />
       <fog attach="fog" args={["#dbdbdb", 16, 30]} />
       <ambientLight intensity={0.5} />
       <directionalLight intensity={0.3} position={[5, 25, 20]} />
@@ -23,10 +66,9 @@ export default function UniverseScene() {
         shadow-mapSize={[1024, 1024]}
         shadow-bias={-0.0001}
       />
-      <Stars radius={500} depth={50} count={1500} factor={15} />
-      {/* TODO: comment out for now due to perf degradation */}
-      {/* <BlobsPostProcessing /> */}
+      <BlobsPostProcessing/>
       <Blobs />
+      <Stars radius={100} depth={50} count={1500} factor={4} />
     </>
   );
 }

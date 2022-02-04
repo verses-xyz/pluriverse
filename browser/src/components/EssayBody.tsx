@@ -6,28 +6,25 @@ export function EssayBody() {
     <>
       {/* TODO: refactor the article tag out so it includes the hero. for now let's have this invisible h1 for screen readers */}
       <h1 style={{ display: "none" }}>Towards a Digital Pluriverse</h1>
-      <p className="pt-8 -mb-6">
-        W
-        <span className="subhead">
-          e are told that the age of the{" "}
-          <Footnote
-            topOffset={5}
-            data={
-              <>
-                Coined by the American author Neal Stephenson in his novel,{" "}
-                <em>Snow Crash</em>, ‘the Metaverse’ refers to a virtual reality
-                integrated networks that can be used for work and play. The term
-                became ubiquitous in public discourse in 2021 following the
-                announcement from Facebook founder, Mark Zuckerberg, of the
-                company’s name change to ‘Meta’ and the company’s investment
-                into building a metaverse.
-              </>
-            }
-          >
-            Metaverse
-          </Footnote>{" "}
-          is upon us.{" "}
-        </span>
+      <p className="pt-8 subhead">
+        We are told that the age of the{" "}
+        <Footnote
+          topOffset={5}
+          data={
+            <>
+              Coined by the American author Neal Stephenson in his novel,{" "}
+              <em>Snow Crash</em>, ‘the Metaverse’ refers to a virtual reality
+              integrated networks that can be used for work and play. The term
+              became ubiquitous in public discourse in 2021 following the
+              announcement from Facebook founder, Mark Zuckerberg, of the
+              company’s name change to ‘Meta’ and the company’s investment into
+              building a metaverse.
+            </>
+          }
+        >
+          Metaverse
+        </Footnote>{" "}
+        is upon us.{" "}
       </p>
       <p>
         The profiteers of this age promise digital freedom through technology.
@@ -240,12 +237,11 @@ export function EssayBody() {
             <>
               Freedom from external restraint on action is referred to as{" "}
               <em>negative freedom</em>. Here, we instead call for the{" "}
-              <em>positive freedom</em>{" "}
-              of having the capacity, resources, and pathways to act upon
-              individual and collective free will. As per Escobar: the
-              pluriverse is not merely about “'expanding the range of choices'
-              (liberal freedom) but is intended to transform the kinds of beings
-              we desire to be”.
+              <em>positive freedom</em> of having the capacity, resources, and
+              pathways to act upon individual and collective free will. As per
+              Escobar: the pluriverse is not merely about “'expanding the range
+              of choices' (liberal freedom) but is intended to transform the
+              kinds of beings we desire to be”.
             </>
           }
         >
@@ -323,7 +319,7 @@ export function EssayBody() {
         gather these worlds around a different banner: the{" "}
         <strong>pluriverse, a world in which many worlds fit.</strong>
       </p>
-      <h2 className="font-title text-3xl pt-16 font-bold pb-3">
+      <h2 className="font-title text-3xl pt-20 pb-3 font-semibold">
         Learning from the Pluriverse
       </h2>
       <p>
@@ -412,6 +408,7 @@ export function EssayBody() {
         alternative forms of{" "}
         <Footnote
           left
+          topOffset={-40}
           data={
             <>
               Multiple examples of pluriversality appear in{" "}
@@ -442,7 +439,7 @@ export function EssayBody() {
         , and{" "}
         <Footnote
           left
-          topOffset={170}
+          topOffset={180}
           data={
             <>
               David Graeber’s <em>Debt</em> provides an overview of the many
@@ -552,7 +549,7 @@ export function EssayBody() {
         digital space, across emerging technologies. Pluriversality can underpin
         these choices, lending an ethos to the difficult work to come.
       </p>
-      <h2 className="font-title text-3xl pt-16 font-bold pb-3">
+      <h2 className="font-title text-3xl pt-20 pb-3 font-semibold">
         A Pattern Language for the Pluriverse
       </h2>
       <p>

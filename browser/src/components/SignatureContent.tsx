@@ -3,7 +3,6 @@ import { Author } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import "./SignatureContent.css";
 import { Checkmark } from "./core/Checkmark";
-import { ButtonClass } from "src/types/styles";
 import { SignaturesContext } from "src/pages/Main";
 
 function truncateWallet(address: string) {
@@ -26,7 +25,7 @@ function getTwitterDisplay(
       onClick={() => {
         window.open(twitterUrl, "_blank");
       }}
-      className={` twitterName ${ButtonClass()}`}
+      className={`twitterName`}
     >
       @{twitterUsername}{" "}
       {twitterVerified && (

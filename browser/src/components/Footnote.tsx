@@ -14,8 +14,8 @@ export default function Footnote({
   const [expanded, toggle] = useToggle();
 
   return (
-    <span className="footnote" onClick={toggle}>
-      {children}
+    <span className={`footnote ${expanded ? "expanded" : ""}`} onClick={toggle}>
+      <span className="footnote-text">{children}</span>
       <div
         className={`footnote-content ${
           left ? "footnote-content-left" : "footnote-content-right"
