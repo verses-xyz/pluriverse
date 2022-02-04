@@ -130,6 +130,9 @@ const ScissorCanvas = forwardRef<
   return (
     <Canvas
       ref={ref}
+      // TODO: this cannot use demand because it needs to update whenever the window is resized
+      // or scrolled. Could be more efficient if we have a listener on the window for these events so it isn't re-rendering every frame.
+      // frameloop="demand"
       style={{
         position: "fixed",
         left: "0",

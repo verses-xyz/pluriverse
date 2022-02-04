@@ -84,7 +84,10 @@ export const replaceJSX = (
     return new RegExp(regexp.join("|"));
   };
   str.split(getRegExp()).forEach((item, i) => {
-    result.push(item, replacement[keys[i]]);
+    result.push(
+      item,
+      <React.Fragment key={i}>{replacement[keys[i]]}</React.Fragment>
+    );
   });
   return result;
 };
@@ -726,6 +729,7 @@ export function ContributionSection() {
       <div className="pageProgressContainer mb-8">
         {Object.values(Page).map((p) => (
           <div
+            key={p}
             className={`pageProgress ${
               page === p ? "selectedPageProgress" : ""
             }`}

@@ -19,9 +19,9 @@ export default function BlobsPostProcessing() {
         intensity={0.2} // The bloom intensity.
         width={Resizer.AUTO_SIZE} // render width
         height={Resizer.AUTO_SIZE} // render height
-        kernelSize={5} // blur kernel size
+        kernelSize={4} // blur kernel size
         luminanceThreshold={0.2} // luminance threshold. Raise this value to mask out darker elements in the scene.
-        luminanceSmoothing={0.1} // smoothness of the luminance threshold. Range is [0, 1]
+        luminanceSmoothing={0.3} // smoothness of the luminance threshold. Range is [0, 1]
       />
       <DepthOfField
         focusDistance={0}

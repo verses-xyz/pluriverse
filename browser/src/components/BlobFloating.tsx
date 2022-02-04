@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { MeshProps, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import Blob from "./Blob";
+import Blob, { SizeChoice } from "./Blob";
 
 export interface BlobFloatingProps {
   random: number;
@@ -71,7 +71,7 @@ export default function BlobFloating({
   return (
     <group ref={ref}>
       <Blob
-        size={size}
+        sizeType={SizeChoice.Small}
         speed={speed}
         color={color}
         density={density}

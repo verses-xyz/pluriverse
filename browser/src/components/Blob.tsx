@@ -1,7 +1,8 @@
+import { useMemo, useRef } from "react";
 import fragmentShader from "../shaders/fragment.glsl";
 import vertexShader from "../shaders/vertex.glsl";
-import { useMemo, useRef } from "react";
 import { MeshProps } from "@react-three/fiber";
+import { IcosahedronGeometry } from "three";
 
 interface ShaderProps {
   speed: number;
@@ -12,8 +13,25 @@ interface ShaderProps {
   offset: number;
 }
 
+export enum SizeChoice {
+  Small = "Small",
+  Medium = "Medium",
+}
+
+const BlobSizes: Record<SizeChoice, number> = {
+  [SizeChoice.Small]: 0.8,
+  [SizeChoice.Medium]: 5,
+};
+
+const IcosahedronGeos: Record<string, IcosahedronGeometry> = Object.fromEntries(
+  Object.entries(BlobSizes).map(([sizeChoice, size]) => [
+    sizeChoice as SizeChoice,
+    new IcosahedronGeometry(size, 8),
+  ])
+);
+
 interface BlobProps extends ShaderProps {
-  size: number;
+  sizeType: SizeChoice;
   meshProps?: MeshProps;
 }
 
@@ -62,13 +80,12 @@ export function BlobShaderMaterial({
 }
 
 export default function Blob({
-  size,
+  sizeType,
   meshProps = {},
   ...shaderProps
 }: BlobProps) {
   return (
-    <mesh {...meshProps}>
-      <icosahedronGeometry attach="geometry" args={[size, 8]} />
+    <mesh {...meshProps} geometry={IcosahedronGeos[sizeType]}>
       <BlobShaderMaterial {...shaderProps} />
     </mesh>
   );

@@ -66,7 +66,7 @@ export default function UniverseScene() {
         shadow-mapSize={[1024, 1024]}
         shadow-bias={-0.0001}
       />
-      <BlobsPostProcessing/>
+      <BlobsPostProcessing />
       <Blobs />
       <Stars radius={100} depth={50} count={1500} factor={4} />
     </>

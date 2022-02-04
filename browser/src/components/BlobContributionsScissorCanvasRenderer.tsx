@@ -1,8 +1,6 @@
 import {
   ScissorCanvas, // <- R3F Canvas wrapper
   ScissorScene, // <- The <scene> to be rendered witin a given virtual canvas
-  useScissorFrame, // <- Like useFrame, provides access to the Scissoring render loop
-  useScissorInit, // <- Window into the first run of useScissorFrame. Used to initialize whatever you want
 } from "src/components/react-three-scissor";
 import { Contribution } from "src/types/common/server-api";
 import { BlobSingle } from "./BlobSingle";

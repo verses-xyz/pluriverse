@@ -14,9 +14,10 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei/core/OrbitControls";
 import { MdLink } from "react-icons/md";
 import { getContributionLink } from "src/helpers/contributions";
-import { useContext } from "react";
+import { Suspense, useContext } from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 import BlobsPostProcessing from "./BlobsPostProcessing";
+import { LoadingIndicator } from "./core/LoadingIndicator";
 
 interface Props {
   contribution: Contribution;
@@ -103,23 +104,26 @@ export function ContributionCard({
         >
           {!id || renderCanvas ? (
             // TODO: add all the things needed
-            <Canvas
-              camera={{ position: [0, 0, 20], fov: 50 }}
-              style={{ cursor: "pointer" }}
-            >
-              <OrbitControls
-                autoRotate={true}
-                autoRotateSpeed={5}
-                enableZoom={false}
-              />
-              <BlobSingle
-                pattern={pattern}
-                prompt={prompt}
-                walletId={author.walletId}
-                response={response}
-              />
-              {/* <BlobsPostProcessing /> */}
-            </Canvas>
+            <Suspense fallback={<LoadingIndicator />}>
+              <Canvas
+                frameloop="demand"
+                camera={{ position: [0, 0, 20], fov: 50 }}
+                style={{ cursor: "pointer" }}
+              >
+                <OrbitControls
+                  autoRotate={true}
+                  autoRotateSpeed={5}
+                  enableZoom={false}
+                />
+                <BlobSingle
+                  pattern={pattern}
+                  prompt={prompt}
+                  walletId={author.walletId}
+                  response={response}
+                />
+                {/* <BlobsPostProcessing /> */}
+              </Canvas>
+            </Suspense>
           ) : (
             <BlobSingleScissorWindow id={id} />
           )}

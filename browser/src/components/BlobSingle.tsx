@@ -1,18 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Pattern, Prompt } from "../types/common/server-api";
 import { sha256 } from "ethers/lib/utils";
-import Blob from "./Blob";
-import { OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import Blob, { SizeChoice } from "./Blob";
 import { randomEuler } from "./Blobs";
-import {
-  Bloom,
-  DepthOfField,
-  EffectComposer,
-  HueSaturation,
-  Noise,
-  Vignette,
-} from "@react-three/postprocessing";
 
 function toHex(str: string) {
   return str
@@ -81,7 +71,7 @@ export function BlobSingle({
         shadow-bias={-0.0001}
       />
       <Blob
-        size={5}
+        sizeType={SizeChoice.Medium}
         meshProps={{ rotation }}
         speed={getMessageChunk(message, 0, 0.1, 0.5)}
         color={Object.keys(Pattern).indexOf(pattern) * PatternColorIncrement}

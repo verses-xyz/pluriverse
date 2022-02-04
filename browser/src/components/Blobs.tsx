@@ -22,9 +22,9 @@ const blobData: BlobFloatingProps[] = Array.from({ length: 12 }, (r = 10) => ({
   random: Math.random(),
   size: 0.8,
   speed: Math.random() * 0.5,
-  color: Math.random() * 0.6,
-  density: Math.random() * 2,
-  strength: Math.random() * 0.1,
+  color: Math.random() * 0.7,
+  density: Math.random() * 1.5 + 0.5,
+  strength: Math.random() * 0.15,
   offset: Math.random() * 2 * Math.PI,
 }));
 

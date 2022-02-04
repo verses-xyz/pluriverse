@@ -75,7 +75,11 @@ export default function ContributionsCarousel({
         <div style={{ display: "flex" }}>
           <div ref={leftInvisiblePixelRef} />
           {contributions.map((contribution) => (
-            <div className="mr-4" style={{ scrollSnapAlign: "start" }}>
+            <div
+              key={contribution.id}
+              className="mr-4"
+              style={{ scrollSnapAlign: "start" }}
+            >
               <ContributionCard
                 key={contribution.id}
                 contribution={contribution}

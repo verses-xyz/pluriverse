@@ -12,6 +12,8 @@ import { ModalProvider } from "./helpers/contexts/ModalContext";
 import { ContributionsProvider } from "./helpers/contexts/ContributionsContext";
 import BlobContributionsScissorCanvasRendererWithContributions from "./components/BlobContributionsScissorCanvasRendererWithContributions";
 import { StatsProvider } from "./helpers/contexts/StatsContext";
+import { LoadingIndicator } from "./components/core/LoadingIndicator";
+import { Suspense } from "react";
 
 function App() {
   return (
@@ -56,9 +58,14 @@ function App() {
           element={
             <>
               <div className="canvas-container fadeOutOnScroll fadeInOnTermsOnContributionSection">
-                <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
-                  <UniverseScene />
-                </Canvas>
+                <Suspense fallback={<LoadingIndicator />}>
+                  <Canvas
+                    camera={{ position: [0, 0, 20], fov: 50 }}
+                    frameloop="demand"
+                  >
+                    <UniverseScene />
+                  </Canvas>
+                </Suspense>
               </div>
             </>
           }
