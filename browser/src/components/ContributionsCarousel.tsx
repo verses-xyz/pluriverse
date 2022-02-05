@@ -22,8 +22,10 @@ function CarouselArrow({
 
 export default function ContributionsCarousel({
   contributions,
+  className,
 }: {
   contributions: Contribution[];
+  className?: string;
 }) {
   const overflowContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -59,7 +61,10 @@ export default function ContributionsCarousel({
   // TODO: add paging here like in ContributionsPage, probably only render 10 and then load more on a see more item?
 
   return (
-    <div style={{ position: "relative" }}>
+    <div
+      style={{ position: "relative" }}
+      className={`${className ? className : ""}`}
+    >
       {!hideLeftControl && (
         <>
           <div className={`${CarouselGradientClassName} left`} />

@@ -124,7 +124,6 @@ export function ContributionsPage() {
 
   return (
     <div className=" pb-20">
-      {/* <BlobContributionsScissorCanvasRenderer contributions={contributions} /> */}
       {highlightedContribution
         ? getMetaTagsForHighlightedContribution(highlightedContribution)
         : getMetaTags()}

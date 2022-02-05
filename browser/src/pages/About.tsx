@@ -1,7 +1,19 @@
+import { useContext } from "react";
+import ContributionsCarousel from "src/components/ContributionsCarousel";
+import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
+import { Contribution } from "src/types/common/server-api";
+
+const CoreStewardContributionIds = [43, 18, 42];
+
 export function About() {
+  const { contributions } = useContext(ContributionsContext);
+  const stewardContributions: Contribution[] = CoreStewardContributionIds.map(
+    (cId) => contributions.find((c) => c.id === cId)
+  ).filter((c): c is Contribution => c !== undefined);
+
   return (
-    <div>
-      <div className="container w-full md:max-w-2xl mx-auto pb-20">
+    <div className="container w-full pb-20 mx-auto">
+      <div className="container w-full md:max-w-2xl mx-auto">
         <h2 className="font-title text-3xl pt-16 font-bold pb-3">The Story</h2>
         <p>
           This artifact is a follow-up to{" "}
@@ -138,6 +150,9 @@ export function About() {
           </p>
         </div>
       </div>
+      {/* <div className="container lg:pl-40 xl:pl-60">
+        <ContributionsCarousel contributions={stewardContributions} />
+      </div> */}
     </div>
   );
 }
