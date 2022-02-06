@@ -5,4 +5,5 @@ export function ButtonClass(fields?: string) {
   return `${ButtonDefaultClass} ${fields}`;
 }
 
-const ButtonDefaultClass = "glass-button md:px-6";
+const ButtonDefaultClass =
+  "glass-button md:px-6 disabled:bg-gray-700 disabled:text-gray-300 disabled:shadow-none disabled:cursor-not-allowed";

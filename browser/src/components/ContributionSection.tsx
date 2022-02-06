@@ -36,6 +36,7 @@ import { AsyncButton } from "./core/AsyncButton";
 import dayjs from "dayjs";
 import { ArweaveContext } from "src/helpers/contexts/ArweaveContext";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
+import { BiErrorCircle } from "react-icons/bi";
 
 enum Page {
   TermsOfUse = "TermsOfUse",
@@ -293,7 +294,7 @@ function TermsOfUse({
       </p>
       <hr />
       <div className="text-center">
-        <p className="text-xl">
+        <p className="text-xl py-1">
           <b>
             "I want to help build the <b className="shimmer">pluriverse</b>{" "}
             together"
@@ -427,7 +428,7 @@ export function ContributionSection() {
     );
   }
 
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>();
   const handleErr = (err: Error) => {
     setError(err.message);
   };
@@ -712,7 +713,7 @@ export function ContributionSection() {
               </div>
               <div className="actionsContainer">
                 <button
-                  className={`${ButtonClass()} w-48 mr-auto bg-gray-600 rounded-full gap-1 items-center`}
+                  className={`${ButtonClass()} mr-auto bg-gray-600 rounded-full gap-1 items-center`}
                   onClick={() => setPage(getPreviousPage())}
                 >
                   <MdArrowBack /> Verification
@@ -898,7 +899,9 @@ export function ContributionSection() {
         {renderPageProgress()}
         {renderPage()}
         {error && (
-          <div className="errorContainer text-red-500">Error: {error}</div>
+          <div className="errorContainer text-red-500 flex items-center gap-1 justify-center">
+            <BiErrorCircle /> {error}
+          </div>
         )}
         {renderPageNavigation()}
       </div>

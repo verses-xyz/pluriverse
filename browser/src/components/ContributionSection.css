@@ -19,6 +19,7 @@
 
 .terms > p {
   line-height: 1.4;
+  padding: .5rem 0;
 }
 
 .inputs {
