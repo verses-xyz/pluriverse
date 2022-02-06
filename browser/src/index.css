@@ -121,7 +121,7 @@ main {
     position: fixed;
     min-height: 100vh;
     /* mobile viewport bug fix */
-    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
     width: 200vw;
     background: radial-gradient(
         at 25% 100%,
