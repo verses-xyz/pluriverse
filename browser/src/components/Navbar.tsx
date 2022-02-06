@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { MdAdd } from "react-icons/md";
-import { BiQuestionMark, BiWorld } from "react-icons/bi";
+import { BiQuestionMark, BiPlanet } from "react-icons/bi";
 import { FiBook } from "react-icons/fi";
+import { TiPencil } from "react-icons/ti";
 
 export function Navbar() {
   return (
@@ -59,7 +60,7 @@ export function Navbar() {
               >
                 <span className="hidden md:inline">All Contributions</span>
                 <span className="md:hidden">
-                  <BiWorld />
+                  <BiPlanet />
                 </span>
               </button>
             )}
@@ -69,9 +70,14 @@ export function Navbar() {
           {/* Can make this scroll instead. */}
           <a href="/#contribute">
             <button className={`glass-button md:px-6 glass-button-cta`}>
-              <span className="hidden md:inline">Contribute</span>
+              <span className="hidden md:flex pr-2">
+                <span className="pr-3 pt-1">
+                  <TiPencil />
+                </span>
+                Contribute
+              </span>
               <span className="md:hidden">
-                <MdAdd />
+                <TiPencil />
               </span>
             </button>
           </a>
