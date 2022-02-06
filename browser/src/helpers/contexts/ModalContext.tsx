@@ -58,10 +58,10 @@ export function ModalProvider({ children }) {
   function getContributionModalContent(highlightedContribution: Contribution) {
     return (
       <div>
-        <h2 className="font-bold text-3xl mb-4">
+        <h2 className="font-bold text-2xl mb-4">
           Pluriverse Contribution #{highlightedContribution.id}
         </h2>
-        <p className="pt-0 my-2">
+        <p className="pt-0 my-2 text-lg">
           On{" "}
           {getMinuteTimeOfDayDateDisplay(
             dayjs(highlightedContribution.createdAt, { utc: true })

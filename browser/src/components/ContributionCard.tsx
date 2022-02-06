@@ -139,7 +139,7 @@ export function ContributionCard({
             <Suspense fallback={<LoadingIndicator />}>
               <Canvas
                 frameloop="demand"
-                camera={{ position: [0, 0, 20], fov: 50 }}
+                camera={{ position: [0, 0, 14], fov: 50 }}
                 style={{ cursor: "pointer" }}
               >
                 <OrbitControls

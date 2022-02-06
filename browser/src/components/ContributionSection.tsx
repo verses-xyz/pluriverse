@@ -219,7 +219,9 @@ function PreviewCard({
     pattern,
     createdAt: new Date(),
   };
-  return <ContributionCard contribution={contribution} />;
+  return (
+    <ContributionCard contribution={contribution} className="preview-card" />
+  );
 }
 
 interface TermsOfUseProps {
@@ -317,7 +319,7 @@ function TermsOfUse({
       <div className="actionsContainer mb-4">
         {user?.signature ? (
           <button className={ButtonClass()} onClick={onContinue}>
-            Continue to verification ➔
+            Continue to contribution ➔
           </button>
         ) : currentUserWalletAddress ? (
           <AsyncButton
@@ -381,23 +383,32 @@ export function ContributionSection() {
   );
 
   const promptSelect = (
-    <Dropdown
-      items={PromptItems}
-      defaultOption="Select a prompt..."
-      selectedItemName={
-        selectedPrompt
-          ? (PromptDescriptionsToDisplay[selectedPrompt] as any)
-          : undefined
-      }
-      className="patternSelect"
-    />
+    <label className="block">
+      <p className="text-xl">Prompt</p>
+      <Dropdown
+        items={PromptItems}
+        defaultOption="Select a prompt..."
+        selectedItemName={
+          selectedPrompt
+            ? PromptDescriptionsToDisplay[selectedPrompt].replace(
+                "...",
+                PatternToDisplay[selectedPattern]
+              )
+            : undefined
+        }
+        className="patternSelect w-full"
+      />
+    </label>
   );
   const patternSelect = (
-    <Dropdown
-      items={PatternItems}
-      selectedItemName={selectedPattern && PatternToDisplay[selectedPattern]}
-      className="patternSelect"
-    />
+    <label className="block">
+      <p className="text-xl">Pattern</p>
+      <Dropdown
+        items={PatternItems}
+        selectedItemName={selectedPattern && PatternToDisplay[selectedPattern]}
+        className="patternSelect w-full"
+      />
+    </label>
   );
 
   let promptStarter: React.ReactNode = "";
@@ -580,11 +591,11 @@ export function ContributionSection() {
         return (
           <div>
             <div className="flex mb-6">
-              <h2 className="text-3xl font-bold">Terms of Verification</h2>
+              <h2 className="text-2xl font-bold">Terms of Verification</h2>
               {currentUser && getUserLabel(currentUser, "verifying for")}
             </div>
             <div className="verifyContainer ">
-              <p>
+              <p className="text-xl">
                 <em>(this is optional)</em>
               </p>
               <ol className="list-decimal list-inside	">
@@ -653,10 +664,10 @@ export function ContributionSection() {
           <div>
             <div className="signContainer">
               <div className="flex">
-                <h2 className="text-3xl font-bold">Terms of Contribution</h2>
+                <h2 className="text-2xl font-bold">Terms of Contribution</h2>
                 {currentUser && getUserLabel(currentUser, "contributing as")}
               </div>
-              <p>
+              <p className="text-xl">
                 We've provided some sentence starters to get you going. Please
                 select a prompt and contribute to the{" "}
                 <b className="shimmer"> Pluriverse</b>. If you use the free-form
@@ -664,12 +675,19 @@ export function ContributionSection() {
               </p>
               <div className="contributionContainer">
                 <div className="selects">
-                  {promptSelect}
                   {selectedPrompt && (
                     <>
-                      <div className="responseContainer">
-                        {promptStarter} <br />
-                        {
+                      <div className="responseContainer w-full">
+                        {patternSelect}
+                        {promptSelect}
+                        <label>
+                          <div className="flex">
+                            <p className="text-xl">Contribution</p>
+                            <span className="flex-grow" />
+                            <p className="text-lg opacity-50">
+                              {response?.length || 0} / {ResponseCharacterLimit}
+                            </p>
+                          </div>
                           <AutoGrowInput
                             value={response}
                             onChange={setResponse}
@@ -680,11 +698,8 @@ export function ContributionSection() {
                               maxLength: ResponseCharacterLimit,
                             }}
                           />
-                        }
+                        </label>
                       </div>
-                      <span className={`${descriptionText} mt-2`}>
-                        {response?.length || 0} / {ResponseCharacterLimit}
-                      </span>
                     </>
                   )}
                 </div>
@@ -697,8 +712,14 @@ export function ContributionSection() {
               </div>
               <div className="actionsContainer">
                 <button
+                  className={`${ButtonClass()} w-48 mr-auto bg-gray-600 rounded-full gap-1 items-center`}
+                  onClick={() => setPage(getPreviousPage())}
+                >
+                  <MdArrowBack /> Verification
+                </button>
+                <button
                   onClick={onSaveContribution}
-                  className={ButtonClass("blue")}
+                  className={ButtonClass("glass-button-cta")}
                   disabled={!isResponseValid()}
                 >
                   Add to Pluriverse
@@ -721,10 +742,10 @@ export function ContributionSection() {
         return (
           <div className="signContainer">
             <div className="flex ">
-              <h2 className="text-3xl font-bold">Terms of Sharing</h2>
+              <h2 className="text-2xl font-bold">Terms of Sharing</h2>
               {currentUser && getUserLabel(currentUser, "sharing from")}
             </div>
-            <p>
+            <p className="text-xl">
               Thank you for contributing to the Pluriverse! Your contribution in
               all its glorious plurality is below:
             </p>
@@ -733,11 +754,10 @@ export function ContributionSection() {
               contribution={selectedContribution!}
               renderCanvas={true}
             />
-            <p>
+            <p className="text-xl">
               You can share your specific contribution with others using this
               link: <a href={contributionLink}>{contributionLink}</a>
             </p>
-            <br />
             <div className="flex gap-2">
               <button
                 // className="twitter-share-button"
@@ -842,14 +862,15 @@ export function ContributionSection() {
       return;
     }
 
-    const previousPage = getPreviousPage();
+    const previousPage =
+      page === Page.Contribute ? undefined : getPreviousPage();
     const nextPage = page === Page.Contribute ? undefined : getNextPage();
 
     return (
       <div className="flex mt-8">
         {previousPage && (
           <button
-            className={`${ButtonClass()} mr-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
+            className={`${ButtonClass()} w-48 mr-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
             onClick={() => setPage(previousPage)}
           >
             <MdArrowBack /> {PageNames[previousPage]}
@@ -857,7 +878,7 @@ export function ContributionSection() {
         )}
         {nextPage && (
           <button
-            className={`${ButtonClass()} ml-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
+            className={`${ButtonClass()} w-48 ml-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
             onClick={() => setPage(nextPage)}
           >
             {PageNames[nextPage]} <MdArrowForward />

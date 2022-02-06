@@ -255,8 +255,8 @@ footer {
 
 .modal {
   background-color: hsla(0, 0%, 20%, 1);
-  width: 100%;
-  max-width: 576px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 420px;
   padding: 3rem;
   position: relative;
   border-radius: 0.4rem;
@@ -275,4 +275,26 @@ footer {
   align-items: center;
   justify-content: center;
   z-index: 3000;
+
+  backdrop-filter: blur(5px);
+}
+
+.dropdown {
+  background-color: hsla(0, 0%, 15%, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+.dropdown button {
+  text-align: right;
+  display: block;
+  padding: 5px 0;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  transition: background-color 0.8s ease;
+}
+
+.dropdown button:last-of-type {
+  border-bottom: none;
 }

@@ -44,7 +44,7 @@ input {
 
 input, .input {
   background-color: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: background-color 0.8s ease;
   border-radius: 10px;
 }
@@ -84,6 +84,10 @@ input::placeholder {
   justify-content: center;
 }
 
+.actionsContainer svg {
+  display: inline;
+}
+
 .signContainer {
   display: flex;
   flex-direction: column;
@@ -113,9 +117,7 @@ input::placeholder {
 }
 
 .contributionContainer {
-  margin-top: 24px;
   display: grid;
-  column-gap: 24px;
   grid-template-columns: 1fr 1fr;
 }
 
@@ -126,8 +128,8 @@ input::placeholder {
   gap: 12px;
 }
 
-.responseInput {
-  margin-top: 12px;
+label > *, label p {
+  padding-bottom: 0.25rem;
 }
 
 .errorContainer {
