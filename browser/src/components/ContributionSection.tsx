@@ -39,7 +39,6 @@ import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 import { Converter } from "showdown";
 
-
 enum Page {
   TermsOfUse = "TermsOfUse",
   TwitterVerify = "TwitterVerify",

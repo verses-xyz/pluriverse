@@ -31,10 +31,6 @@
     font-size: inherit;
 }
 
-.ProseMirror > p::selection{
-    background: rgba(198, 142, 255, 0.5);
-}
-
 .ProseMirror > code {
     padding-top: 0;
     font-size: inherit;
@@ -54,20 +50,12 @@
 }
 
 .menu {
-    border: 1px solid black;
-    border-bottom: 0px;
-    padding: 0.25rem;
-    background-color: hsla(0,0%,100%,.1);
-    border-radius: 0.375rem 0.375rem 0 0;
-    width: 100%;
-    display: inline-block;
+    background-color: hsla(0, 0%, 15%, 1);
+    width:100%;
+    padding:0.375rem; 
+    position:relative;
+    border-radius:0.375rem;
 }
-
-.menuItem { 
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-}
-
 
 .linkInput {
     font: inherit;
