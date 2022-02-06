@@ -262,7 +262,14 @@ function TermsOfUse({
 
   return (
     <div className="terms">
-      <h2 className="text-2xl font-bold">Terms of Support</h2>
+      <div className="flex mb-6">
+        <h2 className="text-3xl font-bold">Terms of Support</h2>
+        {(user || currentUserWalletAddress) &&
+          getUserLabel(
+            user || { walletId: currentUserWalletAddress },
+            "signing as"
+          )}
+      </div>
       <p className="text-xl">
         Please read the above essay ("
         <b>essay</b>") and patterns ("
@@ -289,13 +296,6 @@ function TermsOfUse({
             "I want to help build the <b className="shimmer">pluriverse</b>{" "}
             together"
           </b>
-        </p>
-        <p className="text-lg opacity-50 p-0">
-          {(user || currentUserWalletAddress) &&
-            getUserLabel(
-              user || { walletId: currentUserWalletAddress },
-              "signing as"
-            )}
         </p>
       </div>
       {!user && currentUserWalletAddress && (
@@ -802,10 +802,21 @@ export function ContributionSection() {
     }
   }
 
+  const maybeFilteredPages = Object.values(Page).filter(
+    (p) =>
+      !currentUser ||
+      !currentUser.twitterUsername ||
+      currentUser.twitterVerified ||
+      (currentUser &&
+        currentUser.twitterUsername &&
+        !currentUser.twitterVerified) ||
+      p !== Page.TwitterVerify
+  );
+
   function renderPageProgress() {
     return (
       <div className="pageProgressContainer mb-8">
-        {Object.values(Page).map((p) => (
+        {maybeFilteredPages.map((p) => (
           <div
             key={p}
             className={`pageProgress ${
@@ -818,7 +829,7 @@ export function ContributionSection() {
   }
 
   function getPreviousPage() {
-    let pageIndex = Object.values(Page).indexOf(page);
+    let pageIndex = maybeFilteredPages.indexOf(page);
     if (
       page === Page.Contribute &&
       (currentUser?.twitterVerified || !currentUser?.twitterUsername)
@@ -826,14 +837,14 @@ export function ContributionSection() {
       pageIndex--;
     }
     return pageIndex - 1 >= 0
-      ? (Object.values(Page)[pageIndex - 1] as Page)
+      ? (maybeFilteredPages[pageIndex - 1] as Page)
       : undefined;
   }
 
   function getNextPage() {
-    const pageIndex = Object.values(Page).indexOf(page);
-    return pageIndex + 1 < Object.keys(Page).length
-      ? (Object.values(Page)[pageIndex + 1] as Page)
+    const pageIndex = maybeFilteredPages.indexOf(page);
+    return pageIndex + 1 < maybeFilteredPages.length
+      ? (maybeFilteredPages[pageIndex + 1] as Page)
       : undefined;
   }
 
@@ -846,7 +857,7 @@ export function ContributionSection() {
     const nextPage = page === Page.Contribute ? undefined : getNextPage();
 
     return (
-      <div className="flex mt-8">
+      <div className="flex mt-8 contributionNavigation">
         {previousPage && (
           <button
             className={`${ButtonClass()} mr-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}

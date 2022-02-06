@@ -43,7 +43,7 @@ export default function PatternsContent() {
       ].map(([pattern, { title, problem, solution }], index) => (
         <PatternSection
           key={index}
-          pattern={pattern}
+          pattern={pattern as Pattern}
           title={`0${index}. ${title}`}
           problem={problem}
           solution={solution}
