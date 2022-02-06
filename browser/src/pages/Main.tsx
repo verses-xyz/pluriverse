@@ -120,12 +120,9 @@ export function Main() {
           </div>
           <div
             id="contributionSection"
-            className="container w-full md:max-w-4xl mx-auto pb-20 px-4"
+            className="container w-full md:max-w-4xl mx-auto pb-20 px-4 mt-16"
           >
             <ContributionSection />
-            <br />
-
-            <br />
             <SignatureContent />
           </div>
         </div>

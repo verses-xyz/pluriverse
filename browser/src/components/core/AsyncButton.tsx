@@ -34,7 +34,7 @@ export function AsyncButton({
 
   return (
     <button
-      className={`${ButtonClass("blue")}`}
+      className={`${ButtonClass("wide")}`}
       onClick={onClick}
       disabled={loading}
       {...buttonProps}

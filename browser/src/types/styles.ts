@@ -1,7 +1,8 @@
-export function ButtonClass(background?: string) {
-  return `${
-    background ? `bg-${background}-200 hover:bg-${background}-100  ` : ""
-  }${ButtonDefaultClass}`;
+export function ButtonClass(fields?: string) {
+  if (fields?.includes("wide")) {
+    return `${ButtonDefaultClass} w-1/2`;
+  }
+  return ButtonDefaultClass;
 }
 
 const ButtonDefaultClass = "glass-button md:px-6";

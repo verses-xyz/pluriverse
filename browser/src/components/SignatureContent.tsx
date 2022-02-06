@@ -135,7 +135,7 @@ export function SignatureContent() {
   }
 
   return (
-    <div className="signatureContainer">
+    <div className="signatureContainer mt-16">
       <h2 className="text-4xl font-bold mb-2 text-center">Signatures</h2>
       {signaturesToRender.map((author) => (
         <Signature key={author.walletId} author={author} />

@@ -71,7 +71,7 @@ I am signing the document on ${date}, which lives on the permaweb on Arweave tx:
 }
 
 const ResponseCharacterLimit = 900;
-export const Placeholder = "________";
+export const Placeholder = "...";
 export const replaceJSX = (
   str: string,
   replacement: { [x: string]: any; pattern?: JSX.Element },
@@ -260,18 +260,10 @@ function TermsOfUse({
   const { version, transactionId = "" } = latestEssayInfo || {};
   const arweaveDocLink = transactionId ? getArweaveLink(transactionId) : "";
 
-  async function onDisagree() {
-    await onSubmitWallet({
-      name,
-      twitterUsername,
-      isDisagreeing: true,
-    });
-  }
-
   return (
     <div className="terms">
-      <h2 className="text-3xl font-bold">Terms of Support</h2>
-      <p>
+      <h2 className="text-2xl font-bold">Terms of Support</h2>
+      <p className="text-xl">
         Please read the above essay ("
         <b>essay</b>") and patterns ("
         <b>patterns</b>") carefully. To sign is to recognize the past, present,
@@ -280,17 +272,19 @@ function TermsOfUse({
         an evolving digital pluriverse <b>lies with all of us</b>.{" "}
       </p>
       {latestEssayInfo && (
-        <p>
-          Your signature will be associated with <a href={arweaveDocLink}>version {version}</a> of the essay.
+        <p className="text-xl">
+          You can either agree or disagree with the statement when you sign.
+          Your signature will be associated with{" "}
+          <a href={arweaveDocLink}>version {version}</a> of the essay.
         </p>
       )}
       <p className="metaText">
-        To sign your agreement or dissent, you need a compatible web3 wallet.
-        Need help? Check out this <a href="">guide</a>.
+        To sign, you need a compatible web3 wallet. Need help? Check out this{" "}
+        <a href="">guide</a>.
       </p>
       <hr />
       <div className="text-center">
-        <p>
+        <p className="text-xl">
           <b>
             "I want to help build the <b className="shimmer">pluriverse</b>{" "}
             together"
@@ -298,29 +292,16 @@ function TermsOfUse({
         </p>
         <p className="text-lg opacity-50 p-0">
           {(user || currentUserWalletAddress) &&
-          getUserLabel(
-            user || { walletId: currentUserWalletAddress },
-            "signing as"
-          )}
+            getUserLabel(
+              user || { walletId: currentUserWalletAddress },
+              "signing as"
+            )}
         </p>
       </div>
       {!user && currentUserWalletAddress && (
         <div className="inputs pt-2 flex-col gap-3 md:flex-row md:gap-6">
           <div>
-            <label>
-              <em>Name</em>
-            </label>
-            <input
-              value={name}
-              onChange={(evt) => setName(evt.target.value)}
-              placeholder="verses"
-              maxLength={60}
-            />
-          </div>
-          <div>
-            <label>
-              <em>Twitter</em>
-            </label>
+            <label className="text-lg pr-2">Twitter: </label>
             <input
               value={twitterUsername}
               onChange={(evt) =>
@@ -336,22 +317,28 @@ function TermsOfUse({
       <div className="actionsContainer mb-4">
         {user?.signature ? (
           <button className={ButtonClass()} onClick={onContinue}>
-            Continue
+            Continue to verification ➔
           </button>
         ) : currentUserWalletAddress ? (
-          <>
-            <AsyncButton onSubmit={onDisagree} onError={handleErr}>
-              Disagree
-            </AsyncButton>
-            <AsyncButton
-              onSubmit={() => onSubmitWallet({ name, twitterUsername })}
-              onError={handleErr}
-            >
-              Agree
-            </AsyncButton>
-          </>
+          <AsyncButton
+            onSubmit={() => onSubmitWallet({ name, twitterUsername })}
+            onError={handleErr}
+          >
+            Sign
+          </AsyncButton>
         ) : (
-          <ConnectWalletButton onError={handleErr}>Connect</ConnectWalletButton>
+          <div className="text-center">
+            <div className="mb-8">
+              <label className="text-lg pr-2">Your name: </label>
+              <input
+                value={name}
+                onChange={(evt) => setName(evt.target.value)}
+                placeholder="verses"
+                maxLength={60}
+              />
+            </div>
+            <ConnectWalletButton onError={handleErr}>Sign</ConnectWalletButton>
+          </div>
         )}
       </div>
     </div>

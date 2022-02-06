@@ -2,7 +2,8 @@
 
 .contenteditableSpan {
     display:inline-block;
-    border: solid 1px black;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
     background: white;
     min-width: 200px;
     padding: 0 2px;
@@ -35,7 +36,8 @@
 .grow-wrap > textarea,
 .grow-wrap::after {
     /* Identical styling required!! */
-    border: 1px solid black;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
     padding: 0.5rem;
     font: inherit;
 

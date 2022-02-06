@@ -36,26 +36,31 @@
 }
 
 input { 
-    font-family: "Roboto Mono";
-    display: inline-block;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.8);
-    padding: 4px;
+  font-family: "Roboto Mono";
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 4px;
 }
 
-.input {
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+input, .input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.8s ease;
+  border-radius: 10px;
 }
+
+input:hover, .input:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 
 textarea {
-      font-family: "Roboto Mono";
-      /* display: inline-block; */
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.8);
-      padding: 4px;
+  font-family: "Roboto Mono";
+  /* display: inline-block; */
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 4px;
 }
 
 input::placeholder {

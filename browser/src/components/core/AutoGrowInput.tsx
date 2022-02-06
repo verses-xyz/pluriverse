@@ -54,7 +54,7 @@ export function AutoGrowInput({
         // placeholder="Enter your response to the prompt..."
         value={value}
         onChange={(event) => onChange(event.target.value)}
-      ></textarea>
+      />
     </div>
 
     // <span contentEditable="true" role="textbox" className="contenteditableSpan">
