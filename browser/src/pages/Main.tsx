@@ -112,7 +112,7 @@ export function Main() {
         <Hero />
       </div>
       <SignaturesProvider>
-        <div className="mainContent">
+        <div className="mainContent px-2">
           <div id="essay-content" ref={essayContentRef}>
             <EssayContent />
           </div>
@@ -128,7 +128,7 @@ export function Main() {
               </div>
             )}
             <NavLink to="/contributions">
-              <button className={`glass-button`}>
+              <button className={`glass-button md:px-6`}>
                 Browse all contributions
               </button>
             </NavLink>
