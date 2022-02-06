@@ -191,6 +191,7 @@ blockquote:before {
   font-size: 16px;
   cursor: pointer;
   transition: 0.5s;
+  position:relative;
   /* min-height: 46px; */
 }
 
