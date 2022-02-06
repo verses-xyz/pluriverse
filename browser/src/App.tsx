@@ -44,11 +44,11 @@ function App() {
             </ContributionsProvider>
           </ArweaveProvider>
         </UserProvider>
-        <footer className="pt-2 pb-16">
+        <footer className="pt-2 pb-16 px-2">
           <span>
             a drop from <a href="https://verses.xyz">Verses</a>, which is
-            supported with 💜&nbsp; by <a href="https://gitcoin.co">Gitcoin</a>{" "}
-            and <a href="https://fil.org/">Filecoin Foundation</a>
+            supported with 💜 by <a href="https://gitcoin.co">Gitcoin</a> and{" "}
+            <a href="https://fil.org/">Filecoin Foundation</a>
           </span>
         </footer>
       </main>
