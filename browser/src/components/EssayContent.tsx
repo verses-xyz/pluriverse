@@ -23,7 +23,7 @@ export default function EssayContent() {
   const arweaveDocLink = transactionId ? getArweaveLink(transactionId) : "";
 
   return (
-    <article className="container w-full px-5 md:px-0 md:max-w-2xl mx-auto pb-20">
+    <article className="container w-full px-2 md:px-5 md:px-0 md:max-w-2xl mx-auto pb-20">
       <EssayBody />
       <br />
       <div className="opacity-80">
