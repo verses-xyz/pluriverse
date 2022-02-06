@@ -3,7 +3,7 @@ import { useCallback, useContext, useState } from "react";
 import { descriptionText } from "../classNameConstants";
 import {
   Author,
-  Contribution,
+  ClientContribution,
   Pattern,
   PatternToDisplay,
   Prompt,
@@ -36,6 +36,8 @@ import { AsyncButton } from "./core/AsyncButton";
 import dayjs from "dayjs";
 import { ArweaveContext } from "src/helpers/contexts/ArweaveContext";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
+
+import { Converter } from "showdown";
 
 enum Page {
   TermsOfUse = "TermsOfUse",
@@ -70,7 +72,7 @@ I am signing the document on ${date}, which lives on the permaweb on Arweave tx:
   return isDisagreeing ? PluriverseDissent : PluriverseAgreement;
 }
 
-const ResponseCharacterLimit = 900;
+export const ResponseCharacterLimit = 900;
 export const Placeholder = "________";
 export const replaceJSX = (
   str: string,
@@ -212,7 +214,7 @@ function PreviewCard({
   prompt: Prompt;
   pattern: Pattern;
 }) {
-  const contribution: Contribution = {
+  const contribution: ClientContribution = {
     author,
     response: response || "...",
     prompt,
@@ -363,6 +365,7 @@ function TermsOfUse({
 
 export function ContributionSection() {
   const [page, setPage] = useState(Page.TermsOfUse);
+  const [responseLength, setResponseLength] = useState<number | undefined>(undefined);
   const {
     currentUser,
     setCurrentUser,
@@ -460,10 +463,11 @@ export function ContributionSection() {
           pattern: selectedPattern,
         } as any)
       );
+      const toMarkdownConverter = new Converter();
       const newContributionId = await addContribution({
         prompt: selectedPrompt,
         pattern: selectedPattern,
-        response,
+        response: toMarkdownConverter.makeMarkdown(response),
         walletId: currentUser!.walletId,
       });
       // TODO: eliminate this and just return th actual contribution data with the response above.
@@ -690,6 +694,8 @@ export function ContributionSection() {
                             value={response}
                             onChange={setResponse}
                             className="responseInput"
+                            responseLength={responseLength}
+                            setResponseLength={setResponseLength}
                             // TODO: make this populate an actual live preview from an example?? and shuffle?
                             extraProps={{
                               placeholder: "free gardens",
@@ -699,7 +705,7 @@ export function ContributionSection() {
                         }
                       </div>
                       <p className={descriptionText}>
-                        {response?.length || 0} / {ResponseCharacterLimit}
+                        {responseLength || 0} / {ResponseCharacterLimit}
                       </p>
                     </>
                   )}
@@ -824,9 +830,8 @@ export function ContributionSection() {
         {Object.values(Page).map((p) => (
           <div
             key={p}
-            className={`pageProgress ${
-              page === p ? "selectedPageProgress" : ""
-            }`}
+            className={`pageProgress ${page === p ? "selectedPageProgress" : ""
+              }`}
           />
         ))}
       </div>
