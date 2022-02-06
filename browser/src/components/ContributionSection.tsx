@@ -698,9 +698,9 @@ export function ContributionSection() {
                           />
                         }
                       </div>
-                      <p className={descriptionText}>
+                      <span className={`${descriptionText} mt-2`}>
                         {response?.length || 0} / {ResponseCharacterLimit}
-                      </p>
+                      </span>
                     </>
                   )}
                 </div>
@@ -858,7 +858,6 @@ export function ContributionSection() {
       return;
     }
 
-    const pageIndex = Object.values(Page).indexOf(page);
     const previousPage = getPreviousPage();
     const nextPage = page === Page.Contribute ? undefined : getNextPage();
 

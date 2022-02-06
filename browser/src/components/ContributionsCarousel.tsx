@@ -4,7 +4,6 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import { ContributionCard } from "./ContributionCard";
-import { CarouselGradientClassName } from "src/classNameConstants";
 
 function CarouselArrow({
   left = false,
