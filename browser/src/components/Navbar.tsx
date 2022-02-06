@@ -1,6 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
-import { MdAdd } from "react-icons/md";
 import { BiQuestionMark, BiPlanet } from "react-icons/bi";
 import { FiBook } from "react-icons/fi";
 import { TiPencil } from "react-icons/ti";
