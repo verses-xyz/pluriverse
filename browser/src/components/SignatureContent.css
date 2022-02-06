@@ -21,11 +21,14 @@
     width: 100%;
     display: flex;
     align-items: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .display {
     display:flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .date {
@@ -49,4 +52,11 @@
 
 .twitterName > span {
     margin-left: 4px;
+}
+
+.signatureName {
+    text-overflow: ellipsis;
+    word-break: break-word;
+    white-space: nowrap;
+    overflow: hidden;
 }
