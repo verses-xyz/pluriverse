@@ -1,4 +1,7 @@
+import * as React from "react";
 import useToggle from "src/hook/useToggle";
+
+import useOnClickOutside from "src/hook/useOnClickOutside";
 
 export default function Footnote({
   children,
@@ -12,9 +15,20 @@ export default function Footnote({
   topOffset?: number;
 }) {
   const [expanded, toggle] = useToggle();
+  const ref = React.useRef(null);
+
+  useOnClickOutside(ref, () => {
+    if (expanded) {
+      toggle();
+    }
+  });
 
   return (
-    <span className={`footnote ${expanded ? "expanded" : ""}`} onClick={toggle}>
+    <span
+      ref={ref}
+      className={`footnote ${expanded ? "expanded" : ""}`}
+      onClick={toggle}
+    >
       <span className="footnote-text">{children}</span>
       <div
         className={`footnote-content ${

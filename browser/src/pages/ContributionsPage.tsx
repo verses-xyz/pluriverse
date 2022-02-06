@@ -160,7 +160,10 @@ export function ContributionsPage() {
           {/* TODO: add fun animation on click, maybe make all the cards bounce */}
           <ContributeButton />
           <div className="mt-8">
-            <button className={`${ButtonClass()}`} onClick={shuffleContributions}>
+            <button
+              className={`${ButtonClass()}`}
+              onClick={shuffleContributions}
+            >
               Shuffle contributions
             </button>
           </div>
