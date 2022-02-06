@@ -41,7 +41,6 @@ import { BiErrorCircle } from "react-icons/bi";
 
 import { Converter } from "showdown";
 
-
 enum Page {
   TermsOfUse = "TermsOfUse",
   TwitterVerify = "TwitterVerify",

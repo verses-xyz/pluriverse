@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from "react";
 import Modal from "react-modal";
-import { MdLink } from "react-icons/md";
+import { MdDock, MdLink } from "react-icons/md";
 
 // Tiptap + extensions
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
@@ -14,12 +14,11 @@ import Placeholder from "@tiptap/extension-placeholder";
 import History from "@tiptap/extension-history";
 import CharacterCount from "@tiptap/extension-character-count";
 
-import { Converter } from "showdown";
 import sanitizeHtml from "sanitize-html";
 import isURL from "validator/lib/isURL";
 
-
-import { ButtonClass } from "src/types/styles";
+import { ButtonClass } from "../../types/styles";
+import { selectFullWordCommand, unsetWhitespaceMarksCommand } from "./commands";
 import { ResponseCharacterLimit } from "../ContributionSection";
 import "./Editor.css";
 
@@ -58,10 +57,10 @@ export function Editor({
   const CustomLink = Link.extend({
     addKeyboardShortcuts() {
       return {
-        'Mod-k': () => openModal(),
+        "Mod-k": () => openModal(),
       }
     },
-  })
+  });
 
   const editor = useEditor({
     extensions: [
@@ -69,8 +68,6 @@ export function Editor({
       Paragraph,
       Text,
       History,
-      Bold,
-      Italic,
       CustomLink,
       CharacterCount.configure({
         limit: ResponseCharacterLimit,
@@ -83,13 +80,6 @@ export function Editor({
       onChange(
         sanitizeHtml(editor.getHTML())
       );
-      console.log(editor.state.doc)
-      // Okay so what we want is ContributionCard should render the 
-      // html directly to be fast, but we should store markdown
-      // so we should keep onChange the same so that contribution card is
-      // recieve the html, but we need to find a way to persist the
-      // markdown, but only to the request and not the contribution card
-      // maybe a set markdown field? or an optional value on the AddContributionRequest 
       setResponseLength(editor.storage.characterCount.characters());
     },
   })
@@ -110,7 +100,10 @@ export function Editor({
         return;
       }
     } else {
-      editor.chain().focus().unsetLink().run();
+      editor.chain().focus().command(({ tr, commands }) => {
+        return selectFullWordCommand({ tr, commands })
+      }).unsetLink().run();
+
       closeModal();
       return;
     }
@@ -124,12 +117,15 @@ export function Editor({
     }
 
     // Set link.
-    editor.chain().focus().setLink({ href: url }).run();
+    editor.chain().focus().command(({ tr, commands }) => {
+      return selectFullWordCommand({ tr, commands })
+    }).setLink({ href: url }).run();
+
     closeModal();
   };
 
   const getPreviousLink = () => {
-    const prevUrl = editor.getAttributes('link').href;
+    const prevUrl = editor.getAttributes("link").href;
     setLinkInput(prevUrl);
   }
 
@@ -144,37 +140,30 @@ export function Editor({
   const handleKeyPress = (event) => {
     // Enter key press
     if (event.key === "Enter") {
-      onClickAddLink();
+      setLink(true);
     }
   }
 
   return (
     <>
       {editor &&
-        <>
+        <BubbleMenu
+          editor={editor}
+          tippyOptions={{
+            placement: "bottom",
+          }}
+        >
           <div className="menu">
-            <button
-              onClick={() => editor.chain().focus().toggleBold().run()}
-              className={`menuItem ${editor.isActive('bold') ? 'shimmer' : ''}`}
-            >
-              <strong>B</strong>
-            </button>
-            <button
-              onClick={() => editor.chain().focus().toggleItalic().run()}
-              className={`menuItem ${editor.isActive('italic') ? 'shimmer' : ''}`}
-            >
-              <em>I</em>
-            </button>
             <button
               onClick={() => {
                 openModal();
               }}
-              className={`menuItem linkIcon ${displayLinkModal ? 'shimmer' : 'white'}`}
+              className={`menuItem linkIcon ${displayLinkModal ? "shimmer" : "white"}`}
             >
-              <MdLink className={`${displayLinkModal ? 'iconShimmer' : 'white'}`} />
+              <MdLink className={`${displayLinkModal ? "iconShimmer" : "white"}`} />
             </button>
           </div>
-        </>
+        </BubbleMenu>
       }
       <Modal
         isOpen={displayLinkModal}
