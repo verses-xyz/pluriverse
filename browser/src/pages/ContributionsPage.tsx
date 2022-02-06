@@ -123,7 +123,7 @@ export function ContributionsPage() {
   }
 
   return (
-    <div className=" pb-20">
+    <div className="px-2 pb-20">
       {highlightedContribution
         ? getMetaTagsForHighlightedContribution(highlightedContribution)
         : getMetaTags()}

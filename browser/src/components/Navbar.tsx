@@ -6,7 +6,7 @@ import { FiBook } from "react-icons/fi";
 
 export function Navbar() {
   return (
-    <nav className="flex justify-between justify-end pt-8 px-8">
+    <nav className="flex justify-between justify-end pt-8 md:mx-8 mx-2">
       {/* <nav className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"> */}
       {/* <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"> */}
       <div>
