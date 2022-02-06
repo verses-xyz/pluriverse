@@ -128,7 +128,7 @@ export function Main() {
               </div>
             )}
             <NavLink to="/contributions">
-              <button className={`glass-button`}>
+              <button className={`glass-button md:px-6`}>
                 Browse all contributions
               </button>
             </NavLink>

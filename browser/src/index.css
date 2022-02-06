@@ -181,7 +181,7 @@ blockquote:before {
 .glass-button {
   font-family: "Roboto Mono";
   display: inline-block;
-  padding: 10px 30px;
+  padding: 10px 15px;
   text-decoration: none;
   border-radius: 60px;
   background-color: rgba(255, 255, 255, 0.05);
@@ -191,6 +191,7 @@ blockquote:before {
   font-size: 16px;
   cursor: pointer;
   transition: 0.5s;
+  /* min-height: 46px; */
 }
 
 .glass-button:hover {
@@ -272,3 +273,4 @@ footer {
   justify-content: center;
   z-index: 3000;
 }
+
