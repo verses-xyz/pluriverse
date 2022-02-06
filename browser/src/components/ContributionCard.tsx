@@ -22,6 +22,7 @@ import { getContributionLink } from "src/helpers/contributions";
 import { Suspense, useContext } from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 import { LoadingIndicator } from "./core/LoadingIndicator";
+import BlobsPostProcessing from "./BlobsPostProcessing";
 
 interface Props {
   contribution: Contribution;
@@ -99,10 +100,7 @@ export function ContributionCard({
   return (
     <div
       className={
-        (isCompact
-          ? "compactContributionCardContainer"
-          : "contributionCardContainer") +
-        " " +
+        "compactContributionCardContainer " +
         className +
         " " +
         (full ? "full" : "") +
@@ -128,7 +126,6 @@ export function ContributionCard({
         <p className="response">{getContributionCardResponse(contribution)}</p>
       </div>
       <div className="mt-auto">
-        {!isCompact && <hr className="mt-2" />}
         <div
           className={isCompact ? "blobSingleContainer" : "blobContainer"}
           onClick={(e) => e.stopPropagation()}
@@ -152,7 +149,7 @@ export function ContributionCard({
                   walletId={author.walletId}
                   response={response}
                 />
-                {/* <BlobsPostProcessing /> */}
+                <BlobsPostProcessing includeBloom={false} />
               </Canvas>
             </Suspense>
           ) : (

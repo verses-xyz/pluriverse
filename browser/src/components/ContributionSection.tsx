@@ -289,8 +289,8 @@ function TermsOfUse({
       {latestEssayInfo && (
         <p>
           Your signature will be associated with version {version} of the essay
-          and stored on{" "}
-          <a href={arweaveDocLink}>Arweave tx:{transactionId.slice(0, 20)}</a>.
+          and stored with transaction{" "}
+          <a href={arweaveDocLink}>tx:{transactionId.slice(0, 20)}</a>.
         </p>
       )}
       <br />

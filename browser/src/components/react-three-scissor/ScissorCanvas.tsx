@@ -91,8 +91,8 @@ function ScissorRenderer() {
 
           if (!isOffscreen && isVisible) {
             const positiveYUpBottom = gl.domElement.clientHeight - bottom;
-            gl.setScissor(left, positiveYUpBottom, width, height);
             gl.setViewport(left, positiveYUpBottom, width, height);
+            gl.setScissor(left, positiveYUpBottom, width, height);
 
             // @ts-ignore
             camera.aspect = rect.width / rect.height;
