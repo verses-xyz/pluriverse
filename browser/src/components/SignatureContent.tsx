@@ -1,10 +1,10 @@
-import {useContext, useState} from "react";
-import {Author} from "src/types/common/server-api";
+import { useContext, useState } from "react";
+import { Author } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import "./SignatureContent.css";
-import {Checkmark} from "./core/Checkmark";
-import {SignaturesContext} from "src/pages/Main";
-import {ButtonClass} from "src/types/styles";
+import { Checkmark } from "./core/Checkmark";
+import { SignaturesContext } from "src/pages/Main";
+import { ButtonClass } from "src/types/styles";
 
 function truncateWallet(address: string) {
   return address.slice(0, 6) + "..." + address.slice(-4);
@@ -104,9 +104,9 @@ export function Signature({ author }: { author: Author }) {
 
   return (
     <p className="pb-0 pt-4">
-      <div className="signature">
+      <div className="signature flex-col md:flex-row">
         <div className="display">
-          <b>{nameDisplay}</b>
+          <b className="signatureName">{nameDisplay}</b>
           <span className="date">signed {dateDisplay}</span>
         </div>
         <div className="twitter">{getTwitterDisplay(author)}</div>
