@@ -44,7 +44,7 @@ function App() {
             </ContributionsProvider>
           </ArweaveProvider>
         </UserProvider>
-        <footer className="pt-2 pb-16 px-2">
+        <footer className="pt-2 pb-16 px-2 text-center">
           <span>
             a drop from <a href="https://verses.xyz">Verses</a>, which is
             supported with 💜 by <a href="https://gitcoin.co">Gitcoin</a> and{" "}
