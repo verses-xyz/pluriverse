@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   ContributionCard,
@@ -14,7 +14,8 @@ import { Contribution } from "src/types/common/server-api";
 import { ButtonClass } from "src/types/styles";
 import { Helmet } from "react-helmet";
 import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
-import {ContributeButton} from "../components/Navbar";
+import { ContributeButton } from "../components/Navbar";
+import { ModalContext } from "src/helpers/contexts/ModalContext";
 
 const ContributionsLimit = 500;
 const ContributionsPageLimit = 50;
@@ -32,6 +33,9 @@ export function ContributionsPage() {
   const { contributions } = useContext(ContributionsContext);
   const [contributionRandomOrderMapping, setContributionRandomOrderMapping] =
     useState<Map<number, number>>(new Map());
+
+  const { openContributionModal, closeContributionModal } =
+    useContext(ModalContext);
 
   const [numContributionsToRender, setNumContributionsToRender] = useState(
     ContributionsPageLimit
@@ -53,6 +57,17 @@ export function ContributionsPage() {
   const highlightedContribution =
     highlightedContributionId &&
     contributions.find((c) => c.id === highlightedContributionId);
+
+  useEffect(() => {
+    if (!highlightedContribution) {
+      return;
+    }
+
+    openContributionModal(highlightedContribution, "/contributions");
+
+    return () => closeContributionModal();
+  }, [highlightedContribution]);
+
   const maybeFilteredContributions = contributions.filter(
     (c) => !highlightedContributionId || c.id !== highlightedContributionId
   );
@@ -141,25 +156,6 @@ export function ContributionsPage() {
           </p>
           {/* TODO: maybe put patterns here? */}
         </div>
-        {highlightedContribution && (
-          <div className="mb-10">
-            <p>
-              On{" "}
-              {getMinuteTimeOfDayDateDisplay(
-                dayjs(highlightedContribution.createdAt, { utc: true })
-              )}
-              , {getDisplayForAuthor(highlightedContribution.author)}{" "}
-              contributed:
-            </p>
-            <ContributionCard
-              className="selectedBorder mt-4"
-              contribution={highlightedContribution}
-            />
-            <br />
-            <p>All other contributions can be explored below.</p>
-          </div>
-        )}
-
         <div className="text-center">
           {/* TODO: add fun animation on click, maybe make all the cards bounce */}
           <ContributeButton />

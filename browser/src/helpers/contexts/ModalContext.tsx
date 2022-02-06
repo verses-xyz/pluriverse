@@ -10,13 +10,18 @@ import {
 } from "src/components/SignatureContent";
 
 export interface ModalContextInfo {
-  openContributionModal: (contribution: Contribution) => void;
+  openContributionModal: (
+    contribution: Contribution,
+    previousUrl?: string
+  ) => void;
+  closeContributionModal: () => void;
   openContributionId: number | undefined;
 }
 
 export const ModalContext = React.createContext<ModalContextInfo>({
   openContributionModal: () => {},
   openContributionId: undefined,
+  closeContributionModal: () => {},
 });
 
 export function ModalProvider({ children }) {
@@ -25,17 +30,29 @@ export function ModalProvider({ children }) {
   const [contribution, setContribution] = useState<Contribution | undefined>(
     undefined
   );
+  const [prevUrl, setPrevUrl] = useState<string | undefined>(undefined);
 
   // TODO: replace window location in place to reflect the contribution id.
-  const openContributionModal = (contribution: Contribution) => {
+  const openContributionModal = (
+    contribution: Contribution,
+    previousUrl?: string
+  ) => {
     setContribution(contribution);
     setContributionModalOpen(true);
+    if (previousUrl) {
+      setPrevUrl(previousUrl);
+      window.history.replaceState({}, "", `/contributions/${contribution.id}`);
+    }
   };
 
   // TODO: reset to old link, need to take that in too in openContributionModal and store in state.
   const closeContributionModal = () => {
     setContributionModalOpen(false);
     setContribution(undefined);
+    if (prevUrl) {
+      window.history.replaceState({}, "", prevUrl);
+      setPrevUrl(undefined);
+    }
   };
 
   function getContributionModalContent(highlightedContribution: Contribution) {
@@ -66,6 +83,7 @@ export function ModalProvider({ children }) {
   const modalContext = {
     openContributionModal,
     openContributionId: contribution?.id,
+    closeContributionModal,
   };
   return (
     <ModalContext.Provider value={modalContext}>

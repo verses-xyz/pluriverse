@@ -109,7 +109,11 @@ export function ContributionCard({
           ? "selectedBorder"
           : "")
       }
-      onClick={() => (id ? openContributionModal(contribution) : null)}
+      onClick={() =>
+        id
+          ? openContributionModal(contribution, window.location.pathname)
+          : null
+      }
     >
       <div className="flex">
         {!hideHeader && (
