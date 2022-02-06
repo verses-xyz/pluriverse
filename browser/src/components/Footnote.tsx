@@ -1,6 +1,5 @@
 import * as React from "react";
 import useToggle from "src/hook/useToggle";
-
 import useOnClickOutside from "src/hook/useOnClickOutside";
 
 export default function Footnote({
