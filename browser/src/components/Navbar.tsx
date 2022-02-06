@@ -25,8 +25,6 @@ export function ContributeButton() {
 export function Navbar() {
   return (
     <nav className="flex justify-between justify-end pt-8 md:mx-8 mx-2">
-      {/* <nav className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"> */}
-      {/* <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"> */}
       <div>
         <NavLink to="/">
           {({ isActive }) => (
@@ -48,13 +46,6 @@ export function Navbar() {
           )}
         </NavLink>
       </div>
-      {/* <button
-        className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-        type="button"
-        onClick={() => setNavbarOpen(!navbarOpen)}
-      >
-        <FaBars />
-      </button> */}
       <div className={"flex flex-row"}>
         <div className="pr-4">
           <NavLink to="/about">
