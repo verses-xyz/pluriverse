@@ -116,13 +116,34 @@ export function Main() {
             <EssayContent />
           </div>
           <div ref={patternsContentRef}>
-            <PatternsContent stats={stats} />
+            <PatternsContent />
           </div>
+          {stats && (
+            <div className="mb-16 text-center w-1/2 mx-auto">
+              <p className="mb-4">
+                <b>{stats.authorsTotal}</b> members of the{" "}
+                <b className="shimmer">Pluriverse</b> community have signed, and{" "}
+                <b>{stats.contributionsTotal}</b> contributions have been
+                submitted.
+              </p>
+              <div className="mt-4">
+                <NavLink to="/contributions">
+                  <button className={`glass-button md:px-6`}>
+                    Browse all contributions
+                  </button>
+                </NavLink>
+              </div>
+            </div>
+          )}
           <div
             id="contributionSection"
-            className="container w-full md:max-w-4xl mx-auto pb-20 px-4 mt-16"
+            className="container w-full md:max-w-4xl mx-auto px-4 mt-16"
           >
             <ContributionSection />
+          </div>
+          <br />
+          <br />
+          <div className="container w-full md:max-w-4xl mx-auto pb-20 px-4">
             <SignatureContent />
           </div>
         </div>

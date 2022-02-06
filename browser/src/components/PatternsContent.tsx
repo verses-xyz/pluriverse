@@ -1,16 +1,10 @@
 import React, { useContext } from "react";
 import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
-import {
-  Contribution,
-  GetStatsResponse,
-  Pattern,
-} from "src/types/common/server-api";
+import { Contribution, Pattern } from "src/types/common/server-api";
 import { Principles } from "../types";
 import ContributionsCarousel from "./ContributionsCarousel";
 import "./PatternsContent.css";
 import PatternSection from "./PatternSection";
-import {ContributeButton} from "./Navbar";
-import {NavLink} from "react-router-dom";
 
 function getContributionsByPattern(
   contributions: Contribution[],
@@ -22,11 +16,7 @@ function getContributionsByPattern(
   return filteredContributions;
 }
 
-export default function PatternsContent({
-  stats,
-}: {
-  stats: GetStatsResponse | undefined;
-}) {
+export default function PatternsContent() {
   const { contributions } = useContext(ContributionsContext);
 
   return (
@@ -47,45 +37,23 @@ export default function PatternsContent({
         that resonate to share what is meaningful to and necessary for you and
         the broader community to create the pluriverse.
       </p>
-      <ContributionsCarousel
-        contributions={getContributionsByPattern(
-          contributions,
-          Pattern.Pluriverse
-        )}
-      />
-      {stats && (
-        <div className="mb-16 text-center w-1/2 mx-auto">
-          <p className="mb-4">
-            <b>{stats.authorsTotal}</b> members of the{" "}
-            <b className="shimmer">Pluriverse</b> community have signed, and{" "}
-            <b>{stats.contributionsTotal}</b> contributions have been submitted.
-          </p>
-          <ContributeButton />
-          <div className="mt-4">
-            <NavLink to="/contributions">
-              <button className={`glass-button md:px-6`}>
-                Browse all contributions
-              </button>
-            </NavLink>
-          </div>
-        </div>
-      )}
-      <hr />
-      {Object.entries(Principles).map(
-        ([pattern, { title, problem, solution }], index) => (
-          <PatternSection
-            key={index}
-            pattern={pattern}
-            title={`0${index + 1}. ${title}`}
-            problem={problem}
-            solution={solution}
-            contributions={getContributionsByPattern(
-              contributions,
-              pattern as Pattern
-            )}
-          />
-        )
-      )}
+      {[
+        [Pattern.Pluriverse, { title: Pattern.Pluriverse }],
+        ...Object.entries(Principles),
+      ].map(([pattern, { title, problem, solution }], index) => (
+        <PatternSection
+          key={index}
+          pattern={pattern as Pattern}
+          title={`0${index}. ${title}`}
+          problem={problem}
+          solution={solution}
+          contributions={getContributionsByPattern(
+            contributions,
+            pattern as Pattern
+          )}
+          defaultExpanded={index === 0}
+        />
+      ))}
       <hr />
     </div>
   );

@@ -10,14 +10,16 @@ export default function PatternSection({
   solution,
   contributions,
   pattern,
+  defaultExpanded = false,
 }: {
   title: string;
-  problem: string;
-  solution: string;
+  problem?: string;
+  solution?: string;
   pattern: Pattern;
   contributions: Contribution[];
+  defaultExpanded?: boolean;
 }) {
-  const [expanded, toggle] = useToggle();
+  const [expanded, toggle] = useToggle(defaultExpanded);
 
   return (
     <div
@@ -54,18 +56,22 @@ export default function PatternSection({
       {expanded && (
         <div>
           <div className="grid md:grid-cols-2 gap-16 my-8 fadeInDownFast">
-            <div>
-              <h4 className="font-title text-xl font-mono font-bold">
-                The problem
-              </h4>
-              <p>{problem}</p>
-            </div>
-            <div>
-              <h4 className="font-title text-xl font-mono font-bold">
-                The solution
-              </h4>
-              <p>{solution}</p>
-            </div>
+            {problem && (
+              <div>
+                <h4 className="font-title text-xl font-mono font-bold">
+                  The problem
+                </h4>
+                <p>{problem}</p>
+              </div>
+            )}
+            {solution && (
+              <div>
+                <h4 className="font-title text-xl font-mono font-bold">
+                  The solution
+                </h4>
+                <p>{solution}</p>
+              </div>
+            )}
           </div>
           {contributions && contributions.length > 0 && (
             <div className="my-8">

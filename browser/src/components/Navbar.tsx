@@ -1,8 +1,7 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
-import { MdAdd } from "react-icons/md";
-import { BiQuestionMark, BiPlanet } from "react-icons/bi";
+import { BiPlanet } from "react-icons/bi";
 import { FiBook } from "react-icons/fi";
+import { BsQuestionLg } from "react-icons/bs";
 import { TiPencil } from "react-icons/ti";
 
 export function ContributeButton() {
@@ -36,7 +35,12 @@ export function Navbar() {
                 isActive ? "selectedBorder" : ""
               }`}
             >
-              <span className="hidden md:inline">Pluriverse</span>
+              <span className="hidden md:flex">
+                <span className="pr-3 pt-1">
+                  <FiBook />
+                </span>
+                Pluriverse
+              </span>
               <span className="md:hidden">
                 <FiBook />
               </span>
@@ -60,9 +64,14 @@ export function Navbar() {
                   isActive ? "selectedBorder" : ""
                 }`}
               >
-                <span className="hidden md:inline">About</span>
+                <span className="hidden md:flex">
+                  <span className="pr-3 pt-1">
+                    <BsQuestionLg />
+                  </span>
+                  About
+                </span>
                 <span className="md:hidden">
-                  <BiQuestionMark />
+                  <BsQuestionLg />
                 </span>
               </button>
             )}
@@ -76,7 +85,12 @@ export function Navbar() {
                   isActive ? "selectedBorder" : ""
                 }`}
               >
-                <span className="hidden md:inline">All Contributions</span>
+                <span className="hidden md:flex">
+                  <span className="pr-3 pt-1">
+                    <BiPlanet />
+                  </span>
+                  All Contributions
+                </span>
                 <span className="md:hidden">
                   <BiPlanet />
                 </span>
