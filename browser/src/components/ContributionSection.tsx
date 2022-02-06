@@ -16,7 +16,7 @@ import React from "react";
 import { ButtonClass } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
 import {
-  ContributionCard,
+  ContributionCard, CopyLink,
   getFullContributionResponse,
 } from "./ContributionCard";
 import { getUser } from "src/helpers/api";
@@ -771,14 +771,7 @@ export function ContributionSection() {
               >
                 Share on Twitter
               </button>
-              <button
-                className={ButtonClass()}
-                onClick={() => {
-                  navigator.clipboard.writeText(contributionLink);
-                }}
-              >
-                Copy Link
-              </button>
+              <CopyLink content={contributionLink} />
             </div>
             <div>
               <button
