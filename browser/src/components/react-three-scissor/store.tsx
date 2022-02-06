@@ -2,6 +2,7 @@ import create from "zustand";
 import produce from "immer";
 import * as THREE from "three";
 import { iScissorWindow, tScissorCallback } from "./ScissorTypes";
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 interface iScissorRootState {
   windows: {
@@ -46,19 +47,25 @@ export default create<iScissorRootState>((set: any, get: any) => ({
       produce((state: iScissorRootState) => {
         const maybeScene = state.scenes[id];
         const rect = window.getBoundingClientRect();
+        // TODO: idk where this camera is coming from so its always initializing a camera
+        const camera = new THREE.PerspectiveCamera(
+          75,
+          rect.width / rect.height,
+          0.1,
+          1000
+        );
+        const controls = new OrbitControls(camera, window);
+        controls.autoRotate = true;
+        controls.enableZoom = false;
+        controls.autoRotateSpeed = 4;
         if (!state.windows[id]) {
           state.windows[id] = {};
         }
         state.windows[id][uuid] = {
           element: window,
           scene: maybeScene?.scene,
-          // TODO: idk where this camera is coming from so its always initializing a camera
-          camera: new THREE.PerspectiveCamera(
-            75,
-            rect.width / rect.height,
-            0.1,
-            1000
-          ),
+          controls,
+          camera: camera,
         };
       })
     );
@@ -83,8 +90,7 @@ export default create<iScissorRootState>((set: any, get: any) => ({
           for (const uuid of Object.keys(state.windows[id])) {
             const elem = state.windows[id][uuid].element;
             const rect = elem.getBoundingClientRect();
-            state.windows[id][uuid].scene = scene;
-            state.windows[id][uuid].camera =
+            const newCamera =
               camera ??
               new THREE.PerspectiveCamera(
                 75,
@@ -92,6 +98,13 @@ export default create<iScissorRootState>((set: any, get: any) => ({
                 0.1,
                 1000
               );
+            const controls = new OrbitControls(newCamera, elem);
+            controls.autoRotate = true;
+            controls.enableZoom = false;
+            controls.autoRotateSpeed = 4;
+            state.windows[id][uuid].scene = scene;
+            state.windows[id][uuid].camera = newCamera;
+            state.windows[id][uuid].controls = controls;
             state.windows[id][uuid].hasInit = false;
           }
         }

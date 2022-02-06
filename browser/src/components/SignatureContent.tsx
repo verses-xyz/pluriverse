@@ -1,13 +1,17 @@
-import { useContext, useState } from "react";
-import { Author } from "src/types/common/server-api";
+import {useContext, useState} from "react";
+import {Author} from "src/types/common/server-api";
 import dayjs from "dayjs";
 import "./SignatureContent.css";
-import { Checkmark } from "./core/Checkmark";
-import { SignaturesContext } from "src/pages/Main";
-import { ButtonClass } from "src/types/styles";
+import {Checkmark} from "./core/Checkmark";
+import {SignaturesContext} from "src/pages/Main";
+import {ButtonClass} from "src/types/styles";
 
 function truncateWallet(address: string) {
   return address.slice(0, 6) + "..." + address.slice(-4);
+}
+
+function truncateName(name: string) {
+  return name.length > 15 ? name.slice(0, 12) + "..." : name;
 }
 
 const SignaturePageSize = 50;
@@ -46,8 +50,7 @@ export function getTextDisplayForAuthor(
   shouldTruncate?: boolean
 ): React.ReactNode {
   const walletAddr = shouldTruncate ? truncateWallet(walletId) : walletId;
-  const nameDisplay = name || walletAddr;
-  return nameDisplay;
+  return shouldTruncate ? truncateName(name || walletAddr) : name || walletAddr;
 }
 
 // TODO: get ENS?
@@ -62,13 +65,13 @@ export function getDisplayForAuthor(
     twitterVerified &&
     `https://twitter.com/${twitterUsername}`;
   return (
-    <span className="inline gap-1">
+    <span className="inline">
       {nameDisplay}{" "}
       {twitterUrl && (
         <button
           style={{
             verticalAlign: "middle",
-            top: "-3px",
+            top: "-2px",
             position: "relative",
           }}
           onClick={() => {

@@ -17,7 +17,7 @@ import { getDisplayForAuthor } from "./SignatureContent";
 import BlobSingleScissorWindow from "./BlobSingleScissorWindow";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei/core/OrbitControls";
-import { MdLink } from "react-icons/md";
+import { BiLink } from "react-icons/bi";
 import { getContributionLink } from "src/helpers/contributions";
 import { Suspense, useContext } from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
@@ -161,17 +161,21 @@ export function ContributionCard({
         </div>
         <div className="attribution">
           {id && (
-            <>
-              {full && (
-                <a className="mr-3" href={contributionLink}>
-                  <MdLink />
-                </a>
-              )}
-            </>
+            <button
+              className="link"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigator.clipboard.writeText(contributionLink);
+              }}
+            >
+              Copy link
+              <BiLink />
+            </button>
           )}
-          <p className="ml-auto text-base inline">
-            by <em className="author text-color-purple-200">{authorDisplay}</em>{" "}
-            on <em>{dateDisplay}</em>
+          <div className="spacer" />
+          <p className="author-section ml-auto inline">
+            <p className="author text-color-purple-200">{authorDisplay}</p>
+            <p>{dateDisplay}</p>
           </p>
         </div>
       </div>

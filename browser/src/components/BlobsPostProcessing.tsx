@@ -20,8 +20,8 @@ export default function BlobsPostProcessing() {
         width={Resizer.AUTO_SIZE} // render width
         height={Resizer.AUTO_SIZE} // render height
         kernelSize={4} // blur kernel size
-        luminanceThreshold={0.2} // luminance threshold. Raise this value to mask out darker elements in the scene.
-        luminanceSmoothing={0.3} // smoothness of the luminance threshold. Range is [0, 1]
+        luminanceThreshold={0.1} // luminance threshold. Raise this value to mask out darker elements in the scene.
+        luminanceSmoothing={0.2} // smoothness of the luminance threshold. Range is [0, 1]
       />
       <DepthOfField
         focusDistance={0}
@@ -30,7 +30,7 @@ export default function BlobsPostProcessing() {
         width={Resizer.AUTO_SIZE} // render width
         height={Resizer.AUTO_SIZE} // render height
       />
-      <Noise opacity={0.005} />
+      <Noise opacity={0.01} />
     </EffectComposer>
   );
 }

@@ -6,11 +6,11 @@
   padding: 20px;
   min-height: 260px;
   /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   /* TODO: add blur back after playing fixing z-index issue where blob contributions canvas is getting rendered behind */
-  /* backdrop-filter: blur(5px); */
+  /* backdrop-filter: blur(5px);*/
   /* -webkit-backdrop-filter: blur(5px); */
   border: 1px solid rgba(255, 255, 255, 0.3);
   height: 400px;
@@ -26,8 +26,7 @@
 }
 
 .contributionCardContainer p {
-  font-size: 1rem;
-  padding-top: 0px;
+  padding: 0 1em 0 0;
 }
 
 .contributionCardContainer canvas {
@@ -36,7 +35,30 @@
 
 .attribution {
   display: flex;
-  align-items: center;
+  font-size: 0.9rem !important;
+  align-items: self-end;
+}
+
+.attribution > .link {
+  position: relative;
+  background: #ffffff22;
+  border-radius: 5px;
+  padding: 0.1rem 0.3rem;
+}
+
+.attribution > .link > p {
+  padding: 0 0.2rem 0 0;
+  display: inline-block;
+}
+
+.attribution > .link > svg {
+  display: inline-block;
+  padding-bottom: 0.1rem;
+}
+
+.author-section, .author-section > p {
+  text-align: right;
+  padding: 0;
 }
 
 .author {
@@ -54,10 +76,10 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  height: 260px;
+  height: 340px;
   position: relative;
   /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   /* backdrop-filter: blur(5px); */
@@ -82,12 +104,13 @@
 }
 
 .blobSingleContainer {
-  position: absolute;
-  height: 100px;
+  height: 80px;
   width: 150px;
-  left: 80px;
-  top: 25%;
-  opacity: 0.5;
+  bottom: 0;
+  margin-bottom: 50px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .compactContributionCardContainer > h2 {
@@ -100,5 +123,5 @@
 }
 
 .compactContributionCardContainer canvas {
-  height: auto !important;
+  height: 60px;
 }

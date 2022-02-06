@@ -59,15 +59,16 @@ export default function ContributionsCarousel({
   });
 
   // TODO: add paging here like in ContributionsPage, probably only render 10 and then load more on a see more item?
+  const carouselEdgeName =
+    (hideLeftControl ? "left" : "") + (hideRightControl ? "right" : "");
 
   return (
     <div
       style={{ position: "relative" }}
-      className={`${className ? className : ""}`}
+      className={`mt-8 mb-16 ${className ? className : ""}`}
     >
       {!hideLeftControl && (
         <>
-          <div className={`${CarouselGradientClassName} left`} />
           <div
             style={{ position: "absolute", top: "40%", left: -30, zIndex: 10 }}
           >
@@ -76,7 +77,7 @@ export default function ContributionsCarousel({
         </>
       )}
       <div
-        className="flex flex-row carouselOverflowContainer"
+        className={`flex flex-row carouselOverflowContainer ${carouselEdgeName}`}
         ref={overflowContainerRef}
       >
         <div style={{ display: "flex" }}>
@@ -105,7 +106,6 @@ export default function ContributionsCarousel({
           >
             <CarouselArrow onPress={onRightPress} />
           </div>
-          <div className={`${CarouselGradientClassName} right`} />
         </>
       )}
     </div>

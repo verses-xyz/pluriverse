@@ -2,6 +2,16 @@
   overflow-x: auto;
   width: 100%;
   scroll-snap-type: x mandatory;
+  transition: -webkit-mask-image 0.5s ease;
+  -webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%);
+}
+
+.carouselOverflowContainer.left {
+  -webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%);
+}
+
+.carouselOverflowContainer.right {
+  -webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 100%);
 }
 
 .carouselOverflowContainer::-webkit-scrollbar {
@@ -24,26 +34,4 @@
 
 .carouselArrowButton:hover {
   background-color: rgba(255, 255, 255, 0.2);
-}
-
-.carouselGradient {
-  top: 0;
-  position: absolute;
-  height: 100%;
-  width: 15px;
-  z-index: 10;
-}
-
-.right {
-  right: 0;
-  background-image: linear-gradient(
-    to right,
-    rgb(0 0 0 / 0%),
-    rgb(0 0 0 / 50%)
-  );
-}
-
-.left {
-  left: 0;
-  background-image: linear-gradient(to left, rgb(0 0 0 / 0%), rgb(0 0 0 / 50%));
 }

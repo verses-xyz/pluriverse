@@ -748,7 +748,7 @@ export function ContributionSection() {
             <ContributionCard
               contribution={selectedContribution!}
               renderCanvas={true}
-            ></ContributionCard>
+            />
             <p>
               You can share your specific contribution with others using this
               link: <a href={contributionLink}>{contributionLink}</a>

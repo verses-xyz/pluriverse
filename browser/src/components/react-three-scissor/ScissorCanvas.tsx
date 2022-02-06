@@ -1,7 +1,7 @@
 import { Canvas, Props, useFrame, useThree } from "@react-three/fiber";
 import React, { forwardRef, Suspense } from "react";
 import store from "./store";
-
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { iScissorWindow, tScissorCallback } from "./ScissorTypes";
 import { CarouselGradientClassName } from "src/classNameConstants";
 import { LoadingIndicator } from "../core/LoadingIndicator";
@@ -61,7 +61,8 @@ function ScissorRenderer() {
 
     for (const key in windows) {
       for (const uuid in windows[key]) {
-        const { scene, element, camera, hasInit } = windows[key][uuid];
+        const { scene, element, camera, hasInit, controls } =
+          windows[key][uuid];
 
         if (scene && camera) {
           if (!hasInit) {
@@ -70,8 +71,10 @@ function ScissorRenderer() {
                 scene,
                 camera,
                 element,
+                controls,
               });
             scene.add(camera);
+            controls?.update();
             sethasInit(true, key, uuid);
           }
 
@@ -101,8 +104,10 @@ function ScissorRenderer() {
                 scene,
                 camera,
                 element,
+                controls,
               });
             }
+            controls?.update();
             gl.render(scene, camera);
           }
         }

@@ -43,8 +43,6 @@ export default function PatternsContent() {
           Pattern.Pluriverse
         )}
       />
-      <br />
-      <br />
       <hr />
       {Object.entries(Principles).map(
         ([pattern, { title, problem, solution }], index) => (

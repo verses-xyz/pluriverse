@@ -25,15 +25,15 @@ function BlobContributionsScissorCanvasRenderer({
     orbit.current = new OrbitControls(camera, element);
     orbit.current.enableZoom = false;
     orbit.current.autoRotate = true;
+    orbit.current.update();
 
     const bBox = new THREE.Box3().setFromObject(scene);
     const size = new THREE.Vector3();
     bBox.getSize(size);
-    const height = size.y;
-    const dist = height / (2 * Math.tan((camera.fov * Math.PI) / 360));
+    const dist = 10 / (2 * Math.tan((camera.fov * Math.PI) / 360));
     const pos = scene.position;
 
-    const fac = 0.85;
+    const fac = 1.5;
     camera.position.setScalar(dist).multiplyScalar(fac);
     camera.lookAt(pos);
   }, []);
