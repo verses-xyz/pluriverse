@@ -93,7 +93,7 @@ main {
 .universe-gradient {
   min-height: 100vh;
   /* mobile viewport bug fix */
-  height: -webkit-fill-available;
+  min-height: -webkit-fill-available;
   width: 100vw;
   position: fixed;
   /* svg generated with https://grainy-gradients.vercel.app/ */
