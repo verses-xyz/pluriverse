@@ -35,7 +35,13 @@ body {
 
 p {
   font-size: 1.5rem;
-  padding: 24px 0;
+  padding: 1rem 0;
+}
+
+@media only screen and (max-width: 500px) {
+  p {
+    font-size: 1.25rem;
+  }
 }
 
 article > h2 {
@@ -100,12 +106,13 @@ main {
   /*  ),*/
   /*  url(https://grainy-gradients.vercel.app/noise.svg);*/
   background: radial-gradient(
-    at 50% 100%,
-    #673787 0%,
-    #272730 40%,
-    #171720 80%,
-    #070710 100%
-  ) fixed;
+      at 50% 100%,
+      #673787 0%,
+      #272730 40%,
+      #171720 80%,
+      #070710 100%
+    )
+    fixed;
 }
 
 /* TODO: for now hide footnotes on small screens */
@@ -186,14 +193,13 @@ blockquote:before {
   font-size: 16px;
   cursor: pointer;
   transition: 0.5s;
-  position:relative;
+  position: relative;
   /* min-height: 46px; */
 }
 
 .glass-button:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
-
 
 .glass-button-cta::before {
   position: absolute;
@@ -269,4 +275,3 @@ footer {
   justify-content: center;
   z-index: 3000;
 }
-
