@@ -270,14 +270,7 @@ function TermsOfUse({
 
   return (
     <div className="terms">
-      <div className="flex ">
-        <h2 className="text-3xl font-bold">Terms of Support</h2>
-        {(user || currentUserWalletAddress) &&
-          getUserLabel(
-            user || { walletId: currentUserWalletAddress },
-            "signing as"
-          )}
-      </div>
+      <h2 className="text-3xl font-bold">Terms of Support</h2>
       <p>
         Please read the above essay ("
         <b>essay</b>") and patterns ("
@@ -288,19 +281,29 @@ function TermsOfUse({
       </p>
       {latestEssayInfo && (
         <p>
-          Your signature will be associated with version {version} of the essay
-          and stored with transaction{" "}
-          <a href={arweaveDocLink}>tx:{transactionId.slice(0, 20)}</a>.
+          Your signature will be associated with <a href={arweaveDocLink}>version {version}</a> of the essay.
         </p>
       )}
-      <br />
-      <hr />
-      <p className="text-center">
-        <b>
-          "I want to help build the <b className="shimmer">pluriverse</b>{" "}
-          together"
-        </b>
+      <p className="metaText">
+        To sign your agreement or dissent, you need a compatible web3 wallet.
+        Need help? Check out this <a href="">guide</a>.
       </p>
+      <hr />
+      <div className="text-center">
+        <p>
+          <b>
+            "I want to help build the <b className="shimmer">pluriverse</b>{" "}
+            together"
+          </b>
+        </p>
+        <p className="text-lg opacity-50 p-0">
+          {(user || currentUserWalletAddress) &&
+          getUserLabel(
+            user || { walletId: currentUserWalletAddress },
+            "signing as"
+          )}
+        </p>
+      </div>
       {!user && currentUserWalletAddress && (
         <div className="inputs pt-2 flex-col gap-3 md:flex-row md:gap-6">
           <div>
@@ -330,7 +333,7 @@ function TermsOfUse({
         </div>
       )}
 
-      <div className="actionsContainer">
+      <div className="actionsContainer mb-4">
         {user?.signature ? (
           <button className={ButtonClass()} onClick={onContinue}>
             Continue
@@ -351,12 +354,6 @@ function TermsOfUse({
           <ConnectWalletButton onError={handleErr}>Connect</ConnectWalletButton>
         )}
       </div>
-
-      {/* TODO: fill in help guide */}
-      <p className="metaText">
-        To sign your agreement or dissent, you need a compatible web3 wallet.
-        Need help? Check out this <a href="">guide</a>.
-      </p>
     </div>
   );
 }

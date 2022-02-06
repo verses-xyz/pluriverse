@@ -14,6 +14,7 @@ import { Contribution } from "src/types/common/server-api";
 import { ButtonClass } from "src/types/styles";
 import { Helmet } from "react-helmet";
 import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
+import {ContributeButton} from "../components/Navbar";
 
 const ContributionsLimit = 500;
 const ContributionsPageLimit = 50;
@@ -138,9 +139,6 @@ export function ContributionsPage() {
             These contributions represent the plurality of the web and how all
             of our meanings are inherently valuable.
           </p>
-          <p>
-            Make your <Link to="#contribute">own contribution</Link>.
-          </p>
           {/* TODO: maybe put patterns here? */}
         </div>
         {highlightedContribution && (
@@ -164,9 +162,12 @@ export function ContributionsPage() {
 
         <div className="text-center">
           {/* TODO: add fun animation on click, maybe make all the cards bounce */}
-          <button className={`${ButtonClass()}`} onClick={shuffleContributions}>
-            Shuffle contributions
-          </button>
+          <ContributeButton />
+          <div className="mt-8">
+            <button className={`${ButtonClass()}`} onClick={shuffleContributions}>
+              Shuffle contributions
+            </button>
+          </div>
         </div>
       </div>
       <div className="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-8 px-40 justify-center mx-auto max-w-max">

@@ -140,13 +140,14 @@ export function About() {
           <h3 className="font-title text-3xl pt-16 pb-0 text-center pb-2">
             stewards 🌱
           </h3>
-          <p className="pt-0 italic">
+          <p className="pt-0 italic text-lg">
             <a href="https://www.spencerchang.me/">Spencer Chang</a> ·{" "}
             <a href="https://alejandro.pe/">Alejandro García Salas</a> ·{" "}
             <a href="https://twitter.com/divyasiddarth?lang=en">
               Divya Siddarth
             </a>{" "}
-            · <a href="https://jasminew.me/">Jasmine Wang</a>
+            · <a href="https://jasminew.me/">Jasmine Wang</a> ·{" "}
+            <a href="https://jzhao.xyz/">Jacky Zhao</a>
           </p>
         </div>
       </div>

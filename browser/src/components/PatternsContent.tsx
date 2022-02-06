@@ -1,10 +1,16 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
-import { Contribution, Pattern } from "src/types/common/server-api";
+import {
+  Contribution,
+  GetStatsResponse,
+  Pattern,
+} from "src/types/common/server-api";
 import { Principles } from "../types";
 import ContributionsCarousel from "./ContributionsCarousel";
 import "./PatternsContent.css";
 import PatternSection from "./PatternSection";
+import {ContributeButton} from "./Navbar";
+import {NavLink} from "react-router-dom";
 
 function getContributionsByPattern(
   contributions: Contribution[],
@@ -16,14 +22,18 @@ function getContributionsByPattern(
   return filteredContributions;
 }
 
-export default function PatternsContent() {
+export default function PatternsContent({
+  stats,
+}: {
+  stats: GetStatsResponse | undefined;
+}) {
   const { contributions } = useContext(ContributionsContext);
 
   return (
     <div className="container w-full md:max-w-7xl mx-auto my-8">
       <h2
         id={Pattern.Pluriverse}
-        className="font-title font-mono text-4xl font-bold my-8"
+        className="font-title text-4xl font-bold my-8"
       >
         Patterns
       </h2>
@@ -43,6 +53,23 @@ export default function PatternsContent() {
           Pattern.Pluriverse
         )}
       />
+      {stats && (
+        <div className="mb-16 text-center w-1/2 mx-auto">
+          <p className="mb-4">
+            <b>{stats.authorsTotal}</b> members of the{" "}
+            <b className="shimmer">Pluriverse</b> community have signed, and{" "}
+            <b>{stats.contributionsTotal}</b> contributions have been submitted.
+          </p>
+          <ContributeButton />
+          <div className="mt-4">
+            <NavLink to="/contributions">
+              <button className={`glass-button md:px-6`}>
+                Browse all contributions
+              </button>
+            </NavLink>
+          </div>
+        </div>
+      )}
       <hr />
       {Object.entries(Principles).map(
         ([pattern, { title, problem, solution }], index) => (

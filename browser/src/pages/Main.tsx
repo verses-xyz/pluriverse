@@ -51,7 +51,6 @@ export function Main() {
   const patternsContentRef = useRef<any>();
 
   const { stats } = useContext(StatsContext);
-  const { authorsTotal, contributionsTotal } = stats || {};
   const fixedOpacity = 0.05;
 
   useEffect(() => {
@@ -117,21 +116,7 @@ export function Main() {
             <EssayContent />
           </div>
           <div ref={patternsContentRef}>
-            <PatternsContent />
-          </div>
-          <div className="text-center my-8">
-            {stats && (
-              <div className="mb-2">
-                <b>{authorsTotal}</b> members of the{" "}
-                <b className="shimmer">Pluriverse</b> community have signed, and{" "}
-                <b>{contributionsTotal}</b> contributions have been submitted.
-              </div>
-            )}
-            <NavLink to="/contributions">
-              <button className={`glass-button md:px-6`}>
-                Browse all contributions
-              </button>
-            </NavLink>
+            <PatternsContent stats={stats} />
           </div>
           <div
             id="contributionSection"

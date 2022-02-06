@@ -5,6 +5,24 @@ import { BiQuestionMark, BiPlanet } from "react-icons/bi";
 import { FiBook } from "react-icons/fi";
 import { TiPencil } from "react-icons/ti";
 
+export function ContributeButton() {
+  return (
+    <a href="/#contribute">
+      <button className={`glass-button md:px-6 glass-button-cta`}>
+        <span className="hidden md:flex pr-2">
+          <span className="pr-3 pt-1">
+            <TiPencil />
+          </span>
+          Contribute
+        </span>
+        <span className="md:hidden">
+          <TiPencil />
+        </span>
+      </button>
+    </a>
+  );
+}
+
 export function Navbar() {
   return (
     <nav className="flex justify-between justify-end pt-8 md:mx-8 mx-2">
@@ -67,20 +85,7 @@ export function Navbar() {
           </NavLink>
         </div>
         <div>
-          {/* Can make this scroll instead. */}
-          <a href="/#contribute">
-            <button className={`glass-button md:px-6 glass-button-cta`}>
-              <span className="hidden md:flex pr-2">
-                <span className="pr-3 pt-1">
-                  <TiPencil />
-                </span>
-                Contribute
-              </span>
-              <span className="md:hidden">
-                <TiPencil />
-              </span>
-            </button>
-          </a>
+          <ContributeButton />
         </div>
       </div>
     </nav>
