@@ -84,11 +84,14 @@ export async function getContribution({
   });
 
   const mdToHtmlConverter = new Converter();
-  response.responseHtml = mdToHtmlConverter.makeHtml(
+  const responseHtml = mdToHtmlConverter.makeHtml(
     response.response
   );
 
-  return response as ClientContribution;
+  return {
+    ...response,
+    responseHtml,
+  } as ClientContribution;
 }
 
 export async function getContributions({
@@ -106,14 +109,17 @@ export async function getContributions({
   );
 
   const mdToHtmlConverter = new Converter();
-  const responseWithHtml = response.map((res) => {
-    res.responseHtml = mdToHtmlConverter.makeHtml(
+  const responseWithHtml = response.map((res: ClientContribution) => {
+    const responseHtml = mdToHtmlConverter.makeHtml(
       res.response
     );
-    return res;
+    return {
+      ...res,
+      responseHtml,
+    } as ClientContribution
   });
 
-  return response as ClientContribution[];
+  return responseWithHtml as ClientContribution[];
 }
 
 export async function getUser({

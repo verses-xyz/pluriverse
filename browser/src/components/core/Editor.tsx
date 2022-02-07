@@ -18,7 +18,6 @@ import sanitizeHtml from "sanitize-html";
 import isURL from "validator/lib/isURL";
 
 import { ButtonClass } from "../../types/styles";
-import { selectFullWordCommand, unsetWhitespaceMarksCommand } from "./commands";
 import { ResponseCharacterLimit } from "../ContributionSection";
 import "./Editor.css";
 
@@ -92,7 +91,7 @@ export function Editor({
 
     var url = null;
     // If link is not null, check if it's valid and display error message otherwise.
-    if (!(linkInput === "" || linkInput === null || linkInput === undefined)) {
+    if (!linkInput) {
       if (isURL(linkInput)) {
         url = linkInput;
       } else {
@@ -100,10 +99,7 @@ export function Editor({
         return;
       }
     } else {
-      editor.chain().focus().command(({ tr, commands }) => {
-        return selectFullWordCommand({ tr, commands })
-      }).unsetLink().run();
-
+      editor.chain().focus().unsetLink().run();
       closeModal();
       return;
     }
@@ -117,9 +113,7 @@ export function Editor({
     }
 
     // Set link.
-    editor.chain().focus().command(({ tr, commands }) => {
-      return selectFullWordCommand({ tr, commands })
-    }).setLink({ href: url }).run();
+    editor.chain().focus().setLink({ href: url }).run();
 
     closeModal();
   };

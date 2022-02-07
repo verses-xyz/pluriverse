@@ -52,14 +52,32 @@ export function getFullContributionResponse({
   );
 }
 
+const renderHtml = (resp: string): string | JSX.Element | JSX.Element[] => {
+  // Remove first p tag to prevent first text going to next line, sanitize html string
+  // and then convert to JSX element
+  return parse(
+    sanitizeHtml(
+      resp.replace(
+        /<p[^>]*>|<\/p[^>]*>/,
+        ""
+      )
+    )
+  )
+};
+
 export function getContributionCardResponse({
   response,
+  responseHtml,
   prompt,
   pattern,
-}: Contribution) {
+}: ClientContribution) {
   if (!response) {
     return response;
   }
+
+  const input = renderHtml(
+    responseHtml || response
+  );
 
   switch (prompt) {
     case Prompt.LooksLike:
@@ -70,7 +88,7 @@ export function getContributionCardResponse({
           {replaceJSX(PromptDescriptions[prompt], {
             [Placeholder]: <b>{getPatternPlaceholder(pattern, prompt)}</b>,
           })}{" "}
-          {response}
+          {input}
         </>
       );
     // TODO: this doesn't replace with the right case from before.
@@ -119,24 +137,6 @@ export function ContributionCard({
   const contributionLink = getContributionLink(contribution);
   const { openContributionModal, openContributionId } =
     useContext(ModalContext);
-
-
-  const renderHtml = (resp: string): string | JSX.Element | JSX.Element[] => {
-    // Remove first p tag to prevent first text going to next line, sanitize html string
-    // and then convert to JSX element
-    return parse(
-      sanitizeHtml(
-        resp.replace(
-          /<p[^>]*>|<\/p[^>]*>/,
-          ""
-        )
-      )
-    )
-  };
-
-  const input = renderHtml(
-    responseHtml || response
-  );
 
   return (
     <div

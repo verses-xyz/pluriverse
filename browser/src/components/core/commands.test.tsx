@@ -173,7 +173,6 @@ test("two words and surrounding spaces selected", () => {
 });
 
 test("punctuation stuff", () => {
-    console.log("________________________")
     testCommand({
         selectedFrom: 47,
         selectedTo: 50,
@@ -181,7 +180,6 @@ test("punctuation stuff", () => {
         expectedTo: 51,
         expectedContent: "22",
     })
-    console.log("________________________")
 });
 
 test("in the middle of multiple spaces", () => {
