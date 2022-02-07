@@ -25,11 +25,11 @@ export function ContributionsProvider({ children }) {
   }, []);
 
   async function fetchContributions() {
-    // const newContributions = await getContributions({});
-    // for (const { id } of newContributions) {
-    //   contributionIdsSet.current.add(id);
-    // }
-    const newContributions = getMockContributions();
+    const newContributions = await getContributions({});
+    for (const { id } of newContributions) {
+      contributionIdsSet.current.add(id);
+    }
+    // const newContributions = getMockContributions();
     setContributions(newContributions);
   }
 
