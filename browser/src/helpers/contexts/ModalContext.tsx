@@ -71,7 +71,6 @@ export function ModalProvider({ children }) {
         </p>
         <ContributionCard
           contribution={highlightedContribution}
-          full
           renderCanvas
           className={`mx-auto `}
         />
