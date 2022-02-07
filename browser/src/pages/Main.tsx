@@ -120,7 +120,7 @@ export function Main() {
             <PatternsContent />
           </div>
           {stats && (
-            <div className="mb-16 text-center w-1/2 mx-auto">
+            <div className="mb-16 text-center mx-auto px-4">
               <p className="mb-4">
                 <b>{stats.authorsTotal}</b> members of the{" "}
                 <b className="shimmer">Pluriverse</b> community have signed, and{" "}

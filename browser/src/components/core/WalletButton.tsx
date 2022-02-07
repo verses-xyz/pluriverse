@@ -33,7 +33,7 @@ export function ConnectWalletButton({
 
   return (
     <button
-      className={`glass-button glass-button-cta w-full`}
+      className={`${ButtonClass("wide")} glass-button-cta`}
       onClick={onClickConnectWallet}
       disabled={loading}
       {...buttonProps}

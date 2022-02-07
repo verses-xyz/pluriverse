@@ -17,7 +17,11 @@ const client = new Twitter({
 // signature is their handle signed with their address
 export function verify({ prisma }: Services): RequestHandler {
   return async (req, res) => {
-    const { walletId } = req.body as VerifyTwitterRequest;
+    const {
+      walletId,
+      twitterUsername,
+      signature: inputSig,
+    } = req.body as VerifyTwitterRequest;
 
     try {
       const existingUser = await prisma.user.findFirst({
@@ -28,7 +32,12 @@ export function verify({ prisma }: Services): RequestHandler {
         throw new Error("No error found for the given wallet address.");
       }
 
-      const { twitterVerified, signature, twitterUsername } = existingUser;
+      const { twitterVerified, signature } = existingUser;
+
+      if (signature !== inputSig) {
+        res.status(401).json({ error: `Signature does not match!` });
+        return;
+      }
 
       if (twitterVerified) {
         console.log(`already verified user: @${existingUser.twitterUsername}`);
@@ -66,6 +75,7 @@ export function verify({ prisma }: Services): RequestHandler {
                 where: { id: walletId },
                 data: {
                   twitterVerified: true,
+                  twitterUsername,
                 },
               });
 
