@@ -290,7 +290,7 @@ footer {
 }
 
 .dropdown button {
-  text-align: right;
+  text-align: left;
   display: block;
   padding: 5px 0;
   width: 100%;
