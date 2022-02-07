@@ -317,6 +317,7 @@ footer {
   max-width: 700px;
   width: 100%;
   padding: 32px;
+  margin: 16px;
   position: relative;
   border-radius: var(--border-radius-16);
   z-index: 5000;
