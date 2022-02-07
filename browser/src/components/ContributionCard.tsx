@@ -182,8 +182,10 @@ export function ContributionCard({
           {id && <CopyLink content={contributionLink} />}
           <div className="spacer" />
           <p className="author-section ml-auto inline">
+            <p>
+              by <span className="author">{authorDisplay}</span>
+            </p>
             <p>{dateDisplay}</p>
-            <p className="author text-color-purple-200">{authorDisplay}</p>
           </p>
         </div>
       </div>

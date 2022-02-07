@@ -596,7 +596,7 @@ export function ContributionSection() {
               {currentUser && getUserLabel(currentUser, "verifying for")}
             </div>
             <div className="verifyContainer ">
-              <p className="text-xl py-1">
+              <p className="text-lg py-1">
                 <em>(this is optional)</em>
               </p>
               <ol className="list-decimal list-inside	">
@@ -739,9 +739,6 @@ export function ContributionSection() {
         );
 
       case Page.Share: {
-        const contributionLink = getContributionLink(selectedContribution!);
-        const contributionShareText = `My contribution to the pluriverse, a world where many worlds may fit\n\n${contributionLink}`;
-
         return (
           <div className="signContainer">
             <div className="flex ">
@@ -752,39 +749,13 @@ export function ContributionSection() {
               Thank you for contributing to the Pluriverse! Your contribution in
               all its glorious plurality is below:
             </p>
-            <ContributionCard
-              contribution={selectedContribution!}
-              renderCanvas={true}
-            />
-            <p className="text-xl">
-              You can share your specific contribution with others using this
-              link: <a href={contributionLink}>{contributionLink}</a>
-            </p>
-            <div className="flex gap-2">
-              <button
-                // className="twitter-share-button"
-                className={ButtonClass()}
-                onClick={() => {
-                  window.open(
-                    getTweetIntentLink(contributionShareText),
-                    "_blank"
-                  );
-                }}
-              >
-                Share on Twitter
-              </button>
-              <CopyLink content={contributionLink} />
-            </div>
-            <div>
-              <button
-                onClick={() => setPage(Page.Contribute)}
-                className={ButtonClass("blue")}
-              >
-                Add more contributions
-              </button>
-
+            <div className="flex items-center flex-col">
+              <ContributionCard
+                contribution={selectedContribution!}
+                renderCanvas={true}
+              />
               <p className={descriptionText}>
-                or explore <Link to="/contributions">other contributions</Link>
+                <Link to="/contributions">Explore other contributions</Link>
               </p>
             </div>
           </div>
@@ -843,7 +814,7 @@ export function ContributionSection() {
   }
 
   function getPreviousPage() {
-    let pageIndex = maybeFilteredPages.indexOf(page);
+    const pageIndex = maybeFilteredPages.indexOf(page);
     return pageIndex - 1 >= 0
       ? (maybeFilteredPages[pageIndex - 1] as Page)
       : undefined;
@@ -863,6 +834,12 @@ export function ContributionSection() {
 
     const previousPage = getPreviousPage();
     const nextPage = page === Page.Contribute ? undefined : getNextPage();
+    let contributionLink;
+    let contributionShareText: string | undefined;
+    if (selectedContribution) {
+      contributionLink = getContributionLink(selectedContribution!);
+      contributionShareText = `My contribution to the pluriverse, a world where many worlds may fit\n\n${contributionLink}`;
+    }
 
     return (
       (previousPage || nextPage) && (
@@ -890,6 +867,20 @@ export function ContributionSection() {
               disabled={!isResponseValid()}
             >
               Add to Pluriverse
+            </button>
+          )}
+          {page === Page.Share && contributionLink && contributionShareText && (
+            <button
+              // className="twitter-share-button"
+              className={ButtonClass()}
+              onClick={() => {
+                window.open(
+                  getTweetIntentLink(contributionShareText),
+                  "_blank"
+                );
+              }}
+            >
+              Share on Twitter
             </button>
           )}
         </div>
