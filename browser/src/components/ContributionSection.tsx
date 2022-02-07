@@ -16,7 +16,8 @@ import React from "react";
 import { ButtonClass } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
 import {
-  ContributionCard, CopyLink,
+  ContributionCard,
+  CopyLink,
   getFullContributionResponse,
 } from "./ContributionCard";
 import { getUser } from "src/helpers/api";
@@ -237,7 +238,9 @@ interface TermsOfUseProps {
     twitterUsername?: string;
     isDisagreeing?: boolean;
   }): Promise<void>;
+  onSuccess(): void;
   onContinue(): void;
+  nextPage?: Page;
 }
 
 function getUserLabel(user: Author, text: string) {
@@ -253,13 +256,13 @@ function TermsOfUse({
   onSubmitWallet,
   handleErr,
   onContinue,
+  onSuccess,
+  nextPage,
 }: TermsOfUseProps) {
   const [name, setName] = useState<string | undefined>(undefined);
-  const [twitterUsername, setTwitterUsername] = useState<string | undefined>(
-    undefined
-  );
   const { currentUserWalletAddress } = useContext(UserContext);
   const { latestEssayInfo } = useContext(ArweaveContext);
+  console.log(latestEssayInfo);
   const { version, transactionId = "" } = latestEssayInfo || {};
   const arweaveDocLink = transactionId ? getArweaveLink(transactionId) : "";
 
@@ -301,36 +304,15 @@ function TermsOfUse({
           </b>
         </p>
       </div>
-      {!user && currentUserWalletAddress && (
-        <div className="inputs pt-2 flex-col gap-3 md:flex-row md:gap-6">
-          <div>
-            <label className="text-lg pr-2">Twitter: </label>
-            <input
-              value={twitterUsername}
-              onChange={(evt) =>
-                setTwitterUsername(evt.target.value.replaceAll("@", ""))
-              }
-              placeholder="verses_xyz"
-              maxLength={15}
-            />
-          </div>
-        </div>
-      )}
 
+      {/* TODO: show the signature arweave link */}
       <div className="actionsContainer mb-4">
         {user?.signature ? (
-          <button className={ButtonClass()} onClick={onContinue}>
-            Continue to contribution ➔
+          <button className={ButtonClass("wide")} onClick={onContinue}>
+            Continue{nextPage && " to " + PageNames[nextPage]}
           </button>
         ) : currentUserWalletAddress ? (
-          <AsyncButton
-            onSubmit={() => onSubmitWallet({ name, twitterUsername })}
-            onError={handleErr}
-          >
-            Sign
-          </AsyncButton>
-        ) : (
-          <div className="text-center">
+          <div className="text-center w-full">
             <div className="mb-8">
               <label className="text-lg pr-2">Your name: </label>
               <input
@@ -340,8 +322,18 @@ function TermsOfUse({
                 maxLength={60}
               />
             </div>
-            <ConnectWalletButton onError={handleErr}>Sign</ConnectWalletButton>
+            <AsyncButton
+              onSubmit={() => onSubmitWallet({ name })}
+              onError={handleErr}
+              className="glass-button-cta"
+            >
+              Sign
+            </AsyncButton>
           </div>
+        ) : (
+          <ConnectWalletButton onSubmit={onSuccess} onError={handleErr}>
+            Connect
+          </ConnectWalletButton>
         )}
       </div>
     </div>
@@ -367,6 +359,9 @@ export function ContributionSection() {
   );
   const [selectedPattern, setSelectedPattern] = useState<Pattern>(
     Pattern.Pluriverse
+  );
+  const [twitterUsername, setTwitterUsername] = useState<string | undefined>(
+    undefined
   );
   const [response, setResponse] = useState<string | undefined>(undefined);
 
@@ -479,11 +474,9 @@ export function ContributionSection() {
   // from context.
   async function onSubmitWallet({
     name,
-    twitterUsername,
     isDisagreeing = false,
   }: {
     name?: string;
-    twitterUsername?: string;
     isDisagreeing?: boolean;
   } = {}) {
     if (!currentUserWalletAddress) {
@@ -509,10 +502,9 @@ export function ContributionSection() {
       userToUpdate = await addUser({
         walletId: currentUserWalletAddress,
         name,
-        twitterUsername,
         signature,
         // TODO: fill in with arweave essay ref.
-        essayRef: "",
+        essayRef: version,
         disagrees: isDisagreeing,
       });
     }
@@ -529,7 +521,7 @@ export function ContributionSection() {
     (user: Author | undefined = currentUser) => {
       // if twitter username is populated and not verified, redirect to verify flow.
       let nextPage: Page;
-      if (user && user.twitterUsername && !user.twitterVerified) {
+      if (user && !user.twitterVerified) {
         nextPage = Page.TwitterVerify;
       } else {
         nextPage = Page.Contribute;
@@ -561,8 +553,20 @@ export function ContributionSection() {
     setIsLoading(true);
     try {
       if (!currentUser?.twitterVerified) {
-        await verifyTwitter({ walletId: currentUser!.walletId });
-        setCurrentUser({ ...currentUser!, twitterVerified: true });
+        if (!twitterUsername) {
+          throw new Error("Twitter username is not set.");
+        }
+
+        await verifyTwitter({
+          walletId: currentUser!.walletId,
+          twitterUsername,
+          signature: currentUser!.signature,
+        });
+        setCurrentUser({
+          ...currentUser!,
+          twitterUsername,
+          twitterVerified: true,
+        });
       }
       setError(undefined);
       // switch page after showing success
@@ -585,6 +589,8 @@ export function ContributionSection() {
             onSubmitWallet={onSubmitWallet}
             handleErr={handleErr}
             onContinue={() => navigateFromTerms()}
+            onSuccess={() => setError(undefined)}
+            nextPage={getNextPage()}
           />
         );
 
@@ -596,23 +602,41 @@ export function ContributionSection() {
               {currentUser && getUserLabel(currentUser, "verifying for")}
             </div>
             <div className="verifyContainer ">
-              <p className="text-xl">
+              <p className="text-xl py-1">
                 <em>(this is optional)</em>
               </p>
               <ol className="list-decimal list-inside	">
                 <div className="grid twitterSteps">
-                  <p className="pt-0">
+                  <p className="pt-0 text-xl">
                     <li>
                       <span>
-                        Tweet a message to prove that you control your wallet
-                        address. Make sure to keep the "sig:0x123..." part at
-                        the end, but feel free to add your own spin on the
-                        message that comes before. Come back after to verify the
-                        tweet.
+                        Fill in your Twitter username. This will help us find
+                        your verification tweet!
                       </span>
                     </li>
                   </p>
-                  <div className="ml-auto">
+                  <div className="ml-auto pl-1">
+                    <input
+                      value={twitterUsername}
+                      onChange={(evt) =>
+                        setTwitterUsername(evt.target.value.replaceAll("@", ""))
+                      }
+                      placeholder="verses_xyz"
+                      maxLength={15}
+                      style={{ maxWidth: "170px" }}
+                    />
+                  </div>
+                  <p className="pt-0 mt-2 text-xl">
+                    <li>
+                      <span>
+                        Tweet a message to prove that you control your wallet
+                        address. Keep the "sig:0x123..." at the end, but feel
+                        free to add your own spin on the message that comes
+                        before.
+                      </span>
+                    </li>
+                  </p>
+                  <div className="ml-auto mt-3">
                     <button
                       // className="twitter-share-button"
                       className={`${ButtonClass()}`}
@@ -621,16 +645,15 @@ export function ContributionSection() {
                       Tweet proof
                     </button>
                   </div>
-                  <p className="pt-0 mt-4">
+                  <p className="pt-0 mt-2 text-xl">
                     <li>
                       <span>
-                        After your tweet is sent, press the Verify button. If
-                        successful, your twitter handle and contribution will be
-                        linked.
+                        Press the Verify button. If successful, your twitter
+                        handle and contribution will be linked.
                       </span>
                     </li>
                   </p>
-                  <div className="ml-auto">
+                  <div className="ml-auto mt-3">
                     <button
                       style={{
                         display: "inline-flex",
@@ -638,7 +661,7 @@ export function ContributionSection() {
                       }}
                       className={`${ButtonClass()}`}
                       onClick={onClickVerifyTwitter}
-                      disabled={isLoading}
+                      disabled={isLoading || !twitterUsername}
                     >
                       {isLoading ? (
                         <>
@@ -695,7 +718,7 @@ export function ContributionSection() {
                             className="responseInput"
                             // TODO: make this populate an actual live preview from an example?? and shuffle?
                             extraProps={{
-                              placeholder: "free gardens",
+                              // placeholder: "free gardens",
                               maxLength: ResponseCharacterLimit,
                             }}
                           />
@@ -710,21 +733,6 @@ export function ContributionSection() {
                   response={response}
                   prompt={selectedPrompt}
                 />
-              </div>
-              <div className="actionsContainer">
-                <button
-                  className={`${ButtonClass()} mr-auto bg-gray-600 rounded-full gap-1 items-center`}
-                  onClick={() => setPage(getPreviousPage())}
-                >
-                  <MdArrowBack /> Verification
-                </button>
-                <button
-                  onClick={onSaveContribution}
-                  className={ButtonClass("glass-button-cta")}
-                  disabled={!isResponseValid()}
-                >
-                  Add to Pluriverse
-                </button>
               </div>
               {/* TODO: fun loading animation */}
               {isLoading && (
@@ -867,29 +875,39 @@ export function ContributionSection() {
       return;
     }
 
-    const previousPage =
-      page === Page.Contribute ? undefined : getPreviousPage();
+    const previousPage = getPreviousPage();
     const nextPage = page === Page.Contribute ? undefined : getNextPage();
 
     return (
-      <div className="flex mt-8 contributionNavigation">
-        {previousPage && (
-          <button
-            className={`${ButtonClass()} w-48 mr-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
-            onClick={() => setPage(previousPage)}
-          >
-            <MdArrowBack /> {PageNames[previousPage]}
-          </button>
-        )}
-        {nextPage && (
-          <button
-            className={`${ButtonClass()} w-48 ml-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
-            onClick={() => setPage(nextPage)}
-          >
-            {PageNames[nextPage]} <MdArrowForward />
-          </button>
-        )}
-      </div>
+      (previousPage || nextPage) && (
+        <div className="flex mt-8 contributionNavigation mb-4">
+          {previousPage && (
+            <button
+              className={`${ButtonClass()} mr-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
+              onClick={() => setPage(previousPage)}
+            >
+              <MdArrowBack /> {PageNames[previousPage]}
+            </button>
+          )}
+          {nextPage && (
+            <button
+              className={`${ButtonClass()} ml-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
+              onClick={() => setPage(nextPage)}
+            >
+              {PageNames[nextPage]} <MdArrowForward />
+            </button>
+          )}
+          {page === Page.Contribute && (
+            <button
+              onClick={onSaveContribution}
+              className={ButtonClass("glass-button-cta")}
+              disabled={!isResponseValid()}
+            >
+              Add to Pluriverse
+            </button>
+          )}
+        </div>
+      )
     );
   }
 

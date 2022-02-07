@@ -101,6 +101,8 @@ export interface GetContributionRequest {
 
 export interface VerifyTwitterRequest {
   walletId: string;
+  twitterUsername: string;
+  signature: string;
 }
 
 export interface GetStatsResponse {

@@ -15,6 +15,7 @@ type Props = Omit<
 export function AsyncButton({
   onError,
   onSubmit,
+  className,
   children,
   ...buttonProps
 }: Props) {
@@ -34,7 +35,7 @@ export function AsyncButton({
 
   return (
     <button
-      className={`${ButtonClass("wide")}`}
+      className={`${ButtonClass("wide")} ${className ? className : ""}`}
       onClick={onClick}
       disabled={loading}
       {...buttonProps}
