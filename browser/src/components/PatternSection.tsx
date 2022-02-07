@@ -40,12 +40,7 @@ export default function PatternSection({
       >
         {/* TODO: click to get link to this page */}
         {/* TODO: add onto contribution card to get back here */}
-        <h3
-          id={pattern}
-          className="font-semibold text-2xl md:text-3xl"
-          // style={{ fontFamily: "var(--font-family-secondary)" }}
-        >
-          {/* `0${index + 1}. ${title}` */}
+        <h3 id={pattern} className="font-semibold text-2xl md:text-3xl">
           <span
             className="mr-2 font-mono text-xl md:text-2xl opacity-75"
             style={{ fontWeight: 400 }}
@@ -72,14 +67,22 @@ export default function PatternSection({
       {expanded && (
         <div>
           <div className="grid md:grid-cols-2 gap-16 my-8 fadeInDownFast">
-            <div>
-              <h4 className="font-title text-xl font-semibold">The problem</h4>
-              <p>{problem}</p>
-            </div>
-            <div>
-              <h4 className="font-title text-xl font-semibold">The solution</h4>
-              <p>{solution}</p>
-            </div>
+            {problem && (
+              <div>
+                <h4 className="font-title text-xl font-semibold">
+                  The problem
+                </h4>
+                <p>{problem}</p>
+              </div>
+            )}
+            {solution && (
+              <div>
+                <h4 className="font-title text-xl font-semibold">
+                  The solution
+                </h4>
+                <p>{solution}</p>
+              </div>
+            )}
           </div>
           {contributions && contributions.length > 0 && (
             <div className="my-8">
