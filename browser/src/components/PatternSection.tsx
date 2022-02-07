@@ -11,15 +11,17 @@ export default function PatternSection({
   solution,
   contributions,
   pattern,
+  defaultExpanded = false,
 }: {
   index: number;
   title: string;
-  problem: string;
-  solution: string;
+  problem?: string;
+  solution?: string;
   pattern: Pattern;
   contributions: Contribution[];
+  defaultExpanded?: boolean;
 }) {
-  const [expanded, toggle] = useToggle();
+  const [expanded, toggle] = useToggle(defaultExpanded);
 
   return (
     <div
@@ -40,11 +42,16 @@ export default function PatternSection({
         {/* TODO: add onto contribution card to get back here */}
         <h3
           id={pattern}
-          className="font-semibold text-xl md:text-3xl"
+          className="font-semibold text-xl md:text-3xl "
           // style={{ fontFamily: "var(--font-family-secondary)" }}
         >
           {/* `0${index + 1}. ${title}` */}
-          <span>{index}</span>
+          <span
+            className="mr-2 font-mono text-2xl opacity-75"
+            style={{ fontWeight: 400 }}
+          >
+            {`${index}.`}
+          </span>
           <span>{title}</span>
         </h3>
         {/* Read more / less button */}

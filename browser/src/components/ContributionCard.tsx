@@ -17,9 +17,9 @@ import { getDisplayForAuthor } from "./SignatureContent";
 import BlobSingleScissorWindow from "./BlobSingleScissorWindow";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei/core/OrbitControls";
-import { BiLink } from "react-icons/bi";
+import { BiLink, BiCheck } from "react-icons/bi";
 import { getContributionLink } from "src/helpers/contributions";
-import { Suspense, useContext } from "react";
+import {Suspense, useContext, useState} from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 import BlobsPostProcessing from "./BlobsPostProcessing";
@@ -78,6 +78,25 @@ export function getContributionCardResponse({
         { ignoreCase: true, includePlaceholder: false }
       );
   }
+}
+
+export function CopyLink({ content }: { content: string }) {
+  const [copied, setCopied] = useState(false);
+
+  return (
+    <button
+      className="link"
+      onClick={(e) => {
+        e.stopPropagation();
+        navigator.clipboard.writeText(content);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+      }}
+    >
+      Copy Link
+      {copied ? <BiCheck color="#34eb61" /> : <BiLink />}
+    </button>
+  );
 }
 
 export function ContributionCard({
@@ -139,7 +158,7 @@ export function ContributionCard({
             <Suspense fallback={<LoadingIndicator />}>
               <Canvas
                 frameloop="demand"
-                camera={{ position: [0, 0, 20], fov: 50 }}
+                camera={{ position: [0, 0, 14], fov: 50 }}
                 style={{ cursor: "pointer" }}
               >
                 <OrbitControls
@@ -161,22 +180,11 @@ export function ContributionCard({
           )}
         </div>
         <div className="attribution">
-          {id && (
-            <button
-              className="link"
-              onClick={(e) => {
-                e.stopPropagation();
-                navigator.clipboard.writeText(contributionLink);
-              }}
-            >
-              Copy link
-              <BiLink />
-            </button>
-          )}
+          {id && <CopyLink content={contributionLink} />}
           <div className="spacer" />
           <p className="author-section ml-auto inline">
-            <p className="author text-color-purple-200">{authorDisplay}</p>
             <p>{dateDisplay}</p>
+            <p className="author text-color-purple-200">{authorDisplay}</p>
           </p>
         </div>
       </div>

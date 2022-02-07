@@ -75,7 +75,8 @@ export default function PatternsContent({
           <PatternSection
             key={index}
             pattern={pattern}
-            title={`0${index + 1}. ${title}`}
+            index={index}
+            title={title}
             problem={problem}
             solution={solution}
             contributions={getContributionsByPattern(

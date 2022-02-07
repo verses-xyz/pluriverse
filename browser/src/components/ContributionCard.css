@@ -88,6 +88,11 @@
   cursor:pointer;
 }
 
+.preview-card {
+  margin-left: auto;
+  margin-top: 3rem;
+}
+
 .responseContainerContributionCard {
   overflow-y: auto;
   padding-right: 5px;
@@ -120,14 +125,19 @@
   /* -webkit-line-clamp: 8; */
 }
 
-.blobSingleContainer {
-  height: 80px;
+.blobSingleContainer, .blobContainer {
+  height: 70px;
   width: 150px;
   bottom: 0;
-  margin-bottom: 50px;
+  margin-bottom: 80px;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.blobContainer.blobContainer {
+  height: 70px;
+  margin: 20px 0 30px;
 }
 
 .compactContributionCardContainer > h2 {

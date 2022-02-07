@@ -236,11 +236,15 @@ blockquote:before {
   /* min-height: 46px; */
 }
 
-.glass-button:hover {
+.contributionNavigation .glass-button svg {
+  display: inline;
+}
+
+.glass-button:hover:enabled {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.glass-button-cta::before {
+.glass-button-cta:enabled::before {
   position: absolute;
   top: 0;
   left: 0;
@@ -253,7 +257,8 @@ blockquote:before {
   content: "";
   transition: 0.5s;
 }
-.glass-button-cta:hover::before {
+
+.glass-button-cta:enabled:hover::before {
   transform: scale(1.1);
   filter: blur(10px);
   opacity: 1;
@@ -293,8 +298,8 @@ footer {
 
 .modal {
   background-color: hsla(0, 0%, 20%, 1);
-  width: 100%;
-  max-width: 576px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 420px;
   padding: 3rem;
   position: relative;
   border-radius: 0.4rem;
@@ -313,4 +318,26 @@ footer {
   align-items: center;
   justify-content: center;
   z-index: 3000;
+
+  backdrop-filter: blur(5px);
+}
+
+.dropdown {
+  background-color: hsla(0, 0%, 15%, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+.dropdown button {
+  text-align: right;
+  display: block;
+  padding: 5px 0;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  transition: background-color 0.8s ease;
+}
+
+.dropdown button:last-of-type {
+  border-bottom: none;
 }

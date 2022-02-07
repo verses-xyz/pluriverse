@@ -19,6 +19,7 @@
 
 .terms > p {
   line-height: 1.4;
+  padding: 0.5rem 0;
 }
 
 .inputs {
@@ -85,6 +86,10 @@ input::placeholder {
   justify-content: center;
 }
 
+.actionsContainer svg {
+  display: inline;
+}
+
 .signContainer {
   display: flex;
   flex-direction: column;
@@ -114,9 +119,7 @@ input::placeholder {
 }
 
 .contributionContainer {
-  margin-top: 24px;
   display: grid;
-  column-gap: 24px;
   grid-template-columns: 1fr 1fr;
 }
 
@@ -127,8 +130,9 @@ input::placeholder {
   gap: 12px;
 }
 
-.responseInput {
-  margin-top: 12px;
+label > *,
+label p {
+  padding-bottom: 0.25rem;
 }
 
 .errorContainer {

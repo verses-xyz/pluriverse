@@ -16,7 +16,7 @@ import React from "react";
 import { ButtonClass } from "src/types/styles";
 import { ConnectWalletButton } from "./core/WalletButton";
 import {
-  ContributionCard,
+  ContributionCard, CopyLink,
   getFullContributionResponse,
 } from "./ContributionCard";
 import { getUser } from "src/helpers/api";
@@ -36,6 +36,7 @@ import { AsyncButton } from "./core/AsyncButton";
 import dayjs from "dayjs";
 import { ArweaveContext } from "src/helpers/contexts/ArweaveContext";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
+import { BiErrorCircle } from "react-icons/bi";
 
 enum Page {
   TermsOfUse = "TermsOfUse",
@@ -219,7 +220,9 @@ function PreviewCard({
     pattern,
     createdAt: new Date(),
   };
-  return <ContributionCard contribution={contribution} />;
+  return (
+    <ContributionCard contribution={contribution} className="preview-card" />
+  );
 }
 
 interface TermsOfUseProps {
@@ -262,7 +265,14 @@ function TermsOfUse({
 
   return (
     <div className="terms">
-      <h2 className="text-2xl font-bold">Terms of Support</h2>
+      <div className="flex mb-6">
+        <h2 className="text-3xl font-bold">Terms of Support</h2>
+        {(user || currentUserWalletAddress) &&
+          getUserLabel(
+            user || { walletId: currentUserWalletAddress },
+            "signing as"
+          )}
+      </div>
       <p className="text-xl">
         Please read the above essay ("
         <b>essay</b>") and patterns ("
@@ -284,18 +294,11 @@ function TermsOfUse({
       </p>
       <hr />
       <div className="text-center">
-        <p className="text-xl">
+        <p className="text-xl py-1">
           <b>
             "I want to help build the <b className="shimmer">pluriverse</b>{" "}
             together"
           </b>
-        </p>
-        <p className="text-lg opacity-50 p-0">
-          {(user || currentUserWalletAddress) &&
-            getUserLabel(
-              user || { walletId: currentUserWalletAddress },
-              "signing as"
-            )}
         </p>
       </div>
       {!user && currentUserWalletAddress && (
@@ -317,7 +320,7 @@ function TermsOfUse({
       <div className="actionsContainer mb-4">
         {user?.signature ? (
           <button className={ButtonClass()} onClick={onContinue}>
-            Continue to verification ➔
+            Continue to contribution ➔
           </button>
         ) : currentUserWalletAddress ? (
           <AsyncButton
@@ -381,23 +384,32 @@ export function ContributionSection() {
   );
 
   const promptSelect = (
-    <Dropdown
-      items={PromptItems}
-      defaultOption="Select a prompt..."
-      selectedItemName={
-        selectedPrompt
-          ? (PromptDescriptionsToDisplay[selectedPrompt] as any)
-          : undefined
-      }
-      className="patternSelect"
-    />
+    <label className="block">
+      <p className="text-xl">Prompt</p>
+      <Dropdown
+        items={PromptItems}
+        defaultOption="Select a prompt..."
+        selectedItemName={
+          selectedPrompt
+            ? PromptDescriptionsToDisplay[selectedPrompt].replace(
+                "...",
+                PatternToDisplay[selectedPattern]
+              )
+            : undefined
+        }
+        className="patternSelect w-full"
+      />
+    </label>
   );
   const patternSelect = (
-    <Dropdown
-      items={PatternItems}
-      selectedItemName={selectedPattern && PatternToDisplay[selectedPattern]}
-      className="patternSelect"
-    />
+    <label className="block">
+      <p className="text-xl">Pattern</p>
+      <Dropdown
+        items={PatternItems}
+        selectedItemName={selectedPattern && PatternToDisplay[selectedPattern]}
+        className="patternSelect w-full"
+      />
+    </label>
   );
 
   let promptStarter: React.ReactNode = "";
@@ -416,7 +428,7 @@ export function ContributionSection() {
     );
   }
 
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>();
   const handleErr = (err: Error) => {
     setError(err.message);
   };
@@ -580,11 +592,11 @@ export function ContributionSection() {
         return (
           <div>
             <div className="flex mb-6">
-              <h2 className="text-3xl font-bold">Terms of Verification</h2>
+              <h2 className="text-2xl font-bold">Terms of Verification</h2>
               {currentUser && getUserLabel(currentUser, "verifying for")}
             </div>
             <div className="verifyContainer ">
-              <p>
+              <p className="text-xl">
                 <em>(this is optional)</em>
               </p>
               <ol className="list-decimal list-inside	">
@@ -653,10 +665,10 @@ export function ContributionSection() {
           <div>
             <div className="signContainer">
               <div className="flex">
-                <h2 className="text-3xl font-bold">Terms of Contribution</h2>
+                <h2 className="text-2xl font-bold">Terms of Contribution</h2>
                 {currentUser && getUserLabel(currentUser, "contributing as")}
               </div>
-              <p>
+              <p className="text-xl">
                 We've provided some sentence starters to get you going. Please
                 select a prompt and contribute to the{" "}
                 <b className="shimmer"> Pluriverse</b>. If you use the free-form
@@ -664,12 +676,19 @@ export function ContributionSection() {
               </p>
               <div className="contributionContainer">
                 <div className="selects">
-                  {promptSelect}
                   {selectedPrompt && (
                     <>
-                      <div className="responseContainer">
-                        {promptStarter} <br />
-                        {
+                      <div className="responseContainer w-full">
+                        {patternSelect}
+                        {promptSelect}
+                        <label>
+                          <div className="flex">
+                            <p className="text-xl">Contribution</p>
+                            <span className="flex-grow" />
+                            <p className="text-lg opacity-50">
+                              {response?.length || 0} / {ResponseCharacterLimit}
+                            </p>
+                          </div>
                           <AutoGrowInput
                             value={response}
                             onChange={setResponse}
@@ -680,11 +699,8 @@ export function ContributionSection() {
                               maxLength: ResponseCharacterLimit,
                             }}
                           />
-                        }
+                        </label>
                       </div>
-                      <span className={`${descriptionText} mt-2`}>
-                        {response?.length || 0} / {ResponseCharacterLimit}
-                      </span>
                     </>
                   )}
                 </div>
@@ -697,8 +713,14 @@ export function ContributionSection() {
               </div>
               <div className="actionsContainer">
                 <button
+                  className={`${ButtonClass()} mr-auto bg-gray-600 rounded-full gap-1 items-center`}
+                  onClick={() => setPage(getPreviousPage())}
+                >
+                  <MdArrowBack /> Verification
+                </button>
+                <button
                   onClick={onSaveContribution}
-                  className={ButtonClass("blue")}
+                  className={ButtonClass("glass-button-cta")}
                   disabled={!isResponseValid()}
                 >
                   Add to Pluriverse
@@ -721,10 +743,10 @@ export function ContributionSection() {
         return (
           <div className="signContainer">
             <div className="flex ">
-              <h2 className="text-3xl font-bold">Terms of Sharing</h2>
+              <h2 className="text-2xl font-bold">Terms of Sharing</h2>
               {currentUser && getUserLabel(currentUser, "sharing from")}
             </div>
-            <p>
+            <p className="text-xl">
               Thank you for contributing to the Pluriverse! Your contribution in
               all its glorious plurality is below:
             </p>
@@ -733,11 +755,10 @@ export function ContributionSection() {
               contribution={selectedContribution!}
               renderCanvas={true}
             />
-            <p>
+            <p className="text-xl">
               You can share your specific contribution with others using this
               link: <a href={contributionLink}>{contributionLink}</a>
             </p>
-            <br />
             <div className="flex gap-2">
               <button
                 // className="twitter-share-button"
@@ -751,14 +772,7 @@ export function ContributionSection() {
               >
                 Share on Twitter
               </button>
-              <button
-                className={ButtonClass()}
-                onClick={() => {
-                  navigator.clipboard.writeText(contributionLink);
-                }}
-              >
-                Copy Link
-              </button>
+              <CopyLink content={contributionLink} />
             </div>
             <div>
               <button
@@ -802,10 +816,21 @@ export function ContributionSection() {
     }
   }
 
+  const maybeFilteredPages = Object.values(Page).filter(
+    (p) =>
+      !currentUser ||
+      !currentUser.twitterUsername ||
+      currentUser.twitterVerified ||
+      (currentUser &&
+        currentUser.twitterUsername &&
+        !currentUser.twitterVerified) ||
+      p !== Page.TwitterVerify
+  );
+
   function renderPageProgress() {
     return (
       <div className="pageProgressContainer mb-8">
-        {Object.values(Page).map((p) => (
+        {maybeFilteredPages.map((p) => (
           <div
             key={p}
             className={`pageProgress ${
@@ -818,7 +843,7 @@ export function ContributionSection() {
   }
 
   function getPreviousPage() {
-    let pageIndex = Object.values(Page).indexOf(page);
+    let pageIndex = maybeFilteredPages.indexOf(page);
     if (
       page === Page.Contribute &&
       (currentUser?.twitterVerified || !currentUser?.twitterUsername)
@@ -826,14 +851,14 @@ export function ContributionSection() {
       pageIndex--;
     }
     return pageIndex - 1 >= 0
-      ? (Object.values(Page)[pageIndex - 1] as Page)
+      ? (maybeFilteredPages[pageIndex - 1] as Page)
       : undefined;
   }
 
   function getNextPage() {
-    const pageIndex = Object.values(Page).indexOf(page);
-    return pageIndex + 1 < Object.keys(Page).length
-      ? (Object.values(Page)[pageIndex + 1] as Page)
+    const pageIndex = maybeFilteredPages.indexOf(page);
+    return pageIndex + 1 < maybeFilteredPages.length
+      ? (maybeFilteredPages[pageIndex + 1] as Page)
       : undefined;
   }
 
@@ -842,14 +867,15 @@ export function ContributionSection() {
       return;
     }
 
-    const previousPage = getPreviousPage();
+    const previousPage =
+      page === Page.Contribute ? undefined : getPreviousPage();
     const nextPage = page === Page.Contribute ? undefined : getNextPage();
 
     return (
-      <div className="flex mt-8">
+      <div className="flex mt-8 contributionNavigation">
         {previousPage && (
           <button
-            className={`${ButtonClass()} mr-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
+            className={`${ButtonClass()} w-48 mr-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
             onClick={() => setPage(previousPage)}
           >
             <MdArrowBack /> {PageNames[previousPage]}
@@ -857,7 +883,7 @@ export function ContributionSection() {
         )}
         {nextPage && (
           <button
-            className={`${ButtonClass()} ml-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
+            className={`${ButtonClass()} w-48 ml-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
             onClick={() => setPage(nextPage)}
           >
             {PageNames[nextPage]} <MdArrowForward />
@@ -873,7 +899,9 @@ export function ContributionSection() {
         {renderPageProgress()}
         {renderPage()}
         {error && (
-          <div className="errorContainer text-red-500">Error: {error}</div>
+          <div className="errorContainer text-red-500 flex items-center gap-1 justify-center">
+            <BiErrorCircle /> {error}
+          </div>
         )}
         {renderPageNavigation()}
       </div>
