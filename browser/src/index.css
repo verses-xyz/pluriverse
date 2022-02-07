@@ -45,6 +45,8 @@
   --border-radius-12: 12px;
   --border-radius-16: 16px;
 
+  --shadow-default: 0 4px 30px rgba(0, 0, 0, 0.05);
+
   /* Spacing */
   --space-default: var(--space-8);
   --space-4: 4px;

@@ -138,20 +138,19 @@ p:hover .footnote-content {
     display: none;
   }
   .footnote-content-mobile {
-    background-color: rgba(0, 0, 0, 0.9);
-    font-size: 1rem;
-    padding: var(--space-16);
-    z-index: 4;
     display: initial;
     text-transform: none;
     position: absolute;
+    background-color: var(--background-root);
+    font-size: 1rem;
+    padding: var(--space-12);
+    z-index: 4;
     width: 340px;
-    top: 2.2rem;
+    top: 32px;
     left: 0;
+    border: 1px solid var(--outline-default);
     border-radius: var(--border-radius-8);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-default);
   }
 }
 
