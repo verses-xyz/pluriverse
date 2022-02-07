@@ -8,6 +8,10 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 /* Global css vars*/
 :root {
   /* Color */
@@ -289,7 +293,7 @@ blockquote:before {
 }
 
 .selectedBorder {
-  border: 1px solid rgb(198, 142, 255);
+  border: 1px solid var(--accent-default);
 }
 
 nav {
@@ -308,16 +312,17 @@ footer {
 }
 
 .modal {
-  background-color: hsla(0, 0%, 20%, 1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--outline-default);
   max-width: 700px;
   width: 100%;
-  padding: 3rem;
+  padding: var(--space-16);
   position: relative;
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius-16);
   z-index: 5000;
   max-height: 80vh;
   overflow-y: scroll;
+  backdrop-filter: blur(10px);
 }
 
 .overlay {
@@ -333,7 +338,7 @@ footer {
   justify-content: center;
   z-index: 3000;
 
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
 }
 
 .dropdown {
