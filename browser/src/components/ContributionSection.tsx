@@ -399,7 +399,7 @@ export function ContributionSection() {
   );
   const patternSelect = (
     <label className="block">
-      <p className="text-xl">Pattern</p>
+      <p className="text-xl pt-0">Pattern</p>
       <Dropdown
         items={PatternItems}
         selectedItemName={selectedPattern && PatternToDisplay[selectedPattern]}
@@ -690,7 +690,7 @@ export function ContributionSection() {
                 <h2 className="text-2xl font-bold">Terms of Contribution</h2>
                 {currentUser && getUserLabel(currentUser, "contributing as")}
               </div>
-              <p className="text-xl">
+              <p className="text-xl py-0">
                 We've provided some sentence starters to get you going. Please
                 select a prompt and contribute to the{" "}
                 <b className="shimmer"> Pluriverse</b>. If you use the free-form

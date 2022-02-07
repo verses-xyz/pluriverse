@@ -259,7 +259,8 @@ footer {
 .modal {
   background-color: hsla(0, 0%, 20%, 1);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  max-width: 576px;
+  max-width: 700px;
+  width: 100%;
   padding: 3rem;
   position: relative;
   border-radius: 0.4rem;

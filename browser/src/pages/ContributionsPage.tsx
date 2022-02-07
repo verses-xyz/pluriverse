@@ -158,7 +158,6 @@ export function ContributionsPage() {
         </div>
         <div className="text-center">
           {/* TODO: add fun animation on click, maybe make all the cards bounce */}
-          <ContributeButton />
           <div className="mt-8">
             <button
               className={`${ButtonClass()}`}
