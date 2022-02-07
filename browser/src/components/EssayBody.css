@@ -29,14 +29,22 @@ article {
   padding: 0.05rem 0.1rem;
 }
 
-.footnote:hover > .footnote-content, .footnote.expanded > .footnote-content {
+.footnote:hover > .footnote-content,
+.footnote.expanded > .footnote-content {
   opacity: 1;
   user-select: text;
   max-height: 50vh;
-  -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,1)));
+  -webkit-mask-image: -webkit-gradient(
+    linear,
+    left 50%,
+    left bottom,
+    from(rgba(0, 0, 0, 1)),
+    to(rgba(0, 0, 0, 1))
+  );
 }
 
-.footnote:hover::after, .footnote:hover .footnote-content::before {
+.footnote:hover::after,
+.footnote:hover .footnote-content::before {
   background-color: rgba(198, 142, 255, 0.3);
   border: 1px solid rgb(198, 142, 255);
 }
@@ -44,7 +52,13 @@ article {
 p:hover .footnote-content {
   opacity: 0.5;
   max-height: 50vh;
-  -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,1)));
+  -webkit-mask-image: -webkit-gradient(
+    linear,
+    left 50%,
+    left bottom,
+    from(rgba(0, 0, 0, 1)),
+    to(rgba(0, 0, 0, 1))
+  );
 }
 
 .footnote-content {
@@ -57,7 +71,13 @@ p:hover .footnote-content {
 
   font-size: 1rem;
   display: inline;
-  -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+  -webkit-mask-image: -webkit-gradient(
+    linear,
+    left 50%,
+    left bottom,
+    from(rgba(0, 0, 0, 1)),
+    to(rgba(0, 0, 0, 0))
+  );
 
   line-height: 1.5rem;
   max-height: calc(3 * 1.5rem);
@@ -110,7 +130,6 @@ p:hover .footnote-content {
   display: none;
 }
 
-/* TODO: for now hide footnotes on small screens */
 @media only screen and (max-width: 1650px) {
   .footnote {
     cursor: pointer;
@@ -125,10 +144,25 @@ p:hover .footnote-content {
     padding: 1.5rem;
     z-index: 4;
     display: initial;
-    position: absolute;
     text-transform: none;
+    position: absolute;
     width: 340px;
     top: 2.2rem;
     left: 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .footnote {
+    position: initial;
+  }
+  .footnote-content {
+    display: none;
+  }
+  .footnote-content-mobile {
+    position: fixed;
+    width: 95vw;
+    top: 25%;
+    left: 2.5vw;
   }
 }
