@@ -319,7 +319,7 @@ export function EssayBody() {
         gather these worlds around a different banner: the{" "}
         <strong>pluriverse, a world in which many worlds fit.</strong>
       </p>
-      <h2 className="font-title text-3xl pt-20 pb-3 font-semibold">
+      <h2 className="font-title text-3xl font-semibold pt-16 pb-8">
         Learning from the Pluriverse
       </h2>
       <p>
@@ -549,7 +549,7 @@ export function EssayBody() {
         digital space, across emerging technologies. Pluriversality can underpin
         these choices, lending an ethos to the difficult work to come.
       </p>
-      <h2 className="font-title text-3xl pt-20 pb-3 font-semibold">
+      <h2 className="font-title text-3xl font-semibold pt-16 pb-8">
         A Pattern Language for the Pluriverse
       </h2>
       <p>

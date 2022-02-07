@@ -11,6 +11,45 @@
   }
 }
 
+/* Global css vars*/
+:root {
+  /* Color */
+  --background-root: rgb(7, 7, 16, 1);
+  --background-default: rgba(255, 255, 255, 0.05);
+  --background-higher: rgba(255, 255, 255, 0.1);
+
+  --foreground-default: #fff;
+  --foreground-dimmer: rgba(255, 255, 255, 0.9);
+  --foreground-dimmest: rgba(255, 255, 255, 0.75);
+
+  --outline-default: rgba(255, 255, 255, 0.25);
+  --outline-dimmer: rgba(255, 255, 255, 0.15);
+  --outline-dimmest: rgba(255, 255, 255, 0.05);
+
+  --accent-default: rgb(198, 142, 255);
+  --accent-dimmer: rgba(198, 142, 255, 0.7);
+  --accent-dimmest: rgba(198, 142, 255, 0.3);
+
+  /* Typography */
+  --font-size-default: 16px;
+  --font-size-small: 12px;
+  --font-family-primary: "EB Garamamond", serif;
+  --font-family-secondary: source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
+
+  /* Border radius */
+  --border-radius-default: var(--border-radius-8);
+  --border-radius-8: 8px;
+  --border-radius-12: 12px;
+
+  /* Spacing */
+  --space-default: var(--space-8);
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+}
+
 html,
 body,
 main,
@@ -30,17 +69,18 @@ body {
   font-family: "EB Garamond", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(7, 7, 16, 1);
+  background-color: var(--background-root);
 }
 
 p {
-  font-size: 1.5rem;
-  padding: 1rem 0;
+  font-size: 1.25rem;
+  /* padding: var(--space-default); */
+  color: var(--foreground-dimmer);
 }
 
 @media only screen and (max-width: 500px) {
   p {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
 

@@ -22,9 +22,8 @@ export default function PatternSection({
   return (
     <div
       style={{
-        paddingTop: 28,
-        paddingBottom: 32,
-        borderTop: "1px solid #ccc",
+        padding: "var(--space-16)",
+        borderTop: "1px solid var(--outline-default)",
       }}
     >
       <div
@@ -37,17 +36,23 @@ export default function PatternSection({
       >
         {/* TODO: click to get link to this page */}
         {/* TODO: add onto contribution card to get back here */}
-        <h3 id={pattern} className="font-bold font-mono text-xl md:text-3xl">
+        <h3
+          id={pattern}
+          className="font-semibold text-xl md:text-2xl"
+          style={{ fontFamily: "var(--font-family-secondary)" }}
+        >
           {title}
         </h3>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            paddingRight: 10,
-          }}
-        >
+        {/* Read more / less button */}
+        <div className="flex flex-row gap-2 items-center">
+          <span
+            style={{
+              fontFamily: "var(--font-family-secondary)",
+              fontSize: "var(--font-size-default)",
+            }}
+          >
+            {expanded ? "Read less" : "Read more"}
+          </span>
           {expanded ? <AiOutlineMinus /> : <AiOutlinePlus />}
         </div>
       </div>
