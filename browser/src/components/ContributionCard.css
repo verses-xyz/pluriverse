@@ -147,8 +147,8 @@
 }
 
 .blobContainer.blobContainer {
-  height: 70px;
-  margin: 20px 0 30px;
+  height: 60px;
+  margin-bottom: 60px;
 }
 
 .compactContributionCardContainer > h2 {
