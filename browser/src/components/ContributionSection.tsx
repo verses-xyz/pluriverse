@@ -519,12 +519,7 @@ export function ContributionSection() {
   const navigateFromTerms = useCallback(
     (user: Author | undefined = currentUser) => {
       // if twitter username is populated and not verified, redirect to verify flow.
-      let nextPage: Page;
-      if (user && !user.twitterVerified) {
-        nextPage = Page.TwitterVerify;
-      } else {
-        nextPage = Page.Contribute;
-      }
+      const nextPage: Page = getNextPage();
       setPage(nextPage);
     },
     [currentUser]
@@ -826,7 +821,6 @@ export function ContributionSection() {
     (p) =>
       !currentUser ||
       !currentUser.twitterUsername ||
-      currentUser.twitterVerified ||
       (currentUser &&
         currentUser.twitterUsername &&
         !currentUser.twitterVerified) ||
@@ -850,12 +844,6 @@ export function ContributionSection() {
 
   function getPreviousPage() {
     let pageIndex = maybeFilteredPages.indexOf(page);
-    if (
-      page === Page.Contribute &&
-      (currentUser?.twitterVerified || !currentUser?.twitterUsername)
-    ) {
-      pageIndex--;
-    }
     return pageIndex - 1 >= 0
       ? (maybeFilteredPages[pageIndex - 1] as Page)
       : undefined;
