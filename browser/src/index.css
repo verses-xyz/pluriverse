@@ -74,7 +74,7 @@ body {
 
 p {
   font-size: 1.25rem;
-  /* padding: var(--space-default); */
+  padding: var(--space-default) 0;
   color: var(--foreground-dimmer);
 }
 
@@ -183,7 +183,7 @@ main {
       rgba(255, 255, 255, 0.5) 50%,
       #0000 66%
     )
-    rgb(198, 142, 255);
+    var(--accent-default);
   background-size: 200% auto;
 
   color: #000;
@@ -225,8 +225,8 @@ blockquote:before {
   padding: 10px 15px;
   text-decoration: none;
   border-radius: 60px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--background-default);
+  border: 1px solid var(--outline-default);
   backdrop-filter: blur(5px);
   color: rgba(255, 255, 255, 0.8);
   font-size: 16px;

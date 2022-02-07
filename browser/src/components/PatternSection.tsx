@@ -5,12 +5,14 @@ import ContributionsCarousel from "./ContributionsCarousel";
 import "./PatternSection.css";
 
 export default function PatternSection({
+  index,
   title,
   problem,
   solution,
   contributions,
   pattern,
 }: {
+  index: number;
   title: string;
   problem: string;
   solution: string;
@@ -21,8 +23,8 @@ export default function PatternSection({
 
   return (
     <div
+      className="py-8"
       style={{
-        padding: "var(--space-16)",
         borderTop: "1px solid var(--outline-default)",
       }}
     >
@@ -38,10 +40,12 @@ export default function PatternSection({
         {/* TODO: add onto contribution card to get back here */}
         <h3
           id={pattern}
-          className="font-semibold text-xl md:text-2xl"
-          style={{ fontFamily: "var(--font-family-secondary)" }}
+          className="font-semibold text-xl md:text-3xl"
+          // style={{ fontFamily: "var(--font-family-secondary)" }}
         >
-          {title}
+          {/* `0${index + 1}. ${title}` */}
+          <span>{index}</span>
+          <span>{title}</span>
         </h3>
         {/* Read more / less button */}
         <div className="flex flex-row gap-2 items-center">
@@ -60,15 +64,11 @@ export default function PatternSection({
         <div>
           <div className="grid md:grid-cols-2 gap-16 my-8 fadeInDownFast">
             <div>
-              <h4 className="font-title text-xl font-mono font-bold">
-                The problem
-              </h4>
+              <h4 className="font-title text-xl font-semibold">The problem</h4>
               <p>{problem}</p>
             </div>
             <div>
-              <h4 className="font-title text-xl font-mono font-bold">
-                The solution
-              </h4>
+              <h4 className="font-title text-xl font-semibold">The solution</h4>
               <p>{solution}</p>
             </div>
           </div>
