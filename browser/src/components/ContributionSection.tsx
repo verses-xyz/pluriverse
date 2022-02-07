@@ -279,16 +279,16 @@ function TermsOfUse({
       <p className="text-xl">
         Please read the above essay ("
         <b>essay</b>") and patterns ("
-        <b>patterns</b>") carefully. To sign is to recognize the past, present,
-        and future of the <b>pluriverse</b>, and its ethic, and an
-        acknowledgement that the <b>responsibility</b> as to the realization of
-        an evolving digital pluriverse <b>lies with all of us</b>.{" "}
+        <b>patterns</b>") carefully. Your signature is a recognition of the
+        ethic of the pluriverse, a belief in the potential of pluriversality,
+        and an acknowledgement that the responsibility as to the realization of
+        an evolving digital pluriverse lies with all of us.
       </p>
       {latestEssayInfo && (
         <p className="text-xl">
-          You can either agree or disagree with the statement when you sign.
           Your signature will be associated with{" "}
-          <a href={arweaveDocLink}>version {version}</a> of the essay.
+          <a href={arweaveDocLink}>version {version}</a> of the essay. The
+          patterns are manually input in the code and remain open and evolving.
         </p>
       )}
       <p className="metaText">
@@ -686,10 +686,17 @@ export function ContributionSection() {
                 {currentUser && getUserLabel(currentUser, "contributing as")}
               </div>
               <p className="text-xl py-0">
-                We've provided some sentence starters to get you going. Please
-                select a prompt and contribute to the{" "}
-                <b className="shimmer"> Pluriverse</b>. If you use the free-form
-                option, you must include the chosen pattern in your response.
+                Please select a prompt and contribute to the pattern language
+                for the <b className="shimmer">pluriverse</b>. We are looking
+                for relevant poems, technologies, institutions, historical
+                parallels—pieces that you think will contribute to building a
+                meaningful foundation of patterns.
+              </p>
+              <p className="text-xl py-0">
+                We've provided some sentence starters to help get you going;
+                otherwise, if you use the free-form option, you must include the
+                chosen pattern in your response. Examples of others'
+                contributions to the pattern you've chosen are displayed below.
               </p>
               <div className="contributionContainer">
                 <div className="selects">
