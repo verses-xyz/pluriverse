@@ -143,9 +143,9 @@ strong {
     display: none;
   }
   .footnote-content-mobile {
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.9);
     font-size: 1rem;
-    padding: 1.5rem;
+    padding: var(--space-16);
     z-index: 4;
     display: initial;
     position: absolute;
@@ -153,5 +153,9 @@ strong {
     width: 340px;
     top: 2.2rem;
     left: 0;
+    border-radius: var(--border-radius-8);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
 }

@@ -42,12 +42,12 @@ export default function PatternSection({
         {/* TODO: add onto contribution card to get back here */}
         <h3
           id={pattern}
-          className="font-semibold text-xl md:text-3xl "
+          className="font-semibold text-2xl md:text-3xl"
           // style={{ fontFamily: "var(--font-family-secondary)" }}
         >
           {/* `0${index + 1}. ${title}` */}
           <span
-            className="mr-2 font-mono text-2xl opacity-75"
+            className="mr-2 font-mono text-xl md:text-2xl opacity-75"
             style={{ fontWeight: 400 }}
           >
             {`0${index}.`}
@@ -57,12 +57,14 @@ export default function PatternSection({
         {/* Read more / less button */}
         <div className="flex flex-row gap-2 items-center">
           <span
+            className="hidden md:inline-block"
             style={{
               fontFamily: "var(--font-family-secondary)",
               fontSize: "var(--font-size-default)",
+              whiteSpace: "nowrap",
             }}
           >
-            {expanded ? "Read less" : "Read more"}
+            {expanded ? "Hide examples" : "Show examples"}
           </span>
           {expanded ? <AiOutlineMinus /> : <AiOutlinePlus />}
         </div>

@@ -112,7 +112,7 @@ export function Main() {
         <Hero />
       </div>
       <SignaturesProvider>
-        <div className="mainContent px-2">
+        <div className="mainContent px-8">
           <div id="essay-content" ref={essayContentRef}>
             <EssayContent />
           </div>
