@@ -23,7 +23,6 @@ import { Suspense, useContext, useState } from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 import BlobsPostProcessing from "./BlobsPostProcessing";
-import { FiMaximize2 } from "react-icons/fi";
 
 interface Props {
   contribution: Contribution;
@@ -137,7 +136,7 @@ export function ContributionCard({
         <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
       )}
       {/* actual response */}
-      <p className="h-full overflow-y-auto mb-16 response">
+      <p className="h-full overflow-y-auto mb-32 response">
         {getContributionCardResponse(contribution)}
       </p>
       {/* auttribution */}

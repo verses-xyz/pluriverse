@@ -319,7 +319,7 @@ footer {
   border: 1px solid var(--outline-default);
   max-width: 700px;
   width: 100%;
-  padding: 32px;
+  padding: 24px;
   margin: 16px;
   position: relative;
   border-radius: var(--border-radius-16);
