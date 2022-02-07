@@ -154,6 +154,7 @@ export function ContributionCard({
           onClick={(e) => e.stopPropagation()}
         >
           {!id || renderCanvas ? (
+            // TODO: add all the things needed
             <Suspense fallback={<LoadingIndicator />}>
               <Canvas
                 frameloop="demand"
@@ -183,7 +184,7 @@ export function ContributionCard({
           <div className="spacer" />
           <p className="author-section ml-auto inline">
             <p>{dateDisplay}</p>
-            <p className="author">{authorDisplay}</p>
+            <p className="author text-color-purple-200">{authorDisplay}</p>
           </p>
         </div>
       </div>
