@@ -200,11 +200,11 @@ blockquote:before {
   display: inline;
 }
 
-.glass-button:hover:not(:disabled) {
+.glass-button:hover:enabled {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.glass-button-cta::before:not(:disabled) {
+.glass-button-cta:enabled::before {
   position: absolute;
   top: 0;
   left: 0;
@@ -217,7 +217,8 @@ blockquote:before {
   content: "";
   transition: 0.5s;
 }
-.glass-button-cta:hover:not(:disabled)::before {
+
+.glass-button-cta:enabled:hover::before {
   transform: scale(1.1);
   filter: blur(10px);
   opacity: 1;
