@@ -10,6 +10,7 @@ import React from "react";
 import { getUsers } from "src/helpers/api";
 import useGsap from "src/hook/useGsap";
 import { StatsContext } from "src/helpers/contexts/StatsContext";
+import SectionDivider from "src/components/SectionDivider";
 
 export interface SignaturesContextInfo {
   signatures: Author[];

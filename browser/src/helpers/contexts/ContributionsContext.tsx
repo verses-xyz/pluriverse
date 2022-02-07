@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Contribution } from "src/types/common/server-api";
+import getMockContributions from "src/utils/getMockContributions";
 import { getContributions, getContribution } from "../api";
 
 interface ContributionsContextInfo {
@@ -24,10 +25,11 @@ export function ContributionsProvider({ children }) {
   }, []);
 
   async function fetchContributions() {
-    const newContributions = await getContributions({});
-    for (const { id } of newContributions) {
-      contributionIdsSet.current.add(id);
-    }
+    // const newContributions = await getContributions({});
+    // for (const { id } of newContributions) {
+    //   contributionIdsSet.current.add(id);
+    // }
+    const newContributions = getMockContributions();
     setContributions(newContributions);
   }
 

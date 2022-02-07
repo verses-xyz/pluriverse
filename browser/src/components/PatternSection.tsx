@@ -50,7 +50,7 @@ export default function PatternSection({
             className="mr-2 font-mono text-2xl opacity-75"
             style={{ fontWeight: 400 }}
           >
-            {`${index}.`}
+            {`0${index}.`}
           </span>
           <span>{title}</span>
         </h3>

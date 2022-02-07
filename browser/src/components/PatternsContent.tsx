@@ -11,6 +11,7 @@ import "./PatternsContent.css";
 import PatternSection from "./PatternSection";
 import { ContributeButton } from "./Navbar";
 import { NavLink } from "react-router-dom";
+import SectionDivider from "./SectionDivider";
 
 function getContributionsByPattern(
   contributions: Contribution[],
@@ -86,6 +87,9 @@ export default function PatternsContent({
           />
         )
       )}
+      <div className="w-full flex items-center justify-center">
+        <SectionDivider />
+      </div>
     </div>
   );
 }
