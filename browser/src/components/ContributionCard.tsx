@@ -19,7 +19,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei/core/OrbitControls";
 import { BiLink, BiCheck } from "react-icons/bi";
 import { getContributionLink } from "src/helpers/contributions";
-import {Suspense, useContext, useState} from "react";
+import { Suspense, useContext, useState } from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 import BlobsPostProcessing from "./BlobsPostProcessing";
@@ -154,7 +154,6 @@ export function ContributionCard({
           onClick={(e) => e.stopPropagation()}
         >
           {!id || renderCanvas ? (
-            // TODO: add all the things needed
             <Suspense fallback={<LoadingIndicator />}>
               <Canvas
                 frameloop="demand"

@@ -459,7 +459,6 @@ export function ContributionSection() {
         walletId: currentUser!.walletId,
       });
       // TODO: eliminate this and just return th actual contribution data with the response above.
-      // TODO: incoroprate this into the context so it updates everywhere
       await updateContribution(newContributionId);
       setResponse(undefined);
       setPage(Page.Share);
@@ -504,7 +503,6 @@ export function ContributionSection() {
         walletId: currentUserWalletAddress,
         name,
         signature,
-        // TODO: fill in with arweave essay ref.
         essayRef: transactionId,
         disagrees: isDisagreeing,
       });
@@ -759,7 +757,6 @@ export function ContributionSection() {
               Thank you for contributing to the Pluriverse! Your contribution in
               all its glorious plurality is below:
             </p>
-            {/* TODO: if not verified, add verify link */}
             <ContributionCard
               contribution={selectedContribution!}
               renderCanvas={true}
