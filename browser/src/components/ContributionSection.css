@@ -158,9 +158,6 @@ ul > li:not(:first-child) {
 
 .contributionsPreview {
   margin-top: 24px;
-  /* padding: 24px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.3); */
 }
 
 .pageProgressContainer {
@@ -170,8 +167,8 @@ ul > li:not(:first-child) {
 }
 
 .pageProgress {
-  margin: 0 24px;
-  width: 70px;
+  margin: 0 var(--space-12);
+  width: 64px;
   height: 4px;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 100px;

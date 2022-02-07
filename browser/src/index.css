@@ -71,10 +71,7 @@ body {
 /* Links */
 a {
   color: var(--accent-default);
-}
-a:hover {
   text-decoration: underline;
-  color: var(--accent-default);
 }
 
 p {
