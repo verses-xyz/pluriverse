@@ -97,6 +97,12 @@ span {
   text-indent: 0;
 }
 
+h1,
+h2,
+h3 {
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
 h1 + p::first-letter {
   float: left;
   font-size: 4rem;
