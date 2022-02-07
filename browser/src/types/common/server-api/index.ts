@@ -76,7 +76,7 @@ export interface AddUserRequest {
   signature: string;
   name?: string;
   twitterUsername?: string;
-  essayRef: string;
+  essayTransactionId: string;
   disagrees: boolean;
 }
 

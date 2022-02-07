@@ -183,10 +183,10 @@ ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ar-wrapper@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ar-wrapper/-/ar-wrapper-1.0.1.tgz#5454a227c4f4812fb9da201376b16b85aece6231"
-  integrity sha512-7i3WG0u61+taTIlGxJpiJd4ZeLefoUrtDmzVjI5IltBc5UJaK51hNtj/sqxaq7Zh7tQunZvWeaiOSwIrhbbOuw==
+ar-wrapper@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ar-wrapper/-/ar-wrapper-1.1.1.tgz#147a299f8775acaff9312aab9c41337657868031"
+  integrity sha512-UHoC+KYAud5IqiTmGhilRjKwMa6bmXfOJU0Q8FCrybJG9zBLVoSI9+QWfaP4uIBpA3soU4cdwnzn0QtZ3asO4w==
   dependencies:
     arweave "^1.10.18"
     cross-fetch "^3.1.5"
@@ -210,7 +210,7 @@ array-flatten@1.1.1:
   resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
   integrity sha1-ml9pkFGx5wczKPKgCJaLZOopVdI=
 
-arweave@^1.10.13, arweave@^1.10.18, arweave@^1.10.23:
+arweave@^1.10.13, arweave@^1.10.18:
   version "1.10.23"
   resolved "https://registry.yarnpkg.com/arweave/-/arweave-1.10.23.tgz#6edc056026d6c11ec47d817bb2c4f6d8fb8c65e5"
   integrity sha512-lAeCopS9iNGhmJkUovWqb7R+JEF83LP8f51rG+H98JPI9KQVRJYtM5NmMMU8auDtOzvBPTZ7me1pYn/CfS3VTg==

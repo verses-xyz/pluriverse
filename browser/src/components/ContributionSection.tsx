@@ -503,7 +503,7 @@ export function ContributionSection() {
         walletId: currentUserWalletAddress,
         name,
         signature,
-        essayRef: transactionId,
+        essayTransactionId: transactionId,
         disagrees: isDisagreeing,
       });
     }
