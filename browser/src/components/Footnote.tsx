@@ -1,6 +1,7 @@
 import * as React from "react";
 import useToggle from "src/hook/useToggle";
 import useOnClickOutside from "src/hook/useOnClickOutside";
+import { IoMdClose } from "react-icons/io";
 
 export default function Footnote({
   children,
@@ -37,7 +38,17 @@ export default function Footnote({
       >
         {data}
       </div>
-      {expanded && <div className={`footnote-content-mobile`}>{data}</div>}
+      {expanded && (
+        <div className={`footnote-content-mobile`}>
+          <button
+            className="absolute"
+            style={{ top: "var(--space-12)", right: "var(--space-12)" }}
+          >
+            <IoMdClose color="var(--foreground-default)" />
+          </button>
+          {data}
+        </div>
+      )}
     </span>
   );
 }
