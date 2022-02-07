@@ -348,7 +348,8 @@ export function ContributionSection() {
     signAndValidate,
     currentUserWalletAddress,
   } = useContext(UserContext);
-  const { latestEssayTxId } = useContext(ArweaveContext);
+  const { latestEssayInfo } = useContext(ArweaveContext);
+  const { version, transactionId = "" } = latestEssayInfo || {};
   const { fetchSignatures } = useContext(SignaturesContext);
   const { fetchContribution, contributions } = useContext(ContributionsContext);
 
@@ -496,7 +497,7 @@ export function ContributionSection() {
 
     if (!userToUpdate) {
       signature = await signAndValidate(
-        getAgreementToSign(isDisagreeing, latestEssayTxId)
+        getAgreementToSign(isDisagreeing, transactionId)
       );
       // add user after successful
       userToUpdate = await addUser({
@@ -504,7 +505,7 @@ export function ContributionSection() {
         name,
         signature,
         // TODO: fill in with arweave essay ref.
-        essayRef: version,
+        essayRef: transactionId,
         disagrees: isDisagreeing,
       });
     }
