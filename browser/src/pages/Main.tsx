@@ -11,6 +11,7 @@ import { getUsers } from "src/helpers/api";
 import useGsap from "src/hook/useGsap";
 import { StatsContext } from "src/helpers/contexts/StatsContext";
 import SectionDivider from "src/components/SectionDivider";
+import getMockSignatures, { UseMock } from "src/utils/mock";
 
 export interface SignaturesContextInfo {
   signatures: Author[];
@@ -29,7 +30,12 @@ function SignaturesProvider({ children }) {
   }, []);
 
   async function fetchSignatures(newSignature?: Author) {
-    const users = await getUsers();
+    let users: Author[];
+    if (UseMock) {
+      users = getMockSignatures();
+    } else {
+      users = await getUsers();
+    }
     setAuthors([...(newSignature ? [newSignature] : []), ...users]);
   }
 

@@ -141,7 +141,7 @@ export function ContributionCard({
       </p>
       {/* auttribution */}
       <div className="w-full attribution">
-        {id && <CopyLink content={contributionLink} />}
+        {id !== undefined && <CopyLink content={contributionLink} />}
         <div className="spacer" />
         <p className="author-section ml-auto inline">
           <p className="author text-color-purple-200">{authorDisplay}</p>
