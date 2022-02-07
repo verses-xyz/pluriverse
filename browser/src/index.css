@@ -46,6 +46,7 @@
   --border-radius-16: 16px;
 
   --shadow-default: 0 4px 30px rgba(0, 0, 0, 0.05);
+  --text-shadow-default: 0 4px 12px rgba(0, 0, 0, 0.4);
 
   /* Spacing */
   --space-default: var(--space-8);
@@ -106,7 +107,7 @@ span {
 h1,
 h2,
 h3 {
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  text-shadow: var(--text-shadow-default);
 }
 
 h1 + p::first-letter {

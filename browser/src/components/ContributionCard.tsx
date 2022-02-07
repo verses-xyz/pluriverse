@@ -23,6 +23,7 @@ import { Suspense, useContext, useState } from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 import BlobsPostProcessing from "./BlobsPostProcessing";
+import { FiMaximize2 } from "react-icons/fi";
 
 interface Props {
   contribution: Contribution;
@@ -118,75 +119,73 @@ export function ContributionCard({
 
   return (
     <div
-      className={
-        "compactContributionCardContainer " +
-        className +
-        " " +
-        (full ? "full" : "") +
-        " " +
-        (contribution && openContributionId === contribution.id
+      className={`compactContributionCardContainer ${className} ${
+        full ? "full" : ""
+      } ${
+        contribution && openContributionId === contribution.id
           ? "selectedBorder"
-          : "")
+          : ""
       }
+ `}
       onClick={() =>
         id
           ? openContributionModal(contribution, window.location.pathname)
           : null
       }
     >
-      <div className="flex">
-        {!hideHeader && (
-          <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
+      {!hideHeader && (
+        <h2 className="text-2xl font-bold">{PatternToDisplay[pattern]}</h2>
+      )}
+      {/* actual response */}
+      <p className="h-full overflow-y-auto mb-16 response">
+        {getContributionCardResponse(contribution)}
+      </p>
+      {/* auttribution */}
+      <div className="w-full attribution">
+        {id && <CopyLink content={contributionLink} />}
+        <div className="spacer" />
+        <p className="author-section ml-auto inline">
+          <p className="author text-color-purple-200">{authorDisplay}</p>
+          <p>{dateDisplay}</p>
+        </p>
+      </div>
+      {/* blob container */}
+      <div
+        style={{
+          height: "96px",
+          width: "96px",
+          top: "calc(50% + 24px)",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+        className="absolute"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {!id || renderCanvas ? (
+          // TODO: add all the things needed
+          <Suspense fallback={<LoadingIndicator />}>
+            <Canvas
+              frameloop="demand"
+              camera={{ position: [0, 0, 14], fov: 50 }}
+              style={{ cursor: "pointer" }}
+            >
+              <OrbitControls
+                autoRotate={true}
+                autoRotateSpeed={5}
+                enableZoom={false}
+              />
+              <BlobSingle
+                pattern={pattern}
+                prompt={prompt}
+                walletId={author.walletId}
+                response={response}
+              />
+              <BlobsPostProcessing includeBloom={false} />
+            </Canvas>
+          </Suspense>
+        ) : (
+          <BlobSingleScissorWindow id={id} />
         )}
-        {/* <button
-                  className="mr-auto"
-                  onClick={() => openContributionModal(contribution)}
-                >
-                  <FiMaximize2 />
-                </button> */}
-      </div>
-      <div className={`responseContainerContributionCard`}>
-        <p className="response">{getContributionCardResponse(contribution)}</p>
-      </div>
-      <div className="mt-auto">
-        <div
-          className={isCompact ? "blobSingleContainer" : "blobContainer"}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {!id || renderCanvas ? (
-            // TODO: add all the things needed
-            <Suspense fallback={<LoadingIndicator />}>
-              <Canvas
-                frameloop="demand"
-                camera={{ position: [0, 0, 14], fov: 50 }}
-                style={{ cursor: "pointer" }}
-              >
-                <OrbitControls
-                  autoRotate={true}
-                  autoRotateSpeed={5}
-                  enableZoom={false}
-                />
-                <BlobSingle
-                  pattern={pattern}
-                  prompt={prompt}
-                  walletId={author.walletId}
-                  response={response}
-                />
-                <BlobsPostProcessing includeBloom={false} />
-              </Canvas>
-            </Suspense>
-          ) : (
-            <BlobSingleScissorWindow id={id} />
-          )}
-        </div>
-        <div className="attribution">
-          {id && <CopyLink content={contributionLink} />}
-          <div className="spacer" />
-          <p className="author-section ml-auto inline">
-            <p className="author text-color-purple-200">{authorDisplay}</p>
-            <p>{dateDisplay}</p>
-          </p>
-        </div>
       </div>
     </div>
   );
