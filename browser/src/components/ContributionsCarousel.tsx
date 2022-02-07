@@ -64,7 +64,7 @@ export default function ContributionsCarousel({
   return (
     <div
       style={{ position: "relative" }}
-      className={`mt-8 mb-16 ${className ? className : ""}`}
+      className={`${className ? className : ""}`}
     >
       {!hideLeftControl && (
         <>

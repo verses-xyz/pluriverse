@@ -348,7 +348,8 @@ export function ContributionSection() {
     signAndValidate,
     currentUserWalletAddress,
   } = useContext(UserContext);
-  const { latestEssayTxId } = useContext(ArweaveContext);
+  const { latestEssayInfo } = useContext(ArweaveContext);
+  const { version, transactionId = "" } = latestEssayInfo || {};
   const { fetchSignatures } = useContext(SignaturesContext);
   const { fetchContribution, contributions } = useContext(ContributionsContext);
 
@@ -398,7 +399,7 @@ export function ContributionSection() {
   );
   const patternSelect = (
     <label className="block">
-      <p className="text-xl">Pattern</p>
+      <p className="text-xl pt-0">Pattern</p>
       <Dropdown
         items={PatternItems}
         selectedItemName={selectedPattern && PatternToDisplay[selectedPattern]}
@@ -458,7 +459,6 @@ export function ContributionSection() {
         walletId: currentUser!.walletId,
       });
       // TODO: eliminate this and just return th actual contribution data with the response above.
-      // TODO: incoroprate this into the context so it updates everywhere
       await updateContribution(newContributionId);
       setResponse(undefined);
       setPage(Page.Share);
@@ -496,15 +496,14 @@ export function ContributionSection() {
 
     if (!userToUpdate) {
       signature = await signAndValidate(
-        getAgreementToSign(isDisagreeing, latestEssayTxId)
+        getAgreementToSign(isDisagreeing, transactionId)
       );
       // add user after successful
       userToUpdate = await addUser({
         walletId: currentUserWalletAddress,
         name,
         signature,
-        // TODO: fill in with arweave essay ref.
-        essayRef: version,
+        essayRef: transactionId,
         disagrees: isDisagreeing,
       });
     }
@@ -520,12 +519,7 @@ export function ContributionSection() {
   const navigateFromTerms = useCallback(
     (user: Author | undefined = currentUser) => {
       // if twitter username is populated and not verified, redirect to verify flow.
-      let nextPage: Page;
-      if (user && !user.twitterVerified) {
-        nextPage = Page.TwitterVerify;
-      } else {
-        nextPage = Page.Contribute;
-      }
+      const nextPage: Page = getNextPage();
       setPage(nextPage);
     },
     [currentUser]
@@ -691,7 +685,7 @@ export function ContributionSection() {
                 <h2 className="text-2xl font-bold">Terms of Contribution</h2>
                 {currentUser && getUserLabel(currentUser, "contributing as")}
               </div>
-              <p className="text-xl">
+              <p className="text-xl py-0">
                 We've provided some sentence starters to get you going. Please
                 select a prompt and contribute to the{" "}
                 <b className="shimmer"> Pluriverse</b>. If you use the free-form
@@ -758,7 +752,6 @@ export function ContributionSection() {
               Thank you for contributing to the Pluriverse! Your contribution in
               all its glorious plurality is below:
             </p>
-            {/* TODO: if not verified, add verify link */}
             <ContributionCard
               contribution={selectedContribution!}
               renderCanvas={true}
@@ -828,7 +821,6 @@ export function ContributionSection() {
     (p) =>
       !currentUser ||
       !currentUser.twitterUsername ||
-      currentUser.twitterVerified ||
       (currentUser &&
         currentUser.twitterUsername &&
         !currentUser.twitterVerified) ||
@@ -852,12 +844,6 @@ export function ContributionSection() {
 
   function getPreviousPage() {
     let pageIndex = maybeFilteredPages.indexOf(page);
-    if (
-      page === Page.Contribute &&
-      (currentUser?.twitterVerified || !currentUser?.twitterUsername)
-    ) {
-      pageIndex--;
-    }
     return pageIndex - 1 >= 0
       ? (maybeFilteredPages[pageIndex - 1] as Page)
       : undefined;

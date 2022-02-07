@@ -143,7 +143,6 @@ export function Main() {
             <ContributionSection />
           </div>
           <br />
-          <br />
           <div className="container w-full md:max-w-4xl mx-auto pb-20 px-4">
             <SignatureContent />
           </div>

@@ -19,6 +19,8 @@
 
 .full.full {
   height: fit-content;
+  max-width: 400px;
+  width: 100%;
 }
 
 /*.contributionCardContainer > h2 {*/
@@ -98,7 +100,7 @@
 
 .preview-card {
   margin-left: auto;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .responseContainerContributionCard {

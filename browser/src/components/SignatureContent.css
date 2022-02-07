@@ -1,6 +1,6 @@
 .signatureContainer {
   width: 100%;
-  padding: 3rem 3rem 1rem;
+  padding: 32px;
   background: var(--background-default);
   border-radius: var(--border-radius-12);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
