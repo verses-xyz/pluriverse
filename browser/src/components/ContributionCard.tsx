@@ -19,7 +19,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei/core/OrbitControls";
 import { BiLink, BiCheck } from "react-icons/bi";
 import { getContributionLink } from "src/helpers/contributions";
-import {Suspense, useContext, useState} from "react";
+import { Suspense, useContext, useState } from "react";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 import { LoadingIndicator } from "./core/LoadingIndicator";
 import BlobsPostProcessing from "./BlobsPostProcessing";
@@ -184,7 +184,7 @@ export function ContributionCard({
           <div className="spacer" />
           <p className="author-section ml-auto inline">
             <p>{dateDisplay}</p>
-            <p className="author text-color-purple-200">{authorDisplay}</p>
+            <p className="author">{authorDisplay}</p>
           </p>
         </div>
       </div>

@@ -29,7 +29,8 @@
 
   /* Typography */
   --font-size-default: 16px;
-  --font-size-small: 12px;
+  --font-size-small: 14px;
+  --font-size-xsmall: 12px;
   --font-family-primary: "EB Garamamond", serif;
   --font-family-secondary: source-code-pro, Menlo, Monaco, Consolas,
     "Courier New", monospace;
@@ -38,6 +39,7 @@
   --border-radius-default: var(--border-radius-8);
   --border-radius-8: 8px;
   --border-radius-12: 12px;
+  --border-radius-16: 16px;
 
   /* Spacing */
   --space-default: var(--space-8);

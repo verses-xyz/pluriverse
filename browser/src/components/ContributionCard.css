@@ -35,15 +35,16 @@
 
 .attribution {
   display: flex;
-  font-size: 0.9rem !important;
   align-items: self-end;
 }
 
 .attribution > .link {
   position: relative;
-  background: #ffffff22;
+  background: var(--background-higher);
   border-radius: var(--border-radius-8);
   padding: var(--space-4) var(--space-8);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-xsmall) !important;
 }
 
 /* .attribution > .link > p {
@@ -64,8 +65,10 @@
 
 .author {
   font-weight: bold;
-  color: rgb(198, 142, 255);
+  color: var(--accent-default);
   display: inline;
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-small) !important;
 }
 
 /**
@@ -76,12 +79,12 @@
   width: 300px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  height: 340px;
+  padding: var(--space-16);
+  height: 360px;
   position: relative;
   /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
+  background: var(--background-default);
+  border-radius: var(--border-radius-16);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   /* backdrop-filter: blur(5px); */
   /* -webkit-backdrop-filter: blur(5px); */
