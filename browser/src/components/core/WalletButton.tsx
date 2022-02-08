@@ -14,6 +14,7 @@ type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onError"> &
 export function ConnectWalletButton({
   children = "Connect",
   onError,
+  className,
   ...buttonProps
 }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
@@ -33,7 +34,9 @@ export function ConnectWalletButton({
 
   return (
     <button
-      className={`${ButtonClass()} glass-button-cta whitespace-nowrap flex center`}
+      className={`${ButtonClass()} glass-button-cta whitespace-nowrap flex center ${
+        className ? className : ""
+      }`}
       style={{ maxWidth: "320px" }}
       onClick={onClickConnectWallet}
       disabled={loading}

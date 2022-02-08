@@ -331,7 +331,11 @@ function TermsOfUse({
             </AsyncButton>
           </div>
         ) : (
-          <ConnectWalletButton onSubmit={onSuccess} onError={handleErr}>
+          <ConnectWalletButton
+            onSubmit={onSuccess}
+            onError={handleErr}
+            className={"w-full"}
+          >
             Connect to Sign
           </ConnectWalletButton>
         )}
