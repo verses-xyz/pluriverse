@@ -159,13 +159,16 @@ p:hover .footnote-content {
   .footnote {
     position: initial;
   }
+  article > p {
+    position: relative;
+  }
   .footnote-content {
     display: none;
   }
   .footnote-content-mobile {
-    position: fixed;
-    width: 95vw;
-    top: 25%;
-    left: 2.5vw;
+    position: absolute;
+    width: 90vw;
+    left: -5vw;
+    top: 100%;
   }
 }
