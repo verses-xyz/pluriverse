@@ -74,7 +74,7 @@ I am signing the document on ${date}, which lives on the permaweb on Arweave tx:
   return isDisagreeing ? PluriverseDissent : PluriverseAgreement;
 }
 
-const ResponseCharacterLimit = 900;
+export const ResponseCharacterLimit = 900;
 export const Placeholder = "...";
 export const replaceJSX = (
   str: string,

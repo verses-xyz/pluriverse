@@ -385,3 +385,7 @@ footer {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.invalidLink {
+  border-color: red;
+}

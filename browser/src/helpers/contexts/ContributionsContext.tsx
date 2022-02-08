@@ -3,6 +3,7 @@ import { Contribution } from "src/types/common/server-api";
 import getMockContributions from "src/utils/getMockContributions";
 import { UseMock } from "src/utils/mock";
 import { getContributions, getContribution } from "../api";
+import { getMockContributions } from "../../utils/getMockContributions"
 
 interface ContributionsContextInfo {
   contributions: Contribution[];
@@ -13,7 +14,7 @@ interface ContributionsContextInfo {
 export const ContributionsContext =
   React.createContext<ContributionsContextInfo>({
     contributions: [],
-    fetchContributions: () => {},
+    fetchContributions: () => { },
     fetchContribution: () => Promise.resolve(undefined),
   });
 
