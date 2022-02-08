@@ -125,7 +125,7 @@ h1 + p {
 .subhead {
   text-transform: uppercase;
   font-size: 1.3rem;
-  line-height: 1.4rem;
+  line-height: 2rem;
 }
 
 code {
