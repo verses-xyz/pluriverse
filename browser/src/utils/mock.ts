@@ -1,6 +1,6 @@
 import { Author } from "src/types/common/server-api";
 
-export const UseMock = true;
+export const UseMock = false;
 
 export const MockSignatures: Author[] = [
   {

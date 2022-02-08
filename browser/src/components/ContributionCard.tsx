@@ -160,7 +160,7 @@ export function ContributionCard({
         className="absolute"
         onClick={(e) => e.stopPropagation()}
       >
-        {!id || renderCanvas ? (
+        {id === undefined || renderCanvas ? (
           // TODO: add all the things needed
           <Suspense fallback={<LoadingIndicator />}>
             <Canvas
@@ -179,7 +179,7 @@ export function ContributionCard({
                 walletId={author.walletId}
                 response={response}
               />
-              <BlobsPostProcessing includeBloom={false} />
+              {/* <BlobsPostProcessing includeBloom={false} /> */}
             </Canvas>
           </Suspense>
         ) : (
