@@ -12,7 +12,7 @@ export function About() {
   ).filter((c): c is Contribution => c !== undefined);
 
   return (
-    <div className="container w-full pb-20 mx-auto px-2">
+    <div className="container w-full pb-20 mx-auto px-8">
       <div className="container w-full md:max-w-3xl mx-auto">
         <h2 className="font-title text-3xl pt-16 font-bold pb-3">The Story</h2>
         <p>
