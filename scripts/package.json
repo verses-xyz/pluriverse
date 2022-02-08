@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "ar-wrapper": "^1.1.1",
+    "csv-parse": "^5.0.4",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.16"
+  }
+}
