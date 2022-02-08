@@ -1,6 +1,6 @@
 .contributionSection {
   width: 100%;
-  padding: 3rem 3rem 1rem;
+  padding: 24px;
   background: var(--background-default);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
