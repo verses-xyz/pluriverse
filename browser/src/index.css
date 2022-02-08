@@ -28,7 +28,7 @@
   --outline-dimmest: rgba(255, 255, 255, 0.05);
 
   --accent-default: rgb(198, 142, 255);
-  --accent-dimmer: rgba(198, 142, 255, 0.7);
+  --accent-dimmer: rgba(198, 142, 255, .85);
   --accent-dimmest: rgba(198, 142, 255, 0.3);
 
   /* Typography */
