@@ -717,7 +717,6 @@ export function ContributionSection() {
                             value={response}
                             onChange={setResponse}
                             className="responseInput"
-                            // TODO: make this populate an actual live preview from an example?? and shuffle?
                             extraProps={{
                               // placeholder: "free gardens",
                               maxLength: ResponseCharacterLimit,

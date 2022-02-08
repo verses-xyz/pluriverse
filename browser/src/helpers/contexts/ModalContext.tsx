@@ -33,7 +33,6 @@ export function ModalProvider({ children }) {
   );
   const [prevUrl, setPrevUrl] = useState<string | undefined>(undefined);
 
-  // TODO: replace window location in place to reflect the contribution id.
   const openContributionModal = (
     contribution: Contribution,
     previousUrl?: string
@@ -46,7 +45,6 @@ export function ModalProvider({ children }) {
     }
   };
 
-  // TODO: reset to old link, need to take that in too in openContributionModal and store in state.
   const closeContributionModal = () => {
     setContributionModalOpen(false);
     setContribution(undefined);
@@ -81,7 +79,6 @@ export function ModalProvider({ children }) {
           full
           className={`mx-auto `}
         />
-        {/* TODO: insert copy link and other actions */}
       </div>
     );
   }

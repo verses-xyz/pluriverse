@@ -161,7 +161,6 @@ export function ContributionCard({
         onClick={(e) => e.stopPropagation()}
       >
         {id === undefined || renderCanvas ? (
-          // TODO: add all the things needed
           <Suspense fallback={<LoadingIndicator />}>
             <Canvas
               frameloop="demand"
