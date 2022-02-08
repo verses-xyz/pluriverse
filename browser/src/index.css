@@ -258,6 +258,7 @@ blockquote:before {
   transition: 0.5s;
   position: relative;
   /* min-height: 46px; */
+  white-space: nowrap;
 }
 
 .contributionNavigation .glass-button svg {

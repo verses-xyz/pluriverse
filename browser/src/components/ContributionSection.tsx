@@ -222,7 +222,10 @@ function PreviewCard({
     createdAt: new Date(),
   };
   return (
-    <ContributionCard contribution={contribution} className="preview-card" />
+    <ContributionCard
+      contribution={contribution}
+      className={`preview-card !w-auto mx-auto md:ml-auto md:!w-full`}
+    />
   );
 }
 
@@ -604,7 +607,7 @@ export function ContributionSection() {
                 <em>(this is optional)</em>
               </p>
               <ol className="list-decimal list-inside	">
-                <div className="grid twitterSteps">
+                <div className="flex flex-col md:grid twitterSteps">
                   <p className="pt-0 text-xl">
                     <li>
                       <span>
@@ -702,7 +705,7 @@ export function ContributionSection() {
                 chosen pattern in your response. Examples of others'
                 contributions to the pattern you've chosen are displayed below.
               </p>
-              <div className="contributionContainer">
+              <div className="md:grid contributionContainer flex flex-col items-stretch justify-center">
                 <div className="selects">
                   {selectedPrompt && (
                     <>
@@ -763,6 +766,7 @@ export function ContributionSection() {
               <ContributionCard
                 contribution={selectedContribution!}
                 renderCanvas={true}
+                className={`!w-auto mx-auto md:ml-auto md:!w-full`}
               />
               <p className={descriptionText}>
                 <Link to="/contributions">Explore other contributions</Link>
@@ -853,10 +857,10 @@ export function ContributionSection() {
 
     return (
       (previousPage || nextPage) && (
-        <div className="flex mt-8 contributionNavigation mb-4">
+        <div className="flex flex-col md:flex-row mt-8 contributionNavigation mb-4">
           {previousPage && (
             <button
-              className={`${ButtonClass()} mr-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
+              className={`${ButtonClass()} md:mr-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
               onClick={() => setPage(previousPage)}
             >
               <MdArrowBack /> {PageNames[previousPage]}
@@ -864,7 +868,7 @@ export function ContributionSection() {
           )}
           {nextPage && (
             <button
-              className={`${ButtonClass()} ml-auto bg-gray-600 rounded-full inline-flex gap-1 items-center`}
+              className={`${ButtonClass()} md:ml-auto bg-gray-600 rounded-full inline-flex gap-1 items-center mt-2 md:mt-0`}
               onClick={() => setPage(nextPage)}
             >
               {PageNames[nextPage]} <MdArrowForward />
@@ -873,7 +877,7 @@ export function ContributionSection() {
           {page === Page.Contribute && (
             <button
               onClick={onSaveContribution}
-              className={ButtonClass("glass-button-cta")}
+              className={ButtonClass("glass-button-cta mt-2 md:mt-0")}
               disabled={!isResponseValid()}
             >
               Add to Pluriverse
@@ -882,7 +886,7 @@ export function ContributionSection() {
           {page === Page.Share && contributionLink && contributionShareText && (
             <button
               // className="twitter-share-button"
-              className={ButtonClass()}
+              className={ButtonClass("glass-button-cta mt-2 md:mt-0")}
               onClick={() => {
                 window.open(
                   getTweetIntentLink(contributionShareText),
