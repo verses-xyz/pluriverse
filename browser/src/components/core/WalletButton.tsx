@@ -33,7 +33,8 @@ export function ConnectWalletButton({
 
   return (
     <button
-      className={`${ButtonClass("wide")} glass-button-cta`}
+      className={`${ButtonClass()} glass-button-cta whitespace-nowrap flex center`}
+      style={{ maxWidth: "320px" }}
       onClick={onClickConnectWallet}
       disabled={loading}
       {...buttonProps}

@@ -5,7 +5,7 @@ import {
 export default function BlobSingleScissorWindow({ id }: { id: number }) {
   return (
     <ScissorWindow
-      style={{ width: "100%", height: 150, cursor: "pointer" }}
+      style={{ width: "100%", height: "156px", cursor: "pointer" }}
       id={`${id}`}
     />
   );

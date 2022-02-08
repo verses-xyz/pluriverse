@@ -3,6 +3,7 @@ import { ContributionCard } from "src/components/ContributionCard";
 import { Contribution } from "src/types/common/server-api";
 import Modal from "react-modal";
 import dayjs from "dayjs";
+import { IoMdClose } from "react-icons/io";
 
 import {
   getMinuteTimeOfDayDateDisplay,
@@ -58,9 +59,14 @@ export function ModalProvider({ children }) {
   function getContributionModalContent(highlightedContribution: Contribution) {
     return (
       <div>
-        <h2 className="font-bold text-2xl mb-4">
-          Pluriverse Contribution #{highlightedContribution.id}
-        </h2>
+        <div className="flex flex-row w-full justify-between items-center">
+          <h2 className="font-bold text-2xl">
+            Pluriverse Contribution #{highlightedContribution.id}
+          </h2>
+          <button onClick={closeContributionModal}>
+            <IoMdClose color="var(--foreground-default)" />
+          </button>
+        </div>
         <p className="pt-0 my-2 text-lg">
           On{" "}
           {getMinuteTimeOfDayDateDisplay(
@@ -71,8 +77,8 @@ export function ModalProvider({ children }) {
         </p>
         <ContributionCard
           contribution={highlightedContribution}
-          full
           renderCanvas
+          full
           className={`mx-auto `}
         />
         {/* TODO: insert copy link and other actions */}

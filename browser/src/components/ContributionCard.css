@@ -18,9 +18,15 @@
 /*}*/
 
 .full.full {
-  height:fit-content;
-  max-width: 400px;
+  height: fit-content;
   width: 100%;
+}
+
+/* remove bg when its in a modal. */
+.compactContributionCardContainer.full {
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 /*.contributionCardContainer > h2 {*/
@@ -37,36 +43,44 @@
 
 .attribution {
   display: flex;
-  font-size: 0.9rem !important;
   align-items: self-end;
 }
 
 .attribution > .link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-4);
   position: relative;
-  background: #ffffff22;
-  border-radius: 5px;
-  padding: 0.1rem 0.3rem;
+  background: var(--background-higher);
+  border-radius: var(--border-radius-8);
+  padding: var(--space-4) var(--space-8);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-xsmall) !important;
 }
 
-.attribution > .link > p {
+/* .attribution > .link > p {
   padding: 0 0.2rem 0 0;
   display: inline-block;
-}
+} */
 
 .attribution > .link > svg {
   display: inline-block;
-  padding-bottom: 0.1rem;
+  padding-bottom: 2px;
 }
 
-.author-section, .author-section > p {
+.author-section,
+.author-section > p {
   text-align: right;
   padding: 0;
 }
 
 .author {
   font-weight: bold;
-  color: rgb(198, 142, 255);
+  color: var(--accent-default);
   display: inline;
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-small) !important;
 }
 
 /**
@@ -77,27 +91,22 @@
   width: 300px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  height: 340px;
+  padding: var(--space-16);
+  height: 360px;
   position: relative;
   /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
+  background: var(--background-default);
+  border-radius: var(--border-radius-16);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   /* backdrop-filter: blur(5px); */
   /* -webkit-backdrop-filter: blur(5px); */
   border: 1px solid rgba(255, 255, 255, 0.3);
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .preview-card {
   margin-left: auto;
   margin-top: 1rem;
-}
-
-.responseContainerContributionCard {
-  overflow-y: auto;
-  padding-right: 5px;
 }
 
 .compactContributionCardContainer ::-webkit-scrollbar {
@@ -118,6 +127,7 @@
 
 .compactContributionCardContainer .response {
   z-index: 10;
+  text-shadow: var(--text-shadow-default);
   /* overflow-y:clip;
   text-overflow:ellipsis;
   white-space: break-spaces;
@@ -125,21 +135,6 @@
   -webkit-box-orient: vertical;
   /* NOTE: this needs to change with the height of compact card */
   /* -webkit-line-clamp: 8; */
-}
-
-.blobSingleContainer, .blobContainer {
-  height: 70px;
-  width: 150px;
-  bottom: 0;
-  margin-bottom: 80px;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.blobContainer.blobContainer {
-  height: 70px;
-  margin: 20px 0 30px;
 }
 
 .compactContributionCardContainer > h2 {

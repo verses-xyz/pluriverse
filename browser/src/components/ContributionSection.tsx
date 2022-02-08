@@ -332,7 +332,7 @@ function TermsOfUse({
           </div>
         ) : (
           <ConnectWalletButton onSubmit={onSuccess} onError={handleErr}>
-            Connect
+            Connect to Sign
           </ConnectWalletButton>
         )}
       </div>
