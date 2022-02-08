@@ -132,7 +132,7 @@ export function EssayBody() {
         and ensuring it is privatized and parcelled out to the highest bidder.
         Their Metaverse expands as a{" "}
         <Footnote
-          topOffset={-120}
+          topOffset={-20}
           data={
             <>
               In agriculture, monoculture refers to the cultivation of a
@@ -205,7 +205,7 @@ export function EssayBody() {
         However, this does not mean we should not dream of open digital spaces
         of collective autonomy and shared ownership. In fact,{" "}
         <Footnote
-          topOffset={40}
+          topOffset={160}
           data={
             <>
               We call to mind Arundhati Roy: ‘Another world is not only
@@ -279,7 +279,7 @@ export function EssayBody() {
         Futures of{" "}
         <Footnote
           left
-          topOffset={0}
+          topOffset={10}
           data={
             <>
               Plurality refers to a state in which multiple alternatives
