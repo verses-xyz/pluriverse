@@ -1,12 +1,12 @@
 .signatureContainer {
   width: 100%;
-  padding: 32px;
-  background: var(--background-default);
+  padding-top: 32px;
+  /* background: var(--background-default); */
   border-radius: var(--border-radius-12);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--outline-default);
+  /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); */
+  /* backdrop-filter: blur(10px); */
+  /* -webkit-backdrop-filter: blur(10px); */
+  /* border: 1px solid var(--outline-default); */
   overflow: hidden;
 
   display: flex;
@@ -33,10 +33,6 @@
 
 .date {
   font-size: 1rem;
-}
-
-.twitter {
-  margin-left: auto;
 }
 
 .twitterName {
