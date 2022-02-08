@@ -59,7 +59,7 @@ export default function PatternSection({
               whiteSpace: "nowrap",
             }}
           >
-            {expanded ? "Hide examples" : "Show examples"}
+            {expanded ? "Hide" : "Show"}
           </span>
           {expanded ? <AiOutlineMinus /> : <AiOutlinePlus />}
         </div>
