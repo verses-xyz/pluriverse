@@ -10,6 +10,8 @@ import React from "react";
 import { getUsers } from "src/helpers/api";
 import useGsap from "src/hook/useGsap";
 import { StatsContext } from "src/helpers/contexts/StatsContext";
+import SectionDivider from "src/components/SectionDivider";
+import getMockSignatures, { UseMock } from "src/utils/mock";
 
 export interface SignaturesContextInfo {
   signatures: Author[];
@@ -28,7 +30,12 @@ function SignaturesProvider({ children }) {
   }, []);
 
   async function fetchSignatures(newSignature?: Author) {
-    const users = await getUsers();
+    let users: Author[];
+    if (UseMock) {
+      users = getMockSignatures();
+    } else {
+      users = await getUsers();
+    }
     setAuthors([...(newSignature ? [newSignature] : []), ...users]);
   }
 
@@ -60,7 +67,7 @@ export function Main() {
         opacity: fixedOpacity,
       },
       {
-        opacity: 0.3,
+        opacity: 0.2,
         scrollTrigger: {
           trigger: "#contributionSection",
           scrub: true,
@@ -111,7 +118,7 @@ export function Main() {
         <Hero />
       </div>
       <SignaturesProvider>
-        <div className="mainContent px-2">
+        <div className="mainContent px-8">
           <div id="essay-content" ref={essayContentRef}>
             <EssayContent />
           </div>

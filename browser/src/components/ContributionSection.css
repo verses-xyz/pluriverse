@@ -1,12 +1,12 @@
 .contributionSection {
   width: 100%;
-  padding: 3rem 3rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  padding: 24px;
+  background: var(--background-default);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--outline-default);
   /* min-height: 600px; */
 }
 
@@ -19,11 +19,11 @@
 
 .terms > p {
   line-height: 1.4;
-  padding: .5rem 0;
+  padding: 0.5rem 0;
 }
 
 .inputs {
-  margin-top: 12px;
+  margin-top: var(--space-12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,41 +31,42 @@
 
 .inputs > div {
   width: 275px;
-   display:grid;
-   grid-template-columns: 1fr auto;
-   align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
 }
 
-input { 
-  font-family: "Roboto Mono";
+input {
   display: inline-block;
-  color: rgba(255, 255, 255, 0.8);
-  padding: 4px;
+  font-family: var(--font-family-secondary);
+  color: var(--foreground-default);
+  padding: var(--space-4) var(--space-8);
 }
 
-input, .input {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: background-color 0.8s ease;
-  border-radius: 10px;
+input,
+.input {
+  background: var(--background-default);
+  border: 1px solid var(--outline-default);
+  transition: background-color 0.3s ease;
+  border-radius: var(--border-radius-default);
 }
 
-input:hover, .input:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+input:hover,
+.input:hover {
+  background-color: var(--background-higher);
 }
-
 
 textarea {
   font-family: "Roboto Mono";
   /* display: inline-block; */
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
-  padding: 4px;
+  background-color: var(--background-default);
+  border: 1px solid var(--outline-default);
+  color: var(--foreground-dimmer);
+  padding: var(--space-4);
 }
 
 input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--foreground-dimmest);
 }
 
 /* input:required::before {
@@ -96,11 +97,11 @@ input::placeholder {
 }
 
 .verifyContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: left;
 }
 
 .verifyContainer > p {
@@ -129,7 +130,8 @@ input::placeholder {
   gap: 12px;
 }
 
-label > *, label p {
+label > *,
+label p {
   padding-bottom: 0.25rem;
 }
 
@@ -154,14 +156,9 @@ ul > li:not(:first-child) {
   font-size: 1.2rem;
 }
 
-
 .contributionsPreview {
   margin-top: 24px;
-  /* padding: 24px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.3); */
 }
-
 
 .pageProgressContainer {
   display: flex;
@@ -170,9 +167,9 @@ ul > li:not(:first-child) {
 }
 
 .pageProgress {
-  margin: 0 24px;
-  width: 70px;
-  height:4px;
+  margin: 0 var(--space-12);
+  width: 64px;
+  height: 4px;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 100px;
 }

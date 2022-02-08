@@ -1,5 +1,6 @@
 import "./EssayBody.css";
 import Footnote from "./Footnote";
+import SectionDivider from "./SectionDivider";
 
 export function EssayBody() {
   return (
@@ -105,7 +106,7 @@ export function EssayBody() {
         digital space,{" "}
         <Footnote
           left
-          topOffset={-180}
+          topOffset={-80}
           data={
             <>
               While a collective approach may take on various forms, at its
@@ -131,7 +132,7 @@ export function EssayBody() {
         and ensuring it is privatized and parcelled out to the highest bidder.
         Their Metaverse expands as a{" "}
         <Footnote
-          topOffset={-120}
+          topOffset={-20}
           data={
             <>
               In agriculture, monoculture refers to the cultivation of a
@@ -165,7 +166,7 @@ export function EssayBody() {
         ,{" "}
         <Footnote
           left
-          topOffset={130}
+          topOffset={240}
           data={
             <>
               Since the acquisition of Kevin Systrom’s photo-sharing app
@@ -181,7 +182,7 @@ export function EssayBody() {
         ,{" "}
         <Footnote
           left
-          topOffset={240}
+          topOffset={380}
           data={
             <>We think here of blogs, RSS feeds, community-owned forums, etc.</>
           }
@@ -204,6 +205,7 @@ export function EssayBody() {
         However, this does not mean we should not dream of open digital spaces
         of collective autonomy and shared ownership. In fact,{" "}
         <Footnote
+          topOffset={160}
           data={
             <>
               We call to mind Arundhati Roy: ‘Another world is not only
@@ -253,6 +255,7 @@ export function EssayBody() {
         Futures of{" "}
         <Footnote
           left
+          topOffset={-40}
           data={
             <>
               Here, we draw inspiration from Nobel-prize winner in economics
@@ -276,7 +279,7 @@ export function EssayBody() {
         Futures of{" "}
         <Footnote
           left
-          topOffset={0}
+          topOffset={10}
           data={
             <>
               Plurality refers to a state in which multiple alternatives
@@ -319,7 +322,8 @@ export function EssayBody() {
         gather these worlds around a different banner: the{" "}
         <strong>pluriverse, a world in which many worlds fit.</strong>
       </p>
-      <h2 className="font-title text-3xl pt-20 pb-3 font-semibold">
+      <SectionDivider />
+      <h2 className="font-title text-3xl font-semibold pb-10">
         Learning from the Pluriverse
       </h2>
       <p>
@@ -348,6 +352,7 @@ export function EssayBody() {
         , its use in the
         <Footnote
           left
+          topOffset={-100}
           data={
             <>
               While remaining a contested term, neoliberalism broadly refers to
@@ -362,6 +367,7 @@ export function EssayBody() {
         </Footnote>{" "}
         movements of the 1990s, its expansion into a design practice for{" "}
         <Footnote
+          topOffset={40}
           data={
             <>
               Context and content at{" "}
@@ -386,7 +392,7 @@ export function EssayBody() {
         the future to{" "}
         <Footnote
           left
-          topOffset={-60}
+          topOffset={-140}
           data={
             <>
               In her 1989 lecture The Real World of Technology, Ursula M.
@@ -549,7 +555,8 @@ export function EssayBody() {
         digital space, across emerging technologies. Pluriversality can underpin
         these choices, lending an ethos to the difficult work to come.
       </p>
-      <h2 className="font-title text-3xl pt-20 pb-3 font-semibold">
+      <SectionDivider />
+      <h2 className="font-title text-3xl font-semibold pb-10">
         A Pattern Language for the Pluriverse
       </h2>
       <p>
@@ -632,6 +639,7 @@ export function EssayBody() {
         This makes pattern languages the{" "}
         <Footnote
           left
+          topOffset={20}
           data={
             <>
               Pattern languages have also been used to create design priors for

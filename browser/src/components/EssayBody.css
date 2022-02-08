@@ -7,19 +7,19 @@ article {
 }
 
 .footnote-text {
-  text-decoration: underline dotted rgba(198, 142, 255, 0.7) 2px;
+  text-decoration: underline dotted var(--accent-dimmer) 2px;
 }
 
 .footnote::after {
   text-indent: 0;
   counter-increment: footnote;
   content: counter(footnote);
-  font-size: 1rem;
+  font-size: var(--font-size-default);
   display: inline-block;
   position: relative;
   top: -9px;
   right: -2px;
-  color: rgb(198, 142, 255);
+  color: var(--accent-default);
   box-sizing: border-box;
   background-color: rgba(198, 142, 255, 0);
   border: 1px solid rgba(198, 142, 255, 0);
@@ -45,8 +45,8 @@ article {
 
 .footnote:hover::after,
 .footnote:hover .footnote-content::before {
-  background-color: rgba(198, 142, 255, 0.3);
-  border: 1px solid rgb(198, 142, 255);
+  background-color: var(--accent-dimmest);
+  border: 1px solid var(--accent-default);
 }
 
 p:hover .footnote-content {
@@ -68,9 +68,6 @@ p:hover .footnote-content {
   z-index: 4;
   position: absolute;
   color: white;
-
-  font-size: 1rem;
-  display: inline;
   -webkit-mask-image: -webkit-gradient(
     linear,
     left 50%,
@@ -78,6 +75,8 @@ p:hover .footnote-content {
     from(rgba(0, 0, 0, 1)),
     to(rgba(0, 0, 0, 0))
   );
+  font-size: 1rem;
+  display: inline;
 
   line-height: 1.5rem;
   max-height: calc(3 * 1.5rem);
@@ -139,16 +138,20 @@ p:hover .footnote-content {
     display: none;
   }
   .footnote-content-mobile {
-    background-color: black;
-    font-size: 1rem;
-    padding: 1.5rem;
-    z-index: 4;
     display: initial;
     text-transform: none;
     position: absolute;
+    background-color: var(--background-root);
+    font-size: 1rem;
+    padding: var(--space-16);
+    padding-right: 24px;
+    z-index: 4;
     width: 340px;
-    top: 2.2rem;
+    top: 32px;
     left: 0;
+    border: 1px solid var(--outline-default);
+    border-radius: var(--border-radius-8);
+    box-shadow: var(--shadow-default);
   }
 }
 

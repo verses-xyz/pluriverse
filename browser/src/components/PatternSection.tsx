@@ -5,6 +5,7 @@ import ContributionsCarousel from "./ContributionsCarousel";
 import "./PatternSection.css";
 
 export default function PatternSection({
+  index,
   title,
   problem,
   solution,
@@ -12,6 +13,7 @@ export default function PatternSection({
   pattern,
   defaultExpanded = false,
 }: {
+  index: number;
   title: string;
   problem?: string;
   solution?: string;
@@ -23,10 +25,9 @@ export default function PatternSection({
 
   return (
     <div
+      className="py-8"
       style={{
-        paddingTop: 28,
-        paddingBottom: 32,
-        borderTop: "1px solid #ccc",
+        borderTop: "1px solid var(--outline-default)",
       }}
     >
       <div
@@ -39,17 +40,27 @@ export default function PatternSection({
       >
         {/* TODO: click to get link to this page */}
         {/* TODO: add onto contribution card to get back here */}
-        <h3 id={pattern} className="font-bold font-mono text-xl md:text-3xl">
-          {title}
+        <h3 id={pattern} className="font-semibold text-2xl md:text-3xl">
+          <span
+            className="mr-2 font-mono text-xl md:text-2xl opacity-75"
+            style={{ fontWeight: 400 }}
+          >
+            {`0${index}.`}
+          </span>
+          <span>{title}</span>
         </h3>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            paddingRight: 10,
-          }}
-        >
+        {/* Read more / less button */}
+        <div className="flex flex-row gap-2 items-center">
+          <span
+            className="hidden md:inline-block"
+            style={{
+              fontFamily: "var(--font-family-secondary)",
+              fontSize: "var(--font-size-default)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {expanded ? "Hide" : "Show"}
+          </span>
           {expanded ? <AiOutlineMinus /> : <AiOutlinePlus />}
         </div>
       </div>
@@ -58,7 +69,7 @@ export default function PatternSection({
           <div className="grid md:grid-cols-2 gap-16 my-8 fadeInDownFast">
             {problem && (
               <div>
-                <h4 className="font-title text-xl font-mono font-bold">
+                <h4 className="font-title text-xl font-semibold">
                   The problem
                 </h4>
                 <p>{problem}</p>
@@ -66,7 +77,7 @@ export default function PatternSection({
             )}
             {solution && (
               <div>
-                <h4 className="font-title text-xl font-mono font-bold">
+                <h4 className="font-title text-xl font-semibold">
                   The solution
                 </h4>
                 <p>{solution}</p>

@@ -3,12 +3,57 @@
 @tailwind utilities;
 
 @layer base {
-  a {
-    @apply underline text-blue-400 hover:text-blue-200;
-  }
   body {
     @apply text-gray-100;
   }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Global css vars*/
+:root {
+  /* Color */
+  --background-root: rgb(7, 7, 16, 1);
+  --background-default: rgba(255, 255, 255, 0.05);
+  --background-higher: rgba(255, 255, 255, 0.1);
+
+  --foreground-default: #fff;
+  --foreground-dimmer: rgba(255, 255, 255, 0.9);
+  --foreground-dimmest: rgba(255, 255, 255, 0.75);
+
+  --outline-default: rgba(255, 255, 255, 0.25);
+  --outline-dimmer: rgba(255, 255, 255, 0.15);
+  --outline-dimmest: rgba(255, 255, 255, 0.05);
+
+  --accent-default: rgb(198, 142, 255);
+  --accent-dimmer: rgba(198, 142, 255, .85);
+  --accent-dimmest: rgba(198, 142, 255, 0.3);
+
+  /* Typography */
+  --font-size-default: 16px;
+  --font-size-small: 14px;
+  --font-size-xsmall: 12px;
+  --font-family-primary: "EB Garamamond", serif;
+  --font-family-secondary: source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
+
+  /* Border radius */
+  --border-radius-default: var(--border-radius-8);
+  --border-radius-8: 8px;
+  --border-radius-12: 12px;
+  --border-radius-16: 16px;
+
+  --shadow-default: 0 4px 30px rgba(0, 0, 0, 0.05);
+  --text-shadow-default: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+  /* Spacing */
+  --space-default: var(--space-8);
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
 }
 
 html,
@@ -30,17 +75,23 @@ body {
   font-family: "EB Garamond", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(7, 7, 16, 1);
+}
+
+/* Links */
+a {
+  color: var(--accent-default);
+  text-decoration: underline;
 }
 
 p {
-  font-size: 1.5rem;
-  padding: 1rem 0;
+  font-size: 1.25rem;
+  padding: var(--space-default) 0;
+  color: var(--foreground-dimmer);
 }
 
 @media only screen and (max-width: 500px) {
   p {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
 
@@ -53,11 +104,17 @@ span {
   text-indent: 0;
 }
 
+h1,
+h2,
+h3 {
+  text-shadow: var(--text-shadow-default);
+}
+
 h1 + p::first-letter {
   float: left;
   font-size: 4rem;
-  line-height: 0.65;
-  margin: 0.05em 0.1em 0 0;
+  line-height: 0.8;
+  margin: 0 0.1em 0 0;
 }
 
 h1 + p {
@@ -81,6 +138,10 @@ main {
   width: 100vw;
   position: absolute;
   z-index: 400;
+}
+
+.mainContainer {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .canvas-container {
@@ -132,6 +193,9 @@ main {
       )
       fixed;
   }
+  h1 + p::first-letter {
+    margin-bottom: 32px;
+  }
 }
 
 .shimmer {
@@ -143,7 +207,7 @@ main {
       rgba(255, 255, 255, 0.5) 50%,
       #0000 66%
     )
-    rgb(198, 142, 255);
+    var(--accent-default);
   background-size: 200% auto;
 
   color: #000;
@@ -185,8 +249,8 @@ blockquote:before {
   padding: 10px 15px;
   text-decoration: none;
   border-radius: 60px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--background-default);
+  border: 1px solid var(--outline-default);
   backdrop-filter: blur(5px);
   color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
@@ -212,10 +276,10 @@ blockquote:before {
   width: 100%;
   height: 100%;
   border-radius: 60px;
-  background-color: rgb(186, 120, 253);
+  background-color: var(--accent-default);
   opacity: 0.6;
   content: "";
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 .glass-button-cta:enabled:hover::before {
@@ -234,11 +298,8 @@ blockquote:before {
   position: relative;
 }
 
-a {
-}
-
 .selectedBorder {
-  border: 1px solid rgb(198, 142, 255);
+  border: 1px solid var(--accent-default);
 }
 
 nav {
@@ -257,16 +318,18 @@ footer {
 }
 
 .modal {
-  background-color: hsla(0, 0%, 20%, 1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--outline-default);
   max-width: 700px;
   width: 100%;
-  padding: 3rem;
+  padding: 24px;
+  margin: 16px;
   position: relative;
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius-16);
   z-index: 5000;
   max-height: 80vh;
   overflow-y: scroll;
+  backdrop-filter: blur(10px);
 }
 
 .overlay {
@@ -282,7 +345,7 @@ footer {
   justify-content: center;
   z-index: 3000;
 
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
 }
 
 .dropdown {

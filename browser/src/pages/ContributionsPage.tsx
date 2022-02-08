@@ -139,7 +139,7 @@ export function ContributionsPage() {
   }
 
   return (
-    <div className="px-2 pb-20">
+    <div className="px-8 pb-20">
       {highlightedContribution
         ? getMetaTagsForHighlightedContribution(highlightedContribution)
         : getMetaTags()}
@@ -168,7 +168,7 @@ export function ContributionsPage() {
           </div>
         </div>
       </div>
-      <div className="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-8 px-40 justify-center mx-auto max-w-max">
+      <div className="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 justify-center mx-auto max-w-max gap-12">
         {contributionsToShow.map((contribution) => (
           <ContributionCard contribution={contribution} key={contribution.id} />
         ))}

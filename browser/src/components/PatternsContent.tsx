@@ -5,6 +5,7 @@ import { Principles } from "../types";
 import ContributionsCarousel from "./ContributionsCarousel";
 import "./PatternsContent.css";
 import PatternSection from "./PatternSection";
+import SectionDivider from "./SectionDivider";
 
 function getContributionsByPattern(
   contributions: Contribution[],
@@ -43,8 +44,9 @@ export default function PatternsContent() {
       ].map(([pattern, { title, problem, solution }], index) => (
         <PatternSection
           key={index}
+          index={index}
+          title={title}
           pattern={pattern as Pattern}
-          title={`0${index}. ${title}`}
           problem={problem}
           solution={solution}
           contributions={getContributionsByPattern(
@@ -54,7 +56,9 @@ export default function PatternsContent() {
           defaultExpanded={index === 0}
         />
       ))}
-      <hr />
+      <div className="flex w-full items-center justify-center">
+        <SectionDivider />
+      </div>
     </div>
   );
 }

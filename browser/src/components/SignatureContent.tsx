@@ -33,7 +33,7 @@ function getTwitterDisplay(
       onClick={() => {
         window.open(twitterUrl, "_blank");
       }}
-      className={`twitterName`}
+      className="twitterName flex items-center justify-center"
     >
       @{twitterUsername}{" "}
       {twitterVerified && (
@@ -103,15 +103,20 @@ export function Signature({ author }: { author: Author }) {
   // TODO: add location
 
   return (
-    <p className="pb-0 pt-4">
-      <div className="signature flex-col md:flex-row">
-        <div className="display">
-          <b className="signatureName">{nameDisplay}</b>
-          <span className="date">signed {dateDisplay}</span>
+    <div
+      className="py-4"
+      style={{ borderBottom: "1px solid var(--outline-default)" }}
+    >
+      <div className="signature flex flex-col items-center sm:items-start justify-center sm:justify-start px-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between w-full">
+          <b className="signatureName text-xl">{nameDisplay}</b>
+          <div className="twitter">{getTwitterDisplay(author)}</div>
         </div>
-        <div className="twitter">{getTwitterDisplay(author)}</div>
+        <span className="date flex sm:self-start text-center">
+          signed {dateDisplay}
+        </span>
       </div>
-    </p>
+    </div>
   );
 }
 
@@ -135,7 +140,7 @@ export function SignatureContent() {
   }
 
   return (
-    <div className="signatureContainer mt-16">
+    <div className="signatureContainer mt-16 flex flex-col gap-2">
       <h2 className="text-4xl font-bold mb-2 text-center">Signatures</h2>
       {signaturesToRender.map((author) => (
         <Signature key={author.walletId} author={author} />
