@@ -337,7 +337,7 @@ function TermsOfUse({
           <ConnectWalletButton
             onSubmit={onSuccess}
             onError={handleErr}
-            className={"w-full"}
+            className={"!w-full"}
           >
             Connect to Sign
           </ConnectWalletButton>
