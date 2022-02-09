@@ -31,7 +31,7 @@ export function getContributions({ prisma }: Services): RequestHandler {
 
       const storageContributions = await prisma.contribution.findMany({
         where: { id: { not: contributionId ? contributionId : undefined } },
-        orderBy: { createdAt: "asc" },
+        orderBy: [{ rank: "desc" }, { createdAt: "asc" }],
         include: {
           author: true,
         },
