@@ -301,7 +301,8 @@ function TermsOfUse({
         >
           guide
         </a>
-        .
+        . If you would prefer not to, you can instead submit a signature via{" "}
+        <a href="https://forms.gle/2sUAMmQ9amQo8du4A">this form</a>.
       </p>
       <hr />
       <div className="text-center">
