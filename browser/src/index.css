@@ -382,6 +382,14 @@ footer {
 
 .authorButton {
   color: var(--accent-default);
-  text-overflow: ellipsis;
+  overflow: hidden;
   white-space: nowrap;
+  display: block;
+  margin-left: auto;
+  font-weight: normal;
+  text-overflow: ellipsis;
+}
+
+.authorWrapper {
+  display: flex;
 }

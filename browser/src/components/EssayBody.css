@@ -135,6 +135,7 @@ p:hover .footnote-content {
   }
   .footnote-content {
     opacity: 0 !important;
+    pointer-events: none;
   }
   .footnote-content-mobile {
     display: initial;

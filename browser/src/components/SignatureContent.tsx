@@ -69,8 +69,9 @@ export function getDisplayForAuthor(
   const etherscanUrl = `https://etherscan.io/address/${walletId}`;
 
   return (
-    <span className="inline">
-      <button
+    <div className="authorWrapper">
+      <span
+        role="button"
         className="authorButton"
         onClick={(e) => {
           window.open(twitterUrl || etherscanUrl, "_blank");
@@ -78,20 +79,20 @@ export function getDisplayForAuthor(
         }}
       >
         {nameDisplay}
-        {twitterUrl && (
-          <span
-            className="ml-1"
-            style={{
-              verticalAlign: "middle",
-              top: "-3px",
-              position: "relative",
-            }}
-          >
-            <Checkmark />
-          </span>
-        )}
-      </button>
-    </span>
+      </span>
+      {twitterUrl && (
+        <span
+          className="ml-1"
+          style={{
+            verticalAlign: "middle",
+            top: "-3px",
+            position: "relative",
+          }}
+        >
+          <Checkmark />
+        </span>
+      )}
+    </div>
   );
 }
 

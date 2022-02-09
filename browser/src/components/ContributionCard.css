@@ -83,8 +83,8 @@
 }
 
 .author-section {
-  text-overflow: ellipsis;
-  overflow:hidden;
+  flex: 0 0 150px;
+  max-width: 150px;
 }
 
 .author-section,
@@ -94,9 +94,9 @@
 }
 
 .author {
+  position: relative;
   font-weight: bold;
   color: var(--accent-default);
-  display: inline;
   font-family: var(--font-family-secondary);
   font-size: var(--font-size-small) !important;
   text-overflow: ellipsis;

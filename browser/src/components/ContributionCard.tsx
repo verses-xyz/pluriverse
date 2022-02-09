@@ -143,10 +143,10 @@ export function ContributionCard({
       <div className="w-full attribution">
         {id !== undefined && <CopyLink content={contributionLink} />}
         <div className="spacer" />
-        <p className="author-section ml-auto inline">
-          <p className="author text-color-purple-200">{authorDisplay}</p>
+        <div className="author-section ml-auto inline">
+          <div className="author text-color-purple-200">{authorDisplay}</div>
           <p>{dateDisplay}</p>
-        </p>
+        </div>
       </div>
       {/* blob container */}
       <div
