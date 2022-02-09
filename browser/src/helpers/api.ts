@@ -37,9 +37,6 @@ async function makeRequest(
   url: string,
   { method, body }: { method: string; body?: object }
 ): Promise<any> {
-  console.log(
-    `Making ${method} request to ${url} with body: ${JSON.stringify(body)}`
-  );
   const response = await fetch(url, {
     // redirect: "follow", // manual, *follow, error
     mode: "cors", // no-cors, *cors, same-origin
@@ -70,7 +67,6 @@ export async function addContribution(
     body: request,
     method: "POST",
   });
-  console.log(`Added ${response} contribution`);
   return response as AddContributionResponse;
 }
 
@@ -129,7 +125,6 @@ export async function addUser(
     body: request,
     method: "POST",
   });
-  console.log(`Added ${response} user`);
   return response as AddUserResponse;
 }
 

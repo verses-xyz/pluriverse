@@ -67,7 +67,6 @@ export function BlobSingle({
 
   const [message, setMessage] = useState<undefined | string>();
 
-  console.log(toHex(contrib));
   useEffect(() => {
     const handler = setTimeout(async () => {
       const hash = await sha256(`0x${toHex(contrib)}`);

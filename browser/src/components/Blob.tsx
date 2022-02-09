@@ -52,7 +52,6 @@ export function BlobShaderMaterial({
   alpha = 1.0,
   offset,
 }: ShaderProps) {
-  // console.log(speed, color, density, strength, alpha, offset);
   const ref = useRef();
   const data = useMemo(() => {
     return {

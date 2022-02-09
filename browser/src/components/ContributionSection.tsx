@@ -265,7 +265,6 @@ function TermsOfUse({
   const [name, setName] = useState<string | undefined>(undefined);
   const { currentUserWalletAddress } = useContext(UserContext);
   const { latestEssayInfo } = useContext(ArweaveContext);
-  console.log(latestEssayInfo);
   const { version, transactionId = "" } = latestEssayInfo || {};
   const arweaveDocLink = transactionId ? getArweaveLink(transactionId) : "";
 
@@ -490,7 +489,6 @@ export function ContributionSection() {
       throw new Error("Submitting signature without connected wallet.");
     }
 
-    console.log("connected wallet address: " + currentUserWalletAddress);
     // Validate user
     let userToUpdate: Author | undefined = currentUser;
     if (!userToUpdate) {
