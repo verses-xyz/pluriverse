@@ -335,6 +335,18 @@ footer {
   backdrop-filter: blur(10px);
 }
 
+.linkModal {
+  background-color: hsla(0, 0%, 0%, 1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 700px;
+  width: 100%;
+  padding: 3rem;
+  position: relative;
+  border-radius: 0.4rem;
+  z-index: 5000;
+  max-height: 80vh;
+}
+
 .overlay {
   background-color: hsla(0, 0%, 100%, 0.1);
   position: fixed;
@@ -387,5 +399,5 @@ footer {
 }
 
 .invalidLink {
-  border-color: red;
+    border-color: red;
 }

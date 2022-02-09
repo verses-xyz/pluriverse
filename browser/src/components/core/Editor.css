@@ -7,13 +7,13 @@
 
     /* Identical styling required!! */
     border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
     padding: 0.5rem;
     font: inherit;
 
-    min-height: 200px; 
-    max-height: 200px;
+    min-height: 150px; 
 
-    background-color: hsla(0,0%,100%,.1);
+    background-color: hsla(0,0%,100%,.05);
 
     width: 100%;
     
@@ -53,29 +53,37 @@
 }
 
 .menu {
-    background-color: hsla(0, 0%, 15%, 1);
+    background-color: hsla(0, 0%, 0%, 1);
+    border-color: #FFFFFF15;
+    border-width: 1px;
     width:100%;
     padding:0.375rem; 
     position:relative;
-    border-radius:0.375rem;
+    border-radius: 8px;;
+    cursor: pointer;
+    padding: 2.5px 5px 2.5px;
+}
+
+.menuItem {
+    display: inline-block;
+    margin: 0px 5px 0px;
 }
 
 .linkInput {
     font: inherit;
     padding-top: 0;     
     padding-bottom: 0;     
-    border-radius: 0.375rem;
+    border-radius: 8px;
     width: 100%;
     margin-top: 24px;
 }
 
 .linkIcon {
-    padding-left: 2px;
+    margin-bottom: 2px;
 }
 
-.white {
-    text-align: center;
 
+.white {
     background: white;
     background-size: 200% auto;
 
@@ -100,24 +108,3 @@
 .cancelButton { 
   padding-right: 6px;
 }
-
-.iconShimmer {
-    text-align: center;
-  
-    background: linear-gradient(
-        90deg,
-        #0000 33%,
-        rgba(255, 255, 255, 0.5) 50%,
-        #0000 66%
-      )
-      rgb(198, 142, 255);
-    background-size: 200% auto;
-  
-    color: rgb(198, 142, 255);
-    background-clip: text;
-    text-fill-color: transparent;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  
-    animation: shine 2s linear infinite;
-  }

@@ -161,10 +161,12 @@ export function ModalProvider({ children }) {
     toggleBackgroundScrollingOnModal(true);
     setLinkInput(null);
     if (editor) {
-      // Unselect text
+      // Unselect text and stop adding link to text
+      // after type
+      // TODO: This doesn't work
       editor.chain().focus().setTextSelection(
         editor.state.selection.to
-      ).run()
+      ).unsetLink.run()
     }
   };
 
@@ -247,7 +249,7 @@ export function ModalProvider({ children }) {
       <Modal
         isOpen={linkInputModalOpen}
         onAfterOpen={() => null}
-        className="modal"
+        className="linkModal"
         overlayClassName="overlay"
         onRequestClose={() => closeLinkInputModal()}
         shouldCloseOnOverlayClick={true}

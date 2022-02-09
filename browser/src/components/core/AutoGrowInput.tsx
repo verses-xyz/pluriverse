@@ -57,7 +57,6 @@ export function AutoGrowInput({
           onChange={onChange}
           responseLength={responseLength}
           setResponseLength={setResponseLength}
-          placeholder={extraProps.placeholder ? extraProps.placeholder : null}
         />
       </div>
     </>

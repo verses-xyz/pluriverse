@@ -39,6 +39,7 @@ import { ArweaveContext } from "src/helpers/contexts/ArweaveContext";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
 import { BiErrorCircle } from "react-icons/bi";
 
+import sanitizeHtml from "sanitize-html";
 import { Converter } from "showdown";
 
 enum Page {
@@ -466,7 +467,7 @@ export function ContributionSection() {
       const newContributionId = await addContribution({
         prompt: selectedPrompt,
         pattern: selectedPattern,
-        response: toMarkdownConverter.makeMarkdown(response),
+        response: toMarkdownConverter.makeMarkdown(sanitizeHtml(response)),
         walletId: currentUser!.walletId,
       });
       // TODO: eliminate this and just return th actual contribution data with the response above.
@@ -721,7 +722,7 @@ export function ContributionSection() {
                             <p className="text-xl">Contribution</p>
                             <span className="flex-grow" />
                             <p className="text-lg opacity-50">
-                              {response?.length || 0} / {ResponseCharacterLimit}
+                              {responseLength || 0} / {ResponseCharacterLimit}
                             </p>
                           </div>
                           <AutoGrowInput
