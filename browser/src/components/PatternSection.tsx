@@ -69,16 +69,14 @@ export default function PatternSection({
           <div className="grid md:grid-cols-2 gap-16 my-8 fadeInDownFast">
             {problem && (
               <div>
-                <h4 className="font-title text-xl font-semibold">
-                  The problem
-                </h4>
+                <h4 className="font-title text-xl font-semibold">Challenge</h4>
                 <p>{problem}</p>
               </div>
             )}
             {solution && (
               <div>
                 <h4 className="font-title text-xl font-semibold">
-                  The solution
+                  Possibility
                 </h4>
                 <p>{solution}</p>
               </div>
