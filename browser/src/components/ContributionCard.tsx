@@ -156,6 +156,7 @@ export function ContributionCard({
           top: "calc(50% + 24px)",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          cursor: "pointer",
         }}
         className="absolute"
         onClick={(e) => e.stopPropagation()}

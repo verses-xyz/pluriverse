@@ -18,8 +18,9 @@
 /*}*/
 
 .full.full {
-  height: fit-content;
   width: 100%;
+  min-height:360px;
+  max-width:none;
 }
 
 /* remove bg when its in a modal. */
@@ -27,6 +28,13 @@
   background: none;
   border: none;
   padding: 0;
+  cursor: default;
+  box-shadow: none;
+}
+
+.compactContributionCardContainer.preview-card {
+  margin-top: 1rem;
+  cursor: default;
 }
 
 /*.contributionCardContainer > h2 {*/
@@ -57,6 +65,10 @@
   padding: var(--space-4) var(--space-8);
   font-family: var(--font-family-secondary);
   font-size: var(--font-size-xsmall) !important;
+}
+
+.attribution > .link:hover {
+  background: var(--background-higher-higher);
 }
 
 /* .attribution > .link > p {
@@ -105,8 +117,8 @@
   cursor: pointer;
 }
 
-.preview-card {
-  margin-top: 1rem;
+.compactContributionCardContainer:not(.full):not(.preview-card):hover {
+  background: var(--background-higher);
 }
 
 .compactContributionCardContainer ::-webkit-scrollbar {
@@ -148,4 +160,8 @@
 
 .compactContributionCardContainer canvas {
   height: 60px;
+}
+
+.authorButton:hover {
+  opacity: .85;
 }

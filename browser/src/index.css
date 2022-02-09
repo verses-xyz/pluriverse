@@ -16,8 +16,10 @@
 :root {
   /* Color */
   --background-root: rgb(7, 7, 16, 1);
+  --background-lower: rgba(7,7,16, 0.4);
   --background-default: rgba(255, 255, 255, 0.05);
   --background-higher: rgba(255, 255, 255, 0.1);
+  --background-higher-higher: rgba(255, 255, 255, 0.2);
 
   --foreground-default: #fff;
   --foreground-dimmer: rgba(255, 255, 255, 0.9);
@@ -319,7 +321,7 @@ footer {
 }
 
 .modal {
-  background-color: rgba(0, 0, 0, 0.6);
+  background: var(--background-lower);
   border: 1px solid var(--outline-default);
   max-width: 700px;
   width: 100%;
@@ -376,4 +378,8 @@ footer {
 
 .container > ul > li {
   list-style: circle;
+}
+
+.authorButton {
+  color: var(--accent-default);
 }

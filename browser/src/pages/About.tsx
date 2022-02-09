@@ -1,10 +1,11 @@
 import { useContext } from "react";
-import ContributionsCarousel from "src/components/ContributionsCarousel";
+import { ContributionCard } from "src/components/ContributionCard";
 import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
 import { Contribution } from "src/types/common/server-api";
 import Footnote from "../components/Footnote";
 
-const CoreStewardContributionIds = [43, 18, 42];
+// TODO: fill this in.
+const CoreStewardContributionIds = [43, 19, 208, 42];
 
 export function About() {
   const { contributions } = useContext(ContributionsContext);
@@ -476,7 +477,7 @@ export function About() {
           <h3 className="font-title text-3xl pt-16 pb-0 text-center pb-2">
             stewards 🌱
           </h3>
-          <p className="pt-0 italic text-lg">
+          <p className="pt-0 text-xl">
             <a href="https://www.spencerchang.me/">Spencer Chang</a> ·{" "}
             <a href="https://alejandro.pe/">Alejandro García Salas</a> ·{" "}
             <a href="https://twitter.com/divyasiddarth?lang=en">
@@ -487,9 +488,11 @@ export function About() {
           </p>
         </div>
       </div>
-      {/* <div className="container lg:pl-40 xl:pl-60">
-        <ContributionsCarousel contributions={stewardContributions} />
-      </div> */}
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 justify-center mx-auto max-w-max gap-6 mt-4">
+        {stewardContributions.map((contribution) => (
+          <ContributionCard contribution={contribution} key={contribution.id} />
+        ))}
+      </div>
     </div>
   );
 }

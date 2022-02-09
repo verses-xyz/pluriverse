@@ -5,6 +5,7 @@ export function Checkmark() {
       className="h-5 w-5"
       viewBox="0 0 20 20"
       fill="#73c2ff"
+      style={{ display: "inline" }}
     >
       <path
         fillRule="evenodd"

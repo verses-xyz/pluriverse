@@ -146,13 +146,18 @@ export function ContributionsPage() {
       <div className="container md:max-w-3xl mx-auto pb-10">
         <div className="mb-10">
           <h2 className="font-title text-3xl pt-16 font-bold pb-3">
-            Contributions to the Pluriverse
+            Contributions to "A Pattern Language for the Pluriverse"
           </h2>
           <p>
-            We have collected contributions to the pluriverse from individuals
-            and collectives of cyberspace who have signed onto this document.
-            These contributions represent the plurality of the web and how all
-            of our meanings are inherently valuable.
+            Contributions to this pattern language were given by various
+            individuals and organizations that have gathered around this
+            artifact. These seed set of contributions represent the plurality of
+            the web.
+          </p>
+          <p>
+            We welcome contributions of all kinds, but offer suggestions as to
+            the types of contributions we think would be{" "}
+            <a href="https://pluriverse.world/about">especially meaningful</a>.
           </p>
           {/* TODO: maybe put patterns here? */}
         </div>
@@ -168,7 +173,7 @@ export function ContributionsPage() {
           </div>
         </div>
       </div>
-      <div className="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 justify-center mx-auto max-w-max gap-12">
+      <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 sm:grid-cols-1 justify-center mx-auto max-w-max gap-6">
         {contributionsToShow.map((contribution) => (
           <ContributionCard contribution={contribution} key={contribution.id} />
         ))}

@@ -37,7 +37,9 @@ function getTwitterDisplay(
     >
       @{twitterUsername}{" "}
       {twitterVerified && (
-        <span>
+        <span
+          style={{ verticalAlign: "middle", position: "relative", top: "-1px" }}
+        >
           <Checkmark />
         </span>
       )}
@@ -58,29 +60,37 @@ export function getDisplayForAuthor(
   author: Author,
   shouldTruncate?: boolean
 ): React.ReactNode {
-  const { twitterVerified, twitterUsername } = author;
+  const { twitterVerified, twitterUsername, walletId } = author;
   const nameDisplay = getTextDisplayForAuthor(author, shouldTruncate);
   const twitterUrl =
     twitterUsername &&
     twitterVerified &&
     `https://twitter.com/${twitterUsername}`;
+  const etherscanUrl = `https://etherscan.io/address/${walletId}`;
+
   return (
     <span className="inline">
-      {nameDisplay}{" "}
-      {twitterUrl && (
-        <button
-          style={{
-            verticalAlign: "middle",
-            top: "-2px",
-            position: "relative",
-          }}
-          onClick={() => {
-            window.open(twitterUrl, "_blank");
-          }}
-        >
-          <Checkmark />
-        </button>
-      )}
+      <button
+        className="authorButton"
+        onClick={(e) => {
+          window.open(twitterUrl || etherscanUrl, "_blank");
+          e.stopPropagation();
+        }}
+      >
+        {nameDisplay}
+        {twitterUrl && (
+          <span
+            className="ml-1"
+            style={{
+              verticalAlign: "middle",
+              top: "-3px",
+              position: "relative",
+            }}
+          >
+            <Checkmark />
+          </span>
+        )}
+      </button>
     </span>
   );
 }
