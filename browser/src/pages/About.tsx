@@ -490,7 +490,7 @@ export function About() {
           </p>
         </div>
       </div>
-      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 justify-center mx-auto max-w-max gap-6 mt-4">
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 justify-center mx-auto max-w-max gap-6 mt-4 mb-8">
         {stewardContributions.map((contribution) => (
           <ContributionCard contribution={contribution} key={contribution.id} />
         ))}
