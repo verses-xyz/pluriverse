@@ -295,7 +295,13 @@ function TermsOfUse({
       )}
       <p className="metaText">
         To sign, you need a compatible web3 wallet. Need help? Check out this{" "}
-        <a target="_blank" href="https://scribehow.com/shared/Sign_and_contribute_to_A_Pattern_Language_for_the_Pluriverse__8hyPAlzVR6-K2_AXEog6-w">guide</a>.
+        <a
+          target="_blank"
+          href="https://scribehow.com/shared/Sign_and_contribute_to_A_Pattern_Language_for_the_Pluriverse__8hyPAlzVR6-K2_AXEog6-w"
+        >
+          guide
+        </a>
+        .
       </p>
       <hr />
       <div className="text-center">
@@ -544,7 +550,7 @@ export function ContributionSection() {
       selectedPrompt !== Prompt.FreeForm ||
       response
         .toLocaleLowerCase()
-        .indexOf(PatternToDisplay[selectedPattern].toLocaleLowerCase()) > 0
+        .includes(PatternToDisplay[selectedPattern].toLocaleLowerCase())
     );
   }
 

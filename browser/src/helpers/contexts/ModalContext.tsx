@@ -70,7 +70,10 @@ export function ModalProvider({ children }) {
           {getMinuteTimeOfDayDateDisplay(
             dayjs(highlightedContribution.createdAt, { utc: true })
           )}
-          , <b>{getDisplayForAuthor(highlightedContribution.author)}</b>{" "}
+          ,{" "}
+          <b>
+            {getDisplayForAuthor(highlightedContribution.author, false, true)}
+          </b>{" "}
           contributed:
         </p>
         <ContributionCard

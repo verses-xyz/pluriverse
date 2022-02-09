@@ -58,7 +58,8 @@ export function getTextDisplayForAuthor(
 // TODO: get ENS?
 export function getDisplayForAuthor(
   author: Author,
-  shouldTruncate?: boolean
+  shouldTruncate?: boolean,
+  inline?: boolean
 ): React.ReactNode {
   const { twitterVerified, twitterUsername, walletId } = author;
   const nameDisplay = getTextDisplayForAuthor(author, shouldTruncate);
@@ -69,7 +70,7 @@ export function getDisplayForAuthor(
   const etherscanUrl = `https://etherscan.io/address/${walletId}`;
 
   return (
-    <div className="authorWrapper">
+    <div className={`authorWrapper ${inline ? "!inline-flex" : ""}`}>
       <span
         role="button"
         className="authorButton"
