@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="mainContainer">
       <main>
-        <DevelopmentBanner />
+        {/*<DevelopmentBanner />*/}
         <Navbar />
         <UserProvider>
           <ArweaveProvider>

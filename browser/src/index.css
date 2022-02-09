@@ -368,3 +368,12 @@ footer {
 .dropdown button:last-of-type {
   border-bottom: none;
 }
+
+.container > ul {
+  margin: 1em 0 1em 1.5em;
+  font-size: 1.25rem;
+}
+
+.container > ul > li {
+  list-style: circle;
+}
