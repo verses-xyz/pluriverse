@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
-  output = "../node_modules/.prisma/client"
+  provider      = "prisma-client-js"
+  output        = "../node_modules/.prisma/client"
   binaryTargets = ["native", "linux-musl"]
 }
 
@@ -52,5 +52,6 @@ model Contribution {
   pattern        Pattern  @default(Pluriverse)
   createdAt      DateTime @default(now())
   authorWalletId String
+  rank           Int      @default(0)
   author         User     @relation(fields: [authorWalletId], references: [id])
 }
