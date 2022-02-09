@@ -382,4 +382,6 @@ footer {
 
 .authorButton {
   color: var(--accent-default);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

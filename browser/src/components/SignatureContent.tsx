@@ -10,9 +10,9 @@ function truncateWallet(address: string) {
   return address.slice(0, 6) + "..." + address.slice(-4);
 }
 
-function truncateName(name: string) {
-  return name.length > 15 ? name.slice(0, 12) + "..." : name;
-}
+// function truncateName(name: string) {
+//   return name.length > 15 ? name.slice(0, 12) + "..." : name;
+// }
 
 const SignaturePageSize = 50;
 const SignaturesLimit = 500;
@@ -52,7 +52,7 @@ export function getTextDisplayForAuthor(
   shouldTruncate?: boolean
 ): React.ReactNode {
   const walletAddr = shouldTruncate ? truncateWallet(walletId) : walletId;
-  return shouldTruncate ? truncateName(name || walletAddr) : name || walletAddr;
+  return name || walletAddr;
 }
 
 // TODO: get ENS?
