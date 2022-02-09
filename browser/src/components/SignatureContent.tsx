@@ -117,7 +117,7 @@ export function Signature({ author }: { author: Author }) {
       className="py-4"
       style={{ borderBottom: "1px solid var(--outline-default)" }}
     >
-      <div className="signature flex flex-col items-center sm:items-start justify-center sm:justify-start px-4">
+      <div className="signature flex flex-col items-center sm:items-start justify-center sm:justify-start md:px-4">
         <div className="flex flex-col sm:flex-row items-center justify-between w-full">
           <b className="signatureName text-xl">{nameDisplay}</b>
           <div className="twitter">{getTwitterDisplay(author)}</div>

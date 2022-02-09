@@ -5,7 +5,7 @@ import { Contribution } from "src/types/common/server-api";
 import Footnote from "../components/Footnote";
 
 // TODO: fill this in.
-const CoreStewardContributionIds = [43, 19, 208, 42];
+const CoreStewardContributionIds = [213, 19, 208, 42];
 
 export function About() {
   const { contributions } = useContext(ContributionsContext);
