@@ -111,6 +111,6 @@ export interface GetStatsResponse {
 }
 
 export const TweetTemplate =
-  "verifying for @verses_xyz — to a pluriverse, a world where many worlds may fit\n\nsig:";
+  "verifying for @verses_xyz — to a pluriverse, a world where many worlds may fit\n\nhttps://pluriverse.world\n\nsig:";
 
 export const ArweaveEssayDocumentName = "PluriverseEssay";
