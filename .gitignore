@@ -30,3 +30,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
+
+# for tokens
+tokens/
