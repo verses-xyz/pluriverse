@@ -6,7 +6,8 @@ import Footnote from "../components/Footnote";
 
 // TODO: fill this in.
 const CoreStewardContributionIds = [
-  213, 19, 206, 209, 24, 216, 36, 28, 174, 88, 220, 34, 35, 47, 49, 125, 73, 87, 80,
+  213, 19, 206, 209, 24, 216, 36, 28, 174, 88, 220, 34, 35, 47, 49, 125, 73, 87,
+  80,
 ];
 
 export function About() {
@@ -17,7 +18,7 @@ export function About() {
 
   return (
     <div>
-      <div className="container w-full md:px-0 md:max-w-2xl mx-auto pb-8 md:pb-20 px-4 md:px-8">
+      <div className="container w-full md:px-0 md:max-w-2xl mx-auto pb-6 md:pb-12 px-4 md:px-8">
         <h2 className="font-title text-3xl pt-12 md:pt-16 font-bold pb-3">
           About This Artifact
         </h2>
@@ -490,9 +491,14 @@ export function About() {
             · <a href="https://jasminew.me/">Jasmine Wang</a> ·{" "}
             <a href="https://jzhao.xyz/">Jacky Zhao</a>
           </p>
+          <p className="!text-left">
+            The above people stewarded this artifact to completion, but so many
+            have given attention and care to making this piece a reality. A
+            gallery of those contributors' cards lie below.
+          </p>
         </div>
       </div>
-      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 justify-center mx-auto max-w-max gap-6 mt-4 mb-8">
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 justify-center mx-auto max-w-max gap-6 mt-2 mb-8">
         {stewardContributions.map((contribution) => (
           <ContributionCard contribution={contribution} key={contribution.id} />
         ))}
