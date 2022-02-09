@@ -1,8 +1,24 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Pattern, Prompt } from "../types/common/server-api";
-import { sha256 } from "ethers/lib/utils";
 import Blob, { SizeChoice } from "./Blob";
 import { randomEuler } from "./Blobs";
+
+async function sha256(message: string) {
+  // encode as UTF-8
+  const msgBuffer = new TextEncoder().encode(message);
+
+  // hash the message
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+
+  // convert ArrayBuffer to Array
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+  // convert bytes to hex string
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  return hashHex;
+}
 
 function toHex(str: string) {
   return str
@@ -17,6 +33,9 @@ function getMessageChunk(
   val_start: number,
   range: number
 ) {
+  if (!message) {
+    return 0.5 * val_start;
+  }
   const sub = message.substring(idx * 8, idx * 8 + 8);
   const eightCount = sub.split("8").length;
   const float = parseInt(sub, 16) / 0xffffffff;
@@ -46,10 +65,13 @@ export function BlobSingle({
   const contrib = `${walletId}: ${response}`;
   const rotation = useMemo(() => randomEuler(), []);
 
-  const [message, setMessage] = useState(sha256(`0x${toHex(contrib)}`));
+  const [message, setMessage] = useState<undefined | string>();
+
+  console.log(toHex(contrib));
   useEffect(() => {
-    const handler = setTimeout(() => {
-      setMessage(sha256(`0x${toHex(contrib)}`));
+    const handler = setTimeout(async () => {
+      const hash = await sha256(`0x${toHex(contrib)}`);
+      setMessage(hash);
     }, 0);
 
     return () => {
