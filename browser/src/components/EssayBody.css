@@ -162,7 +162,7 @@ p:hover .footnote-content {
     position: relative;
   }
   .footnote-content {
-    display: none;
+    opacity: 0 !important;
   }
   .footnote-content-mobile {
     position: absolute;

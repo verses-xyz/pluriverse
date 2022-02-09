@@ -15,7 +15,7 @@ export function About() {
 
   return (
     <div>
-      <div className="container w-full px-2 md:px-0 md:max-w-2xl mx-auto">
+      <div className="container w-full md:px-0 md:max-w-2xl mx-auto pb-20 px-8">
         <h2 className="font-title text-3xl pt-16 font-bold pb-3">
           About This Artifact
         </h2>
