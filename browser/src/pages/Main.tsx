@@ -118,7 +118,7 @@ export function Main() {
         <Hero />
       </div>
       <SignaturesProvider>
-        <div className="mainContent px-8">
+        <div className="mainContent px-4 md:px-8">
           <div id="essay-content" ref={essayContentRef}>
             <EssayContent />
           </div>
@@ -144,7 +144,7 @@ export function Main() {
           )}
           <div
             id="contributionSection"
-            className="container w-full md:max-w-4xl mx-auto px-4 mt-16"
+            className="container w-full md:max-w-4xl mx-auto mt-16"
           >
             <ContributionSection />
           </div>

@@ -180,23 +180,22 @@ main {
 
 /* TODO: for now hide footnotes on small screens */
 @media only screen and (max-width: 500px) {
+  h1 + p::first-letter {
+    margin-bottom: 32px;
+  }
+}
+@media only screen and (max-width: 750px) {
   .universe-gradient {
     height: 100vh;
     /* mobile viewport bug fix */
     /*min-height: -webkit-fill-available;*/
     width: 100vw;
     position: fixed;
-    background: radial-gradient(
-        at 50% 100%,
+    background: radial-gradient(at 50% 100%,
         #673787 0%,
-        #272730 40%,
+        #272730 55%,
         #171720 80%,
-        #070710 100%
-      )
-      fixed;
-  }
-  h1 + p::first-letter {
-    margin-bottom: 32px;
+        #070710 100%) fixed;
   }
 }
 

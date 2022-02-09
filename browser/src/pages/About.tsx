@@ -5,7 +5,7 @@ import { Contribution } from "src/types/common/server-api";
 import Footnote from "../components/Footnote";
 
 // TODO: fill this in.
-const CoreStewardContributionIds = [43, 19, 208, 42];
+const CoreStewardContributionIds = [213, 19, 208, 42];
 
 export function About() {
   const { contributions } = useContext(ContributionsContext);
@@ -15,8 +15,8 @@ export function About() {
 
   return (
     <div>
-      <div className="container w-full md:px-0 md:max-w-2xl mx-auto pb-20 px-8">
-        <h2 className="font-title text-3xl pt-16 font-bold pb-3">
+      <div className="container w-full md:px-0 md:max-w-2xl mx-auto pb-8 md:pb-20 px-4 md:px-8">
+        <h2 className="font-title text-3xl pt-12 md:pt-16 font-bold pb-3">
           About This Artifact
         </h2>
         <p>
@@ -57,7 +57,7 @@ export function About() {
           , and seed of a broader network of online and offline endeavors of
           cooperation, deliberation, and material redistribution.
         </p>
-        <h2 className="font-title text-3xl pt-16 font-bold pb-3">
+        <h2 className="font-title text-3xl pt-8 md:pt-16 font-bold pb-3">
           Context and Debts
         </h2>
         <p>
@@ -198,7 +198,7 @@ export function About() {
           Hack Club Bank page{" "}
           <a href="https://bank.hackclub.com/verses">here.</a>
         </p>
-        <h2 className="font-title text-3xl pt-16 font-bold pb-3">
+        <h2 className="font-title text-3xl pt-8 md:pt-16 font-bold pb-3">
           Contributions
         </h2>
         <p>
@@ -293,7 +293,9 @@ export function About() {
           </a>
           !
         </p>
-        <h2 className="font-title text-3xl pt-16 font-bold pb-3">Technology</h2>
+        <h2 className="font-title text-3xl pt-8 md:pt-16 font-bold pb-3">
+          Technology
+        </h2>
         <p>
           We acknowledge tensions between how this artifact is implemented and
           the pluriversal ethic we put forward. We believe that{" "}
@@ -474,7 +476,7 @@ export function About() {
           .
         </p>
         <div className="text-center">
-          <h3 className="font-title text-3xl pt-16 pb-0 text-center pb-2">
+          <h3 className="font-title text-3xl pt-8 md:pt-16 pb-0 text-center pb-2">
             stewards 🌱
           </h3>
           <p className="pt-0 text-xl">
@@ -488,7 +490,7 @@ export function About() {
           </p>
         </div>
       </div>
-      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 justify-center mx-auto max-w-max gap-6 mt-4">
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 justify-center mx-auto max-w-max gap-6 mt-4 mb-8">
         {stewardContributions.map((contribution) => (
           <ContributionCard contribution={contribution} key={contribution.id} />
         ))}
