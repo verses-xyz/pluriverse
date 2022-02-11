@@ -1,6 +1,7 @@
 .hero {
   color: white;
   height: 90vh;
+  position: relative;
 }
 
 @keyframes fadeInDown {
@@ -22,4 +23,8 @@
 
 .heroAttribution {
   margin-left: 30px;
+}
+
+.versesLogoContainer {
+  backdrop-filter: blur(4px);
 }
