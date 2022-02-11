@@ -549,11 +549,11 @@ export function EssayBody() {
           plurality in the face of centralized control tends to ultimately cede
           power to those who already wield it.
         </strong>{" "}
-        This will require
-        <strong>both compromise and creation</strong>, and robust mechanisms to
-        enable them—across communities, across existing institutions, across
-        digital space, across emerging technologies. Pluriversality can underpin
-        these choices, lending an ethos to the difficult work to come.
+        This will require <strong>both compromise and creation</strong>, and
+        robust mechanisms to enable them—across communities, across existing
+        institutions, across digital space, across emerging technologies.
+        Pluriversality can underpin these choices, lending an ethos to the
+        difficult work to come.
       </p>
       <SectionDivider />
       <h2 className="font-title text-3xl font-semibold pb-10">
