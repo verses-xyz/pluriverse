@@ -249,7 +249,7 @@ interface TermsOfUseProps {
 function getUserLabel(user: Author, text: string) {
   return (
     <div className="ml-auto">
-      {text} <b>{getDisplayForAuthor(user, true)}</b>
+      {text} <b>{getDisplayForAuthor(user, true, true)}</b>
     </div>
   );
 }
