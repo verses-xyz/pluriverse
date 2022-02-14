@@ -543,7 +543,7 @@ export function ContributionSection() {
   }
 
   function isResponseValid() {
-    if (!response) {
+    if (!response || !response.trim().length) {
       return false;
     }
 

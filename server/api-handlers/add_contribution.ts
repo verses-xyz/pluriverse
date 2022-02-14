@@ -40,6 +40,13 @@ export function addContribution({ prisma }: Services): RequestHandler {
         throw new Error("Please sign the document to add a contribution.");
       }
 
+      const existingContribution = await prisma.contribution.findFirst({
+        where: { authorWalletId: walletId, response, prompt, pattern },
+      });
+      if (existingContribution) {
+        throw new Error("You've already made this contribution.");
+      }
+
       const result = await prisma.contribution.create({
         data: {
           authorWalletId: walletId,
