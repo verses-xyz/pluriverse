@@ -5,7 +5,7 @@ import { Prisma } from "@prisma/client";
 import { RequestHandler } from "express";
 import { Services } from "../types";
 
-const UserLimit = 500;
+const UserLimit = 750;
 
 export function getUsers({ prisma }: Services): RequestHandler {
   return async (req, res) => {

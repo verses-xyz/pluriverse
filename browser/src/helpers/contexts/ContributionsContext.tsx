@@ -21,20 +21,23 @@ export function ContributionsProvider({ children }) {
   const [contributions, setContributions] = useState<Contribution[]>([]);
   const contributionIdsSet = useRef(new Set<number>());
 
-  useEffect(async () => {
-    await fetchContributions();
+  useEffect(() => {
+    void fetchContributions();
   }, []);
 
-  async function fetchContributions() {
+  async function fetchContributions(highlightedContributionId?: number) {
     let newContributions: Contribution[];
     if (UseMock) {
       newContributions = getMockContributions();
     } else {
-      newContributions = await getContributions({});
+      newContributions = await getContributions({
+        contributionId: highlightedContributionId,
+      });
       for (const { id } of newContributions) {
         contributionIdsSet.current.add(id);
       }
     }
+    // TODO: this is overriding highlighted contribution, fix
     setContributions(newContributions);
   }
 
@@ -42,7 +45,10 @@ export function ContributionsProvider({ children }) {
     const contribution = await getContribution({ id });
     if (!contributionIdsSet.current.has(id)) {
       contributionIdsSet.current.add(id);
-      setContributions([...contributions, contribution]);
+      console.log("setting contributions");
+      const newContributions = [...contributions, contribution];
+      console.log(newContributions);
+      setContributions(newContributions);
     }
     return contribution;
   }

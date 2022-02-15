@@ -86,7 +86,7 @@ export async function getContributions({
   const response = await makeRequest(
     withQueryParams(`${ApiUrl}/contributions`, {
       offset: offset ? String(offset) : offset,
-      contributionId,
+      contributionId: contributionId ? String(contributionId) : contributionId,
     }),
     {
       method: "GET",

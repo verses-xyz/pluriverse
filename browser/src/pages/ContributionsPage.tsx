@@ -1,23 +1,17 @@
-import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   ContributionCard,
   getFullContributionResponse,
 } from "src/components/ContributionCard";
-import {
-  getDisplayForAuthor,
-  getMinuteTimeOfDayDateDisplay,
-  getTextDisplayForAuthor,
-} from "src/components/SignatureContent";
+import { getTextDisplayForAuthor } from "src/components/SignatureContent";
 import { Contribution } from "src/types/common/server-api";
 import { ButtonClass } from "src/types/styles";
 import { Helmet } from "react-helmet";
 import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
-import { ContributeButton } from "../components/Navbar";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 
-const ContributionsLimit = 500;
+const ContributionsLimit = 750;
 const ContributionsPageLimit = 50;
 const RandomFloor = 100;
 
@@ -30,7 +24,9 @@ export function ContributionsPage() {
   const highlightedContributionId = contributionId
     ? Number(contributionId)
     : undefined;
-  const { contributions } = useContext(ContributionsContext);
+
+  const { contributions, fetchContribution } = useContext(ContributionsContext);
+
   const [contributionRandomOrderMapping, setContributionRandomOrderMapping] =
     useState<Map<number, number>>(new Map());
 
@@ -53,27 +49,23 @@ export function ContributionsPage() {
     );
   }
 
-  // TODO: if highlightedContribution, then open the contribution modal with it
-  const highlightedContribution =
-    highlightedContributionId &&
-    contributions.find((c) => c.id === highlightedContributionId);
+  async function tryOpenContributionModal(highlightedId: number) {
+    const highlightedContribution = await fetchContribution(highlightedId);
+    openContributionModal(highlightedContribution, "/contributions");
+  }
 
   useEffect(() => {
-    if (!highlightedContribution) {
+    if (!highlightedContributionId) {
       return;
     }
 
-    openContributionModal(highlightedContribution, "/contributions");
-
+    void tryOpenContributionModal(highlightedContributionId);
     return () => closeContributionModal();
-  }, [highlightedContribution]);
+  }, [highlightedContributionId]);
 
-  const maybeFilteredContributions = contributions.filter(
-    (c) => !highlightedContributionId || c.id !== highlightedContributionId
-  );
   const sortedContributions = !contributionRandomOrderMapping.size
-    ? maybeFilteredContributions
-    : maybeFilteredContributions.sort(
+    ? contributions
+    : contributions.sort(
         (a, b) =>
           safeGet(contributionRandomOrderMapping, a.id, 0.5 * RandomFloor) -
           safeGet(contributionRandomOrderMapping, b.id, 0.5 * RandomFloor)
@@ -137,6 +129,12 @@ export function ContributionsPage() {
     }
     setContributionRandomOrderMapping(newMapping);
   }
+
+  console.log(contributionsToShow);
+
+  const highlightedContribution =
+    highlightedContributionId &&
+    contributions.find((c) => c.id === highlightedContributionId);
 
   return (
     <div className="px-8 pb-20">

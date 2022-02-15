@@ -15,7 +15,7 @@ function truncateWallet(address: string) {
 // }
 
 const SignaturePageSize = 50;
-const SignaturesLimit = 500;
+const SignaturesLimit = 750;
 
 function getTwitterDisplay(
   { twitterVerified, twitterUsername }: Author,
