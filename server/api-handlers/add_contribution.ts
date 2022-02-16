@@ -44,7 +44,9 @@ export function addContribution({ prisma }: Services): RequestHandler {
         where: { response, prompt, pattern },
       });
       if (existingContribution) {
-        throw new Error("This contribution already exists.");
+        throw new Error(
+          "This contribution already exists. Please make a new one."
+        );
       }
 
       const result = await prisma.contribution.create({
