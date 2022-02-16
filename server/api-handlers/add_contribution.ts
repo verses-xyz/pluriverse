@@ -41,10 +41,10 @@ export function addContribution({ prisma }: Services): RequestHandler {
       }
 
       const existingContribution = await prisma.contribution.findFirst({
-        where: { authorWalletId: walletId, response, prompt, pattern },
+        where: { response, prompt, pattern },
       });
       if (existingContribution) {
-        throw new Error("You've already made this contribution.");
+        throw new Error("This contribution already exists.");
       }
 
       const result = await prisma.contribution.create({
