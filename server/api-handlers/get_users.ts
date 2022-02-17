@@ -1,6 +1,6 @@
 // GET /users
 
-import { Author, GetUsersRequest, SignatureLimit } from "@common/server-api";
+import { Author, GetUsersRequest, SignatureLimit } from "../common/server-api";
 import { Prisma } from "@prisma/client";
 import { RequestHandler } from "express";
 import { Services } from "../types";
