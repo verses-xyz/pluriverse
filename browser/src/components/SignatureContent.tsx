@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Author } from "src/types/common/server-api";
+import { Author, SignatureLimit } from "src/types/common/server-api";
 import dayjs from "dayjs";
 import "./SignatureContent.css";
 import { Checkmark } from "./core/Checkmark";
@@ -15,7 +15,6 @@ function truncateWallet(address: string) {
 // }
 
 const SignaturePageSize = 50;
-const SignaturesLimit = 750;
 
 function getTwitterDisplay(
   { twitterVerified, twitterUsername }: Author,
@@ -142,7 +141,7 @@ export function SignatureContent() {
 
   function onSeeMore() {
     const newNumSignaturesToRender = numSignaturesToRender + SignaturePageSize;
-    if (newNumSignaturesToRender > SignaturesLimit) {
+    if (newNumSignaturesToRender > SignatureLimit) {
       // TODO: fetch more from remote
       // fetchSignatures(SignaturesLimit);
     }

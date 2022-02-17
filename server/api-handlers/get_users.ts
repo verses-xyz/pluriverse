@@ -1,11 +1,9 @@
 // GET /users
 
-import { Author, GetUsersRequest } from "@common/server-api";
+import { Author, GetUsersRequest, SignatureLimit } from "@common/server-api";
 import { Prisma } from "@prisma/client";
 import { RequestHandler } from "express";
 import { Services } from "../types";
-
-const UserLimit = 750;
 
 export function getUsers({ prisma }: Services): RequestHandler {
   return async (req, res) => {
@@ -16,7 +14,7 @@ export function getUsers({ prisma }: Services): RequestHandler {
 
       const authors = await prisma.user.findMany({
         orderBy: [{ createdAt: "asc" }],
-        take: UserLimit,
+        take: SignatureLimit,
         skip: offset,
       });
 

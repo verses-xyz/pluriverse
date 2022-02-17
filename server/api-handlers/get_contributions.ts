@@ -3,9 +3,11 @@
 import { Prisma } from "@prisma/client";
 import { RequestHandler } from "express";
 import { Services } from "../types";
-import { GetContributionsRequest, Contribution } from "../common/server-api";
-
-const Limit = 750;
+import {
+  GetContributionsRequest,
+  Contribution,
+  ContributionLimit,
+} from "../common/server-api";
 
 // Optional fields in body: content
 export function getContributions({ prisma }: Services): RequestHandler {
@@ -42,7 +44,7 @@ export function getContributions({ prisma }: Services): RequestHandler {
           author: true,
         },
         skip: offset,
-        take: Limit,
+        take: ContributionLimit,
       });
 
       contributions.push(...storageContributions);

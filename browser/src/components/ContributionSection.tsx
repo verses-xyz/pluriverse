@@ -294,6 +294,12 @@ function TermsOfUse({
         </p>
       )}
       <p className="metaText">
+        <b>
+          There is not and will never be a financial token associated with
+          signing or contributing to this artifact.
+        </b>
+      </p>
+      <p className="metaText">
         To sign, you need a compatible web3 wallet. Need help? Check out this{" "}
         <a
           target="_blank"

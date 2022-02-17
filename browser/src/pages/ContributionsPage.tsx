@@ -5,13 +5,12 @@ import {
   getFullContributionResponse,
 } from "src/components/ContributionCard";
 import { getTextDisplayForAuthor } from "src/components/SignatureContent";
-import { Contribution } from "src/types/common/server-api";
+import { Contribution, ContributionLimit } from "src/types/common/server-api";
 import { ButtonClass } from "src/types/styles";
 import { Helmet } from "react-helmet";
 import { ContributionsContext } from "src/helpers/contexts/ContributionsContext";
 import { ModalContext } from "src/helpers/contexts/ModalContext";
 
-const ContributionsLimit = 750;
 const ContributionsPageLimit = 50;
 const RandomFloor = 100;
 
@@ -40,7 +39,7 @@ export function ContributionsPage() {
   function onSeeMore() {
     const newNumContributionsToRender =
       numContributionsToRender + ContributionsPageLimit;
-    if (newNumContributionsToRender > ContributionsLimit) {
+    if (newNumContributionsToRender > ContributionLimit) {
       // TODO: fetch more from remote
       // fetchContributions(ContributionsLimit);
     }
